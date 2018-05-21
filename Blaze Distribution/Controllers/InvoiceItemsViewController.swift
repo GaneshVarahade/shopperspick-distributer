@@ -45,7 +45,7 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
     
     // MARK: - UITableView Delegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15//invoiceItemList.count
+        return invoiceItemList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

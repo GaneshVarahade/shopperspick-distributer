@@ -18,6 +18,11 @@ target 'Blaze Distribution' do
       pod 'Alamofire'
       
       pod 'Kingfisher'
+      
+      pod 'Fabric'
+      
+      pod 'Crashlytics', '~>  3.10'
+     
 
   target 'Blaze DistributionTests' do
     inherit! :search_paths

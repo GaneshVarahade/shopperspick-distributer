@@ -45,6 +45,28 @@
 		B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D720AF1154008F1650 /* UIViewAnchorPoint.swift */; };
 		B9CAC8E220AF1155008F1650 /* UIViewXRadialGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D820AF1154008F1650 /* UIViewXRadialGradient.swift */; };
 		B9CAC8E320AF1155008F1650 /* UIViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D920AF1154008F1650 /* UIViewX.swift */; };
+		B9E5265420B2B93600127E43 /* CreateTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5265320B2B93500127E43 /* CreateTransferViewController.swift */; };
+		B9E5265620B2BAA500127E43 /* InventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5265520B2BAA400127E43 /* InventoryViewController.swift */; };
+		B9E5265820B2BB7800127E43 /* InventoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5265720B2BB7700127E43 /* InventoryTableViewCell.swift */; };
+		B9E5265A20B2C0D000127E43 /* ScanLookUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5265920B2C0CF00127E43 /* ScanLookUpViewController.swift */; };
+		B9E5265C20B2C1EE00127E43 /* LookUpProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5265B20B2C1ED00127E43 /* LookUpProductViewController.swift */; };
+		B9E5265E20B2C2B100127E43 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5265D20B2C2B100127E43 /* BasketViewController.swift */; };
+		B9E5266020B2C2D100127E43 /* ConfirmTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5265F20B2C2D000127E43 /* ConfirmTransferViewController.swift */; };
+		B9E5266320B2C35A00127E43 /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5266120B2C35900127E43 /* BasketTableViewCell.swift */; };
+		B9E5266420B2C35A00127E43 /* LookUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5266220B2C35A00127E43 /* LookUpTableViewCell.swift */; };
+		B9E5266620B2C38600127E43 /* ConfirmTransferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5266520B2C38600127E43 /* ConfirmTransferTableViewCell.swift */; };
+		B9E5266820B2C39300127E43 /* ReceiveShipmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5266720B2C39300127E43 /* ReceiveShipmentTableViewCell.swift */; };
+		B9E5266A20B2CAA100127E43 /* LookupPOsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5266920B2CAA100127E43 /* LookupPOsViewController.swift */; };
+		B9E5266C20B2CF0E00127E43 /* PurchaseOrderDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5266B20B2CF0D00127E43 /* PurchaseOrderDetailsTableViewController.swift */; };
+		B9E5266E20B2D18E00127E43 /* POStaticDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5266D20B2D18D00127E43 /* POStaticDetailsTableViewController.swift */; };
+		B9E5267220B2D7DF00127E43 /* Receive ShipmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5267120B2D7DF00127E43 /* Receive ShipmentViewController.swift */; };
+		B9E5267D20B2DAAA00127E43 /* Completed_PurchaseOrderDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5267A20B2DAA800127E43 /* Completed_PurchaseOrderDetailsTableViewController.swift */; };
+		B9E5267E20B2DAAA00127E43 /* Completed_POStaticDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5267B20B2DAA800127E43 /* Completed_POStaticDetailsTableViewController.swift */; };
+		B9E5267F20B2DAAA00127E43 /* Completed_InvoiceItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5267C20B2DAA900127E43 /* Completed_InvoiceItemsViewController.swift */; };
+		B9E5268120B2DF9200127E43 /* PurchaseOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5268020B2DF9200127E43 /* PurchaseOrderTableViewCell.swift */; };
+		B9E5268320B2DFC800127E43 /* AddItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5268220B2DFC800127E43 /* AddItemTableViewCell.swift */; };
+		B9E5268720B2E39C00127E43 /* PurchaseOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5268620B2E39B00127E43 /* PurchaseOrderViewController.swift */; };
+		B9E5269020B3063C00127E43 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5268F20B3063C00127E43 /* LoginViewController.swift */; };
 		CAA0A190698D6DBD20DC1A56 /* Pods_Blaze_Distribution.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C3488055382B11C1D20750 /* Pods_Blaze_Distribution.framework */; };
 		E7BC5D2FDA8B6D18641FA245 /* Pods_Blaze_DistributionUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E28B7084B56F1714CF4E522 /* Pods_Blaze_DistributionUITests.framework */; };
 /* End PBXBuildFile section */
@@ -122,6 +144,28 @@
 		B9CAC8D720AF1154008F1650 /* UIViewAnchorPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewAnchorPoint.swift; sourceTree = "<group>"; };
 		B9CAC8D820AF1154008F1650 /* UIViewXRadialGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewXRadialGradient.swift; sourceTree = "<group>"; };
 		B9CAC8D920AF1154008F1650 /* UIViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewX.swift; sourceTree = "<group>"; };
+		B9E5265320B2B93500127E43 /* CreateTransferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTransferViewController.swift; sourceTree = "<group>"; };
+		B9E5265520B2BAA400127E43 /* InventoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryViewController.swift; sourceTree = "<group>"; };
+		B9E5265720B2BB7700127E43 /* InventoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryTableViewCell.swift; sourceTree = "<group>"; };
+		B9E5265920B2C0CF00127E43 /* ScanLookUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanLookUpViewController.swift; sourceTree = "<group>"; };
+		B9E5265B20B2C1ED00127E43 /* LookUpProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookUpProductViewController.swift; sourceTree = "<group>"; };
+		B9E5265D20B2C2B100127E43 /* BasketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
+		B9E5265F20B2C2D000127E43 /* ConfirmTransferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmTransferViewController.swift; sourceTree = "<group>"; };
+		B9E5266120B2C35900127E43 /* BasketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
+		B9E5266220B2C35A00127E43 /* LookUpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookUpTableViewCell.swift; sourceTree = "<group>"; };
+		B9E5266520B2C38600127E43 /* ConfirmTransferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmTransferTableViewCell.swift; sourceTree = "<group>"; };
+		B9E5266720B2C39300127E43 /* ReceiveShipmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveShipmentTableViewCell.swift; sourceTree = "<group>"; };
+		B9E5266920B2CAA100127E43 /* LookupPOsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupPOsViewController.swift; sourceTree = "<group>"; };
+		B9E5266B20B2CF0D00127E43 /* PurchaseOrderDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseOrderDetailsTableViewController.swift; sourceTree = "<group>"; };
+		B9E5266D20B2D18D00127E43 /* POStaticDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POStaticDetailsTableViewController.swift; sourceTree = "<group>"; };
+		B9E5267120B2D7DF00127E43 /* Receive ShipmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Receive ShipmentViewController.swift"; sourceTree = "<group>"; };
+		B9E5267A20B2DAA800127E43 /* Completed_PurchaseOrderDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Completed_PurchaseOrderDetailsTableViewController.swift; sourceTree = "<group>"; };
+		B9E5267B20B2DAA800127E43 /* Completed_POStaticDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Completed_POStaticDetailsTableViewController.swift; sourceTree = "<group>"; };
+		B9E5267C20B2DAA900127E43 /* Completed_InvoiceItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Completed_InvoiceItemsViewController.swift; sourceTree = "<group>"; };
+		B9E5268020B2DF9200127E43 /* PurchaseOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseOrderTableViewCell.swift; sourceTree = "<group>"; };
+		B9E5268220B2DFC800127E43 /* AddItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemTableViewCell.swift; sourceTree = "<group>"; };
+		B9E5268620B2E39B00127E43 /* PurchaseOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseOrderViewController.swift; sourceTree = "<group>"; };
+		B9E5268F20B3063C00127E43 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D22B1597E869879AC4DD12C3 /* Pods_Blaze_DistributionTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blaze_DistributionTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4C0A5F2209F787D3BEE48E5 /* Pods-Blaze DistributionUITests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionUITests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionUITests/Pods-Blaze DistributionUITests.stage.xcconfig"; sourceTree = "<group>"; };
 		ED03340C0FD9F35D629ACFBF /* Pods-Blaze DistributionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -319,14 +363,27 @@
 		B9266C6E20AED0620021356C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B9E5268920B2FEDF00127E43 /* Invoices */,
+				B9E5268A20B2FEF900127E43 /* Inventory */,
+				B9E5268B20B2FF1200127E43 /* Purchase Orders */,
+				B9E5267320B2DA2200127E43 /* Completed_Purchase Order Details */,
 				B9266C7220AED9BA0021356C /* SplashScreenVCViewController.swift */,
+				B9E5268F20B3063C00127E43 /* LoginViewController.swift */,
 				B9266C7420AEDC940021356C /* ForgotPasswordViewController.swift */,
 				B92A65A720AF209200CDA4CC /* ShippingManifestViewController.swift */,
-				B92A65A920AF2E3E00CDA4CC /* InvoicesViewController.swift */,
-				B92A65AD20AF3CE900CDA4CC /* ScanInvoiceViewController.swift */,
-				B92A65AF20AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift */,
 				B92A65B120AF424400CDA4CC /* FixedInvoiceDetailsTableViewController.swift */,
 				B92A65B320AF459B00CDA4CC /* InvoiceItemsViewController.swift */,
+				B9E5267120B2D7DF00127E43 /* Receive ShipmentViewController.swift */,
+				B9E5265320B2B93500127E43 /* CreateTransferViewController.swift */,
+				B9E5265520B2BAA400127E43 /* InventoryViewController.swift */,
+				B9E5265920B2C0CF00127E43 /* ScanLookUpViewController.swift */,
+				B9E5265B20B2C1ED00127E43 /* LookUpProductViewController.swift */,
+				B9E5265D20B2C2B100127E43 /* BasketViewController.swift */,
+				B9E5265F20B2C2D000127E43 /* ConfirmTransferViewController.swift */,
+				B9E5266920B2CAA100127E43 /* LookupPOsViewController.swift */,
+				B9E5266D20B2D18D00127E43 /* POStaticDetailsTableViewController.swift */,
+				B9E5268620B2E39B00127E43 /* PurchaseOrderViewController.swift */,
+				B9E5266B20B2CF0D00127E43 /* PurchaseOrderDetailsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -336,6 +393,13 @@
 			children = (
 				B92A65AB20AF303400CDA4CC /* InvoicesTableViewCell.swift */,
 				B92A65B520AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift */,
+				B9E5265720B2BB7700127E43 /* InventoryTableViewCell.swift */,
+				B9E5266120B2C35900127E43 /* BasketTableViewCell.swift */,
+				B9E5266220B2C35A00127E43 /* LookUpTableViewCell.swift */,
+				B9E5266520B2C38600127E43 /* ConfirmTransferTableViewCell.swift */,
+				B9E5266720B2C39300127E43 /* ReceiveShipmentTableViewCell.swift */,
+				B9E5268020B2DF9200127E43 /* PurchaseOrderTableViewCell.swift */,
+				B9E5268220B2DFC800127E43 /* AddItemTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -345,6 +409,64 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		B9E5267320B2DA2200127E43 /* Completed_Purchase Order Details */ = {
+			isa = PBXGroup;
+			children = (
+				B9E5267C20B2DAA900127E43 /* Completed_InvoiceItemsViewController.swift */,
+				B9E5267B20B2DAA800127E43 /* Completed_POStaticDetailsTableViewController.swift */,
+				B9E5267A20B2DAA800127E43 /* Completed_PurchaseOrderDetailsTableViewController.swift */,
+			);
+			path = "Completed_Purchase Order Details";
+			sourceTree = "<group>";
+		};
+		B9E5268920B2FEDF00127E43 /* Invoices */ = {
+			isa = PBXGroup;
+			children = (
+				B9E5268C20B2FFE100127E43 /* Invoices_VC */,
+				B9E5268D20B3000C00127E43 /* ScanInvoice_Product */,
+				B9E5268E20B3005000127E43 /* Invoice_Details */,
+			);
+			path = Invoices;
+			sourceTree = "<group>";
+		};
+		B9E5268A20B2FEF900127E43 /* Inventory */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Inventory;
+			sourceTree = "<group>";
+		};
+		B9E5268B20B2FF1200127E43 /* Purchase Orders */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Purchase Orders";
+			sourceTree = "<group>";
+		};
+		B9E5268C20B2FFE100127E43 /* Invoices_VC */ = {
+			isa = PBXGroup;
+			children = (
+				B92A65A920AF2E3E00CDA4CC /* InvoicesViewController.swift */,
+			);
+			path = Invoices_VC;
+			sourceTree = "<group>";
+		};
+		B9E5268D20B3000C00127E43 /* ScanInvoice_Product */ = {
+			isa = PBXGroup;
+			children = (
+				B92A65AD20AF3CE900CDA4CC /* ScanInvoiceViewController.swift */,
+			);
+			path = ScanInvoice_Product;
+			sourceTree = "<group>";
+		};
+		B9E5268E20B3005000127E43 /* Invoice_Details */ = {
+			isa = PBXGroup;
+			children = (
+				B92A65AF20AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift */,
+			);
+			path = Invoice_Details;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,6 +482,8 @@
 				B9266C3220AEC8FB0021356C /* Resources */,
 				24A4D93A53AF37DF95E8F577 /* [CP] Embed Pods Frameworks */,
 				1846DB8720B213860076BECD /* Run Config Script */,
+				C7CE56BB19B369F0278419F3 /* [CP] Copy Pods Resources */,
+				B9E5268820B2FD5F00127E43 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -378,6 +502,8 @@
 				B9266C4720AEC8FE0021356C /* Sources */,
 				B9266C4820AEC8FE0021356C /* Frameworks */,
 				B9266C4920AEC8FE0021356C /* Resources */,
+				E62210BE47A878B8B9AC5AE5 /* [CP] Embed Pods Frameworks */,
+				D2788C074DDFF55802C13A9F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -397,6 +523,8 @@
 				B9266C5220AEC8FE0021356C /* Sources */,
 				B9266C5320AEC8FE0021356C /* Frameworks */,
 				B9266C5420AEC8FE0021356C /* Resources */,
+				E0370EE4950CA9B52615128D /* [CP] Embed Pods Frameworks */,
+				BB6FB2D7D063EE0FAD5A0414 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -581,6 +709,94 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B9E5268820B2FD5F00127E43 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" c9d72e6d19d9e4ba78ca12b119c2b8f1417d2a8d e6dd12affcf4b8dbd355f1449174fa9ecc0a9b7e433beca6bb10f3e8e0e4ce74";
+		};
+		BB6FB2D7D063EE0FAD5A0414 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze DistributionUITests/Pods-Blaze DistributionUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C7CE56BB19B369F0278419F3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2788C074DDFF55802C13A9F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E0370EE4950CA9B52615128D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze DistributionUITests/Pods-Blaze DistributionUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E62210BE47A878B8B9AC5AE5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -588,32 +804,54 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9E5268320B2DFC800127E43 /* AddItemTableViewCell.swift in Sources */,
 				1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */,
+				B9E5267E20B2DAAA00127E43 /* Completed_POStaticDetailsTableViewController.swift in Sources */,
 				B92A65AC20AF303500CDA4CC /* InvoicesTableViewCell.swift in Sources */,
 				B92A65A820AF209200CDA4CC /* ShippingManifestViewController.swift in Sources */,
+				B9E5266620B2C38600127E43 /* ConfirmTransferTableViewCell.swift in Sources */,
 				B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */,
 				B92A65B420AF459C00CDA4CC /* InvoiceItemsViewController.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
 				B9CAC8E020AF1155008F1650 /* UILabelX.swift in Sources */,
+				B9E5267F20B2DAAA00127E43 /* Completed_InvoiceItemsViewController.swift in Sources */,
+				B9E5265A20B2C0D000127E43 /* ScanLookUpViewController.swift in Sources */,
+				B9E5269020B3063C00127E43 /* LoginViewController.swift in Sources */,
 				B9CAC8DB20AF1155008F1650 /* UITextFieldX.swift in Sources */,
 				B9266C7520AEDC940021356C /* ForgotPasswordViewController.swift in Sources */,
+				B9E5266A20B2CAA100127E43 /* LookupPOsViewController.swift in Sources */,
 				B9266C7320AED9BA0021356C /* SplashScreenVCViewController.swift in Sources */,
 				B92A65AA20AF2E3F00CDA4CC /* InvoicesViewController.swift in Sources */,
+				B9E5265820B2BB7800127E43 /* InventoryTableViewCell.swift in Sources */,
+				B9E5266820B2C39300127E43 /* ReceiveShipmentTableViewCell.swift in Sources */,
+				B9E5265420B2B93600127E43 /* CreateTransferViewController.swift in Sources */,
+				B9E5265E20B2C2B100127E43 /* BasketViewController.swift in Sources */,
 				B9CAC8E320AF1155008F1650 /* UIViewX.swift in Sources */,
+				B9E5267220B2D7DF00127E43 /* Receive ShipmentViewController.swift in Sources */,
 				B92A65B220AF424500CDA4CC /* FixedInvoiceDetailsTableViewController.swift in Sources */,
+				B9E5266020B2C2D100127E43 /* ConfirmTransferViewController.swift in Sources */,
+				B9E5268720B2E39C00127E43 /* PurchaseOrderViewController.swift in Sources */,
 				B9CAC8DA20AF1155008F1650 /* UIVisualEffectViewX.swift in Sources */,
 				B9CAC8DD20AF1155008F1650 /* UIButtonX.swift in Sources */,
 				B9CAC8DF20AF1155008F1650 /* UIViewControllerX.swift in Sources */,
 				1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */,
 				B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */,
+				B9E5267D20B2DAAA00127E43 /* Completed_PurchaseOrderDetailsTableViewController.swift in Sources */,
+				B9E5266420B2C35A00127E43 /* LookUpTableViewCell.swift in Sources */,
 				B9CAC8E220AF1155008F1650 /* UIViewXRadialGradient.swift in Sources */,
 				B9CAC8DE20AF1155008F1650 /* UIImageViewX.swift in Sources */,
+				B9E5266320B2C35A00127E43 /* BasketTableViewCell.swift in Sources */,
+				B9E5265C20B2C1EE00127E43 /* LookUpProductViewController.swift in Sources */,
+				B9E5265620B2BAA500127E43 /* InventoryViewController.swift in Sources */,
 				B9CAC8DC20AF1155008F1650 /* UISliderX.swift in Sources */,
 				1846DBA820B21B5B0076BECD /* DistributionConfig.swift in Sources */,
+				B9E5268120B2DF9200127E43 /* PurchaseOrderTableViewCell.swift in Sources */,
 				B9266C4020AEC8FB0021356C /* Blaze_Distribution.xcdatamodeld in Sources */,
 				B92A65AE20AF3CE900CDA4CC /* ScanInvoiceViewController.swift in Sources */,
 				1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */,
+				B9E5266C20B2CF0E00127E43 /* PurchaseOrderDetailsTableViewController.swift in Sources */,
 				B92A65B020AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift in Sources */,
+				B9E5266E20B2D18E00127E43 /* POStaticDetailsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1156,7 +1394,7 @@
 				1846DB8320B2133F0076BECD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Stage;
+			defaultConfigurationName = Debug;
 		};
 		B9266C5F20AEC8FE0021356C /* Build configuration list for PBXNativeTarget "Blaze Distribution" */ = {
 			isa = XCConfigurationList;
@@ -1167,7 +1405,7 @@
 				1846DB8420B2133F0076BECD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Stage;
+			defaultConfigurationName = Debug;
 		};
 		B9266C6220AEC8FE0021356C /* Build configuration list for PBXNativeTarget "Blaze DistributionTests" */ = {
 			isa = XCConfigurationList;
@@ -1178,7 +1416,7 @@
 				1846DB8520B2133F0076BECD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Stage;
+			defaultConfigurationName = Debug;
 		};
 		B9266C6520AEC8FE0021356C /* Build configuration list for PBXNativeTarget "Blaze DistributionUITests" */ = {
 			isa = XCConfigurationList;
@@ -1189,7 +1427,7 @@
 				1846DB8620B2133F0076BECD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Stage;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
