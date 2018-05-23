@@ -8,6 +8,7 @@ PODS:
   - KSToastView (0.5.7)
   - ReachabilitySwift (4.1.0)
   - SKActivityIndicatorView (0.1.0)
+  - SwiftyJSON (4.1.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -18,6 +19,7 @@ DEPENDENCIES:
   - KSToastView
   - ReachabilitySwift
   - SKActivityIndicatorView
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
@@ -28,7 +30,8 @@ SPEC CHECKSUMS:
   KSToastView: aeb0ca50b44e9568b6f95b2d1ec53a3f016b50fc
   ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
   SKActivityIndicatorView: f46936f760d33eb8235333242269bf01cc9248ae
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 1ad7b2cc2bedae322bb42ffeac57b63518e1751f
+PODFILE CHECKSUM: 772d0b14fd74757c77144543c60beb1308bca7c2
 
 COCOAPODS: 1.4.0

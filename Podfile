@@ -22,6 +22,8 @@ target 'Blaze Distribution' do
       pod 'Fabric'
       
       pod 'Crashlytics', '~>  3.10'
+      
+      pod 'SwiftyJSON'
      
 
   target 'Blaze DistributionTests' do

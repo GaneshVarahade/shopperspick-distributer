@@ -54,7 +54,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="418"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j20-uy-h5e">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j20-uy-h5e" customClass="UIViewX" customModule="Blaze_Distribution" customModuleProvider="target">
                                 <rect key="frame" x="40" y="252" width="295" height="295"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome Back" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTD-07-m6P">
@@ -199,6 +199,20 @@
                                         <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                     </constraint>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetY">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Z3-Ph-KtB">
                                 <rect key="frame" x="40" y="547" width="295" height="120"/>
@@ -252,6 +266,10 @@
                         <viewLayoutGuide key="safeArea" id="nr9-dK-rAe"/>
                     </view>
                     <navigationItem key="navigationItem" id="8Oh-zy-i02"/>
+                    <connections>
+                        <outlet property="txtEmail" destination="AYf-e1-xJe" id="lGc-DY-Ka0"/>
+                        <outlet property="txtPassword" destination="tbX-Ln-O9V" id="IMh-4v-FrB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1X-Mz-OeP" sceneMemberID="firstResponder"/>
             </objects>
