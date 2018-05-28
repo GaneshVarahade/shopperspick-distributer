@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Foundation
+
 class WebServicesAPI: NSObject {
     
     static let singleToneObject = WebServicesAPI()
@@ -16,6 +17,7 @@ class WebServicesAPI: NSObject {
     }
     // MARK: -  Login API
     func login(user_Name:String,password:String,onComplition:@escaping (String)->Void){
+        var data:Login!
         let url = "https://api.dev.blaze.me/api/v1/session/terminal/init"
         print("URL:",url)
         let header:HTTPHeaders = ["Content-Type":Constants.Development.Content_Type]
@@ -24,45 +26,47 @@ class WebServicesAPI: NSObject {
                                     "version"        :"2.10.10",
                                     "deviceId"       :"1F036D8E-1EE4-4C1C-B451-0EA44760344F"]
         print("Parameter",parametrs)
-        
         Alamofire.request(url, method: .post, parameters: parametrs, encoding: JSONEncoding.default, headers: header).responseJSON(completionHandler:{ response in
-            print("Header:",header)
-            
-//            let temp = LoginJson(accessToken: "fdgjkdfghk", assetAccessToken: "fghjfdfhjg", employee: nil, loginTime: 12, expirationTime: 12, sessionId: "hjkj", company: nil, shops: nil, assignedShop: nil, newDevice: true, assignedTerminal: nil, appType: "dsfg", appTarget: "ghhh")
             switch response.result{
             case .success:
-               
                 
-                let jsonEncoder = JSONEncoder()
-                
+                if response.response?.statusCode == 200{
                 
                 do{
-                    
-//                    let jsonData = try jsonEncoder.encode(temp)
-//                    let jsonString = String(data: jsonData, encoding: .utf8)
-                    //print(jsonString!)
+                    data = try JSONDecoder().decode(Login.self, from:response.data!)
                 }catch{
+                    print(error)
+                }
+                  print(data.accessToken ?? " ")
+                  print(data.appTarget ?? " ")
+                  print(data.appType ?? " ")
+                  print(data.assetAccessToken ?? " ")
+                  print(data.expirationTime ?? " ")
+                  print(data.loginTime ?? " ")
+                  print(data.newDevice ?? " ")
+                  print(data.sessionId ?? " ")
+                  print(data.employee?.companyId ?? "" )
+                  print(data.employee?.appAccessList?.count ?? " ")
+                  print(data.company?.created ?? "")
+                  print(data.assignedTerminal?.deviceModel ?? " ")
+                  print(data.assignedShop?.assets?.count ?? " ")
+                   
+                }else if response.response?.statusCode == 400{
                     
-                    print(error.localizedDescription)
+                    print("Bad request ...")
+                    
+                }else if response.response?.statusCode == 401{
+                    
+                    print("Unauthorized user ...")
+                    
+                }else{
+                    
+                    print("Server error ....")
+                    
                 }
-                
-              
-                
-          
-                var data :LoginJson!
-                if let result = response.data{
-                
-                    let jsonString = String(data: result, encoding: .utf8)
-                   // print(jsonString!)
-                do{
-
-                    data = try JSONDecoder().decode(LoginJson.self, from: result)
-                }catch{
-
-                    print(error.localizedDescription)
-                }
-                }
-                    print(data)
+                 
+                    
+                    
                 //onComplition(jsonData,"",code!)
                 break
             case .failure(let error):
@@ -71,27 +75,12 @@ class WebServicesAPI: NSObject {
                 break
             }
         })
-
+        
     }
+    
 }
 
 
-struct LoginJson:Codable{
+
     
-    let accessToken : String?
-    let assetAccessToken : String?
-   
-    let loginTime : String?
-    let expirationTime : String?
-    let sessionId : String?
-    
-    
-    
-    let newDevice : String?
-   
-    let appType : String?
-    let appTarget : String?
-    
-   
-    
-}
+

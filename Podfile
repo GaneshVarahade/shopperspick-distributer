@@ -23,7 +23,7 @@ target 'Blaze Distribution' do
       
       pod 'Crashlytics', '~>  3.10'
       
-      pod 'SwiftyJSON'
+      pod 'RealmSwift'
      
 
   target 'Blaze DistributionTests' do
