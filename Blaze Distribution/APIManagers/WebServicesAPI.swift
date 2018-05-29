@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import Foundation
+import Realm
+import RealmSwift
 
 class WebServicesAPI: NSObject {
     
@@ -34,22 +36,33 @@ class WebServicesAPI: NSObject {
                 
                 do{
                     data = try JSONDecoder().decode(Login.self, from:response.data!)
+                    let realm = try! Realm()
+                    try! realm.write {
+                        
+                        realm.add((data)!)
+                        //realm.add((data.company)!)
+                        //realm.add((data.company?.address)!)
+                        //realm.add((data.company?.primaryContact))
+                        
+                    }
+                    
+                    
                 }catch{
                     print(error)
                 }
-                  print(data.accessToken ?? " ")
-                  print(data.appTarget ?? " ")
-                  print(data.appType ?? " ")
-                  print(data.assetAccessToken ?? " ")
-                  print(data.expirationTime ?? " ")
-                  print(data.loginTime ?? " ")
-                  print(data.newDevice ?? " ")
-                  print(data.sessionId ?? " ")
-                  print(data.employee?.companyId ?? "" )
-                  print(data.employee?.appAccessList?.count ?? " ")
-                  print(data.company?.created ?? "")
-                  print(data.assignedTerminal?.deviceModel ?? " ")
-                  print(data.assignedShop?.assets?.count ?? " ")
+               //   print(data.accessToken ?? " ")
+                    print(data.company?.address?.zipCode ?? " ")
+//                  print(data.appType ?? " ")
+//                  print(data.assetAccessToken ?? " ")
+//                  print(data.expirationTime ?? " ")
+//                  print(data.loginTime ?? " ")
+//                  print(data.newDevice ?? " ")
+//                  print(data.sessionId ?? " ")
+//                  print(data.employee?.address?.zipCode ?? "" )
+//                  print(data.company?.address?.companyId ?? "XX ")
+//                  print(data.company?.created ?? "")
+//                  print(data.assignedTerminal?.deviceModel ?? " ")
+//                  print(data.assignedShop?.assets?.count ?? " ")
                    
                 }else if response.response?.statusCode == 400{
                     

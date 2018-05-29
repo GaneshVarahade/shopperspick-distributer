@@ -7,22 +7,22 @@
 //
 
 import Foundation
-
-
-class Login : Codable {
-    var accessToken : String?
-    var assetAccessToken : String?
-    var employee : Employee?
-    var loginTime : Int?
-    var expirationTime : Int?
-    var sessionId : String?
-    var company : Company?
-    var shops : [Shops]?
+import Realm
+import RealmSwift
+class Login : DBModel,Codable {
+   @objc dynamic  var accessToken : String?     = ""
+   @objc dynamic var assetAccessToken : String? = ""
+   var employee : Employee?                     = nil
+   @objc dynamic var loginTime : Int            = 0
+   @objc dynamic var expirationTime : Int       = 0
+   @objc dynamic var sessionId : String         = ""
+    var company : Company?                      = Company()
+    var shops : [Shops]                          = []
     var assignedShop : AssignedShop?
-    var newDevice : Bool?
+   //@objc dynamic var newDevice : Bool           = false
     var assignedTerminal : AssignedTerminal?
-    var appType : String?
-    var appTarget : String?
+   @objc dynamic var appType : String?          = ""
+   @objc dynamic var appTarget : String? = ""
     
     enum CodingKeys: String, CodingKey {
         
@@ -35,28 +35,53 @@ class Login : Codable {
         case company = "company"
         case shops = "shops"
         case assignedShop = "assignedShop"
-        case newDevice = "newDevice"
+       // case newDevice = "newDevice"
         case assignedTerminal = "assignedTerminal"
         case appType = "appType"
         case appTarget = "appTarget"
     }
     
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        accessToken = try values.decodeIfPresent(String.self, forKey: .accessToken)
-        assetAccessToken = try values.decodeIfPresent(String.self, forKey: .assetAccessToken)
-        employee = try values.decodeIfPresent(Employee.self, forKey: .employee)
-        loginTime = try values.decodeIfPresent(Int.self, forKey: .loginTime)
-        expirationTime = try values.decodeIfPresent(Int.self, forKey: .expirationTime)
-        sessionId = try values.decodeIfPresent(String.self, forKey: .sessionId)
-        company = try values.decodeIfPresent(Company.self, forKey: .company)
-        shops = try values.decodeIfPresent([Shops].self, forKey: .shops)
-        assignedShop = try values.decodeIfPresent(AssignedShop.self, forKey: .assignedShop)
-        newDevice = try values.decodeIfPresent(Bool.self, forKey: .newDevice)
-        assignedTerminal = try values.decodeIfPresent(AssignedTerminal.self, forKey: .assignedTerminal)
-       appType = try values.decodeIfPresent(String.self, forKey: .appType)
-        appTarget = try values.decodeIfPresent(String.self, forKey: .appTarget)
+    convenience init(accessToken : String?,assetAccessToken : String?,employee : Employee?,loginTime : Int?,expirationTime : Int?,sessionId : String?,company : Company?,shops : [Shops]?,assignedShop : AssignedShop?,assignedTerminal : AssignedTerminal?,appType : String?,appTarget : String?){
+        self.init()
+        self.accessToken = accessToken
+        self.assetAccessToken = assetAccessToken
+        self.employee = employee
+        self.loginTime = loginTime!
+        self.expirationTime = expirationTime!
+        self.sessionId = sessionId!
+        self.company = company
+        self.shops = shops!
+        self.assignedShop = assignedShop
+       // self.newDevice = newDevice!
+        self.assignedTerminal = assignedTerminal
+        self.appType = appType
+        self.appTarget = appTarget
     }
+    
+   convenience required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        let accessToken = try values.decodeIfPresent(String.self, forKey: .accessToken)
+        let assetAccessToken = try values.decodeIfPresent(String.self, forKey: .assetAccessToken)
+        let employee = try values.decodeIfPresent(Employee.self, forKey: .employee)
+        let loginTime = try values.decodeIfPresent(Int.self, forKey: .loginTime)
+        let expirationTime = try values.decodeIfPresent(Int.self, forKey: .expirationTime)
+        let sessionId = try values.decodeIfPresent(String.self, forKey: .sessionId)
+        let company = try values.decodeIfPresent(Company.self, forKey: .company)
+        let shops = try values.decodeIfPresent([Shops].self, forKey: .shops)
+        let assignedShop = try values.decodeIfPresent(AssignedShop.self, forKey: .assignedShop)
+      //  let newDevice = try values.decodeIfPresent(Bool.self, forKey: .newDevice)
+        let assignedTerminal = try values.decodeIfPresent(AssignedTerminal.self, forKey: .assignedTerminal)
+            
+        let appType = try values.decodeIfPresent(String.self, forKey: .appType)
+        let appTarget = try values.decodeIfPresent(String.self, forKey: .appTarget)
+    
+    
+    
+        self.init(accessToken: accessToken, assetAccessToken: assetAccessToken, employee: employee, loginTime: loginTime, expirationTime: expirationTime, sessionId: sessionId, company: company, shops: shops, assignedShop: assignedShop, assignedTerminal: assignedTerminal, appType: appType, appTarget: appTarget)
+    
+    }
+    
+
     
 }
 
@@ -307,21 +332,37 @@ class Shops : Codable {
 }
 
 
-class Address : Codable {
-    var id : String?
-    var created : Int?
-     var modified : Int?
-     var deleted : Bool?
-     var updated : Bool?
-    var companyId : String?
-    var address : String?
-    var city : String?
-    var state : String?
-    var zipCode : String?
-    var country : String?
+class Address: DBModel,Codable{
+   @objc dynamic var id : String?     = ""
+   @objc dynamic var created : Int  = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool  =  false
+   @objc dynamic var updated : Bool  = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var address : String? = ""
+   @objc dynamic var city : String? = ""
+   @objc dynamic var state : String? = " "
+   @objc dynamic var zipCode : String? = ""
+   @objc dynamic var country : String? = " "
+    
+    convenience init(id : String? = nil,created : Int?,modified : Int?,deleted : Bool?,updated : Bool?,companyId : String?,address : String?,city : String?,state : String?,zipCode : String?,country : String?){
+        self.init()
+        self.id = id
+        self.created = created!
+        self.modified = modified!
+        self.deleted = deleted!
+        self.updated = updated!
+        self.companyId = companyId
+        self.address = address
+        self.city = city
+        self.state = state
+        self.zipCode = zipCode
+        self.country = country
+    }
+    
     
     enum CodingKeys: String, CodingKey {
-        
+
         case id = "id"
         case created = "created"
         case modified = "modified"
@@ -334,20 +375,23 @@ class Address : Codable {
         case zipCode = "zipCode"
         case country = "country"
     }
-    
-    required init(from decoder: Decoder) throws {
+
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        address = try values.decodeIfPresent(String.self, forKey: .address)
-        city = try values.decodeIfPresent(String.self, forKey: .city)
-        state = try values.decodeIfPresent(String.self, forKey: .state)
-        zipCode = try values.decodeIfPresent(String.self, forKey: .zipCode)
-        country = try values.decodeIfPresent(String.self, forKey: .country)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let address = try values.decodeIfPresent(String.self, forKey: .address)
+        let city = try values.decodeIfPresent(String.self, forKey: .city)
+        let state = try values.decodeIfPresent(String.self, forKey: .state)
+        let zipCode = try values.decodeIfPresent(String.self, forKey: .zipCode)
+        let country = try values.decodeIfPresent(String.self, forKey: .country)
+        
+        self.init(id: id, created: created, modified: modified, deleted: deleted, updated: updated, companyId: companyId, address: address, city: city, state: state, zipCode: zipCode, country: country)
+      
     }
     
 }
@@ -425,7 +469,7 @@ class AssignedShop : Codable {
     var shortIdentifier : String?
     var name : String?
     var shopType : String?
-    var address : Address?
+  //  var address : Address?
     var phoneNumber : String?
     var emailAdress : String?
     var license : String?
@@ -506,7 +550,7 @@ class AssignedShop : Codable {
         case shortIdentifier = "shortIdentifier"
         case name = "name"
         case shopType = "shopType"
-        case address = "address"
+     //   case address = "address"
         case phoneNumber = "phoneNumber"
         case emailAdress = "emailAdress"
         case license = "license"
@@ -588,7 +632,7 @@ class AssignedShop : Codable {
         shortIdentifier = try values.decodeIfPresent(String.self, forKey: .shortIdentifier)
         name = try values.decodeIfPresent(String.self, forKey: .name)
         shopType = try values.decodeIfPresent(String.self, forKey: .shopType)
-        address = try values.decodeIfPresent(Address.self, forKey: .address)
+     //   address = try values.decodeIfPresent(Address.self, forKey: .address)
         phoneNumber = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
         emailAdress = try values.decodeIfPresent(String.self, forKey: .emailAdress)
         license = try values.decodeIfPresent(String.self, forKey: .license)
@@ -881,36 +925,37 @@ class CityTax : Codable {
     
 }
 
-class Company : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var membersShareOption : String?
-    var isId : String?
-    var name : String?
-    var phoneNumber : String?
-    var email : String?
-    var address : Address?
-    var logoURL : String?
-    var supportEmail : String?
-    var showNameWithLogo : Bool?
-    var active : Bool?
-    var website : String?
-    var productSKU : String?
-    var queueUrl : String?
-    var preferredEmailColor : String?
-    var pricingOpt : String?
-    var enableLoyalty : Bool?
-    var dollarToPointRatio : Int?
-    var duration : Int?
-    var portalUrl : String?
-    var businessLocation : String?
-    var fax : String?
-    var primaryContact : PrimaryContact?
-    var taxId : String?
-    var loyaltyAccrueOpt : String?
+class Company : DBModel,Codable {
+   @objc dynamic var id : String?  = ""
+   @objc dynamic var created : Int = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var membersShareOption : String? = ""
+    @objc dynamic var isId : String? = ""
+   @objc dynamic var name : String? = ""
+   @objc dynamic var phoneNumber : String? = ""
+   @objc dynamic var email : String? = ""
+    var address : Address? = nil
+   @objc dynamic var logoURL : String? = ""
+   @objc dynamic var supportEmail : String? = ""
+   @objc dynamic var showNameWithLogo : Bool = false
+   @objc dynamic var active : Bool = false
+   @objc dynamic var website : String? = ""
+   @objc dynamic var productSKU : String? = ""
+   @objc dynamic var queueUrl : String? = ""
+   @objc dynamic var preferredEmailColor : String? = ""
+   @objc dynamic var pricingOpt : String? = ""
+   @objc dynamic var enableLoyalty : Bool = false
+    var dollarToPointRatio : Int = 0
+    var duration : Int? = 0
+   @objc dynamic var portalUrl : String? = ""
+   @objc dynamic var businessLocation : String? = ""
+   @objc dynamic var fax : String? = ""
+    var primaryContact : PrimaryContact? = RealmOptional<PrimaryContact>()
+   @objc dynamic var taxId : String? = ""
+   @objc dynamic var loyaltyAccrueOpt : String? = ""
+    
     
     enum CodingKeys: String, CodingKey {
         
@@ -945,37 +990,72 @@ class Company : Codable {
         case loyaltyAccrueOpt = "loyaltyAccrueOpt"
     }
     
-    required init(from decoder: Decoder) throws {
+    convenience init(id : String?,created : Int?,modified : Int?,deleted : Bool?,updated : Bool?,membersShareOption : String?,isId : String?,name : String?,phoneNumber : String?,email : String?,address : Address?,logoURL : String?,supportEmail : String?,showNameWithLogo : Bool?,active : Bool?,website : String?,productSKU : String?,queueUrl : String?,preferredEmailColor : String?,pricingOpt : String?,enableLoyalty : Bool?,dollarToPointRatio : Int?,duration : Int?,portalUrl : String?,businessLocation : String?,fax : String?,primaryContact : PrimaryContact?,taxId : String?,loyaltyAccrueOpt : String?){
+        self.init()
+        self.id = id
+        self.created = created!
+        self.modified = modified!
+        self.deleted = deleted!
+        self.updated = updated!
+        self.membersShareOption = membersShareOption
+        self.isId = isId
+        self.name = name
+        self.phoneNumber = phoneNumber
+        self.email = email
+        self.address = address
+        self.logoURL = logoURL
+        self.supportEmail = supportEmail
+        self.showNameWithLogo = showNameWithLogo!
+        self.active = active!
+        self.website = website
+        self.productSKU = productSKU
+        self.queueUrl = queueUrl
+        self.preferredEmailColor = preferredEmailColor
+        self.pricingOpt = pricingOpt
+        self.enableLoyalty = enableLoyalty!
+        self.dollarToPointRatio = dollarToPointRatio!
+        self.duration = duration
+        self.portalUrl = portalUrl
+        self.businessLocation = businessLocation
+        self.fax = fax
+        self.primaryContact = primaryContact
+        self.taxId = taxId
+        self.loyaltyAccrueOpt = loyaltyAccrueOpt
+    
+    }
+    
+    convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        membersShareOption = try values.decodeIfPresent(String.self, forKey: .membersShareOption)
-        isId = try values.decodeIfPresent(String.self, forKey: .isId)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        phoneNumber = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
-        email = try values.decodeIfPresent(String.self, forKey: .email)
-        address = try values.decodeIfPresent(Address.self, forKey: .address)
-        logoURL = try values.decodeIfPresent(String.self, forKey: .logoURL)
-        supportEmail = try values.decodeIfPresent(String.self, forKey: .supportEmail)
-        showNameWithLogo = try values.decodeIfPresent(Bool.self, forKey: .showNameWithLogo)
-        active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        website = try values.decodeIfPresent(String.self, forKey: .website)
-        productSKU = try values.decodeIfPresent(String.self, forKey: .productSKU)
-        queueUrl = try values.decodeIfPresent(String.self, forKey: .queueUrl)
-        preferredEmailColor = try values.decodeIfPresent(String.self, forKey: .preferredEmailColor)
-        pricingOpt = try values.decodeIfPresent(String.self, forKey: .pricingOpt)
-        enableLoyalty = try values.decodeIfPresent(Bool.self, forKey: .enableLoyalty)
-        dollarToPointRatio = try values.decodeIfPresent(Int.self, forKey: .dollarToPointRatio)
-        duration = try values.decodeIfPresent(Int.self, forKey: .duration)
-        portalUrl = try values.decodeIfPresent(String.self, forKey: .portalUrl)
-        businessLocation = try values.decodeIfPresent(String.self, forKey: .businessLocation)
-        fax = try values.decodeIfPresent(String.self, forKey: .fax)
-        primaryContact = try values.decodeIfPresent(PrimaryContact.self, forKey: .primaryContact)
-        taxId = try values.decodeIfPresent(String.self, forKey: .taxId)
-        loyaltyAccrueOpt = try values.decodeIfPresent(String.self, forKey: .loyaltyAccrueOpt)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let membersShareOption = try values.decodeIfPresent(String.self, forKey: .membersShareOption)
+        let isId = try values.decodeIfPresent(String.self, forKey: .isId)
+        let name = try values.decodeIfPresent(String.self, forKey: .name)
+        let phoneNumber = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
+        let email = try values.decodeIfPresent(String.self, forKey: .email)
+        let address = try values.decodeIfPresent(Address.self, forKey: .address)
+        let logoURL = try values.decodeIfPresent(String.self, forKey: .logoURL)
+        let supportEmail = try values.decodeIfPresent(String.self, forKey: .supportEmail)
+        let showNameWithLogo = try values.decodeIfPresent(Bool.self, forKey: .showNameWithLogo)
+        let active = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let website = try values.decodeIfPresent(String.self, forKey: .website)
+        let productSKU = try values.decodeIfPresent(String.self, forKey: .productSKU)
+        let queueUrl = try values.decodeIfPresent(String.self, forKey: .queueUrl)
+        let preferredEmailColor = try values.decodeIfPresent(String.self, forKey: .preferredEmailColor)
+        let pricingOpt = try values.decodeIfPresent(String.self, forKey: .pricingOpt)
+        let enableLoyalty = try values.decodeIfPresent(Bool.self, forKey: .enableLoyalty)
+        let dollarToPointRatio = try values.decodeIfPresent(Int.self, forKey: .dollarToPointRatio)
+        let duration = try values.decodeIfPresent(Int.self, forKey: .duration)
+        let portalUrl = try values.decodeIfPresent(String.self, forKey: .portalUrl)
+        let businessLocation = try values.decodeIfPresent(String.self, forKey: .businessLocation)
+        let fax = try values.decodeIfPresent(String.self, forKey: .fax)
+        let primaryContact = try values.decodeIfPresent(PrimaryContact.self, forKey: .primaryContact)
+        let taxId = try values.decodeIfPresent(String.self, forKey: .taxId)
+        let loyaltyAccrueOpt = try values.decodeIfPresent(String.self, forKey: .loyaltyAccrueOpt)
+        self.init(id: id, created: created, modified: modified, deleted: deleted, updated: updated, membersShareOption: membersShareOption, isId: isId, name: name, phoneNumber: phoneNumber, email: email, address: address, logoURL: logoURL, supportEmail: supportEmail, showNameWithLogo: showNameWithLogo, active: active, website: website, productSKU: productSKU, queueUrl: queueUrl, preferredEmailColor: preferredEmailColor, pricingOpt: pricingOpt, enableLoyalty: enableLoyalty, dollarToPointRatio: dollarToPointRatio, duration: duration, portalUrl: portalUrl, businessLocation: businessLocation, fax: fax, primaryContact: primaryContact, taxId: taxId, loyaltyAccrueOpt: loyaltyAccrueOpt)
     }
     
 }
@@ -1580,11 +1660,11 @@ class OnlineStoreInfo : Codable {
     
 }
 
-class PrimaryContact : Codable {
-    var name : String?
-    var email : String?
-    var contact : String?
-    var address : Address?
+class PrimaryContact : DBModel,Codable{
+   @objc dynamic var name : String? = ""
+   @objc dynamic var email : String? = ""
+   @objc dynamic var contact : String? = ""
+   var address : Address?  = nil
     
     enum CodingKeys: String, CodingKey {
         
@@ -1594,12 +1674,22 @@ class PrimaryContact : Codable {
         case address = "address"
     }
     
-    required init(from decoder: Decoder) throws {
+    convenience  init(name : String?,email : String?,contact : String?,address : Address?) {
+        self.init()
+        self.name = name
+        self.email = email
+        self.contact = contact
+        self.address = address
+    }
+    
+    
+    convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        email = try values.decodeIfPresent(String.self, forKey: .email)
-        contact = try values.decodeIfPresent(String.self, forKey: .contact)
-        address = try values.decodeIfPresent(Address.self, forKey: .address)
+        let name = try values.decodeIfPresent(String.self, forKey: .name)
+        let email = try values.decodeIfPresent(String.self, forKey: .email)
+        let contact = try values.decodeIfPresent(String.self, forKey: .contact)
+        let address = try values.decodeIfPresent(Address.self, forKey: .address)
+        self.init(name: name, email: email, contact: contact, address: address)
     }
     
 }
