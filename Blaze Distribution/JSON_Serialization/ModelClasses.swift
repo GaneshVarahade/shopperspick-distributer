@@ -10,16 +10,16 @@ import Foundation
 import Realm
 import RealmSwift
 class Login : DBModel,Codable {
-   @objc dynamic  var accessToken : String?     = ""
+   @objc dynamic var accessToken : String?      = ""
    @objc dynamic var assetAccessToken : String? = ""
-   var employee : Employee?                     = nil
+   var employee : Employee?       = nil
    @objc dynamic var loginTime : Int            = 0
    @objc dynamic var expirationTime : Int       = 0
    @objc dynamic var sessionId : String         = ""
-    var company : Company?                      = Company()
+   @objc dynamic var company : Company?         = Company()
     var shops : [Shops]                         = []
     var assignedShop : AssignedShop?
-   //@objc dynamic var newDevice : Bool           = false
+   @objc dynamic var newDevice : Bool           = false
     var assignedTerminal : AssignedTerminal?
    @objc dynamic var appType : String?          = ""
    @objc dynamic var appTarget : String? = ""
@@ -52,7 +52,7 @@ class Login : DBModel,Codable {
         self.company = company
         self.shops = shops!
         self.assignedShop = assignedShop
-       // self.newDevice = newDevice!
+        //self.newDevice = newDevice!
         self.assignedTerminal = assignedTerminal
         self.appType = appType
         self.appTarget = appTarget
@@ -333,10 +333,10 @@ class Shops : Codable {
 
 
 class Address: DBModel,Codable{
-   @objc dynamic var id : String?     = ""
-     dynamic  var created   = RealmOptional<Int>()
-                 var modified : Int? = 0
-                 var deleted : Bool?  =  false
+   @objc dynamic var id : String?     = " "
+                 var  created : Int?  = 0
+                 var modified : Int?  = 0
+                 var deleted : Bool?  = false
                  var updated : Bool?  = false
    @objc dynamic var companyId : String? = ""
    @objc dynamic var address : String? = ""
@@ -926,35 +926,35 @@ class CityTax : Codable {
 }
 
 class Company : DBModel,Codable {
-   @objc dynamic var id : String?  = ""
-    var created : Int? = 0
-    var modified : Int? = 0
-    var deleted : Bool? = false
-    var updated : Bool? = false
-   @objc dynamic var membersShareOption : String? = ""
+    @objc dynamic var id : String?  = ""
+    @objc dynamic var created : Int = 0
+    @objc dynamic var modified : Int = 0
+    @objc dynamic var deleted : Bool = false
+    @objc dynamic var updated : Bool = false
+    @objc dynamic var membersShareOption : String? = ""
     @objc dynamic var isId : String? = ""
-   @objc dynamic var name : String? = ""
-   @objc dynamic var phoneNumber : String? = ""
-   @objc dynamic var email : String? = ""
-    var address : Address?
-   @objc dynamic var logoURL : String? = ""
-   @objc dynamic var supportEmail : String? = ""
-    var showNameWithLogo : Bool? = false
-    var active : Bool? = false
-   @objc dynamic var website : String? = ""
-   @objc dynamic var productSKU : String? = ""
-   @objc dynamic var queueUrl : String? = ""
-   @objc dynamic var preferredEmailColor : String? = ""
-   @objc dynamic var pricingOpt : String? = ""
-    var enableLoyalty : Bool? = false
-    var dollarToPointRatio : Int? = 0
-    var duration : Int? = 0
-   @objc dynamic var portalUrl : String? = ""
-   @objc dynamic var businessLocation : String? = ""
-   @objc dynamic var fax : String? = ""
-    var primaryContact : PrimaryContact?
-   @objc dynamic var taxId : String? = ""
-   @objc dynamic var loyaltyAccrueOpt : String? = ""
+    @objc dynamic var name : String? = ""
+    @objc dynamic var phoneNumber : String? = ""
+    @objc dynamic var email : String? = ""
+    @objc dynamic var address : Address? =   Address()
+    @objc dynamic var logoURL : String? = ""
+    @objc dynamic var supportEmail : String? = ""
+    @objc dynamic var showNameWithLogo : Bool = false
+    @objc dynamic var active : Bool = false
+    @objc dynamic var website : String? = ""
+    @objc dynamic var productSKU : String? = ""
+    @objc dynamic var queueUrl : String? = ""
+    @objc dynamic var preferredEmailColor : String? = ""
+    @objc dynamic var pricingOpt : String? = ""
+    @objc dynamic var enableLoyalty : Bool = false
+    @objc dynamic var dollarToPointRatio : Int = 0
+    @objc dynamic var duration : Int = 0
+    @objc dynamic var portalUrl : String? = ""
+    @objc dynamic var businessLocation : String? = ""
+    @objc dynamic var fax : String? = ""
+    @objc dynamic var primaryContact : PrimaryContact?
+    @objc dynamic var taxId : String? = ""
+    @objc dynamic var loyaltyAccrueOpt : String? = ""
     
     
     enum CodingKeys: String, CodingKey {
@@ -993,10 +993,10 @@ class Company : DBModel,Codable {
     convenience init(id : String?,created : Int?,modified : Int?,deleted : Bool?,updated : Bool?,membersShareOption : String?,isId : String?,name : String?,phoneNumber : String?,email : String?,address : Address?,logoURL : String?,supportEmail : String?,showNameWithLogo : Bool?,active : Bool?,website : String?,productSKU : String?,queueUrl : String?,preferredEmailColor : String?,pricingOpt : String?,enableLoyalty : Bool?,dollarToPointRatio : Int?,duration : Int?,portalUrl : String?,businessLocation : String?,fax : String?,primaryContact : PrimaryContact?,taxId : String?,loyaltyAccrueOpt : String?){
         self.init()
         self.id = id
-        self.created = created
-        self.modified = modified
-        self.deleted = deleted
-        self.updated = updated
+        self.created = created!
+        self.modified = modified!
+        self.deleted = deleted!
+        self.updated = updated!
         self.membersShareOption = membersShareOption
         self.isId = isId
         self.name = name
@@ -1005,16 +1005,16 @@ class Company : DBModel,Codable {
         self.address = address
         self.logoURL = logoURL
         self.supportEmail = supportEmail
-        self.showNameWithLogo = showNameWithLogo
-        self.active = active
+        self.showNameWithLogo = showNameWithLogo!
+        self.active = active!
         self.website = website
         self.productSKU = productSKU
         self.queueUrl = queueUrl
         self.preferredEmailColor = preferredEmailColor
         self.pricingOpt = pricingOpt
-        self.enableLoyalty = enableLoyalty
-        self.dollarToPointRatio = dollarToPointRatio
-        self.duration = duration
+        self.enableLoyalty = enableLoyalty!
+        self.dollarToPointRatio = dollarToPointRatio!
+        self.duration = duration != nil ? duration! : 0
         self.portalUrl = portalUrl
         self.businessLocation = businessLocation
         self.fax = fax

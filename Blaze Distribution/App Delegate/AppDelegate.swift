@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         
         // MARK: - KeyBord Manager
-        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.shared.enable = true
         
         // MARK: - Network Rechability Cheking in Real time
         ReachabilityManager.shared.startMonitoring()
