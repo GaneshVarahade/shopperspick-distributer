@@ -396,24 +396,24 @@ class Address: DBModel,Codable{
     
 }
 
-class Assets : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var name : String?
-    var key : String?
-    var type : String?
-    var publicURL : String?
-    var active : Bool?
-    var priority : Int?
-    var secured : Bool?
-    var thumbURL : String?
-    var mediumURL : String?
-    var largeURL : String?
-    var assetType : String?
+class Assets : DBModel,Codable {
+   @objc dynamic  var id : String? = ""
+   @objc dynamic var created : Int = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var name : String? = ""
+   @objc dynamic var key : String? = ""
+   @objc dynamic var type : String? = ""
+   @objc dynamic var publicURL : String? = ""
+   @objc dynamic var active : Bool = false
+   @objc dynamic var priority : Int = 0
+   @objc dynamic var secured : Bool = false
+   @objc dynamic var thumbURL : String? = ""
+   @objc dynamic var mediumURL : String? = ""
+   @objc dynamic var largeURL : String? = ""
+   @objc dynamic var assetType : String? = ""
     
     enum CodingKeys: String, CodingKey {
         
@@ -435,109 +435,131 @@ class Assets : Codable {
         case largeURL = "largeURL"
         case assetType = "assetType"
     }
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,name : String?,key : String?,type : String?,publicURL : String?,active : Bool,priority : Int,secured : Bool,thumbURL : String?,mediumURL : String?,largeURL : String?,assetType : String?){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.name = name
+        self.key = key
+        self.type = type
+        self.publicURL = publicURL
+        self.active = active
+        self.priority = priority
+        self.secured = secured
+        self.thumbURL = thumbURL
+        self.mediumURL = mediumURL
+        self.largeURL = largeURL
+        self.assetType = assetType
+        
+    }
     
-    required init(from decoder: Decoder) throws {
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        key = try values.decodeIfPresent(String.self, forKey: .key)
-        type = try values.decodeIfPresent(String.self, forKey: .type)
-        publicURL = try values.decodeIfPresent(String.self, forKey: .publicURL)
-        active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        priority = try values.decodeIfPresent(Int.self, forKey: .priority)
-        secured = try values.decodeIfPresent(Bool.self, forKey: .secured)
-        thumbURL = try values.decodeIfPresent(String.self, forKey: .thumbURL)
-        mediumURL = try values.decodeIfPresent(String.self, forKey: .mediumURL)
-        largeURL = try values.decodeIfPresent(String.self, forKey: .largeURL)
-        assetType = try values.decodeIfPresent(String.self, forKey: .assetType)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let name = try values.decodeIfPresent(String.self, forKey: .name)
+        let key = try values.decodeIfPresent(String.self, forKey: .key)
+        let type = try values.decodeIfPresent(String.self, forKey: .type)
+        let publicURL = try values.decodeIfPresent(String.self, forKey: .publicURL)
+        let active = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let priority = try values.decodeIfPresent(Int.self, forKey: .priority)
+        let secured = try values.decodeIfPresent(Bool.self, forKey: .secured)
+        let thumbURL = try values.decodeIfPresent(String.self, forKey: .thumbURL)
+        let mediumURL = try values.decodeIfPresent(String.self, forKey: .mediumURL)
+        let largeURL = try values.decodeIfPresent(String.self, forKey: .largeURL)
+        let assetType = try values.decodeIfPresent(String.self, forKey: .assetType)
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, name: name, key: key, type: type, publicURL: publicURL, active: active!, priority: priority!, secured: secured!, thumbURL: thumbURL, mediumURL: mediumURL, largeURL: largeURL, assetType: assetType)
     }
     
 }
 
-class AssignedShop : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var shortIdentifier : String?
-    var name : String?
-    var shopType : String?
-  //  var address : Address?
-    var phoneNumber : String?
-    var emailAdress : String?
-    var license : String?
-    var enableDeliveryFee : Bool?
-    var deliveryFee : Int?
-    var taxOrder : String?
-    var taxInfo : TaxInfo?
-    var showWalkInQueue : Bool?
-    var showDeliveryQueue : Bool?
-    var showOnlineQueue : Bool?
-    var enableCashInOut : Bool?
-    var timeZone : String?
-    var latitude : Int?
-    var longitude : Int?
-    var active : Bool?
-    var snapshopTime : Int?
-    var defaultCountry : String?
-    var onlineStoreInfo : OnlineStoreInfo?
-    var deliveryFees : [DeliveryFees]?
-    var enableSaleLogout : Bool?
-    var assets : [Assets]?
-    var enableBCCReceipt : Bool?
-    var bccEmailAddress : String?
-    var enableGPSTracking : Bool?
-    var receivingInventoryId : String?
-    var defaultPinTimeout : Int?
-    var showSpecialQueue : Bool?
-    var emailList : [String]?
-    var enableLowInventoryEmail : Bool?
-    var restrictedViews : Bool?
-    var emailMessage : String?
-    var taxRoundOffType : String?
-    var enforceCashDrawers : Bool?
-    var useAssignedEmployee : Bool?
-    var showProductByAvailableQuantity : Bool?
-    var autoCashDrawer : Bool?
-    var numAllowActiveTrans : Int?
-    var requireValidRecDate : Bool?
-    var enableDeliverySignature : Bool?
-    var restrictIncomingOrderNotifications : Bool?
-    var restrictedNotificationTerminals : [String]?
-    var roundOffType : String?
-    var roundUpMessage : String?
-    var shopEntityType : String?
-    var membersCountSyncDate : Int?
-    var enableCannabisLimit : Bool?
-    var useComplexTax : Bool?
-    var taxTables : [TaxTables]?
-    var enableExciseTax : Bool?
-    var exciseTaxType : String?
-    var marketingSources : [String]?
-    var productsTag : [String]?
-    var logo : Logo?
-    var hubId : String?
-    var hubName : String?
-    var enableOnFleet : Bool?
-    var onFleetApiKey : String?
-    var onFleetOrganizationId : String?
-    var onFleetOrganizationName : String?
-    var emailAttachment : EmailAttachment?
-    var receiptInfo : [ReceiptInfo]?
-    var enablePinForCashDrawer : Bool?
-    var checkoutType : String?
-    var enableMetrc : Bool?
-    var enableDeliveryMessaging : Bool?
-    var exciseTaxInfo : ExciseTaxInfo?
-    var timezoneOffsetInMinutes : Int?
-    var defaultPinTimeoutDuration : Int?
+class AssignedShop :DBModel,Codable {
+   @objc dynamic  var id : String?    = ""
+   @objc dynamic  var created : Int = 0
+   @objc dynamic  var modified : Int = 0
+   @objc dynamic  var deleted : Bool = false
+   @objc dynamic  var updated : Bool = false
+   @objc dynamic  var companyId : String? = ""
+   @objc dynamic  var shortIdentifier : String? = ""
+   @objc dynamic  var name : String? = ""
+   @objc dynamic  var shopType : String? = ""
+   @objc dynamic  var address : Address?
+   @objc dynamic  var phoneNumber : String? = ""
+   @objc dynamic  var emailAdress : String? = ""
+   @objc dynamic  var license : String? = ""
+   @objc dynamic  var enableDeliveryFee : Bool = false
+   @objc dynamic  var deliveryFee : Int = 0
+   @objc dynamic  var taxOrder : String? = ""
+   @objc dynamic  var taxInfo : TaxInfo?
+   @objc dynamic  var showWalkInQueue : Bool = false
+   @objc dynamic  var showDeliveryQueue : Bool = false
+   @objc dynamic  var showOnlineQueue : Bool = false
+   @objc dynamic  var enableCashInOut : Bool = false
+   @objc dynamic  var timeZone : String? = ""
+   @objc dynamic  var latitude : Int = 0
+   @objc dynamic  var longitude : Int = 0
+   @objc dynamic  var active : Bool = false
+   @objc dynamic  var snapshopTime : Int = 0
+   @objc dynamic  var defaultCountry : String? = ""
+   @objc dynamic  var onlineStoreInfo : OnlineStoreInfo?
+   @objc dynamic  var deliveryFees : [DeliveryFees]?
+   @objc dynamic  var enableSaleLogout : Bool = false
+   @objc dynamic  var assets : [Assets]?
+   @objc dynamic  var enableBCCReceipt : Bool = false
+   @objc dynamic  var bccEmailAddress : String? = ""
+   @objc dynamic  var enableGPSTracking : Bool = false
+   @objc dynamic  var receivingInventoryId : String? = ""
+   @objc dynamic  var defaultPinTimeout : Int = 0
+   @objc dynamic  var showSpecialQueue : Bool = false
+   @objc dynamic  var emailList : [String]?
+   @objc dynamic  var enableLowInventoryEmail : Bool = false
+   @objc dynamic  var restrictedViews : Bool = false
+   @objc dynamic  var emailMessage : String? = ""
+   @objc dynamic  var taxRoundOffType : String? = ""
+   @objc dynamic  var enforceCashDrawers : Bool = false
+   @objc dynamic  var useAssignedEmployee : Bool = false
+   @objc dynamic  var showProductByAvailableQuantity : Bool = false
+   @objc dynamic  var autoCashDrawer : Bool = false
+   @objc dynamic  var numAllowActiveTrans : Int = 0
+   @objc dynamic  var requireValidRecDate : Bool = false
+   @objc dynamic  var enableDeliverySignature : Bool = false
+   @objc dynamic  var restrictIncomingOrderNotifications : Bool = false
+   @objc dynamic  var restrictedNotificationTerminals : [String]?
+   @objc dynamic  var roundOffType : String? = ""
+   @objc dynamic  var roundUpMessage : String? = ""
+   @objc dynamic  var shopEntityType : String? = ""
+   @objc dynamic  var membersCountSyncDate : Int = 0
+   @objc dynamic  var enableCannabisLimit : Bool = false
+   @objc dynamic  var useComplexTax : Bool = false
+   @objc dynamic  var taxTables : [TaxTables]?
+   @objc dynamic  var enableExciseTax : Bool = false
+   @objc dynamic  var exciseTaxType : String? = ""
+   @objc dynamic  var marketingSources : [String]?
+   @objc dynamic  var productsTag : [String]?
+   @objc dynamic  var logo : Logo?
+   @objc dynamic  var hubId : String? = ""
+   @objc dynamic  var hubName : String? = ""
+   @objc dynamic  var enableOnFleet : Bool = false
+   @objc dynamic  var onFleetApiKey : String? = ""
+   @objc dynamic  var onFleetOrganizationId : String? = ""
+   @objc dynamic  var onFleetOrganizationName : String? = ""
+   @objc dynamic  var emailAttachment : EmailAttachment?
+   @objc dynamic  var receiptInfo : [ReceiptInfo]?
+   @objc dynamic  var enablePinForCashDrawer : Bool = false
+   @objc dynamic  var checkoutType : String? = ""
+   @objc dynamic  var enableMetrc : Bool = false
+   @objc dynamic  var enableDeliveryMessaging : Bool = false
+   @objc dynamic  var exciseTaxInfo : ExciseTaxInfo?
+   @objc dynamic  var timezoneOffsetInMinutes : Int = 0
+   @objc dynamic  var defaultPinTimeoutDuration : Int = 0
     
     enum CodingKeys: String, CodingKey {
         
@@ -550,7 +572,7 @@ class AssignedShop : Codable {
         case shortIdentifier = "shortIdentifier"
         case name = "name"
         case shopType = "shopType"
-     //   case address = "address"
+        case address = "address"
         case phoneNumber = "phoneNumber"
         case emailAdress = "emailAdress"
         case license = "license"
@@ -620,100 +642,105 @@ class AssignedShop : Codable {
         case timezoneOffsetInMinutes = "timezoneOffsetInMinutes"
         case defaultPinTimeoutDuration = "defaultPinTimeoutDuration"
     }
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shortIdentifier : String?,name : String?,shopType : String?,address : Address?,phoneNumber : String?,emailAdress : String?,license : String?,enableDeliveryFee : Bool,deliveryFee : Int,taxOrder : String?,taxInfo : TaxInfo?,showWalkInQueue : Bool,showDeliveryQueue : Bool,showOnlineQueue : Bool,enableCashInOut : Bool,timeZone : String?,latitude : Int = 0,longitude : Int = 0,active : Bool,snapshopTime : Int,defaultCountry : String?,onlineStoreInfo : OnlineStoreInfo?,deliveryFees : [DeliveryFees]?,enableSaleLogout : Bool,assets : [Assets]?,enableBCCReceipt : Bool,bccEmailAddress : String?,enableGPSTracking : Bool,receivingInventoryId : String?,defaultPinTimeout : Int,showSpecialQueue : Bool,emailList : [String]?,enableLowInventoryEmail : Bool,restrictedViews : Bool,emailMessage : String?,taxRoundOffType : String?, enforceCashDrawers : Bool,useAssignedEmployee : Bool,showProductByAvailableQuantity : Bool,autoCashDrawer : Bool,numAllowActiveTrans : Int,requireValidRecDate : Bool,enableDeliverySignature : Bool,restrictIncomingOrderNotifications : Bool,restrictedNotificationTerminals : [String]?,roundOffType : String?,roundUpMessage : String?,shopEntityType : String?,membersCountSyncDate : Int,enableCannabisLimit : Bool,useComplexTax : Bool,taxTables : [TaxTables]?,enableExciseTax : Bool,exciseTaxType : String?,marketingSources : [String]?,productsTag : [String]?,logo : Logo?,hubId : String?,hubName : String?,enableOnFleet : Bool,onFleetApiKey : String?,onFleetOrganizationId : String?,onFleetOrganizationName : String?,emailAttachment : EmailAttachment?,receiptInfo : [ReceiptInfo]?,enablePinForCashDrawer : Bool,checkoutType : String?,enableMetrc : Bool,enableDeliveryMessaging : Bool,exciseTaxInfo : ExciseTaxInfo?,timezoneOffsetInMinutes : Int,defaultPinTimeoutDuration : Int){
+        
+    }
     
-    required init(from decoder: Decoder) throws {
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        shortIdentifier = try values.decodeIfPresent(String.self, forKey: .shortIdentifier)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        shopType = try values.decodeIfPresent(String.self, forKey: .shopType)
-     //   address = try values.decodeIfPresent(Address.self, forKey: .address)
-        phoneNumber = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
-        emailAdress = try values.decodeIfPresent(String.self, forKey: .emailAdress)
-        license = try values.decodeIfPresent(String.self, forKey: .license)
-        enableDeliveryFee = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryFee)
-        deliveryFee = try values.decodeIfPresent(Int.self, forKey: .deliveryFee)
-        taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
-        taxInfo = try values.decodeIfPresent(TaxInfo.self, forKey: .taxInfo)
-        showWalkInQueue = try values.decodeIfPresent(Bool.self, forKey: .showWalkInQueue)
-        showDeliveryQueue = try values.decodeIfPresent(Bool.self, forKey: .showDeliveryQueue)
-        showOnlineQueue = try values.decodeIfPresent(Bool.self, forKey: .showOnlineQueue)
-        enableCashInOut = try values.decodeIfPresent(Bool.self, forKey: .enableCashInOut)
-        timeZone = try values.decodeIfPresent(String.self, forKey: .timeZone)
-        latitude = try values.decodeIfPresent(Int.self, forKey: .latitude)
-        longitude = try values.decodeIfPresent(Int.self, forKey: .longitude)
-        active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        snapshopTime = try values.decodeIfPresent(Int.self, forKey: .snapshopTime)
-        defaultCountry = try values.decodeIfPresent(String.self, forKey: .defaultCountry)
-        onlineStoreInfo = try values.decodeIfPresent(OnlineStoreInfo.self, forKey: .onlineStoreInfo)
-        deliveryFees = try values.decodeIfPresent([DeliveryFees].self, forKey: .deliveryFees)
-        enableSaleLogout = try values.decodeIfPresent(Bool.self, forKey: .enableSaleLogout)
-        assets = try values.decodeIfPresent([Assets].self, forKey: .assets)
-        enableBCCReceipt = try values.decodeIfPresent(Bool.self, forKey: .enableBCCReceipt)
-        bccEmailAddress = try values.decodeIfPresent(String.self, forKey: .bccEmailAddress)
-        enableGPSTracking = try values.decodeIfPresent(Bool.self, forKey: .enableGPSTracking)
-        receivingInventoryId = try values.decodeIfPresent(String.self, forKey: .receivingInventoryId)
-        defaultPinTimeout = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeout)
-        showSpecialQueue = try values.decodeIfPresent(Bool.self, forKey: .showSpecialQueue)
-        emailList = try values.decodeIfPresent([String].self, forKey: .emailList)
-        enableLowInventoryEmail = try values.decodeIfPresent(Bool.self, forKey: .enableLowInventoryEmail)
-        restrictedViews = try values.decodeIfPresent(Bool.self, forKey: .restrictedViews)
-        emailMessage = try values.decodeIfPresent(String.self, forKey: .emailMessage)
-        taxRoundOffType = try values.decodeIfPresent(String.self, forKey: .taxRoundOffType)
-        enforceCashDrawers = try values.decodeIfPresent(Bool.self, forKey: .enforceCashDrawers)
-        useAssignedEmployee = try values.decodeIfPresent(Bool.self, forKey: .useAssignedEmployee)
-        showProductByAvailableQuantity = try values.decodeIfPresent(Bool.self, forKey: .showProductByAvailableQuantity)
-        autoCashDrawer = try values.decodeIfPresent(Bool.self, forKey: .autoCashDrawer)
-        numAllowActiveTrans = try values.decodeIfPresent(Int.self, forKey: .numAllowActiveTrans)
-        requireValidRecDate = try values.decodeIfPresent(Bool.self, forKey: .requireValidRecDate)
-        enableDeliverySignature = try values.decodeIfPresent(Bool.self, forKey: .enableDeliverySignature)
-        restrictIncomingOrderNotifications = try values.decodeIfPresent(Bool.self, forKey: .restrictIncomingOrderNotifications)
-        restrictedNotificationTerminals = try values.decodeIfPresent([String].self, forKey: .restrictedNotificationTerminals)
-        roundOffType = try values.decodeIfPresent(String.self, forKey: .roundOffType)
-        roundUpMessage = try values.decodeIfPresent(String.self, forKey: .roundUpMessage)
-        shopEntityType = try values.decodeIfPresent(String.self, forKey: .shopEntityType)
-        membersCountSyncDate = try values.decodeIfPresent(Int.self, forKey: .membersCountSyncDate)
-        enableCannabisLimit = try values.decodeIfPresent(Bool.self, forKey: .enableCannabisLimit)
-        useComplexTax = try values.decodeIfPresent(Bool.self, forKey: .useComplexTax)
-        taxTables = try values.decodeIfPresent([TaxTables].self, forKey: .taxTables)
-        enableExciseTax = try values.decodeIfPresent(Bool.self, forKey: .enableExciseTax)
-        exciseTaxType = try values.decodeIfPresent(String.self, forKey: .exciseTaxType)
-        marketingSources = try values.decodeIfPresent([String].self, forKey: .marketingSources)
-        productsTag = try values.decodeIfPresent([String].self, forKey: .productsTag)
-        logo = try values.decodeIfPresent(Logo.self, forKey: .logo)
-        hubId = try values.decodeIfPresent(String.self, forKey: .hubId)
-        hubName = try values.decodeIfPresent(String.self, forKey: .hubName)
-        enableOnFleet = try values.decodeIfPresent(Bool.self, forKey: .enableOnFleet)
-        onFleetApiKey = try values.decodeIfPresent(String.self, forKey: .onFleetApiKey)
-        onFleetOrganizationId = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationId)
-        onFleetOrganizationName = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationName)
-        emailAttachment = try values.decodeIfPresent(EmailAttachment.self, forKey: .emailAttachment)
-        receiptInfo = try values.decodeIfPresent([ReceiptInfo].self, forKey: .receiptInfo)
-        enablePinForCashDrawer = try values.decodeIfPresent(Bool.self, forKey: .enablePinForCashDrawer)
-        checkoutType = try values.decodeIfPresent(String.self, forKey: .checkoutType)
-        enableMetrc = try values.decodeIfPresent(Bool.self, forKey: .enableMetrc)
-        enableDeliveryMessaging = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryMessaging)
-        exciseTaxInfo = try values.decodeIfPresent(ExciseTaxInfo.self, forKey: .exciseTaxInfo)
-        timezoneOffsetInMinutes = try values.decodeIfPresent(Int.self, forKey: .timezoneOffsetInMinutes)
-        defaultPinTimeoutDuration = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeoutDuration)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let shortIdentifier = try values.decodeIfPresent(String.self, forKey: .shortIdentifier)
+        let name = try values.decodeIfPresent(String.self, forKey: .name)
+        let shopType = try values.decodeIfPresent(String.self, forKey: .shopType)
+        let address = try values.decodeIfPresent(Address.self, forKey: .address)
+        let phoneNumber = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
+        let emailAdress = try values.decodeIfPresent(String.self, forKey: .emailAdress)
+        let license = try values.decodeIfPresent(String.self, forKey: .license)
+        let enableDeliveryFee = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryFee)
+        let deliveryFee = try values.decodeIfPresent(Int.self, forKey: .deliveryFee)
+        let taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
+        let taxInfo = try values.decodeIfPresent(TaxInfo.self, forKey: .taxInfo)
+        let showWalkInQueue = try values.decodeIfPresent(Bool.self, forKey: .showWalkInQueue)
+        let showDeliveryQueue = try values.decodeIfPresent(Bool.self, forKey: .showDeliveryQueue)
+        let showOnlineQueue = try values.decodeIfPresent(Bool.self, forKey: .showOnlineQueue)
+        let enableCashInOut = try values.decodeIfPresent(Bool.self, forKey: .enableCashInOut)
+        let timeZone = try values.decodeIfPresent(String.self, forKey: .timeZone)
+        let latitude = try values.decodeIfPresent(Int.self, forKey: .latitude)
+        let longitude = try values.decodeIfPresent(Int.self, forKey: .longitude)
+        let active = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let snapshopTime = try values.decodeIfPresent(Int.self, forKey: .snapshopTime)
+        let defaultCountry = try values.decodeIfPresent(String.self, forKey: .defaultCountry)
+        let onlineStoreInfo = try values.decodeIfPresent(OnlineStoreInfo.self, forKey: .onlineStoreInfo)
+        let deliveryFees = try values.decodeIfPresent([DeliveryFees].self, forKey: .deliveryFees)
+        let enableSaleLogout = try values.decodeIfPresent(Bool.self, forKey: .enableSaleLogout)
+        let assets = try values.decodeIfPresent([Assets].self, forKey: .assets)
+        let enableBCCReceipt = try values.decodeIfPresent(Bool.self, forKey: .enableBCCReceipt)
+        let bccEmailAddress = try values.decodeIfPresent(String.self, forKey: .bccEmailAddress)
+        let enableGPSTracking = try values.decodeIfPresent(Bool.self, forKey: .enableGPSTracking)
+        let receivingInventoryId = try values.decodeIfPresent(String.self, forKey: .receivingInventoryId)
+        let defaultPinTimeout = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeout)
+        let showSpecialQueue = try values.decodeIfPresent(Bool.self, forKey: .showSpecialQueue)
+        let emailList = try values.decodeIfPresent([String].self, forKey: .emailList)
+        let enableLowInventoryEmail = try values.decodeIfPresent(Bool.self, forKey: .enableLowInventoryEmail)
+        let restrictedViews = try values.decodeIfPresent(Bool.self, forKey: .restrictedViews)
+        let emailMessage = try values.decodeIfPresent(String.self, forKey: .emailMessage)
+        let taxRoundOffType = try values.decodeIfPresent(String.self, forKey: .taxRoundOffType)
+        let enforceCashDrawers = try values.decodeIfPresent(Bool.self, forKey: .enforceCashDrawers)
+        let useAssignedEmployee = try values.decodeIfPresent(Bool.self, forKey: .useAssignedEmployee)
+        let showProductByAvailableQuantity = try values.decodeIfPresent(Bool.self, forKey: .showProductByAvailableQuantity)
+        let autoCashDrawer = try values.decodeIfPresent(Bool.self, forKey: .autoCashDrawer)
+        let numAllowActiveTrans = try values.decodeIfPresent(Int.self, forKey: .numAllowActiveTrans)
+        let requireValidRecDate = try values.decodeIfPresent(Bool.self, forKey: .requireValidRecDate)
+        let enableDeliverySignature = try values.decodeIfPresent(Bool.self, forKey: .enableDeliverySignature)
+        let restrictIncomingOrderNotifications = try values.decodeIfPresent(Bool.self, forKey: .restrictIncomingOrderNotifications)
+        let restrictedNotificationTerminals = try values.decodeIfPresent([String].self, forKey: .restrictedNotificationTerminals)
+        let roundOffType = try values.decodeIfPresent(String.self, forKey: .roundOffType)
+        let roundUpMessage = try values.decodeIfPresent(String.self, forKey: .roundUpMessage)
+        let shopEntityType = try values.decodeIfPresent(String.self, forKey: .shopEntityType)
+        let membersCountSyncDate = try values.decodeIfPresent(Int.self, forKey: .membersCountSyncDate)
+        let enableCannabisLimit = try values.decodeIfPresent(Bool.self, forKey: .enableCannabisLimit)
+        let useComplexTax = try values.decodeIfPresent(Bool.self, forKey: .useComplexTax)
+        let taxTables = try values.decodeIfPresent([TaxTables].self, forKey: .taxTables)
+        let enableExciseTax = try values.decodeIfPresent(Bool.self, forKey: .enableExciseTax)
+        let exciseTaxType = try values.decodeIfPresent(String.self, forKey: .exciseTaxType)
+        let marketingSources = try values.decodeIfPresent([String].self, forKey: .marketingSources)
+        let productsTag = try values.decodeIfPresent([String].self, forKey: .productsTag)
+        let logo = try values.decodeIfPresent(Logo.self, forKey: .logo)
+        let hubId = try values.decodeIfPresent(String.self, forKey: .hubId)
+        let hubName = try values.decodeIfPresent(String.self, forKey: .hubName)
+        let enableOnFleet = try values.decodeIfPresent(Bool.self, forKey: .enableOnFleet)
+        let onFleetApiKey = try values.decodeIfPresent(String.self, forKey: .onFleetApiKey)
+        let onFleetOrganizationId = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationId)
+        let onFleetOrganizationName = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationName)
+        let emailAttachment = try values.decodeIfPresent(EmailAttachment.self, forKey: .emailAttachment)
+        let receiptInfo = try values.decodeIfPresent([ReceiptInfo].self, forKey: .receiptInfo)
+        let enablePinForCashDrawer = try values.decodeIfPresent(Bool.self, forKey: .enablePinForCashDrawer)
+        let checkoutType = try values.decodeIfPresent(String.self, forKey: .checkoutType)
+        let enableMetrc = try values.decodeIfPresent(Bool.self, forKey: .enableMetrc)
+        let enableDeliveryMessaging = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryMessaging)
+        let exciseTaxInfo = try values.decodeIfPresent(ExciseTaxInfo.self, forKey: .exciseTaxInfo)
+        let timezoneOffsetInMinutes = try values.decodeIfPresent(Int.self, forKey: .timezoneOffsetInMinutes)
+        let defaultPinTimeoutDuration = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeoutDuration)
+        self.init(id: id, created: created, modified: modified, deleted: deleted!, updated: updated!, companyId: companyId, shortIdentifier: shortIdentifier, name: name, shopType: shopType, address: address, phoneNumber: phoneNumber, emailAdress: emailAdress, license: license, enableDeliveryFee: enableDeliveryFee!, deliveryFee: deliveryFee!, taxOrder: taxOrder, taxInfo: taxInfo, showWalkInQueue: showWalkInQueue, showDeliveryQueue: showDeliveryQueue!, showOnlineQueue: showOnlineQueue!, enableCashInOut: enableCashInOut!, timeZone: timeZone, active: active!, snapshopTime: snapshopTime!, defaultCountry: defaultCountry, onlineStoreInfo: onlineStoreInfo, deliveryFees: deliveryFee, enableSaleLogout: enableSaleLogout!, assets: <#T##[Assets]?#>, enableBCCReceipt: <#T##Bool#>, bccEmailAddress: <#T##String?#>, enableGPSTracking: <#T##Bool#>, receivingInventoryId: <#T##String?#>, defaultPinTimeout: <#T##Int#>, showSpecialQueue: <#T##Bool#>, emailList: <#T##[String]?#>, enableLowInventoryEmail: <#T##Bool#>, restrictedViews: <#T##Bool#>, emailMessage: <#T##String?#>, taxRoundOffType: <#T##String?#>, enforceCashDrawers: <#T##Bool#>, useAssignedEmployee: <#T##Bool#>, showProductByAvailableQuantity: <#T##Bool#>, autoCashDrawer: <#T##Bool#>, numAllowActiveTrans: <#T##Int#>, requireValidRecDate: <#T##Bool#>, enableDeliverySignature: <#T##Bool#>, restrictIncomingOrderNotifications: <#T##Bool#>, restrictedNotificationTerminals: <#T##[String]?#>, roundOffType: <#T##String?#>, roundUpMessage: <#T##String?#>, shopEntityType: <#T##String?#>, membersCountSyncDate: <#T##Int#>, enableCannabisLimit: <#T##Bool#>, useComplexTax: <#T##Bool#>, taxTables: <#T##[TaxTables]?#>, enableExciseTax: <#T##Bool#>, exciseTaxType: <#T##String?#>, marketingSources: <#T##[String]?#>, productsTag: <#T##[String]?#>, logo: <#T##Logo?#>, hubId: <#T##String?#>, hubName: <#T##String?#>, enableOnFleet: <#T##Bool#>, onFleetApiKey: <#T##String?#>, onFleetOrganizationId: <#T##String?#>, onFleetOrganizationName: <#T##String?#>, emailAttachment: <#T##EmailAttachment?#>, receiptInfo: <#T##[ReceiptInfo]?#>, enablePinForCashDrawer: <#T##Bool#>, checkoutType: <#T##String?#>, enableMetrc: <#T##Bool#>, enableDeliveryMessaging: <#T##Bool#>, exciseTaxInfo: <#T##ExciseTaxInfo?#>, timezoneOffsetInMinutes: <#T##Int#>, defaultPinTimeoutDuration: <#T##Int#>)
+    
     }
     
 }
 
-class TaxInfo : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var cityTax : Double?
-    var stateTax : Double?
-    var federalTax : Double?
+class TaxInfo : DBModel,Codable {
+   @objc dynamic var id : String? = ""
+   @objc dynamic var created : Int = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var cityTax : Double = 0.0
+   @objc dynamic var stateTax : Double = 0.0
+   @objc dynamic var federalTax : Double = 0.0
     
     enum CodingKeys: String, CodingKey {
         
@@ -727,36 +754,50 @@ class TaxInfo : Codable {
         case federalTax = "federalTax"
     }
     
-    required init(from decoder: Decoder) throws {
+    convenience init(id : String?, created : Int,modified : Int,deleted : Bool,updated : Bool,cityTax : Double,stateTax : Double,federalTax : Double){
+        self.init()
+        self.id         = id
+        self.created    = created
+        self.modified   = modified
+        self.deleted    = deleted
+        self.updated    = updated
+        self.cityTax    = cityTax
+        self.stateTax   = stateTax
+        self.federalTax = federalTax
+    }
+    
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        cityTax = try values.decodeIfPresent(Double.self, forKey: .cityTax)
-        stateTax = try values.decodeIfPresent(Double.self, forKey: .stateTax)
-        federalTax = try values.decodeIfPresent(Double.self, forKey: .federalTax)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let cityTax = try values.decodeIfPresent(Double.self, forKey: .cityTax)
+        let stateTax = try values.decodeIfPresent(Double.self, forKey: .stateTax)
+        let federalTax = try values.decodeIfPresent(Double.self, forKey: .federalTax)
+        
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, cityTax: cityTax!, stateTax: stateTax!, federalTax: federalTax!)
     }
     
 }
 
 
-class StateTax : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var shopId : String?
-    var dirty : Bool?
-    var taxRate : Double?
-    var compound : Bool?
-    var active : Bool?
-    var territory : String?
-    var activeExciseTax : Bool?
-    var taxOrder : String?
+class StateTax :DBModel,Codable {
+   @objc dynamic var id : String? = ""
+   @objc dynamic var created : Int = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var shopId : String? = ""
+   @objc dynamic var dirty : Bool = false
+   @objc dynamic var taxRate : Double = 0.0
+   @objc dynamic var compound : Bool = false
+   @objc dynamic var active : Bool = false
+   @objc dynamic var territory : String? = ""
+   @objc dynamic var activeExciseTax : Bool = false
+   @objc dynamic var taxOrder : String? = ""
     
     enum CodingKeys: String, CodingKey {
         
@@ -776,22 +817,40 @@ class StateTax : Codable {
         case taxOrder = "taxOrder"
     }
     
-    required init(from decoder: Decoder) throws {
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,taxRate : Double,compound : Bool,active : Bool,territory : String?,activeExciseTax : Bool,taxOrder : String?){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.shopId = shopId
+        self.dirty = dirty
+        self.taxRate = taxRate
+        self.compound = compound
+        self.active = active
+        self.territory = territory
+        self.activeExciseTax = activeExciseTax
+        self.taxOrder = taxOrder
+        
+    }
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
-        dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
-        taxRate = try values.decodeIfPresent(Double.self, forKey: .taxRate)
-        compound = try values.decodeIfPresent(Bool.self, forKey: .compound)
-        active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        territory = try values.decodeIfPresent(String.self, forKey: .territory)
-        activeExciseTax = try values.decodeIfPresent(Bool.self, forKey: .activeExciseTax)
-        taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
+        let dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
+        let taxRate = try values.decodeIfPresent(Double.self, forKey: .taxRate)
+        let compound = try values.decodeIfPresent(Bool.self, forKey: .compound)
+        let active = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let territory = try values.decodeIfPresent(String.self, forKey: .territory)
+        let activeExciseTax = try values.decodeIfPresent(Bool.self, forKey: .activeExciseTax)
+        let taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, taxRate: taxRate!, compound: compound!, active: active!, territory: territory, activeExciseTax: activeExciseTax!, taxOrder: taxOrder)
     }
     
 }
@@ -871,21 +930,21 @@ class AssignedTerminal : Codable {
     }
 }
 
-class CityTax : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var shopId : String?
-    var dirty : Bool?
-    var taxRate : Double?
-    var compound : Bool?
-    var active : Bool?
-    var territory : String?
-    var activeExciseTax : Bool?
-    var taxOrder : String?
+class CityTax :DBModel,Codable {
+   @objc dynamic var id : String?   = ""
+   @objc dynamic var created : Int  = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var shopId : String? = ""
+   @objc dynamic var dirty : Bool = false
+   @objc dynamic var taxRate : Double = 0.0
+   @objc dynamic var compound : Bool = false
+   @objc dynamic var active : Bool = false
+   @objc dynamic var territory : String? = ""
+   @objc dynamic var activeExciseTax : Bool = false
+   @objc dynamic var taxOrder : String? = ""
     
     enum CodingKeys: String, CodingKey {
         
@@ -905,22 +964,43 @@ class CityTax : Codable {
         case taxOrder = "taxOrder"
     }
     
-    required init(from decoder: Decoder) throws {
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,taxRate : Double,compound : Bool,active : Bool,territory : String?,activeExciseTax : Bool,taxOrder : String?){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.shopId = shopId
+        self.dirty = dirty
+        self.taxRate = taxRate
+        self.compound = compound
+        self.active = active
+        self.territory = territory
+        self.activeExciseTax = activeExciseTax
+        self.taxOrder = taxOrder
+        
+    }
+    
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
-        dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
-        taxRate = try values.decodeIfPresent(Double.self, forKey: .taxRate)
-        compound = try values.decodeIfPresent(Bool.self, forKey: .compound)
-        active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        territory = try values.decodeIfPresent(String.self, forKey: .territory)
-        activeExciseTax = try values.decodeIfPresent(Bool.self, forKey: .activeExciseTax)
-        taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
+        let dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
+        let taxRate = try values.decodeIfPresent(Double.self, forKey: .taxRate)
+        let compound = try values.decodeIfPresent(Bool.self, forKey: .compound)
+        let active = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let territory = try values.decodeIfPresent(String.self, forKey: .territory)
+        let activeExciseTax = try values.decodeIfPresent(Bool.self, forKey: .activeExciseTax)
+        let taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, taxRate: taxRate!, compound: compound!, active: active!, territory: territory, activeExciseTax: activeExciseTax!, taxOrder: taxOrder)
+    
     }
     
 }
@@ -1185,24 +1265,25 @@ class DeliveryFees : DBModel,Codable{
     
 }
 
-class EmailAttachment : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var name : String?
-    var key : String?
-    var type : String?
-    var publicURL : String?
-    var active : Bool?
-    var priority : Int?
-    var secured : Bool?
-    var thumbURL : String?
-    var mediumURL : String?
-    var largeURL : String?
-    var assetType : String?
+class EmailAttachment :DBModel,Codable {
+   
+   @objc dynamic var id : String?   = ""
+   @objc dynamic var created : Int  =  0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var name : String? = ""
+   @objc dynamic var key : String? = ""
+   @objc dynamic var type : String? = ""
+   @objc dynamic var publicURL : String? = ""
+   @objc dynamic var active : Bool = false
+   @objc dynamic var priority : Int = 0
+   @objc dynamic var secured : Bool = false
+   @objc dynamic var thumbURL : String? = ""
+   @objc dynamic var mediumURL : String? = ""
+   @objc dynamic var largeURL : String? = ""
+   @objc dynamic var assetType : String? = ""
     
     enum CodingKeys: String, CodingKey {
         
@@ -1224,26 +1305,47 @@ class EmailAttachment : Codable {
         case largeURL = "largeURL"
         case assetType = "assetType"
     }
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,name : String?,key : String?,type : String?,publicURL : String?,active : Bool,priority : Int,secured : Bool,thumbURL : String?,mediumURL : String?,largeURL : String?,assetType : String?){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.name = name
+        self.key = key
+        self.type = type
+        self.publicURL = publicURL
+        self.active = active
+        self.priority = priority
+        self.secured = secured
+        self.thumbURL = thumbURL
+        self.mediumURL = mediumURL
+        self.largeURL = largeURL
+        self.assetType = assetType
+    }
     
-    required init(from decoder: Decoder) throws {
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        key = try values.decodeIfPresent(String.self, forKey: .key)
-        type = try values.decodeIfPresent(String.self, forKey: .type)
-        publicURL = try values.decodeIfPresent(String.self, forKey: .publicURL)
-        active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        priority = try values.decodeIfPresent(Int.self, forKey: .priority)
-        secured = try values.decodeIfPresent(Bool.self, forKey: .secured)
-        thumbURL = try values.decodeIfPresent(String.self, forKey: .thumbURL)
-        mediumURL = try values.decodeIfPresent(String.self, forKey: .mediumURL)
-        largeURL = try values.decodeIfPresent(String.self, forKey: .largeURL)
-        assetType = try values.decodeIfPresent(String.self, forKey: .assetType)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let name = try values.decodeIfPresent(String.self, forKey: .name)
+        let key = try values.decodeIfPresent(String.self, forKey: .key)
+        let type = try values.decodeIfPresent(String.self, forKey: .type)
+        let publicURL = try values.decodeIfPresent(String.self, forKey: .publicURL)
+        let active = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let priority = try values.decodeIfPresent(Int.self, forKey: .priority)
+        let secured = try values.decodeIfPresent(Bool.self, forKey: .secured)
+        let thumbURL = try values.decodeIfPresent(String.self, forKey: .thumbURL)
+        let mediumURL = try values.decodeIfPresent(String.self, forKey: .mediumURL)
+        let largeURL = try values.decodeIfPresent(String.self, forKey: .largeURL)
+        let assetType = try values.decodeIfPresent(String.self, forKey: .assetType)
+        self.init(id: id, created: created!, modified: modified!, deleted:deleted!, updated: updated!, companyId: companyId, name: name, key: key, type: type, publicURL: publicURL, active: active!, priority: priority!, secured: secured!, thumbURL: thumbURL, mediumURL: mediumURL, largeURL: largeURL, assetType: assetType)
     }
     
 }
@@ -1383,60 +1485,73 @@ class EmployeeOnFleetInfoList : Codable {
     
 }
 
-class ExciseTaxInfo : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var state : String?
-    var country : String?
-    var stateMarkUp : Int?
-    var exciseTax : Int?
+class ExciseTaxInfo : DBModel,Codable {
+   @objc dynamic var id : String?      = ""
+   @objc dynamic var created : Int     = 0
+   @objc dynamic var modified : Int    = 0
+   @objc dynamic var deleted : Bool    = false
+   @objc dynamic var updated : Bool    = false
+   @objc dynamic var state : String?   = ""
+   @objc dynamic var country : String? = ""
+   @objc dynamic var stateMarkUp : Int = 0
+   @objc dynamic var exciseTax : Int   = 0
     
     enum CodingKeys: String, CodingKey {
         
-        case id = "id"
-        case created = "created"
-        case modified = "modified"
-        case deleted = "deleted"
-        case updated = "updated"
-        case state = "state"
-        case country = "country"
+        case id          = "id"
+        case created     = "created"
+        case modified    = "modified"
+        case deleted     = "deleted"
+        case updated     = "updated"
+        case state       = "state"
+        case country     = "country"
         case stateMarkUp = "stateMarkUp"
-        case exciseTax = "exciseTax"
+        case exciseTax   = "exciseTax"
     }
-    
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        state = try values.decodeIfPresent(String.self, forKey: .state)
-        country = try values.decodeIfPresent(String.self, forKey: .country)
-        stateMarkUp = try values.decodeIfPresent(Int.self, forKey: .stateMarkUp)
-        exciseTax = try values.decodeIfPresent(Int.self, forKey: .exciseTax)
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,state : String?,country : String?,stateMarkUp : Int,exciseTax : Int){
+        self.init()
+        
+        self.id          = id
+        self.created     = created
+        self.modified    = modified
+        self.deleted     = deleted
+        self.updated     = updated
+        self.state       = state
+        self.country     = country
+        self.stateMarkUp = stateMarkUp
+        self.exciseTax   = exciseTax
+    }
+   convenience required init(from decoder: Decoder) throws {
+        let values      = try decoder.container(keyedBy: CodingKeys.self)
+        let id          = try values.decodeIfPresent(String.self, forKey: .id)
+        let created     = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified    = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted     = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated     = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let state       = try values.decodeIfPresent(String.self, forKey: .state)
+        let country     = try values.decodeIfPresent(String.self, forKey: .country)
+        let stateMarkUp = try values.decodeIfPresent(Int.self, forKey: .stateMarkUp)
+        let exciseTax   = try values.decodeIfPresent(Int.self, forKey: .exciseTax)
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, state: state, country: country, stateMarkUp: stateMarkUp!, exciseTax: exciseTax!)
     }
     
 }
 
-class FederalTax : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var shopId : String?
-    var dirty : Bool?
-    var taxRate : Double?
-    var compound : Bool?
-    var active : Bool?
-    var territory : String?
-    var activeExciseTax : Bool?
-    var taxOrder : String?
+class FederalTax : DBModel,Codable {
+   @objc dynamic var id : String? = ""
+   @objc dynamic var created : Int = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var shopId : String? = ""
+   @objc dynamic var dirty : Bool = false
+   @objc dynamic var taxRate : Double = 0.0
+   @objc dynamic var compound : Bool = false
+   @objc dynamic var active : Bool = false
+   @objc dynamic var territory : String? = ""
+   @objc dynamic var activeExciseTax : Bool = false
+   @objc dynamic var taxOrder : String? = ""
     
     enum CodingKeys: String, CodingKey {
         
@@ -1455,45 +1570,64 @@ class FederalTax : Codable {
         case activeExciseTax = "activeExciseTax"
         case taxOrder = "taxOrder"
     }
-    
-    required init(from decoder: Decoder) throws {
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,taxRate : Double,compound : Bool,active : Bool,territory : String?,activeExciseTax : Bool,taxOrder : String?){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.shopId = shopId
+        self.dirty = dirty
+        self.taxRate = taxRate
+        self.compound = compound
+        self.active = active
+        self.territory = territory
+        self.activeExciseTax = activeExciseTax
+        self.taxOrder = taxOrder
+        
+    }
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
-        dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
-        taxRate = try values.decodeIfPresent(Double.self, forKey: .taxRate)
-        compound = try values.decodeIfPresent(Bool.self, forKey: .compound)
-        active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        territory = try values.decodeIfPresent(String.self, forKey: .territory)
-        activeExciseTax = try values.decodeIfPresent(Bool.self, forKey: .activeExciseTax)
-        taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
+        let dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
+        let taxRate = try values.decodeIfPresent(Double.self, forKey: .taxRate)
+        let compound = try values.decodeIfPresent(Bool.self, forKey: .compound)
+        let active = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let territory = try values.decodeIfPresent(String.self, forKey: .territory)
+        let activeExciseTax = try values.decodeIfPresent(Bool.self, forKey: .activeExciseTax)
+        let taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, taxRate: taxRate!, compound: compound!, active: active!, territory: territory, activeExciseTax: activeExciseTax!, taxOrder: taxOrder)
+    
     }
     
 }
 
-class Logo : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var name : String?
-    var key : String?
-    var type : String?
-    var publicURL : String?
-    var active : Bool?
-    var priority : Int?
-    var secured : Bool?
-    var thumbURL : String?
-    var mediumURL : String?
-    var largeURL : String?
-    var assetType : String?
+class Logo :DBModel,Codable {
+   @objc dynamic var id : String? = ""
+   @objc dynamic var created : Int = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var name : String? = ""
+   @objc dynamic var key : String? = ""
+   @objc dynamic var type : String? = ""
+   @objc dynamic var publicURL : String? = ""
+   @objc dynamic var active : Bool = false
+   @objc dynamic var priority : Int = 0
+   @objc dynamic var secured : Bool = false
+   @objc dynamic var thumbURL : String? = ""
+   @objc dynamic var mediumURL : String? = ""
+   @objc dynamic var largeURL : String? = ""
+   @objc dynamic var assetType : String? = ""
     
     enum CodingKeys: String, CodingKey {
         
@@ -1516,38 +1650,60 @@ class Logo : Codable {
         case assetType = "assetType"
     }
     
-    required init(from decoder: Decoder) throws {
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,name : String?,key : String?,type : String?,publicURL : String?,active : Bool,priority : Int,secured : Bool,thumbURL : String?,mediumURL : String?,largeURL : String?,assetType : String?){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.name = name
+        self.key = key
+        self.type = type
+        self.publicURL = publicURL
+        self.active = active
+        self.priority = priority
+        self.secured = secured
+        self.thumbURL = thumbURL
+        self.mediumURL = mediumURL
+        self.largeURL = largeURL
+        self.assetType = assetType
+        
+    }
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        key = try values.decodeIfPresent(String.self, forKey: .key)
-        type = try values.decodeIfPresent(String.self, forKey: .type)
-        publicURL = try values.decodeIfPresent(String.self, forKey: .publicURL)
-        active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        priority = try values.decodeIfPresent(Int.self, forKey: .priority)
-        secured = try values.decodeIfPresent(Bool.self, forKey: .secured)
-        thumbURL = try values.decodeIfPresent(String.self, forKey: .thumbURL)
-        mediumURL = try values.decodeIfPresent(String.self, forKey: .mediumURL)
-        largeURL = try values.decodeIfPresent(String.self, forKey: .largeURL)
-        assetType = try values.decodeIfPresent(String.self, forKey: .assetType)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let name = try values.decodeIfPresent(String.self, forKey: .name)
+        let key = try values.decodeIfPresent(String.self, forKey: .key)
+        let type = try values.decodeIfPresent(String.self, forKey: .type)
+        let publicURL = try values.decodeIfPresent(String.self, forKey: .publicURL)
+        let active = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let priority = try values.decodeIfPresent(Int.self, forKey: .priority)
+        let secured = try values.decodeIfPresent(Bool.self, forKey: .secured)
+        let thumbURL = try values.decodeIfPresent(String.self, forKey: .thumbURL)
+        let mediumURL = try values.decodeIfPresent(String.self, forKey: .mediumURL)
+        let largeURL = try values.decodeIfPresent(String.self, forKey: .largeURL)
+        let assetType = try values.decodeIfPresent(String.self, forKey: .assetType)
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, name: name, key: key, type: type, publicURL: publicURL, active: active!, priority: priority!, secured: secured!, thumbURL: thumbURL, mediumURL: mediumURL, largeURL: largeURL, assetType: assetType)
     }
     
 }
 
-class Notes : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var writerId : String?
-    var writerName : String?
-    var message : String?
+class Notes :DBModel,Codable {
+   @objc dynamic var id : String? = ""
+   @objc dynamic var created : Int = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var writerId : String? = ""
+   @objc dynamic var writerName : String? = ""
+   @objc dynamic var message : String? = ""
     
     enum CodingKeys: String, CodingKey {
         
@@ -1560,57 +1716,70 @@ class Notes : Codable {
         case writerName = "writerName"
         case message = "message"
     }
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,writerId : String?,writerName : String?,message : String?){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.writerId = writerId
+        self.writerName = writerName
+        self.message = message
+        
+    }
     
-    required init(from decoder: Decoder) throws {
+    convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        writerId = try values.decodeIfPresent(String.self, forKey: .writerId)
-        writerName = try values.decodeIfPresent(String.self, forKey: .writerName)
-        message = try values.decodeIfPresent(String.self, forKey: .message)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let writerId = try values.decodeIfPresent(String.self, forKey: .writerId)
+        let writerName = try values.decodeIfPresent(String.self, forKey: .writerName)
+        let message = try values.decodeIfPresent(String.self, forKey: .message)
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, writerId: writerId, writerName: writerName, message: message)
     }
     
 }
 
-class OnlineStoreInfo : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var shopId : String?
-    var dirty : Bool?
-    var enableStorePickup : Bool?
-    var enableDelivery : Bool?
-    var enableOnlineShipment : Bool?
-    var enableProductReviews : Bool?
-    var colorTheme : String?
-    var defaultETA : Int?
-    var pageOneMessageTitle : String?
-    var pageOneMessageBody : String?
-    var submissionMessage : String?
-    var cartMinimum : Int?
-    var cartMinType : String?
-    var enabled : Bool?
-    var websiteOrigins : String?
-    var supportEmail : String?
-    var enableOnlinePOS : Bool?
-    var enableDeliveryAreaRestrictions : Bool?
-    var restrictedZipCodes : [String]?
-    var useCustomETA : Bool?
-    var customMessageETA : String?
-    var storeHexColor : String?
-    var viewType : String?
-    var enableInventory : Bool?
-    var enableInventoryType : String?
-    var activeInventoryId : String?
-    var enableHtmlText : Bool?
-    var htmlText : String?
-    var websiteUrl : String?
+class OnlineStoreInfo : DBModel,Codable {
+   @objc dynamic var id : String? = ""
+   @objc dynamic var created : Int = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var shopId : String? = ""
+   @objc dynamic var dirty : Bool = false
+   @objc dynamic var enableStorePickup : Bool = false
+   @objc dynamic var enableDelivery : Bool = false
+   @objc dynamic var enableOnlineShipment : Bool = false
+   @objc dynamic var enableProductReviews : Bool = false
+   @objc dynamic var colorTheme : String = ""
+   @objc dynamic var defaultETA : Int = 0
+   @objc dynamic var pageOneMessageTitle : String = " "
+   @objc dynamic var pageOneMessageBody : String = " "
+   @objc dynamic var submissionMessage : String = ""
+   @objc dynamic var cartMinimum : Int = 0
+   @objc dynamic var cartMinType : String? = ""
+   @objc dynamic var enabled : Bool = false
+   @objc dynamic var websiteOrigins : String? = ""
+   @objc dynamic var supportEmail : String? = ""
+   @objc dynamic var enableOnlinePOS : Bool = false
+   @objc dynamic var enableDeliveryAreaRestrictions : Bool = false
+   @objc dynamic var restrictedZipCodes:[String]?
+   @objc dynamic var useCustomETA : Bool = false
+   @objc dynamic var customMessageETA : String? = ""
+   @objc dynamic var storeHexColor : String? = ""
+   @objc dynamic var viewType : String? = ""
+   @objc dynamic var enableInventory : Bool = false
+   @objc dynamic var enableInventoryType : String? = ""
+   @objc dynamic var activeInventoryId : String? = ""
+   @objc dynamic var enableHtmlText : Bool = false
+   @objc dynamic var htmlText : String? = ""
+   @objc dynamic var websiteUrl : String? = ""
     
     enum CodingKeys: String, CodingKey {
         
@@ -1651,43 +1820,49 @@ class OnlineStoreInfo : Codable {
         case websiteUrl = "websiteUrl"
     }
     
-    required init(from decoder: Decoder) throws {
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,enableStorePickup : Bool,enableDelivery : Bool,enableOnlineShipment : Bool,enableProductReviews : Bool,colorTheme : String,defaultETA : Int,pageOneMessageTitle : String,pageOneMessageBody : String,submissionMessage : String,cartMinimum : Int,cartMinType : String?,enabled : Bool,websiteOrigins : String?,supportEmail : String,enableOnlinePOS : Bool,enableDeliveryAreaRestrictions : Bool,restrictedZipCodes:[String],useCustomETA : Bool,customMessageETA : String?,storeHexColor : String?,viewType : String?,enableInventory : Bool,enableInventoryType : String?,activeInventoryId : String?,enableHtmlText : Bool,htmlText : String?,websiteUrl : String?){
+        self.init()
+    }
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
-        dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
-        enableStorePickup = try values.decodeIfPresent(Bool.self, forKey: .enableStorePickup)
-        enableDelivery = try values.decodeIfPresent(Bool.self, forKey: .enableDelivery)
-        enableOnlineShipment = try values.decodeIfPresent(Bool.self, forKey: .enableOnlineShipment)
-        enableProductReviews = try values.decodeIfPresent(Bool.self, forKey: .enableProductReviews)
-        colorTheme = try values.decodeIfPresent(String.self, forKey: .colorTheme)
-        defaultETA = try values.decodeIfPresent(Int.self, forKey: .defaultETA)
-        pageOneMessageTitle = try values.decodeIfPresent(String.self, forKey: .pageOneMessageTitle)
-        pageOneMessageBody = try values.decodeIfPresent(String.self, forKey: .pageOneMessageBody)
-        submissionMessage = try values.decodeIfPresent(String.self, forKey: .submissionMessage)
-        cartMinimum = try values.decodeIfPresent(Int.self, forKey: .cartMinimum)
-        cartMinType = try values.decodeIfPresent(String.self, forKey: .cartMinType)
-        enabled = try values.decodeIfPresent(Bool.self, forKey: .enabled)
-        websiteOrigins = try values.decodeIfPresent(String.self, forKey: .websiteOrigins)
-        supportEmail = try values.decodeIfPresent(String.self, forKey: .supportEmail)
-        enableOnlinePOS = try values.decodeIfPresent(Bool.self, forKey: .enableOnlinePOS)
-        enableDeliveryAreaRestrictions = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryAreaRestrictions)
-        restrictedZipCodes = try values.decodeIfPresent([String].self, forKey: .restrictedZipCodes)
-        useCustomETA = try values.decodeIfPresent(Bool.self, forKey: .useCustomETA)
-        customMessageETA = try values.decodeIfPresent(String.self, forKey: .customMessageETA)
-        storeHexColor = try values.decodeIfPresent(String.self, forKey: .storeHexColor)
-        viewType = try values.decodeIfPresent(String.self, forKey: .viewType)
-        enableInventory = try values.decodeIfPresent(Bool.self, forKey: .enableInventory)
-        enableInventoryType = try values.decodeIfPresent(String.self, forKey: .enableInventoryType)
-        activeInventoryId = try values.decodeIfPresent(String.self, forKey: .activeInventoryId)
-        enableHtmlText = try values.decodeIfPresent(Bool.self, forKey: .enableHtmlText)
-        htmlText = try values.decodeIfPresent(String.self, forKey: .htmlText)
-        websiteUrl = try values.decodeIfPresent(String.self, forKey: .websiteUrl)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
+        let dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
+        let enableStorePickup = try values.decodeIfPresent(Bool.self, forKey: .enableStorePickup)
+        let enableDelivery = try values.decodeIfPresent(Bool.self, forKey: .enableDelivery)
+        let enableOnlineShipment = try values.decodeIfPresent(Bool.self, forKey: .enableOnlineShipment)
+        let enableProductReviews = try values.decodeIfPresent(Bool.self, forKey: .enableProductReviews)
+        let colorTheme = try values.decodeIfPresent(String.self, forKey: .colorTheme)
+        let defaultETA = try values.decodeIfPresent(Int.self, forKey: .defaultETA)
+        let pageOneMessageTitle = try values.decodeIfPresent(String.self, forKey: .pageOneMessageTitle)
+        let pageOneMessageBody = try values.decodeIfPresent(String.self, forKey: .pageOneMessageBody)
+        let submissionMessage = try values.decodeIfPresent(String.self, forKey: .submissionMessage)
+        let cartMinimum = try values.decodeIfPresent(Int.self, forKey: .cartMinimum)
+        let cartMinType = try values.decodeIfPresent(String.self, forKey: .cartMinType)
+        let enabled = try values.decodeIfPresent(Bool.self, forKey: .enabled)
+        let websiteOrigins = try values.decodeIfPresent(String.self, forKey: .websiteOrigins)
+        let supportEmail = try values.decodeIfPresent(String.self, forKey: .supportEmail)
+        let enableOnlinePOS = try values.decodeIfPresent(Bool.self, forKey: .enableOnlinePOS)
+        let enableDeliveryAreaRestrictions = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryAreaRestrictions)
+        let restrictedZipCodes = try values.decodeIfPresent([String].self, forKey: .restrictedZipCodes)
+        let useCustomETA = try values.decodeIfPresent(Bool.self, forKey: .useCustomETA)
+        let customMessageETA = try values.decodeIfPresent(String.self, forKey: .customMessageETA)
+        let storeHexColor = try values.decodeIfPresent(String.self, forKey: .storeHexColor)
+        let viewType = try values.decodeIfPresent(String.self, forKey: .viewType)
+        let enableInventory = try values.decodeIfPresent(Bool.self, forKey: .enableInventory)
+        let enableInventoryType = try values.decodeIfPresent(String.self, forKey: .enableInventoryType)
+        let activeInventoryId = try values.decodeIfPresent(String.self, forKey: .activeInventoryId)
+        let enableHtmlText = try values.decodeIfPresent(Bool.self, forKey: .enableHtmlText)
+        let htmlText = try values.decodeIfPresent(String.self, forKey: .htmlText)
+        let websiteUrl = try values.decodeIfPresent(String.self, forKey: .websiteUrl)
+    
+    self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, enableStorePickup: enableStorePickup!, enableDelivery: enableDelivery!, enableOnlineShipment: enableOnlineShipment!, enableProductReviews: enableProductReviews!, colorTheme: colorTheme!, defaultETA: defaultETA!, pageOneMessageTitle: pageOneMessageTitle!, pageOneMessageBody: pageOneMessageBody!, submissionMessage: submissionMessage!, cartMinimum: cartMinimum!, cartMinType: cartMinType, enabled: enabled!, websiteOrigins: websiteOrigins, supportEmail: supportEmail!, enableOnlinePOS: enableOnlinePOS!, enableDeliveryAreaRestrictions: enableDeliveryAreaRestrictions!, restrictedZipCodes: restrictedZipCodes!, useCustomETA: useCustomETA!, customMessageETA: customMessageETA, storeHexColor: storeHexColor, viewType: viewType, enableInventory: enableInventory!, enableInventoryType: enableInventoryType, activeInventoryId: activeInventoryId, enableHtmlText: enableHtmlText!, htmlText: htmlText, websiteUrl: websiteUrl)
+    
     }
     
 }
@@ -1726,28 +1901,28 @@ class PrimaryContact : DBModel,Codable{
     
 }
 
-class ReceiptInfo : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var shopId : String?
-    var dirty : Bool?
-    var receiptType : String?
-    var enableMemberName : Bool?
-    var enableMemberId : Bool?
-    var enableMemberAddress : Bool?
-    var enableShopAddress : Bool?
-    var enableShopPhoneNo : Bool?
-    var enableIncludeItemInSKU : Bool?
-    var enableExciseTaxAsItem : Bool?
-    var enableMemberLoyaltyPoints : Bool?
-    var enableNotes : Bool?
-    var freeText : String?
-    var enabledFreeText : Bool?
-    var enabledBottomFreeText : Bool?
+class ReceiptInfo : DBModel,Codable {
+    @objc dynamic var id : String?                     = ""
+    @objc dynamic var created : Int                    = 0
+    @objc dynamic var modified : Int                   = 0
+    @objc dynamic var deleted : Bool                   = false
+    @objc dynamic var updated : Bool                   = false
+    @objc dynamic var companyId : String?              = ""
+    @objc dynamic var shopId : String?                 = ""
+    @objc dynamic var dirty : Bool                     = false
+    @objc dynamic var receiptType : String?            = ""
+    @objc dynamic var enableMemberName : Bool          = false
+    @objc dynamic var enableMemberId : Bool            = false
+    @objc dynamic var enableMemberAddress : Bool       = false
+    @objc dynamic var enableShopAddress : Bool         = false
+    @objc dynamic var enableShopPhoneNo : Bool         = false
+    @objc dynamic var enableIncludeItemInSKU : Bool    = false
+    @objc dynamic var enableExciseTaxAsItem : Bool     = false
+    @objc dynamic var enableMemberLoyaltyPoints : Bool = false
+    @objc dynamic var enableNotes : Bool               = false
+    @objc dynamic var freeText : String?               = ""
+    @objc dynamic var enabledFreeText : Bool           = false
+    @objc dynamic var enabledBottomFreeText : Bool     = false
     
     enum CodingKeys: String, CodingKey {
         
@@ -1774,29 +1949,57 @@ class ReceiptInfo : Codable {
         case enabledBottomFreeText = "enabledBottomFreeText"
     }
     
-    required init(from decoder: Decoder) throws {
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,receiptType : String?,enableMemberName : Bool,enableMemberId : Bool,enableMemberAddress : Bool,enableShopAddress : Bool,enableShopPhoneNo : Bool,enableIncludeItemInSKU : Bool,enableExciseTaxAsItem : Bool,enableMemberLoyaltyPoints : Bool,enableNotes : Bool ,freeText : String?,enabledFreeText : Bool,enabledBottomFreeText : Bool){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.shopId = shopId
+        self.dirty = dirty
+        self.receiptType = receiptType
+        self.enableMemberName = enableMemberName
+        self.enableMemberId = enableMemberId
+        self.enableMemberAddress = enableMemberAddress
+        self.enableShopAddress = enableShopAddress
+        self.enableShopPhoneNo = enableShopPhoneNo
+        self.enableIncludeItemInSKU = enableIncludeItemInSKU
+        self.enableExciseTaxAsItem = enableExciseTaxAsItem
+        self.enableMemberLoyaltyPoints = enableMemberLoyaltyPoints
+        self.enableNotes = enableNotes
+        self.freeText = freeText
+        self.enabledFreeText = enabledFreeText
+        self.enabledBottomFreeText = enabledBottomFreeText
+        
+    }
+    
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
-        dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
-        receiptType = try values.decodeIfPresent(String.self, forKey: .receiptType)
-        enableMemberName = try values.decodeIfPresent(Bool.self, forKey: .enableMemberName)
-        enableMemberId = try values.decodeIfPresent(Bool.self, forKey: .enableMemberId)
-        enableMemberAddress = try values.decodeIfPresent(Bool.self, forKey: .enableMemberAddress)
-        enableShopAddress = try values.decodeIfPresent(Bool.self, forKey: .enableShopAddress)
-        enableShopPhoneNo = try values.decodeIfPresent(Bool.self, forKey: .enableShopPhoneNo)
-        enableIncludeItemInSKU = try values.decodeIfPresent(Bool.self, forKey: .enableIncludeItemInSKU)
-        enableExciseTaxAsItem = try values.decodeIfPresent(Bool.self, forKey: .enableExciseTaxAsItem)
-        enableMemberLoyaltyPoints = try values.decodeIfPresent(Bool.self, forKey: .enableMemberLoyaltyPoints)
-        enableNotes = try values.decodeIfPresent(Bool.self, forKey: .enableNotes)
-        freeText = try values.decodeIfPresent(String.self, forKey: .freeText)
-        enabledFreeText = try values.decodeIfPresent(Bool.self, forKey: .enabledFreeText)
-        enabledBottomFreeText = try values.decodeIfPresent(Bool.self, forKey: .enabledBottomFreeText)
+       let id = try values.decodeIfPresent(String.self, forKey: .id)
+       let created = try values.decodeIfPresent(Int.self, forKey: .created)
+       let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+       let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+       let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+       let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+       let shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
+       let dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
+       let receiptType = try values.decodeIfPresent(String.self, forKey: .receiptType)
+       let enableMemberName = try values.decodeIfPresent(Bool.self, forKey: .enableMemberName)
+       let enableMemberId = try values.decodeIfPresent(Bool.self, forKey: .enableMemberId)
+       let enableMemberAddress = try values.decodeIfPresent(Bool.self, forKey: .enableMemberAddress)
+       let enableShopAddress = try values.decodeIfPresent(Bool.self, forKey: .enableShopAddress)
+       let enableShopPhoneNo = try values.decodeIfPresent(Bool.self, forKey: .enableShopPhoneNo)
+       let enableIncludeItemInSKU = try values.decodeIfPresent(Bool.self, forKey: .enableIncludeItemInSKU)
+       let enableExciseTaxAsItem = try values.decodeIfPresent(Bool.self, forKey: .enableExciseTaxAsItem)
+       let enableMemberLoyaltyPoints = try values.decodeIfPresent(Bool.self, forKey: .enableMemberLoyaltyPoints)
+       let enableNotes = try values.decodeIfPresent(Bool.self, forKey: .enableNotes)
+       let freeText = try values.decodeIfPresent(String.self, forKey: .freeText)
+       let enabledFreeText = try values.decodeIfPresent(Bool.self, forKey: .enabledFreeText)
+       let enabledBottomFreeText = try values.decodeIfPresent(Bool.self, forKey: .enabledBottomFreeText)
+    
+    self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId!, shopId: shopId!, dirty: dirty!, receiptType: receiptType!, enableMemberName: enableMemberName!, enableMemberId: enableMemberId!, enableMemberAddress: enableMemberAddress!, enableShopAddress: enableShopAddress!, enableShopPhoneNo: enableShopPhoneNo!, enableIncludeItemInSKU: enableIncludeItemInSKU!, enableExciseTaxAsItem: enableExciseTaxAsItem!, enableMemberLoyaltyPoints: enableMemberLoyaltyPoints!, enableNotes: enableNotes!, freeText: freeText, enabledFreeText: enabledFreeText!, enabledBottomFreeText: enabledBottomFreeText!)
     }
     
 }
@@ -1837,20 +2040,20 @@ class Role : Codable {
     
 }
 
-class Sessions :DBModel,Codable {
+class Sessions :DBModel,Codable{
    @objc dynamic var id : String? = ""
-                 var created : Int? = 0
-                 var modified : Int? = 0
-                 var deleted : Bool? = false
-                 var updated : Bool? = false
+   @objc dynamic var created : Int = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
    @objc dynamic var companyId : String? = ""
    @objc dynamic var shopId : String? = ""
-                 var dirty : Bool? = false
+   @objc dynamic var dirty : Bool = false
    @objc dynamic var terminalId : String? = ""
    @objc dynamic var employeeId : String? = ""
    @objc dynamic var timeCardId : String? = ""
-                 var startTime : Int? = 0
-                 var endTime : Int? = 0
+   @objc dynamic var startTime : Int = 0
+   @objc dynamic var endTime : Int = 0
     
     enum CodingKeys: String, CodingKey {
         
@@ -1871,18 +2074,18 @@ class Sessions :DBModel,Codable {
     convenience init(id : String?,created : Int?,modified : Int?,deleted : Bool?,updated : Bool?,companyId : String?,shopId : String?,dirty : Bool?,terminalId : String?,employeeId : String?,timeCardId : String?,startTime : Int?,endTime : Int?){
         self.init()
         self.id = id
-        self.created = created  
-        self.modified = modified
-        self.deleted = deleted
-        self.updated = updated
+        self.created = created!
+        self.modified = modified!
+        self.deleted = deleted!
+        self.updated = updated!
         self.companyId = companyId
         self.shopId = shopId
-        self.dirty = dirty
+        self.dirty = dirty!
         self.terminalId = terminalId
         self.employeeId = employeeId
         self.timeCardId = timeCardId
-        self.startTime = startTime
-        self.endTime = endTime
+        self.startTime = startTime!
+        self.endTime = endTime!
     }
     
    convenience required init(from decoder: Decoder) throws {
@@ -1905,24 +2108,24 @@ class Sessions :DBModel,Codable {
     
 }
 
-class TaxTables : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var shopId : String?
-    var dirty : Bool?
-    var name : String?
-    var active : Bool?
-    var taxType : String?
-    var taxOrder : String?
-    var consumerType : String?
-    var cityTax : CityTax?
-    var countyTax : CountyTax?
-    var stateTax : StateTax?
-    var federalTax : FederalTax?
+class TaxTables : DBModel,Codable {
+   @objc dynamic var id : String?   = ""
+   @objc dynamic var created : Int  = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var shopId : String? = ""
+   @objc dynamic var dirty : Bool = false
+   @objc dynamic var name : String? = ""
+   @objc dynamic var active : Bool = false
+   @objc dynamic var taxType : String? = ""
+   @objc dynamic var taxOrder : String? = ""
+   @objc dynamic var consumerType : String? = ""
+   @objc dynamic var cityTax : CityTax?
+   @objc dynamic var countyTax : CountyTax?
+   @objc dynamic var stateTax : StateTax?
+   @objc dynamic var federalTax : FederalTax?
     
     enum CodingKeys: String, CodingKey {
         
@@ -1945,25 +2148,40 @@ class TaxTables : Codable {
         case federalTax = "federalTax"
     }
     
-    required init(from decoder: Decoder) throws {
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,name : String?,active : Bool,taxType : String?,taxOrder : String?,consumerType : String?,cityTax : CityTax?,countyTax : CountyTax?,stateTax : StateTax?,federalTax : FederalTax?){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.shopId = shopId
+        self.dirty = dirty
+        self.name = name
+        self.federalTax = federalTax
+    }
+    
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
-        dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        taxType = try values.decodeIfPresent(String.self, forKey: .taxType)
-        taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
-        consumerType = try values.decodeIfPresent(String.self, forKey: .consumerType)
-        cityTax = try values.decodeIfPresent(CityTax.self, forKey: .cityTax)
-        countyTax = try values.decodeIfPresent(CountyTax.self, forKey: .countyTax)
-        stateTax = try values.decodeIfPresent(StateTax.self, forKey: .stateTax) 
-        federalTax = try values.decodeIfPresent(FederalTax.self, forKey: .federalTax)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
+        let dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
+        let name = try values.decodeIfPresent(String.self, forKey: .name)
+        let active = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let taxType = try values.decodeIfPresent(String.self, forKey: .taxType)
+        let taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
+        let consumerType = try values.decodeIfPresent(String.self, forKey: .consumerType)
+        let cityTax = try values.decodeIfPresent(CityTax.self, forKey: .cityTax)
+        let countyTax = try values.decodeIfPresent(CountyTax.self, forKey: .countyTax)
+        let stateTax = try values.decodeIfPresent(StateTax.self, forKey: .stateTax)
+        let federalTax = try values.decodeIfPresent(FederalTax.self, forKey: .federalTax)
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, name: name, active: active!, taxType: taxType, taxOrder: taxOrder, consumerType: consumerType, cityTax: cityTax, countyTax: countyTax, stateTax: stateTax, federalTax: federalTax)
     }
     
 }
@@ -2022,20 +2240,20 @@ class TerminalLocations : Codable {
     
 }
 
-class TimeCard : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var shopId : String?
-    var dirty : Bool?
-    var employeeId : String?
-    var clockInTime : Int?
-    var clockOutTime : Int?
-    var clockin : Bool?
-    var sessions : [Sessions]?
+class TimeCard :DBModel,Codable {
+   @objc dynamic var id : String? = ""
+   @objc dynamic var created : Int = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var shopId : String? = ""
+   @objc dynamic var dirty : Bool = false
+   @objc dynamic var employeeId : String? = ""
+   @objc dynamic var clockInTime : Int = 0
+   @objc dynamic var clockOutTime : Int = 0
+   @objc dynamic var clockin : Bool = false
+                 var sessions = List<Sessions>()
     
     enum CodingKeys: String, CodingKey {
         
@@ -2054,21 +2272,47 @@ class TimeCard : Codable {
         case sessions = "sessions"
     }
     
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
-        dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
-        employeeId = try values.decodeIfPresent(String.self, forKey: .employeeId)
-        clockInTime = try values.decodeIfPresent(Int.self, forKey: .clockInTime)
-        clockOutTime = try values.decodeIfPresent(Int.self, forKey: .clockOutTime)
-        clockin = try values.decodeIfPresent(Bool.self, forKey: .clockin)
-        sessions = try values.decodeIfPresent([Sessions].self, forKey: .sessions)
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,employeeId : String?,clockInTime : Int,clockOutTime : Int,clockin : Bool,sessions:List<Sessions>){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated   = updated
+        self.companyId = companyId
+        self.shopId = shopId
+        self.dirty = dirty
+        self.employeeId = employeeId
+        self.clockInTime = clockInTime
+        self.clockOutTime = clockOutTime
+        self.clockin = clockin
+        
     }
+    
+  convenience required init(from decoder: Decoder) throws {
+        let values       = try decoder.container(keyedBy: CodingKeys.self)
+        let id           = try values.decodeIfPresent(String.self, forKey: .id)
+        let created      = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified     = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted      = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated      = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId    = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let shopId       = try values.decodeIfPresent(String.self, forKey: .shopId)
+        let dirty        = try values.decodeIfPresent(Bool.self, forKey: .dirty)
+        let employeeId   = try values.decodeIfPresent(String.self, forKey: .employeeId)
+        let clockInTime  = try values.decodeIfPresent(Int.self, forKey: .clockInTime)
+        let clockOutTime = try values.decodeIfPresent(Int.self, forKey: .clockOutTime)
+        let clockin      = try values.decodeIfPresent(Bool.self, forKey: .clockin)
+    let  sessions    = try values.decodeIfPresent([Sessions].self, forKey: .sessions)
+
+        let sessionsList = List<Sessions>()
+        for item in sessions!{
+            sessionsList.append(item)
+        }
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, employeeId: employeeId, clockInTime: clockInTime!, clockOutTime: clockOutTime!, clockin: clockin!, sessions: sessionsList)
+    
+    }
+    
+
     
 }
