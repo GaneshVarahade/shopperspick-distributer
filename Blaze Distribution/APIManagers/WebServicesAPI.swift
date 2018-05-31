@@ -40,9 +40,8 @@ class WebServicesAPI: NSObject {
                     try! realm.write {
                         
                         realm.add((data)!)
-                        //realm.add((data.company)!)
-                        //realm.add((data.company?.address)!)
-                        //realm.add((data.company?.primaryContact))
+                        
+                        onComplition("true")
                         
                     }
                     
@@ -50,19 +49,7 @@ class WebServicesAPI: NSObject {
                 }catch{
                     print(error)
                 }
-               //   print(data.accessToken ?? " ")
-                    print(data.company?.address?.zipCode ?? " ")
-//                  print(data.appType ?? " ")
-//                  print(data.assetAccessToken ?? " ")
-//                  print(data.expirationTime ?? " ")
-//                  print(data.loginTime ?? " ")
-//                  print(data.newDevice ?? " ")
-//                  print(data.sessionId ?? " ")
-//                  print(data.employee?.address?.zipCode ?? "" )
-//                  print(data.company?.address?.companyId ?? "XX ")
-//                  print(data.company?.created ?? "")
-//                  print(data.assignedTerminal?.deviceModel ?? " ")
-//                  print(data.assignedShop?.assets?.count ?? " ")
+    
                    
                 }else if response.response?.statusCode == 400{
                     

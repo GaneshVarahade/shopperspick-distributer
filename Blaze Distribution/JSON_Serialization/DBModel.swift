@@ -10,7 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class DBModel: Object{
+class DBModel: Object, Codable{
     
     required init() {
         super.init()

@@ -9,31 +9,30 @@
 import Foundation
 import Realm
 import RealmSwift
-class Login : DBModel,Codable {
+class Login : DBModel{
    @objc dynamic var accessToken : String?      = ""
    @objc dynamic var assetAccessToken : String? = ""
-   var employee : Employee?       = nil
+   @objc dynamic var employee : Employee?
    @objc dynamic var loginTime : Int            = 0
    @objc dynamic var expirationTime : Int       = 0
    @objc dynamic var sessionId : String         = ""
    @objc dynamic var company : Company?         = Company()
-    var shops : [Shops]                         = []
-    var assignedShop : AssignedShop?
-   @objc dynamic var newDevice : Bool           = false
-    var assignedTerminal : AssignedTerminal?
+   @objc dynamic var assignedShop : AssignedShop?
+   //@objc dynamic var newDevice : Bool           = false
+   @objc dynamic var assignedTerminal : AssignedTerminal?
    @objc dynamic var appType : String?          = ""
-   @objc dynamic var appTarget : String? = ""
-    
+   @objc dynamic var appTarget : String?        = ""
+                 //var shops                      = List<Shops>()
     enum CodingKeys: String, CodingKey {
         
         case accessToken = "accessToken"
         case assetAccessToken = "assetAccessToken"
-        case employee = "employee"
+        //case employee = "employee"
         case loginTime = "loginTime"
         case expirationTime = "expirationTime"
         case sessionId = "sessionId"
         case company = "company"
-        case shops = "shops"
+       // case shops = "shops"
         case assignedShop = "assignedShop"
        // case newDevice = "newDevice"
         case assignedTerminal = "assignedTerminal"
@@ -41,16 +40,16 @@ class Login : DBModel,Codable {
         case appTarget = "appTarget"
     }
     
-    convenience init(accessToken : String?,assetAccessToken : String?,employee : Employee?,loginTime : Int?,expirationTime : Int?,sessionId : String?,company : Company?,shops : [Shops]?,assignedShop : AssignedShop?,assignedTerminal : AssignedTerminal?,appType : String?,appTarget : String?){
+    convenience init(accessToken : String?,assetAccessToken : String?,employee : Employee?,loginTime : Int?,expirationTime : Int?,sessionId : String?,company : Company?,shops : List<Shops>,assignedShop : AssignedShop?,assignedTerminal : AssignedTerminal?,appType : String?,appTarget : String?){
         self.init()
         self.accessToken = accessToken
         self.assetAccessToken = assetAccessToken
-        self.employee = employee
+       // self.employee = employee ?? Employee()
         self.loginTime = loginTime!
         self.expirationTime = expirationTime!
         self.sessionId = sessionId!
         self.company = company
-        self.shops = shops!
+       // self.shops = shops
         self.assignedShop = assignedShop
         //self.newDevice = newDevice!
         self.assignedTerminal = assignedTerminal
@@ -62,22 +61,25 @@ class Login : DBModel,Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let accessToken = try values.decodeIfPresent(String.self, forKey: .accessToken)
         let assetAccessToken = try values.decodeIfPresent(String.self, forKey: .assetAccessToken)
-        let employee = try values.decodeIfPresent(Employee.self, forKey: .employee)
+       // let employee = try values.decodeIfPresent(Employee.self, forKey: .employee)
         let loginTime = try values.decodeIfPresent(Int.self, forKey: .loginTime)
         let expirationTime = try values.decodeIfPresent(Int.self, forKey: .expirationTime)
         let sessionId = try values.decodeIfPresent(String.self, forKey: .sessionId)
         let company = try values.decodeIfPresent(Company.self, forKey: .company)
-        let shops = try values.decodeIfPresent([Shops].self, forKey: .shops)
+        //let shops = try values.decode([Shops].self, forKey: .shops)
         let assignedShop = try values.decodeIfPresent(AssignedShop.self, forKey: .assignedShop)
-      //  let newDevice = try values.decodeIfPresent(Bool.self, forKey: .newDevice)
+        //  let newDevice = try values.decodeIfPresent(Bool.self, forKey: .newDevice)
         let assignedTerminal = try values.decodeIfPresent(AssignedTerminal.self, forKey: .assignedTerminal)
             
         let appType = try values.decodeIfPresent(String.self, forKey: .appType)
         let appTarget = try values.decodeIfPresent(String.self, forKey: .appTarget)
+        let shopsList = List<Shops>()
+           // shopsList.append(objectsIn: shops)
     
     
     
-        self.init(accessToken: accessToken, assetAccessToken: assetAccessToken, employee: employee, loginTime: loginTime, expirationTime: expirationTime, sessionId: sessionId, company: company, shops: shops, assignedShop: assignedShop, assignedTerminal: assignedTerminal, appType: appType, appTarget: appTarget)
+    
+        self.init(accessToken: accessToken, assetAccessToken: assetAccessToken, employee: nil, loginTime: loginTime, expirationTime: expirationTime, sessionId: sessionId, company: company, shops: shopsList, assignedShop: assignedShop, assignedTerminal: assignedTerminal, appType: appType, appTarget: appTarget)
     
     }
     
@@ -85,481 +87,85 @@ class Login : DBModel,Codable {
     
 }
 
-class Shops : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var shortIdentifier : String?
-    var name : String?
-    var shopType : String?
-    var address : Address?
-    var phoneNumber : String?
-    var emailAdress : String?
-    var license : String?
-    var enableDeliveryFee : Bool?
-    var deliveryFee : Int?
-    var taxOrder : String?
-    var taxInfo : TaxInfo?
-    var showWalkInQueue : Bool?
-    var showDeliveryQueue : Bool?
-    var showOnlineQueue : Bool?
-    var enableCashInOut : Bool?
-    var timeZone : String?
-    var latitude : Int?
-    var longitude : Int?
-    var active : Bool?
-    var snapshopTime : Int?
-    var defaultCountry : String?
-    var onlineStoreInfo : OnlineStoreInfo?
-    var deliveryFees : [DeliveryFees]?
-    var enableSaleLogout : Bool?
-    var assets : [Assets]?
-    var enableBCCReceipt : Bool?
-    var bccEmailAddress : String?
-    var enableGPSTracking : Bool?
-    var receivingInventoryId : String?
-    var defaultPinTimeout : Int?
-    var showSpecialQueue : Bool?
-    var emailList : [String]?
-    var enableLowInventoryEmail : Bool?
-    var restrictedViews : Bool?
-    var emailMessage : String?
-    var taxRoundOffType : String?
-    var enforceCashDrawers : Bool?
-    var useAssignedEmployee : Bool?
-    var showProductByAvailableQuantity : Bool?
-    var autoCashDrawer : Bool?
-    var numAllowActiveTrans : Int?
-    var requireValidRecDate : Bool?
-    var enableDeliverySignature : Bool?
-    var restrictIncomingOrderNotifications : Bool?
-    var restrictedNotificationTerminals : [String]?
-    var roundOffType : String?
-    var roundUpMessage : String?
-    var shopEntityType : String?
-    var membersCountSyncDate : Int?
-    var enableCannabisLimit : Bool?
-    var useComplexTax : Bool?
-    var taxTables : [TaxTables]?
-    var enableExciseTax : Bool?
-    var exciseTaxType : String?
-    var marketingSources : [String]?
-    var productsTag : [String]?
-    var logo : Logo?
-    var hubId : String?
-    var hubName : String?
-    var enableOnFleet : Bool?
-    var onFleetApiKey : String?
-    var onFleetOrganizationId : String?
-    var onFleetOrganizationName : String?
-    var emailAttachment : EmailAttachment?
-    var receiptInfo : [ReceiptInfo]?
-    var enablePinForCashDrawer : Bool?
-    var checkoutType : String?
-    var enableMetrc : Bool?
-    var enableDeliveryMessaging : Bool?
-    var exciseTaxInfo : ExciseTaxInfo?
-    var timezoneOffsetInMinutes : Int?
-    var defaultPinTimeoutDuration : Int?
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case id = "id"
-        case created = "created"
-        case modified = "modified"
-        case deleted = "deleted"
-        case updated = "updated"
-        case companyId = "companyId"
-        case shortIdentifier = "shortIdentifier"
-        case name = "name"
-        case shopType = "shopType"
-        case address = "address"
-        case phoneNumber = "phoneNumber"
-        case emailAdress = "emailAdress"
-        case license = "license"
-        case enableDeliveryFee = "enableDeliveryFee"
-        case deliveryFee = "deliveryFee"
-        case taxOrder = "taxOrder"
-        case taxInfo = "taxInfo"
-        case showWalkInQueue = "showWalkInQueue"
-        case showDeliveryQueue = "showDeliveryQueue"
-        case showOnlineQueue = "showOnlineQueue"
-        case enableCashInOut = "enableCashInOut"
-        case timeZone = "timeZone"
-        case latitude = "latitude"
-        case longitude = "longitude"
-        case active = "active"
-        case snapshopTime = "snapshopTime"
-        case defaultCountry = "defaultCountry"
-        case onlineStoreInfo = "onlineStoreInfo"
-        case deliveryFees = "deliveryFees"
-        case enableSaleLogout = "enableSaleLogout"
-        case assets = "assets"
-        case enableBCCReceipt = "enableBCCReceipt"
-        case bccEmailAddress = "bccEmailAddress"
-        case enableGPSTracking = "enableGPSTracking"
-        case receivingInventoryId = "receivingInventoryId"
-        case defaultPinTimeout = "defaultPinTimeout"
-        case showSpecialQueue = "showSpecialQueue"
-        case emailList = "emailList"
-        case enableLowInventoryEmail = "enableLowInventoryEmail"
-        case restrictedViews = "restrictedViews"
-        case emailMessage = "emailMessage"
-        case taxRoundOffType = "taxRoundOffType"
-        case enforceCashDrawers = "enforceCashDrawers"
-        case useAssignedEmployee = "useAssignedEmployee"
-        case showProductByAvailableQuantity = "showProductByAvailableQuantity"
-        case autoCashDrawer = "autoCashDrawer"
-        case numAllowActiveTrans = "numAllowActiveTrans"
-        case requireValidRecDate = "requireValidRecDate"
-        case enableDeliverySignature = "enableDeliverySignature"
-        case restrictIncomingOrderNotifications = "restrictIncomingOrderNotifications"
-        case restrictedNotificationTerminals = "restrictedNotificationTerminals"
-        case roundOffType = "roundOffType"
-        case roundUpMessage = "roundUpMessage"
-        case shopEntityType = "shopEntityType"
-        case membersCountSyncDate = "membersCountSyncDate"
-        case enableCannabisLimit = "enableCannabisLimit"
-        case useComplexTax = "useComplexTax"
-        case taxTables = "taxTables"
-        case enableExciseTax = "enableExciseTax"
-        case exciseTaxType = "exciseTaxType"
-        case marketingSources = "marketingSources"
-        case productsTag = "productsTag"
-        case logo = "logo"
-        case hubId = "hubId"
-        case hubName = "hubName"
-        case enableOnFleet = "enableOnFleet"
-        case onFleetApiKey = "onFleetApiKey"
-        case onFleetOrganizationId = "onFleetOrganizationId"
-        case onFleetOrganizationName = "onFleetOrganizationName"
-        case emailAttachment = "emailAttachment"
-        case receiptInfo = "receiptInfo"
-        case enablePinForCashDrawer = "enablePinForCashDrawer"
-        case checkoutType = "checkoutType"
-        case enableMetrc = "enableMetrc"
-        case enableDeliveryMessaging = "enableDeliveryMessaging"
-        case exciseTaxInfo = "exciseTaxInfo"
-        case timezoneOffsetInMinutes = "timezoneOffsetInMinutes"
-        case defaultPinTimeoutDuration = "defaultPinTimeoutDuration"
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        shortIdentifier = try values.decodeIfPresent(String.self, forKey: .shortIdentifier)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        shopType = try values.decodeIfPresent(String.self, forKey: .shopType)
-        address = try values.decodeIfPresent(Address.self, forKey: .address)
-        phoneNumber = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
-        emailAdress = try values.decodeIfPresent(String.self, forKey: .emailAdress)
-        license = try values.decodeIfPresent(String.self, forKey: .license)
-        enableDeliveryFee = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryFee)
-        deliveryFee = try values.decodeIfPresent(Int.self, forKey: .deliveryFee)
-        taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
-        taxInfo = try values.decodeIfPresent(TaxInfo.self, forKey: .taxInfo)
-        showWalkInQueue = try values.decodeIfPresent(Bool.self, forKey: .showWalkInQueue)
-        showDeliveryQueue = try values.decodeIfPresent(Bool.self, forKey: .showDeliveryQueue)
-        showOnlineQueue = try values.decodeIfPresent(Bool.self, forKey: .showOnlineQueue)
-        enableCashInOut = try values.decodeIfPresent(Bool.self, forKey: .enableCashInOut)
-        timeZone = try values.decodeIfPresent(String.self, forKey: .timeZone)
-        latitude = try values.decodeIfPresent(Int.self, forKey: .latitude)
-        longitude = try values.decodeIfPresent(Int.self, forKey: .longitude)
-        active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        snapshopTime = try values.decodeIfPresent(Int.self, forKey: .snapshopTime)
-        defaultCountry = try values.decodeIfPresent(String.self, forKey: .defaultCountry)
-        onlineStoreInfo = try values.decodeIfPresent(OnlineStoreInfo.self, forKey: .onlineStoreInfo)
-        deliveryFees = try values.decodeIfPresent([DeliveryFees].self, forKey: .deliveryFees)
-        enableSaleLogout = try values.decodeIfPresent(Bool.self, forKey: .enableSaleLogout)
-        assets = try values.decodeIfPresent([Assets].self, forKey: .assets)
-        enableBCCReceipt = try values.decodeIfPresent(Bool.self, forKey: .enableBCCReceipt)
-        bccEmailAddress = try values.decodeIfPresent(String.self, forKey: .bccEmailAddress)
-        enableGPSTracking = try values.decodeIfPresent(Bool.self, forKey: .enableGPSTracking)
-        receivingInventoryId = try values.decodeIfPresent(String.self, forKey: .receivingInventoryId)
-        defaultPinTimeout = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeout)
-        showSpecialQueue = try values.decodeIfPresent(Bool.self, forKey: .showSpecialQueue)
-        emailList = try values.decodeIfPresent([String].self, forKey: .emailList)
-        enableLowInventoryEmail = try values.decodeIfPresent(Bool.self, forKey: .enableLowInventoryEmail)
-        restrictedViews = try values.decodeIfPresent(Bool.self, forKey: .restrictedViews)
-        emailMessage = try values.decodeIfPresent(String.self, forKey: .emailMessage)
-        taxRoundOffType = try values.decodeIfPresent(String.self, forKey: .taxRoundOffType)
-        enforceCashDrawers = try values.decodeIfPresent(Bool.self, forKey: .enforceCashDrawers)
-        useAssignedEmployee = try values.decodeIfPresent(Bool.self, forKey: .useAssignedEmployee)
-        showProductByAvailableQuantity = try values.decodeIfPresent(Bool.self, forKey: .showProductByAvailableQuantity)
-        autoCashDrawer = try values.decodeIfPresent(Bool.self, forKey: .autoCashDrawer)
-        numAllowActiveTrans = try values.decodeIfPresent(Int.self, forKey: .numAllowActiveTrans)
-        requireValidRecDate = try values.decodeIfPresent(Bool.self, forKey: .requireValidRecDate)
-        enableDeliverySignature = try values.decodeIfPresent(Bool.self, forKey: .enableDeliverySignature)
-        restrictIncomingOrderNotifications = try values.decodeIfPresent(Bool.self, forKey: .restrictIncomingOrderNotifications)
-        restrictedNotificationTerminals = try values.decodeIfPresent([String].self, forKey: .restrictedNotificationTerminals)
-        roundOffType = try values.decodeIfPresent(String.self, forKey: .roundOffType)
-        roundUpMessage = try values.decodeIfPresent(String.self, forKey: .roundUpMessage)
-        shopEntityType = try values.decodeIfPresent(String.self, forKey: .shopEntityType)
-        membersCountSyncDate = try values.decodeIfPresent(Int.self, forKey: .membersCountSyncDate)
-        enableCannabisLimit = try values.decodeIfPresent(Bool.self, forKey: .enableCannabisLimit)
-        useComplexTax = try values.decodeIfPresent(Bool.self, forKey: .useComplexTax)
-        taxTables = try values.decodeIfPresent([TaxTables].self, forKey: .taxTables)
-        enableExciseTax = try values.decodeIfPresent(Bool.self, forKey: .enableExciseTax)
-        exciseTaxType = try values.decodeIfPresent(String.self, forKey: .exciseTaxType)
-        marketingSources = try values.decodeIfPresent([String].self, forKey: .marketingSources)
-        productsTag = try values.decodeIfPresent([String].self, forKey: .productsTag)
-        logo = try values.decodeIfPresent(Logo.self, forKey: .logo)
-        hubId = try values.decodeIfPresent(String.self, forKey: .hubId)
-        hubName = try values.decodeIfPresent(String.self, forKey: .hubName)
-        enableOnFleet = try values.decodeIfPresent(Bool.self, forKey: .enableOnFleet)
-        onFleetApiKey = try values.decodeIfPresent(String.self, forKey: .onFleetApiKey)
-        onFleetOrganizationId = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationId)
-        onFleetOrganizationName = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationName)
-        emailAttachment = try values.decodeIfPresent(EmailAttachment.self, forKey: .emailAttachment)
-        receiptInfo = try values.decodeIfPresent([ReceiptInfo].self, forKey: .receiptInfo)
-        enablePinForCashDrawer = try values.decodeIfPresent(Bool.self, forKey: .enablePinForCashDrawer)
-        checkoutType = try values.decodeIfPresent(String.self, forKey: .checkoutType)
-        enableMetrc = try values.decodeIfPresent(Bool.self, forKey: .enableMetrc)
-        enableDeliveryMessaging = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryMessaging)
-        exciseTaxInfo = try values.decodeIfPresent(ExciseTaxInfo.self, forKey: .exciseTaxInfo)
-        timezoneOffsetInMinutes = try values.decodeIfPresent(Int.self, forKey: .timezoneOffsetInMinutes)
-        defaultPinTimeoutDuration = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeoutDuration)
-    }
-    
-}
-
-
-class Address: DBModel,Codable{
-   @objc dynamic var id : String?     = " "
-                 var  created : Int?  = 0
-                 var modified : Int?  = 0
-                 var deleted : Bool?  = false
-                 var updated : Bool?  = false
-   @objc dynamic var companyId : String? = ""
-   @objc dynamic var address : String? = ""
-   @objc dynamic var city : String? = ""
-   @objc dynamic var state : String? = " "
-   @objc dynamic var zipCode : String? = ""
-   @objc dynamic var country : String? = " "
-    
-    convenience init(id : String? = nil,created : Int?,modified : Int?,deleted : Bool?,updated : Bool?,companyId : String?,address : String?,city : String?,state : String?,zipCode : String?,country : String?){
-        self.init()
-        self.id = id
-        self.created = created
-        self.modified = modified
-        self.deleted = deleted
-        self.updated = updated
-        self.companyId = companyId
-        self.address = address
-        self.city = city
-        self.state = state
-        self.zipCode = zipCode
-        self.country = country
-    }
-    
-    
-    enum CodingKeys: String, CodingKey {
-
-        case id = "id"
-        case created = "created"
-        case modified = "modified"
-        case deleted = "deleted"
-        case updated = "updated"
-        case companyId = "companyId"
-        case address = "address"
-        case city = "city"
-        case state = "state"
-        case zipCode = "zipCode"
-        case country = "country"
-    }
-
-   convenience required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try values.decodeIfPresent(String.self, forKey: .id)
-        let created = try values.decodeIfPresent(Int.self, forKey: .created)
-        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        let address = try values.decodeIfPresent(String.self, forKey: .address)
-        let city = try values.decodeIfPresent(String.self, forKey: .city)
-        let state = try values.decodeIfPresent(String.self, forKey: .state)
-        let zipCode = try values.decodeIfPresent(String.self, forKey: .zipCode)
-        let country = try values.decodeIfPresent(String.self, forKey: .country)
-        
-        self.init(id: id, created: created, modified: modified, deleted: deleted, updated: updated, companyId: companyId, address: address, city: city, state: state, zipCode: zipCode, country: country)
-      
-    }
-    
-}
-
-class Assets : DBModel,Codable {
-   @objc dynamic  var id : String? = ""
+class Shops :DBModel {
+   @objc dynamic var id : String?
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
    @objc dynamic var deleted : Bool = false
    @objc dynamic var updated : Bool = false
    @objc dynamic var companyId : String? = ""
+   @objc dynamic var shortIdentifier : String? = ""
    @objc dynamic var name : String? = ""
-   @objc dynamic var key : String? = ""
-   @objc dynamic var type : String? = ""
-   @objc dynamic var publicURL : String? = ""
+   @objc dynamic var shopType : String? = ""
+   @objc dynamic var address : Address?
+   @objc dynamic var phoneNumber : String? = ""
+   @objc dynamic var emailAdress : String? = ""
+   @objc dynamic var license : String? = ""
+   @objc dynamic var enableDeliveryFee : Bool = false
+   @objc dynamic var deliveryFee : Int = 0
+   @objc dynamic var taxOrder : String? = ""
+   @objc dynamic var taxInfo : TaxInfo?
+   @objc dynamic var showWalkInQueue : Bool = false
+   @objc dynamic var showDeliveryQueue : Bool = false
+   @objc dynamic var showOnlineQueue : Bool = false
+   @objc dynamic var enableCashInOut : Bool = false
+   @objc dynamic var timeZone : String? = ""
+   @objc dynamic var latitude : Int = 0
+   @objc dynamic var longitude : Int = 0
    @objc dynamic var active : Bool = false
-   @objc dynamic var priority : Int = 0
-   @objc dynamic var secured : Bool = false
-   @objc dynamic var thumbURL : String? = ""
-   @objc dynamic var mediumURL : String? = ""
-   @objc dynamic var largeURL : String? = ""
-   @objc dynamic var assetType : String? = ""
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case id = "id"
-        case created = "created"
-        case modified = "modified"
-        case deleted = "deleted"
-        case updated = "updated"
-        case companyId = "companyId"
-        case name = "name"
-        case key = "key"
-        case type = "type"
-        case publicURL = "publicURL"
-        case active = "active"
-        case priority = "priority"
-        case secured = "secured"
-        case thumbURL = "thumbURL"
-        case mediumURL = "mediumURL"
-        case largeURL = "largeURL"
-        case assetType = "assetType"
-    }
-    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,name : String?,key : String?,type : String?,publicURL : String?,active : Bool,priority : Int,secured : Bool,thumbURL : String?,mediumURL : String?,largeURL : String?,assetType : String?){
-        self.init()
-        self.id = id
-        self.created = created
-        self.modified = modified
-        self.deleted = deleted
-        self.updated = updated
-        self.companyId = companyId
-        self.name = name
-        self.key = key
-        self.type = type
-        self.publicURL = publicURL
-        self.active = active
-        self.priority = priority
-        self.secured = secured
-        self.thumbURL = thumbURL
-        self.mediumURL = mediumURL
-        self.largeURL = largeURL
-        self.assetType = assetType
-        
-    }
-    
-   convenience required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try values.decodeIfPresent(String.self, forKey: .id)
-        let created = try values.decodeIfPresent(Int.self, forKey: .created)
-        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        let name = try values.decodeIfPresent(String.self, forKey: .name)
-        let key = try values.decodeIfPresent(String.self, forKey: .key)
-        let type = try values.decodeIfPresent(String.self, forKey: .type)
-        let publicURL = try values.decodeIfPresent(String.self, forKey: .publicURL)
-        let active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        let priority = try values.decodeIfPresent(Int.self, forKey: .priority)
-        let secured = try values.decodeIfPresent(Bool.self, forKey: .secured)
-        let thumbURL = try values.decodeIfPresent(String.self, forKey: .thumbURL)
-        let mediumURL = try values.decodeIfPresent(String.self, forKey: .mediumURL)
-        let largeURL = try values.decodeIfPresent(String.self, forKey: .largeURL)
-        let assetType = try values.decodeIfPresent(String.self, forKey: .assetType)
-        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, name: name, key: key, type: type, publicURL: publicURL, active: active!, priority: priority!, secured: secured!, thumbURL: thumbURL, mediumURL: mediumURL, largeURL: largeURL, assetType: assetType)
-    }
-    
-}
-
-class AssignedShop :DBModel,Codable {
-   @objc dynamic  var id : String?    = ""
-   @objc dynamic  var created : Int = 0
-   @objc dynamic  var modified : Int = 0
-   @objc dynamic  var deleted : Bool = false
-   @objc dynamic  var updated : Bool = false
-   @objc dynamic  var companyId : String? = ""
-   @objc dynamic  var shortIdentifier : String? = ""
-   @objc dynamic  var name : String? = ""
-   @objc dynamic  var shopType : String? = ""
-   @objc dynamic  var address : Address?
-   @objc dynamic  var phoneNumber : String? = ""
-   @objc dynamic  var emailAdress : String? = ""
-   @objc dynamic  var license : String? = ""
-   @objc dynamic  var enableDeliveryFee : Bool = false
-   @objc dynamic  var deliveryFee : Int = 0
-   @objc dynamic  var taxOrder : String? = ""
-   @objc dynamic  var taxInfo : TaxInfo?
-   @objc dynamic  var showWalkInQueue : Bool = false
-   @objc dynamic  var showDeliveryQueue : Bool = false
-   @objc dynamic  var showOnlineQueue : Bool = false
-   @objc dynamic  var enableCashInOut : Bool = false
-   @objc dynamic  var timeZone : String? = ""
-   @objc dynamic  var latitude : Int = 0
-   @objc dynamic  var longitude : Int = 0
-   @objc dynamic  var active : Bool = false
-   @objc dynamic  var snapshopTime : Int = 0
-   @objc dynamic  var defaultCountry : String? = ""
-   @objc dynamic  var onlineStoreInfo : OnlineStoreInfo?
-   @objc dynamic  var deliveryFees : [DeliveryFees]?
-   @objc dynamic  var enableSaleLogout : Bool = false
-   @objc dynamic  var assets : [Assets]?
-   @objc dynamic  var enableBCCReceipt : Bool = false
-   @objc dynamic  var bccEmailAddress : String? = ""
-   @objc dynamic  var enableGPSTracking : Bool = false
-   @objc dynamic  var receivingInventoryId : String? = ""
-   @objc dynamic  var defaultPinTimeout : Int = 0
-   @objc dynamic  var showSpecialQueue : Bool = false
-   @objc dynamic  var emailList : [String]?
-   @objc dynamic  var enableLowInventoryEmail : Bool = false
-   @objc dynamic  var restrictedViews : Bool = false
-   @objc dynamic  var emailMessage : String? = ""
-   @objc dynamic  var taxRoundOffType : String? = ""
-   @objc dynamic  var enforceCashDrawers : Bool = false
-   @objc dynamic  var useAssignedEmployee : Bool = false
-   @objc dynamic  var showProductByAvailableQuantity : Bool = false
-   @objc dynamic  var autoCashDrawer : Bool = false
-   @objc dynamic  var numAllowActiveTrans : Int = 0
-   @objc dynamic  var requireValidRecDate : Bool = false
-   @objc dynamic  var enableDeliverySignature : Bool = false
-   @objc dynamic  var restrictIncomingOrderNotifications : Bool = false
-   @objc dynamic  var restrictedNotificationTerminals : [String]?
-   @objc dynamic  var roundOffType : String? = ""
-   @objc dynamic  var roundUpMessage : String? = ""
-   @objc dynamic  var shopEntityType : String? = ""
-   @objc dynamic  var membersCountSyncDate : Int = 0
-   @objc dynamic  var enableCannabisLimit : Bool = false
-   @objc dynamic  var useComplexTax : Bool = false
-   @objc dynamic  var taxTables : [TaxTables]?
-   @objc dynamic  var enableExciseTax : Bool = false
-   @objc dynamic  var exciseTaxType : String? = ""
-   @objc dynamic  var marketingSources : [String]?
-   @objc dynamic  var productsTag : [String]?
-   @objc dynamic  var logo : Logo?
-   @objc dynamic  var hubId : String? = ""
-   @objc dynamic  var hubName : String? = ""
-   @objc dynamic  var enableOnFleet : Bool = false
-   @objc dynamic  var onFleetApiKey : String? = ""
-   @objc dynamic  var onFleetOrganizationId : String? = ""
-   @objc dynamic  var onFleetOrganizationName : String? = ""
-   @objc dynamic  var emailAttachment : EmailAttachment?
-   @objc dynamic  var receiptInfo : [ReceiptInfo]?
-   @objc dynamic  var enablePinForCashDrawer : Bool = false
-   @objc dynamic  var checkoutType : String? = ""
-   @objc dynamic  var enableMetrc : Bool = false
-   @objc dynamic  var enableDeliveryMessaging : Bool = false
-   @objc dynamic  var exciseTaxInfo : ExciseTaxInfo?
-   @objc dynamic  var timezoneOffsetInMinutes : Int = 0
-   @objc dynamic  var defaultPinTimeoutDuration : Int = 0
+   @objc dynamic var snapshopTime : Int = 0
+   @objc dynamic var defaultCountry : String? = ""
+  // @objc dynamic var onlineStoreInfo : OnlineStoreInfo?
+                 var deliveryFees = List<DeliveryFees>()
+   @objc dynamic var enableSaleLogout : Bool = false
+                 var assets = List<Assets>()
+   @objc dynamic var enableBCCReceipt : Bool = false
+   @objc dynamic var bccEmailAddress : String? = ""
+   @objc dynamic var enableGPSTracking : Bool = false
+   @objc dynamic var receivingInventoryId : String? = ""
+   @objc dynamic var defaultPinTimeout : Int = 0
+   @objc dynamic var showSpecialQueue : Bool = false
+                 var emailList = List<String>()
+   @objc dynamic var enableLowInventoryEmail : Bool = false
+   @objc dynamic var restrictedViews : Bool = false
+   @objc dynamic var emailMessage : String? = ""
+   @objc dynamic var taxRoundOffType : String? = ""
+   @objc dynamic var enforceCashDrawers : Bool = false
+   @objc dynamic var useAssignedEmployee : Bool = false
+   @objc dynamic var showProductByAvailableQuantity : Bool = false
+   @objc dynamic var autoCashDrawer : Bool = false
+   @objc dynamic var numAllowActiveTrans : Int = 0
+   @objc dynamic var requireValidRecDate : Bool = false
+   @objc dynamic var enableDeliverySignature : Bool = false
+   @objc dynamic var restrictIncomingOrderNotifications : Bool = false
+                 var restrictedNotificationTerminals = List<String>()
+   @objc dynamic var roundOffType : String? = ""
+   @objc dynamic var roundUpMessage : String? = ""
+   @objc dynamic var shopEntityType : String? = ""
+   @objc dynamic var membersCountSyncDate : Int = 0
+   @objc dynamic var enableCannabisLimit : Bool = false
+   @objc dynamic var useComplexTax : Bool = false
+                 var taxTables = List<TaxTables>()
+   @objc dynamic var enableExciseTax : Bool = false
+   @objc dynamic var exciseTaxType : String? = ""
+                 var marketingSources = List<String>()
+                 var productsTag = List<String>()
+   @objc dynamic var logo : Logo?
+   @objc dynamic var hubId : String? = ""
+   @objc dynamic var hubName : String? = ""
+   @objc dynamic var enableOnFleet : Bool = false
+   @objc dynamic var onFleetApiKey : String? = ""
+   @objc dynamic var onFleetOrganizationId : String? = ""
+   @objc dynamic var onFleetOrganizationName : String? = ""
+   @objc dynamic var emailAttachment : EmailAttachment?
+                 //var receiptInfo = List<ReceiptInfo>()
+   @objc dynamic var enablePinForCashDrawer : Bool = false
+   @objc dynamic var checkoutType : String? = ""
+   @objc dynamic var enableMetrc : Bool = false
+   @objc dynamic var enableDeliveryMessaging : Bool = false
+   @objc dynamic var exciseTaxInfo : ExciseTaxInfo?
+   @objc dynamic var timezoneOffsetInMinutes : Int = 0
+   @objc dynamic var defaultPinTimeoutDuration : Int = 0
     
     enum CodingKeys: String, CodingKey {
         
@@ -590,7 +196,7 @@ class AssignedShop :DBModel,Codable {
         case active = "active"
         case snapshopTime = "snapshopTime"
         case defaultCountry = "defaultCountry"
-        case onlineStoreInfo = "onlineStoreInfo"
+        //case onlineStoreInfo = "onlineStoreInfo"
         case deliveryFees = "deliveryFees"
         case enableSaleLogout = "enableSaleLogout"
         case assets = "assets"
@@ -633,7 +239,7 @@ class AssignedShop :DBModel,Codable {
         case onFleetOrganizationId = "onFleetOrganizationId"
         case onFleetOrganizationName = "onFleetOrganizationName"
         case emailAttachment = "emailAttachment"
-        case receiptInfo = "receiptInfo"
+        //case receiptInfo = "receiptInfo"
         case enablePinForCashDrawer = "enablePinForCashDrawer"
         case checkoutType = "checkoutType"
         case enableMetrc = "enableMetrc"
@@ -642,10 +248,88 @@ class AssignedShop :DBModel,Codable {
         case timezoneOffsetInMinutes = "timezoneOffsetInMinutes"
         case defaultPinTimeoutDuration = "defaultPinTimeoutDuration"
     }
-    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shortIdentifier : String?,name : String?,shopType : String?,address : Address?,phoneNumber : String?,emailAdress : String?,license : String?,enableDeliveryFee : Bool,deliveryFee : Int,taxOrder : String?,taxInfo : TaxInfo?,showWalkInQueue : Bool,showDeliveryQueue : Bool,showOnlineQueue : Bool,enableCashInOut : Bool,timeZone : String?,latitude : Int = 0,longitude : Int = 0,active : Bool,snapshopTime : Int,defaultCountry : String?,onlineStoreInfo : OnlineStoreInfo?,deliveryFees : [DeliveryFees]?,enableSaleLogout : Bool,assets : [Assets]?,enableBCCReceipt : Bool,bccEmailAddress : String?,enableGPSTracking : Bool,receivingInventoryId : String?,defaultPinTimeout : Int,showSpecialQueue : Bool,emailList : [String]?,enableLowInventoryEmail : Bool,restrictedViews : Bool,emailMessage : String?,taxRoundOffType : String?, enforceCashDrawers : Bool,useAssignedEmployee : Bool,showProductByAvailableQuantity : Bool,autoCashDrawer : Bool,numAllowActiveTrans : Int,requireValidRecDate : Bool,enableDeliverySignature : Bool,restrictIncomingOrderNotifications : Bool,restrictedNotificationTerminals : [String]?,roundOffType : String?,roundUpMessage : String?,shopEntityType : String?,membersCountSyncDate : Int,enableCannabisLimit : Bool,useComplexTax : Bool,taxTables : [TaxTables]?,enableExciseTax : Bool,exciseTaxType : String?,marketingSources : [String]?,productsTag : [String]?,logo : Logo?,hubId : String?,hubName : String?,enableOnFleet : Bool,onFleetApiKey : String?,onFleetOrganizationId : String?,onFleetOrganizationName : String?,emailAttachment : EmailAttachment?,receiptInfo : [ReceiptInfo]?,enablePinForCashDrawer : Bool,checkoutType : String?,enableMetrc : Bool,enableDeliveryMessaging : Bool,exciseTaxInfo : ExciseTaxInfo?,timezoneOffsetInMinutes : Int,defaultPinTimeoutDuration : Int){
+    
+    convenience init(id : String?,created : Int, modified : Int,deleted : Bool,updated : Bool,companyId : String?,shortIdentifier : String?,name : String?,shopType : String?,address : Address?,phoneNumber : String?,emailAdress : String?,license : String?,enableDeliveryFee : Bool,deliveryFee : Int,taxOrder : String?,taxInfo : TaxInfo?, showWalkInQueue : Bool,showDeliveryQueue : Bool,showOnlineQueue : Bool,enableCashInOut : Bool,timeZone : String?,latitude : Int,longitude : Int,active : Bool,snapshopTime : Int,defaultCountry : String?,deliveryFees : List<DeliveryFees>,enableSaleLogout : Bool,assets : List<Assets>,enableBCCReceipt : Bool ,bccEmailAddress : String?,enableGPSTracking : Bool,receivingInventoryId : String?,defaultPinTimeout : Int,showSpecialQueue : Bool,emailList : List<String>,enableLowInventoryEmail : Bool,restrictedViews : Bool,emailMessage : String?,taxRoundOffType : String?,enforceCashDrawers : Bool,useAssignedEmployee : Bool,showProductByAvailableQuantity : Bool,autoCashDrawer : Bool,numAllowActiveTrans : Int,requireValidRecDate : Bool,enableDeliverySignature : Bool,restrictIncomingOrderNotifications : Bool,restrictedNotificationTerminals : List<String>,roundOffType : String?,roundUpMessage : String?,shopEntityType : String?,membersCountSyncDate : Int ,enableCannabisLimit : Bool,useComplexTax : Bool,taxTables : List<TaxTables>,enableExciseTax : Bool,exciseTaxType : String?,marketingSources : List<String>,productsTag : List<String>,logo : Logo?,hubId : String?,hubName : String?,enableOnFleet : Bool,onFleetApiKey : String?,onFleetOrganizationId : String?,onFleetOrganizationName : String?,emailAttachment : EmailAttachment?,enablePinForCashDrawer : Bool,checkoutType : String?,enableMetrc : Bool,enableDeliveryMessaging : Bool,exciseTaxInfo : ExciseTaxInfo?,timezoneOffsetInMinutes : Int,defaultPinTimeoutDuration : Int){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.shortIdentifier = shortIdentifier
+        self.name = name
+        self.shopType = shopType
+        self.address = address
+        self.phoneNumber = phoneNumber
+        self.emailAdress = emailAdress
+        self.license = license
+        self.enableDeliveryFee = enableDeliveryFee
+        self.deliveryFee = deliveryFee
+        self.taxOrder = taxOrder
+        self.taxInfo = taxInfo
+        self.showWalkInQueue = showWalkInQueue
+        self.showDeliveryQueue = showDeliveryQueue
+        self.showOnlineQueue = showOnlineQueue
+        self.enableCashInOut = enableCashInOut
+        self.timeZone = timeZone
+        self.latitude = latitude
+        self.longitude = longitude
+        self.active = active
+        self.snapshopTime = snapshopTime
+        self.defaultCountry = defaultCountry
+       // self.onlineStoreInfo = onlineStoreInfo
+        self.deliveryFees = deliveryFees
+        self.enableSaleLogout = enableSaleLogout
+        self.assets = assets
+        self.enableBCCReceipt = enableBCCReceipt
+        self.bccEmailAddress = bccEmailAddress
+        self.enableGPSTracking = enableGPSTracking
+        self.receivingInventoryId = receivingInventoryId
+        self.defaultPinTimeout = defaultPinTimeout
+        self.showSpecialQueue = showSpecialQueue
+        self.emailList = emailList
+        self.enableLowInventoryEmail = enableLowInventoryEmail
+        self.restrictedViews = restrictedViews
+        self.emailMessage = emailMessage
+        self.taxRoundOffType = taxRoundOffType
+        self.enforceCashDrawers = enforceCashDrawers
+        self.useAssignedEmployee = useAssignedEmployee
+        self.showProductByAvailableQuantity = showProductByAvailableQuantity
+        self.autoCashDrawer = autoCashDrawer
+        self.numAllowActiveTrans = numAllowActiveTrans
+        self.requireValidRecDate = requireValidRecDate
+        self.enableDeliverySignature = enableDeliverySignature
+        self.restrictIncomingOrderNotifications = restrictIncomingOrderNotifications
+        self.roundOffType = roundOffType
+        self.roundUpMessage = roundUpMessage
+        self.shopEntityType = shopEntityType
+        self.membersCountSyncDate = membersCountSyncDate
+        self.enableCannabisLimit = enableCannabisLimit
+        self.useComplexTax = useComplexTax
+        self.taxTables = taxTables
+        self.enableExciseTax = enableExciseTax
+        self.exciseTaxType = exciseTaxType
+        self.marketingSources = marketingSources
+        self.productsTag = productsTag
+        self.logo = logo
+        self.hubId = hubId
+        self.hubName = hubName
+        self.enableOnFleet = enableOnFleet
+        self.onFleetApiKey = onFleetApiKey
+        self.onFleetOrganizationId = onFleetOrganizationId
+        self.onFleetOrganizationName = onFleetOrganizationName
+        self.emailAttachment = emailAttachment
+       // self.receiptInfo = receiptInfo
+        self.enablePinForCashDrawer = enablePinForCashDrawer
+        self.checkoutType = checkoutType
+        self.enableMetrc = enableMetrc
+        self.enableDeliveryMessaging = enableDeliveryMessaging
+        self.exciseTaxInfo = exciseTaxInfo
+        self.timezoneOffsetInMinutes = timezoneOffsetInMinutes
+        self.defaultPinTimeoutDuration = defaultPinTimeoutDuration
         
     }
-    
    convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let id = try values.decodeIfPresent(String.self, forKey: .id)
@@ -675,17 +359,17 @@ class AssignedShop :DBModel,Codable {
         let active = try values.decodeIfPresent(Bool.self, forKey: .active)
         let snapshopTime = try values.decodeIfPresent(Int.self, forKey: .snapshopTime)
         let defaultCountry = try values.decodeIfPresent(String.self, forKey: .defaultCountry)
-        let onlineStoreInfo = try values.decodeIfPresent(OnlineStoreInfo.self, forKey: .onlineStoreInfo)
-        let deliveryFees = try values.decodeIfPresent([DeliveryFees].self, forKey: .deliveryFees)
+       // let onlineStoreInfo = try values.decodeIfPresent(OnlineStoreInfo.self, forKey: .onlineStoreInfo)
+        let deliveryFees = try values.decode([DeliveryFees].self, forKey: .deliveryFees)
         let enableSaleLogout = try values.decodeIfPresent(Bool.self, forKey: .enableSaleLogout)
-        let assets = try values.decodeIfPresent([Assets].self, forKey: .assets)
+        let assets = try values.decode([Assets].self, forKey: .assets)
         let enableBCCReceipt = try values.decodeIfPresent(Bool.self, forKey: .enableBCCReceipt)
         let bccEmailAddress = try values.decodeIfPresent(String.self, forKey: .bccEmailAddress)
         let enableGPSTracking = try values.decodeIfPresent(Bool.self, forKey: .enableGPSTracking)
         let receivingInventoryId = try values.decodeIfPresent(String.self, forKey: .receivingInventoryId)
         let defaultPinTimeout = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeout)
         let showSpecialQueue = try values.decodeIfPresent(Bool.self, forKey: .showSpecialQueue)
-        let emailList = try values.decodeIfPresent([String].self, forKey: .emailList)
+        let emailList = try values.decode([String].self, forKey: .emailList)
         let enableLowInventoryEmail = try values.decodeIfPresent(Bool.self, forKey: .enableLowInventoryEmail)
         let restrictedViews = try values.decodeIfPresent(Bool.self, forKey: .restrictedViews)
         let emailMessage = try values.decodeIfPresent(String.self, forKey: .emailMessage)
@@ -698,18 +382,18 @@ class AssignedShop :DBModel,Codable {
         let requireValidRecDate = try values.decodeIfPresent(Bool.self, forKey: .requireValidRecDate)
         let enableDeliverySignature = try values.decodeIfPresent(Bool.self, forKey: .enableDeliverySignature)
         let restrictIncomingOrderNotifications = try values.decodeIfPresent(Bool.self, forKey: .restrictIncomingOrderNotifications)
-        let restrictedNotificationTerminals = try values.decodeIfPresent([String].self, forKey: .restrictedNotificationTerminals)
+        let restrictedNotificationTerminals = try values.decode([String].self, forKey: .restrictedNotificationTerminals)
         let roundOffType = try values.decodeIfPresent(String.self, forKey: .roundOffType)
         let roundUpMessage = try values.decodeIfPresent(String.self, forKey: .roundUpMessage)
         let shopEntityType = try values.decodeIfPresent(String.self, forKey: .shopEntityType)
         let membersCountSyncDate = try values.decodeIfPresent(Int.self, forKey: .membersCountSyncDate)
         let enableCannabisLimit = try values.decodeIfPresent(Bool.self, forKey: .enableCannabisLimit)
         let useComplexTax = try values.decodeIfPresent(Bool.self, forKey: .useComplexTax)
-        let taxTables = try values.decodeIfPresent([TaxTables].self, forKey: .taxTables)
+        let taxTables = try values.decode([TaxTables].self, forKey: .taxTables)
         let enableExciseTax = try values.decodeIfPresent(Bool.self, forKey: .enableExciseTax)
         let exciseTaxType = try values.decodeIfPresent(String.self, forKey: .exciseTaxType)
-        let marketingSources = try values.decodeIfPresent([String].self, forKey: .marketingSources)
-        let productsTag = try values.decodeIfPresent([String].self, forKey: .productsTag)
+        let marketingSources = try values.decode([String].self, forKey: .marketingSources)
+        let productsTag = try values.decode([String].self, forKey: .productsTag)
         let logo = try values.decodeIfPresent(Logo.self, forKey: .logo)
         let hubId = try values.decodeIfPresent(String.self, forKey: .hubId)
         let hubName = try values.decodeIfPresent(String.self, forKey: .hubName)
@@ -718,7 +402,7 @@ class AssignedShop :DBModel,Codable {
         let onFleetOrganizationId = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationId)
         let onFleetOrganizationName = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationName)
         let emailAttachment = try values.decodeIfPresent(EmailAttachment.self, forKey: .emailAttachment)
-        let receiptInfo = try values.decodeIfPresent([ReceiptInfo].self, forKey: .receiptInfo)
+        //let receiptInfo = try values.decode([ReceiptInfo].self, forKey: .receiptInfo)
         let enablePinForCashDrawer = try values.decodeIfPresent(Bool.self, forKey: .enablePinForCashDrawer)
         let checkoutType = try values.decodeIfPresent(String.self, forKey: .checkoutType)
         let enableMetrc = try values.decodeIfPresent(Bool.self, forKey: .enableMetrc)
@@ -726,13 +410,535 @@ class AssignedShop :DBModel,Codable {
         let exciseTaxInfo = try values.decodeIfPresent(ExciseTaxInfo.self, forKey: .exciseTaxInfo)
         let timezoneOffsetInMinutes = try values.decodeIfPresent(Int.self, forKey: .timezoneOffsetInMinutes)
         let defaultPinTimeoutDuration = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeoutDuration)
-        self.init(id: id, created: created, modified: modified, deleted: deleted!, updated: updated!, companyId: companyId, shortIdentifier: shortIdentifier, name: name, shopType: shopType, address: address, phoneNumber: phoneNumber, emailAdress: emailAdress, license: license, enableDeliveryFee: enableDeliveryFee!, deliveryFee: deliveryFee!, taxOrder: taxOrder, taxInfo: taxInfo, showWalkInQueue: showWalkInQueue, showDeliveryQueue: showDeliveryQueue!, showOnlineQueue: showOnlineQueue!, enableCashInOut: enableCashInOut!, timeZone: timeZone, active: active!, snapshopTime: snapshopTime!, defaultCountry: defaultCountry, onlineStoreInfo: onlineStoreInfo, deliveryFees: deliveryFee, enableSaleLogout: enableSaleLogout!, assets: <#T##[Assets]?#>, enableBCCReceipt: <#T##Bool#>, bccEmailAddress: <#T##String?#>, enableGPSTracking: <#T##Bool#>, receivingInventoryId: <#T##String?#>, defaultPinTimeout: <#T##Int#>, showSpecialQueue: <#T##Bool#>, emailList: <#T##[String]?#>, enableLowInventoryEmail: <#T##Bool#>, restrictedViews: <#T##Bool#>, emailMessage: <#T##String?#>, taxRoundOffType: <#T##String?#>, enforceCashDrawers: <#T##Bool#>, useAssignedEmployee: <#T##Bool#>, showProductByAvailableQuantity: <#T##Bool#>, autoCashDrawer: <#T##Bool#>, numAllowActiveTrans: <#T##Int#>, requireValidRecDate: <#T##Bool#>, enableDeliverySignature: <#T##Bool#>, restrictIncomingOrderNotifications: <#T##Bool#>, restrictedNotificationTerminals: <#T##[String]?#>, roundOffType: <#T##String?#>, roundUpMessage: <#T##String?#>, shopEntityType: <#T##String?#>, membersCountSyncDate: <#T##Int#>, enableCannabisLimit: <#T##Bool#>, useComplexTax: <#T##Bool#>, taxTables: <#T##[TaxTables]?#>, enableExciseTax: <#T##Bool#>, exciseTaxType: <#T##String?#>, marketingSources: <#T##[String]?#>, productsTag: <#T##[String]?#>, logo: <#T##Logo?#>, hubId: <#T##String?#>, hubName: <#T##String?#>, enableOnFleet: <#T##Bool#>, onFleetApiKey: <#T##String?#>, onFleetOrganizationId: <#T##String?#>, onFleetOrganizationName: <#T##String?#>, emailAttachment: <#T##EmailAttachment?#>, receiptInfo: <#T##[ReceiptInfo]?#>, enablePinForCashDrawer: <#T##Bool#>, checkoutType: <#T##String?#>, enableMetrc: <#T##Bool#>, enableDeliveryMessaging: <#T##Bool#>, exciseTaxInfo: <#T##ExciseTaxInfo?#>, timezoneOffsetInMinutes: <#T##Int#>, defaultPinTimeoutDuration: <#T##Int#>)
+        let assetsList = List<Assets>()
+        let emailListList = List<String>()
+        let taxTablesList = List<TaxTables>()
+        let marketingSourcesList = List<String>()
+        let productsTagList = List<String>()
+        let deliveryFeesList = List<DeliveryFees>()
+        let restrictedNotificationTerminalsList = List<String>()
+        let receiptInfoList = List<ReceiptInfo>()
+            assetsList.append(objectsIn: assets)
+            emailListList.append(objectsIn: emailList)
+            taxTablesList.append(objectsIn: taxTables)
+            marketingSourcesList.append(objectsIn: marketingSources)
+            productsTagList.append(objectsIn: productsTag)
+            deliveryFeesList.append(objectsIn: deliveryFees)
+            restrictedNotificationTerminalsList.append(objectsIn: restrictedNotificationTerminals)
+            //receiptInfoList.append(objectsIn: receiptInfo)
+
+
+
+
+
+    
+    
+    self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shortIdentifier: shortIdentifier, name: name, shopType: shopType, address: address, phoneNumber: phoneNumber, emailAdress: emailAdress, license: license, enableDeliveryFee: enableDeliveryFee!, deliveryFee: deliveryFee!, taxOrder: taxOrder, taxInfo: taxInfo, showWalkInQueue: showWalkInQueue!, showDeliveryQueue: showDeliveryQueue!, showOnlineQueue: showOnlineQueue!, enableCashInOut: enableCashInOut!, timeZone: timeZone, latitude: latitude!, longitude: longitude!, active: active!, snapshopTime: snapshopTime!, defaultCountry: defaultCountry, deliveryFees: deliveryFeesList, enableSaleLogout: enableSaleLogout!, assets: assetsList, enableBCCReceipt: enableBCCReceipt!, bccEmailAddress: bccEmailAddress, enableGPSTracking: enableGPSTracking!, receivingInventoryId: receivingInventoryId, defaultPinTimeout: defaultPinTimeout!, showSpecialQueue: showSpecialQueue!, emailList: emailListList, enableLowInventoryEmail: enableLowInventoryEmail!, restrictedViews: restrictedViews!, emailMessage: emailMessage, taxRoundOffType: taxRoundOffType, enforceCashDrawers: enforceCashDrawers!, useAssignedEmployee: useAssignedEmployee!, showProductByAvailableQuantity: showProductByAvailableQuantity!, autoCashDrawer: autoCashDrawer!, numAllowActiveTrans: numAllowActiveTrans!, requireValidRecDate: requireValidRecDate!, enableDeliverySignature: enableDeliverySignature!, restrictIncomingOrderNotifications: restrictIncomingOrderNotifications!, restrictedNotificationTerminals: restrictedNotificationTerminalsList, roundOffType: roundOffType, roundUpMessage: roundUpMessage, shopEntityType: shopEntityType, membersCountSyncDate: membersCountSyncDate!, enableCannabisLimit: enableCannabisLimit!, useComplexTax: useComplexTax!, taxTables: taxTablesList, enableExciseTax: enableExciseTax!, exciseTaxType: exciseTaxType, marketingSources: marketingSourcesList, productsTag: productsTagList, logo: logo, hubId: hubId, hubName: hubName, enableOnFleet: enableOnFleet!, onFleetApiKey: onFleetApiKey, onFleetOrganizationId: onFleetOrganizationId, onFleetOrganizationName: onFleetOrganizationName, emailAttachment: emailAttachment,  enablePinForCashDrawer: enablePinForCashDrawer!, checkoutType: checkoutType, enableMetrc: enableMetrc!, enableDeliveryMessaging: enableDeliveryMessaging!, exciseTaxInfo: exciseTaxInfo!, timezoneOffsetInMinutes: timezoneOffsetInMinutes!, defaultPinTimeoutDuration: defaultPinTimeoutDuration!)
+    }
+    
+}
+
+
+class Address: DBModel{
+   @objc dynamic var id : String?        = " "
+   @objc dynamic var  created : Int      = 0
+   @objc dynamic var modified : Int      = 0
+   @objc dynamic var deleted : Bool      = false
+   @objc dynamic var updated : Bool      = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var address : String?   = ""
+   @objc dynamic var city : String?      = ""
+   @objc dynamic var state : String?     = " "
+   @objc dynamic var zipCode : String?   = ""
+   @objc dynamic var country : String?   = " "
+    
+    convenience init(id : String? = nil,created : Int?,modified : Int?,deleted : Bool?,updated : Bool?,companyId : String?,address : String?,city : String?,state : String?,zipCode : String?,country : String?){
+        self.init()
+        self.id = id
+        self.created = created!
+        self.modified = modified!
+        self.deleted = deleted!
+        self.updated = updated!
+        self.companyId = companyId
+        self.address = address
+        self.city = city
+        self.state = state
+        self.zipCode = zipCode
+        self.country = country
+    }
+    
+    
+    enum CodingKeys: String, CodingKey {
+
+        case id        = "id"
+        case created   = "created"
+        case modified  = "modified"
+        case deleted   = "deleted"
+        case updated   = "updated"
+        case companyId = "companyId"
+        case address   = "address"
+        case city      = "city"
+        case state     = "state"
+        case zipCode   = "zipCode"
+        case country   = "country"
+    }
+
+   convenience required init(from decoder: Decoder) throws {
+        let values    = try decoder.container(keyedBy: CodingKeys.self)
+        let id        = try values.decodeIfPresent(String.self, forKey: .id)
+        let created   = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified  = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted   = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated   = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let address   = try values.decodeIfPresent(String.self, forKey: .address)
+        let city      = try values.decodeIfPresent(String.self, forKey: .city)
+        let state     = try values.decodeIfPresent(String.self, forKey: .state)
+        let zipCode   = try values.decodeIfPresent(String.self, forKey: .zipCode)
+        let country   = try values.decodeIfPresent(String.self, forKey: .country)
+    
+        self.init(id: id, created: created, modified: modified, deleted: deleted, updated: updated, companyId: companyId, address: address, city: city, state: state, zipCode: zipCode, country: country)
+      
+    }
+    
+}
+
+class Assets : DBModel {
+   @objc dynamic  var id : String?       = ""
+   @objc dynamic var created : Int       = 0
+   @objc dynamic var modified : Int      = 0
+   @objc dynamic var deleted : Bool      = false
+   @objc dynamic var updated : Bool      = false
+   @objc dynamic var companyId : String? = ""
+   @objc dynamic var name : String?      = ""
+   @objc dynamic var key : String?       = ""
+   @objc dynamic var type : String?      = ""
+   @objc dynamic var publicURL : String? = ""
+   @objc dynamic var active : Bool       = false
+   @objc dynamic var priority : Int      = 0
+   @objc dynamic var secured : Bool      = false
+   @objc dynamic var thumbURL : String?  = ""
+   @objc dynamic var mediumURL : String? = ""
+   @objc dynamic var largeURL : String?  = ""
+   @objc dynamic var assetType : String? = ""
+    
+    enum CodingKeys: String, CodingKey {
+        
+        case id        = "id"
+        case created   = "created"
+        case modified  = "modified"
+        case deleted   = "deleted"
+        case updated   = "updated"
+        case companyId = "companyId"
+        case name      = "name"
+        case key       = "key"
+        case type      = "type"
+        case publicURL = "publicURL"
+        case active    = "active"
+        case priority  = "priority"
+        case secured   = "secured"
+        case thumbURL  = "thumbURL"
+        case mediumURL = "mediumURL"
+        case largeURL  = "largeURL"
+        case assetType = "assetType"
+    }
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,name : String?,key : String?,type : String?,publicURL : String?,active : Bool,priority : Int,secured : Bool,thumbURL : String?,mediumURL : String?,largeURL : String?,assetType : String?){
+        self.init()
+        self.id        = id
+        self.created   = created
+        self.modified  = modified
+        self.deleted   = deleted
+        self.updated   = updated
+        self.companyId = companyId
+        self.name      = name
+        self.key       = key
+        self.type      = type
+        self.publicURL = publicURL
+        self.active    = active
+        self.priority  = priority
+        self.secured   = secured
+        self.thumbURL  = thumbURL
+        self.mediumURL = mediumURL
+        self.largeURL  = largeURL
+        self.assetType = assetType
+        
+    }
+    
+   convenience required init(from decoder: Decoder) throws {
+        let values    = try decoder.container(keyedBy: CodingKeys.self)
+        let id        = try values.decodeIfPresent(String.self, forKey: .id)
+        let created   = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified  = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted   = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated   = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let name      = try values.decodeIfPresent(String.self, forKey: .name)
+        let key       = try values.decodeIfPresent(String.self, forKey: .key)
+        let type      = try values.decodeIfPresent(String.self, forKey: .type)
+        let publicURL = try values.decodeIfPresent(String.self, forKey: .publicURL)
+        let active    = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let priority  = try values.decodeIfPresent(Int.self, forKey: .priority)
+        let secured   = try values.decodeIfPresent(Bool.self, forKey: .secured)
+        let thumbURL  = try values.decodeIfPresent(String.self, forKey: .thumbURL)
+        let mediumURL = try values.decodeIfPresent(String.self, forKey: .mediumURL)
+        let largeURL  = try values.decodeIfPresent(String.self, forKey: .largeURL)
+        let assetType = try values.decodeIfPresent(String.self, forKey: .assetType)
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, name: name, key: key, type: type, publicURL: publicURL, active: active!, priority: priority!, secured: secured!, thumbURL: thumbURL, mediumURL: mediumURL, largeURL: largeURL, assetType: assetType)
+    }
+    
+}
+
+class AssignedShop :DBModel {
+   @objc dynamic  var id : String?                              = ""
+   @objc dynamic  var created : Int                             = 0
+   @objc dynamic  var modified : Int                            = 0
+   @objc dynamic  var deleted : Bool                            = false
+   @objc dynamic  var updated : Bool                            = false
+   @objc dynamic  var companyId : String?                       = ""
+   @objc dynamic  var shortIdentifier : String?                 = ""
+   @objc dynamic  var name : String?                            = ""
+   @objc dynamic  var shopType : String?                        = ""
+   @objc dynamic  var address : Address?
+   @objc dynamic  var phoneNumber : String?                     = ""
+   @objc dynamic  var emailAdress : String?                     = ""
+   @objc dynamic  var license : String?                         = ""
+   @objc dynamic  var enableDeliveryFee : Bool                  = false
+   @objc dynamic  var deliveryFee : Int                         = 0
+   @objc dynamic  var taxOrder : String?                        = ""
+   @objc dynamic  var taxInfo : TaxInfo?
+   @objc dynamic  var showWalkInQueue : Bool                    = false
+   @objc dynamic  var showDeliveryQueue : Bool                  = false
+   @objc dynamic  var showOnlineQueue : Bool                    = false
+   @objc dynamic  var enableCashInOut : Bool                    = false
+   @objc dynamic  var timeZone : String?                        = ""
+   @objc dynamic  var latitude : Double                         = 0.0
+   @objc dynamic  var longitude : Double                        = 0.0
+   @objc dynamic  var active : Bool                             = false
+   @objc dynamic  var snapshopTime : Int                        = 0
+   @objc dynamic  var defaultCountry : String?                  = ""
+   @objc dynamic  var onlineStoreInfo : OnlineStoreInfo?
+                  var deliveryFees  = List<DeliveryFees>()
+   @objc dynamic  var enableSaleLogout : Bool                   = false
+                  var assets = List<Assets>()
+   @objc dynamic  var enableBCCReceipt : Bool                   = false
+   @objc dynamic  var bccEmailAddress : String?                 = ""
+   @objc dynamic  var enableGPSTracking : Bool                  = false
+   @objc dynamic  var receivingInventoryId : String?            = ""
+   @objc dynamic  var defaultPinTimeout : Int                   = 0
+   @objc dynamic  var showSpecialQueue : Bool                   = false
+                  var emailList = List<String>()
+   @objc dynamic  var enableLowInventoryEmail : Bool            = false
+   @objc dynamic  var restrictedViews : Bool                    = false
+   @objc dynamic  var emailMessage : String?                    = ""
+   @objc dynamic  var taxRoundOffType : String?                 = ""
+   @objc dynamic  var enforceCashDrawers : Bool                 = false
+   @objc dynamic  var useAssignedEmployee : Bool                = false
+   @objc dynamic  var showProductByAvailableQuantity : Bool     = false
+   @objc dynamic  var autoCashDrawer : Bool                     = false
+   @objc dynamic  var numAllowActiveTrans : Int                 = 0
+   @objc dynamic  var requireValidRecDate : Bool                = false
+   @objc dynamic  var enableDeliverySignature : Bool            = false
+   @objc dynamic  var restrictIncomingOrderNotifications : Bool = false
+                  var restrictedNotificationTerminals = List<String>()
+   @objc dynamic  var roundOffType : String?                    = ""
+   @objc dynamic  var roundUpMessage : String?                  = ""
+   @objc dynamic  var shopEntityType : String?                  = ""
+   @objc dynamic  var membersCountSyncDate : Int                = 0
+   @objc dynamic  var enableCannabisLimit : Bool                = false
+   @objc dynamic  var useComplexTax : Bool                      = false
+                  var taxTables = List<TaxTables>()
+   @objc dynamic  var enableExciseTax : Bool                    = false
+   @objc dynamic  var exciseTaxType : String?                   = ""
+                  var marketingSources = List<String>()
+                  var productsTag = List<String>()
+   @objc dynamic  var logo : Logo?
+   @objc dynamic  var hubId : String?                           = ""
+   @objc dynamic  var hubName : String?                         = ""
+   @objc dynamic  var enableOnFleet : Bool                      = false
+   @objc dynamic  var onFleetApiKey : String?                   = ""
+   @objc dynamic  var onFleetOrganizationId : String?           = ""
+   @objc dynamic  var onFleetOrganizationName : String?         = ""
+   @objc dynamic  var emailAttachment : EmailAttachment?
+                  //var receiptInfo = List<ReceiptInfo>()
+   @objc dynamic  var enablePinForCashDrawer : Bool             = false
+   @objc dynamic  var checkoutType : String?                    = ""
+   @objc dynamic  var enableMetrc : Bool                        = false
+   @objc dynamic  var enableDeliveryMessaging : Bool            = false
+   @objc dynamic  var exciseTaxInfo : ExciseTaxInfo?
+   @objc dynamic  var timezoneOffsetInMinutes : Int             = 0
+   @objc dynamic  var defaultPinTimeoutDuration : Int           = 0
+    
+    enum CodingKeys: String, CodingKey {
+        
+        case id                                 = "id"
+        case created                            = "created"
+        case modified                           = "modified"
+        case deleted                            = "deleted"
+        case updated                            = "updated"
+        case companyId                          = "companyId"
+        case shortIdentifier                    = "shortIdentifier"
+        case name                               = "name"
+        case shopType                           = "shopType"
+        case address                            = "address"
+        case phoneNumber                        = "phoneNumber"
+        case emailAdress                        = "emailAdress"
+        case license                            = "license"
+        case enableDeliveryFee                  = "enableDeliveryFee"
+        case deliveryFee                        = "deliveryFee"
+        case taxOrder                           = "taxOrder"
+        case taxInfo                            = "taxInfo"
+        case showWalkInQueue                    = "showWalkInQueue"
+        case showDeliveryQueue                  = "showDeliveryQueue"
+        case showOnlineQueue                    = "showOnlineQueue"
+        case enableCashInOut                    = "enableCashInOut"
+        case timeZone                           = "timeZone"
+        case latitude                           = "latitude"
+        case longitude                          = "longitude"
+        case active                             = "active"
+        case snapshopTime                       = "snapshopTime"
+        case defaultCountry                     = "defaultCountry"
+        case onlineStoreInfo                    = "onlineStoreInfo"
+        case deliveryFees                       = "deliveryFees"
+        case enableSaleLogout                   = "enableSaleLogout"
+        case assets                             = "assets"
+        case enableBCCReceipt                   = "enableBCCReceipt"
+        case bccEmailAddress                    = "bccEmailAddress"
+        case enableGPSTracking                  = "enableGPSTracking"
+        case receivingInventoryId               = "receivingInventoryId"
+        case defaultPinTimeout                  = "defaultPinTimeout"
+        case showSpecialQueue                   = "showSpecialQueue"
+        case emailList                          = "emailList"
+        case enableLowInventoryEmail            = "enableLowInventoryEmail"
+        case restrictedViews                    = "restrictedViews"
+        case emailMessage                       = "emailMessage"
+        case taxRoundOffType                    = "taxRoundOffType"
+        case enforceCashDrawers                 = "enforceCashDrawers"
+        case useAssignedEmployee                = "useAssignedEmployee"
+        case showProductByAvailableQuantity     = "showProductByAvailableQuantity"
+        case autoCashDrawer                     = "autoCashDrawer"
+        case numAllowActiveTrans                = "numAllowActiveTrans"
+        case requireValidRecDate                = "requireValidRecDate"
+        case enableDeliverySignature            = "enableDeliverySignature"
+        case restrictIncomingOrderNotifications = "restrictIncomingOrderNotifications"
+        case restrictedNotificationTerminals    = "restrictedNotificationTerminals"
+        case roundOffType                       = "roundOffType"
+        case roundUpMessage                     = "roundUpMessage"
+        case shopEntityType                     = "shopEntityType"
+        case membersCountSyncDate               = "membersCountSyncDate"
+        case enableCannabisLimit                = "enableCannabisLimit"
+        case useComplexTax                      = "useComplexTax"
+        case taxTables                          = "taxTables"
+        case enableExciseTax                    = "enableExciseTax"
+        case exciseTaxType                      = "exciseTaxType"
+        case marketingSources                   = "marketingSources"
+        case productsTag                        = "productsTag"
+        case logo                               = "logo"
+        case hubId                              = "hubId"
+        case hubName                            = "hubName"
+        case enableOnFleet                      = "enableOnFleet"
+        case onFleetApiKey                      = "onFleetApiKey"
+        case onFleetOrganizationId              = "onFleetOrganizationId"
+        case onFleetOrganizationName            = "onFleetOrganizationName"
+        case emailAttachment                    = "emailAttachment"
+        //case receiptInfo                        = "receiptInfo"
+        case enablePinForCashDrawer             = "enablePinForCashDrawer"
+        case checkoutType                       = "checkoutType"
+        case enableMetrc                        = "enableMetrc"
+        case enableDeliveryMessaging            = "enableDeliveryMessaging"
+        case exciseTaxInfo                      = "exciseTaxInfo"
+        case timezoneOffsetInMinutes            = "timezoneOffsetInMinutes"
+        case defaultPinTimeoutDuration          = "defaultPinTimeoutDuration"
+    }
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shortIdentifier : String?,name : String?,shopType : String?,address : Address?,phoneNumber : String?,emailAdress : String?,license : String?,enableDeliveryFee : Bool,deliveryFee : Int,taxOrder : String?,taxInfo : TaxInfo?,showWalkInQueue : Bool,showDeliveryQueue : Bool,showOnlineQueue : Bool,enableCashInOut : Bool,timeZone : String?,latitude : Double,longitude : Double,active : Bool,snapshopTime : Int,defaultCountry : String?,onlineStoreInfo : OnlineStoreInfo?,deliveryFees : List<DeliveryFees>,enableSaleLogout : Bool,assets : List<Assets>,enableBCCReceipt : Bool,bccEmailAddress : String?,enableGPSTracking : Bool,receivingInventoryId : String?,defaultPinTimeout : Int,showSpecialQueue : Bool,emailList : List<String>,enableLowInventoryEmail : Bool,restrictedViews : Bool,emailMessage : String?,taxRoundOffType : String?, enforceCashDrawers : Bool,useAssignedEmployee : Bool,showProductByAvailableQuantity : Bool,autoCashDrawer : Bool,numAllowActiveTrans : Int,requireValidRecDate : Bool,enableDeliverySignature : Bool,restrictIncomingOrderNotifications : Bool,restrictedNotificationTerminals : List<String>,roundOffType : String?,roundUpMessage : String?,shopEntityType : String?,membersCountSyncDate : Int,enableCannabisLimit : Bool,useComplexTax : Bool,taxTables : List<TaxTables>,enableExciseTax : Bool,exciseTaxType : String?,marketingSources : List<String>,productsTag : List<String>,logo : Logo?,hubId : String?,hubName : String?,enableOnFleet : Bool,onFleetApiKey : String?,onFleetOrganizationId : String?,onFleetOrganizationName : String?,emailAttachment : EmailAttachment?,enablePinForCashDrawer : Bool,checkoutType : String?,enableMetrc : Bool,enableDeliveryMessaging : Bool,exciseTaxInfo : ExciseTaxInfo?,timezoneOffsetInMinutes : Int,defaultPinTimeoutDuration : Int){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted  = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.shortIdentifier = shortIdentifier
+        self.name = name
+        self.shopType = shopType
+        self.address = address
+        self.phoneNumber = phoneNumber
+        self.emailAdress = emailAdress
+        self.license = license
+        self.enableDeliveryFee = enableDeliveryFee
+        self.deliveryFee = deliveryFee
+        self.taxOrder = taxOrder
+        self.taxInfo = taxInfo
+        self.showWalkInQueue = showWalkInQueue
+        self.showDeliveryQueue = showDeliveryQueue
+        self.showOnlineQueue = showOnlineQueue
+        self.enableCashInOut = enableCashInOut
+        self.timeZone = timeZone
+        self.latitude = latitude
+        self.longitude = longitude
+        self.active = active
+        self.snapshopTime = snapshopTime
+        self.defaultCountry = defaultCountry
+        self.onlineStoreInfo = onlineStoreInfo
+        self.deliveryFee = deliveryFee
+        self.enableSaleLogout = enableSaleLogout
+        self.assets = assets
+        self.enableBCCReceipt = enableBCCReceipt
+        self.bccEmailAddress = bccEmailAddress
+        self.enableGPSTracking = enableGPSTracking
+        self.receivingInventoryId = receivingInventoryId
+        self.defaultPinTimeout = defaultPinTimeout
+        self.showSpecialQueue = showSpecialQueue
+        self.emailList = emailList
+        self.enableLowInventoryEmail = enableLowInventoryEmail
+        self.restrictedViews = restrictedViews
+        self.emailMessage = emailMessage
+        self.taxRoundOffType = taxRoundOffType
+        self.enforceCashDrawers = enforceCashDrawers
+        self.useAssignedEmployee = useAssignedEmployee
+        self.showProductByAvailableQuantity = showProductByAvailableQuantity
+        self.autoCashDrawer = autoCashDrawer
+        self.numAllowActiveTrans = numAllowActiveTrans
+        self.requireValidRecDate = requireValidRecDate
+        self.enableDeliverySignature = enableDeliverySignature
+        self.restrictIncomingOrderNotifications = restrictIncomingOrderNotifications
+        self.restrictedNotificationTerminals = restrictedNotificationTerminals
+        self.roundOffType = roundOffType
+        self.roundUpMessage = roundUpMessage
+        self.shopEntityType = shopEntityType
+        self.membersCountSyncDate = membersCountSyncDate
+        self.enableCannabisLimit = enableCannabisLimit
+        self.useComplexTax = useComplexTax
+        self.taxTables = taxTables
+        self.enableExciseTax = enableExciseTax
+        self.exciseTaxType = exciseTaxType
+        self.marketingSources = marketingSources
+        self.productsTag = productsTag
+        self.logo = logo
+        self.hubId = hubId
+        self.hubName = hubName
+        self.enableOnFleet = enableOnFleet
+        self.onFleetApiKey = onFleetApiKey
+        self.onFleetOrganizationId = onFleetOrganizationId
+        self.onFleetOrganizationName = onFleetOrganizationName
+        self.emailAttachment = emailAttachment
+       // self.receiptInfo = receiptInfo
+        self.enablePinForCashDrawer = enablePinForCashDrawer
+        self.checkoutType = checkoutType
+        self.enableMetrc = enableMetrc
+        self.enableDeliveryMessaging = enableDeliveryMessaging
+        self.exciseTaxInfo = exciseTaxInfo
+        self.timezoneOffsetInMinutes = timezoneOffsetInMinutes
+        self.defaultPinTimeoutDuration = defaultPinTimeoutDuration
+        
+    }
+    
+   convenience required init(from decoder: Decoder) throws {
+        let values                             = try decoder.container(keyedBy: CodingKeys.self)
+        let id                                 = try values.decodeIfPresent(String.self, forKey: .id)
+        let created                            = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified                           = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted                            = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated                            = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId                          = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let shortIdentifier                    = try values.decodeIfPresent(String.self, forKey: .shortIdentifier)
+        let name                               = try values.decodeIfPresent(String.self, forKey: .name)
+        let shopType                           = try values.decodeIfPresent(String.self, forKey: .shopType)
+        let address                            = try values.decodeIfPresent(Address.self, forKey: .address)
+        let phoneNumber                        = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
+        let emailAdress                        = try values.decodeIfPresent(String.self, forKey: .emailAdress)
+        let license                            = try values.decodeIfPresent(String.self, forKey: .license)
+        let enableDeliveryFee                  = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryFee)
+        let deliveryFee                        = try values.decodeIfPresent(Int.self, forKey: .deliveryFee)
+        let taxOrder                           = try values.decodeIfPresent(String.self, forKey: .taxOrder)
+        let taxInfo                            = try values.decodeIfPresent(TaxInfo.self, forKey: .taxInfo)
+        let showWalkInQueue                    = try values.decodeIfPresent(Bool.self, forKey: .showWalkInQueue)
+        let showDeliveryQueue                  = try values.decodeIfPresent(Bool.self, forKey: .showDeliveryQueue)
+        let showOnlineQueue                    = try values.decodeIfPresent(Bool.self, forKey: .showOnlineQueue)
+        let enableCashInOut                    = try values.decodeIfPresent(Bool.self, forKey: .enableCashInOut)
+        let timeZone                           = try values.decodeIfPresent(String.self, forKey: .timeZone)
+        let latitude                           = try values.decodeIfPresent(Double.self, forKey: .latitude)
+        let longitude                          = try values.decodeIfPresent(Double.self, forKey: .longitude)
+        let active                             = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let snapshopTime                       = try values.decodeIfPresent(Int.self, forKey: .snapshopTime)
+        let defaultCountry                     = try values.decodeIfPresent(String.self, forKey: .defaultCountry)
+        let onlineStoreInfo                    = try values.decodeIfPresent(OnlineStoreInfo.self, forKey: .onlineStoreInfo)
+        let deliveryFees                       = try values.decode([DeliveryFees].self, forKey: .deliveryFees)
+        let enableSaleLogout                   = try values.decodeIfPresent(Bool.self, forKey: .enableSaleLogout)
+        let assets                             = try values.decode([Assets].self, forKey: .assets)
+        let enableBCCReceipt                   = try values.decodeIfPresent(Bool.self, forKey: .enableBCCReceipt)
+        let bccEmailAddress                    = try values.decodeIfPresent(String.self, forKey: .bccEmailAddress)
+        let enableGPSTracking                  = try values.decodeIfPresent(Bool.self, forKey: .enableGPSTracking)
+        let receivingInventoryId               = try values.decodeIfPresent(String.self, forKey: .receivingInventoryId)
+        let defaultPinTimeout                  = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeout)
+        let showSpecialQueue                   = try values.decodeIfPresent(Bool.self, forKey: .showSpecialQueue)
+        let emailList                          = try values.decode([String].self, forKey: .emailList)
+        let enableLowInventoryEmail            = try values.decodeIfPresent(Bool.self, forKey: .enableLowInventoryEmail)
+        let restrictedViews                    = try values.decodeIfPresent(Bool.self, forKey: .restrictedViews)
+        let emailMessage                       = try values.decodeIfPresent(String.self, forKey: .emailMessage)
+        let taxRoundOffType                    = try values.decodeIfPresent(String.self, forKey: .taxRoundOffType)
+        let enforceCashDrawers                 = try values.decodeIfPresent(Bool.self, forKey: .enforceCashDrawers)
+        let useAssignedEmployee                = try values.decodeIfPresent(Bool.self, forKey: .useAssignedEmployee)
+        let showProductByAvailableQuantity     = try values.decodeIfPresent(Bool.self, forKey: .showProductByAvailableQuantity)
+        let autoCashDrawer                     = try values.decodeIfPresent(Bool.self, forKey: .autoCashDrawer)
+        let numAllowActiveTrans                = try values.decodeIfPresent(Int.self, forKey: .numAllowActiveTrans)
+        let requireValidRecDate                = try values.decodeIfPresent(Bool.self, forKey: .requireValidRecDate)
+        let enableDeliverySignature            = try values.decodeIfPresent(Bool.self, forKey: .enableDeliverySignature)
+        let restrictIncomingOrderNotifications = try values.decodeIfPresent(Bool.self, forKey: .restrictIncomingOrderNotifications)
+        let restrictedNotificationTerminals    = try values.decode([String].self, forKey: .restrictedNotificationTerminals)
+        let roundOffType                       = try values.decodeIfPresent(String.self, forKey: .roundOffType)
+        let roundUpMessage                     = try values.decodeIfPresent(String.self, forKey: .roundUpMessage)
+        let shopEntityType                     = try values.decodeIfPresent(String.self, forKey: .shopEntityType)
+        let membersCountSyncDate               = try values.decodeIfPresent(Int.self, forKey: .membersCountSyncDate)
+        let enableCannabisLimit                = try values.decodeIfPresent(Bool.self, forKey: .enableCannabisLimit)
+        let useComplexTax                      = try values.decodeIfPresent(Bool.self, forKey: .useComplexTax)
+        let taxTables                          = try values.decode([TaxTables].self, forKey: .taxTables)
+        let enableExciseTax                    = try values.decodeIfPresent(Bool.self, forKey: .enableExciseTax)
+        let exciseTaxType                      = try values.decodeIfPresent(String.self, forKey: .exciseTaxType)
+        let marketingSources                   = try values.decode([String].self, forKey: .marketingSources)
+        let productsTag                        = try values.decode([String].self, forKey: .productsTag)
+        let logo                               = try values.decodeIfPresent(Logo.self, forKey: .logo)
+        let hubId                              = try values.decodeIfPresent(String.self, forKey: .hubId)
+        let hubName                            = try values.decodeIfPresent(String.self, forKey: .hubName)
+        let enableOnFleet                      = try values.decodeIfPresent(Bool.self, forKey: .enableOnFleet)
+        let onFleetApiKey                      = try values.decodeIfPresent(String.self, forKey: .onFleetApiKey)
+        let onFleetOrganizationId              = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationId)
+        let onFleetOrganizationName            = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationName)
+        let emailAttachment                    = try values.decodeIfPresent(EmailAttachment.self, forKey: .emailAttachment)
+        //let receiptInfo                        = try values.decode([ReceiptInfo].self, forKey: .receiptInfo)
+        let enablePinForCashDrawer             = try values.decodeIfPresent(Bool.self, forKey: .enablePinForCashDrawer)
+        let checkoutType                       = try values.decodeIfPresent(String.self, forKey: .checkoutType)
+        let enableMetrc                        = try values.decodeIfPresent(Bool.self, forKey: .enableMetrc)
+        let enableDeliveryMessaging            = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryMessaging)
+        let exciseTaxInfo                      = try values.decodeIfPresent(ExciseTaxInfo.self, forKey: .exciseTaxInfo)
+        let timezoneOffsetInMinutes            = try values.decodeIfPresent(Int.self, forKey: .timezoneOffsetInMinutes)
+        let defaultPinTimeoutDuration          = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeoutDuration)
+    
+        let assetsList = List<Assets>()
+        let emailListList = List<String>()
+        let taxTablesList = List<TaxTables>()
+        let marketingSourcesList = List<String>()
+        let productsTagList = List<String>()
+        let deliveryFeesList = List<DeliveryFees>()
+        let restrictedNotificationTerminalsList = List<String>()
+        let receiptInfoList = List<ReceiptInfo>()
+        assetsList.append(objectsIn: assets)
+        emailListList.append(objectsIn: emailList)
+        taxTablesList.append(objectsIn: taxTables)
+        marketingSourcesList.append(objectsIn: marketingSources)
+        productsTagList.append(objectsIn: productsTag)
+        deliveryFeesList.append(objectsIn: deliveryFees)
+        restrictedNotificationTerminalsList.append(objectsIn: restrictedNotificationTerminals)
+       // receiptInfoList.append(objectsIn: receiptInfo)
+    
+    
+    
+    self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shortIdentifier: shortIdentifier, name: name, shopType: shopType, address: address, phoneNumber: phoneNumber, emailAdress: emailAdress, license: license, enableDeliveryFee: enableDeliveryFee!, deliveryFee: deliveryFee!, taxOrder: taxOrder, taxInfo: taxInfo, showWalkInQueue: showWalkInQueue!, showDeliveryQueue: showDeliveryQueue!, showOnlineQueue: showOnlineQueue!, enableCashInOut: enableCashInOut!, timeZone: timeZone,latitude:latitude!,longitude:longitude!, active: active!, snapshopTime: snapshopTime!, defaultCountry: defaultCountry, onlineStoreInfo: onlineStoreInfo, deliveryFees: deliveryFeesList, enableSaleLogout: enableSaleLogout!, assets: assetsList, enableBCCReceipt: enableBCCReceipt!, bccEmailAddress: bccEmailAddress, enableGPSTracking: enableGPSTracking!, receivingInventoryId: receivingInventoryId, defaultPinTimeout: defaultPinTimeout!, showSpecialQueue: showSpecialQueue!, emailList: emailListList, enableLowInventoryEmail: enableLowInventoryEmail!, restrictedViews: restrictedViews!, emailMessage: emailMessage, taxRoundOffType: taxRoundOffType, enforceCashDrawers: enforceCashDrawers!, useAssignedEmployee: useAssignedEmployee!, showProductByAvailableQuantity: showProductByAvailableQuantity!, autoCashDrawer: autoCashDrawer!, numAllowActiveTrans: numAllowActiveTrans!, requireValidRecDate: requireValidRecDate!, enableDeliverySignature: enableDeliverySignature!, restrictIncomingOrderNotifications: restrictIncomingOrderNotifications!, restrictedNotificationTerminals: restrictedNotificationTerminalsList, roundOffType: roundOffType, roundUpMessage: roundUpMessage, shopEntityType: shopEntityType, membersCountSyncDate: membersCountSyncDate!, enableCannabisLimit: enableCannabisLimit!, useComplexTax: useComplexTax!, taxTables: taxTablesList, enableExciseTax: enableExciseTax!, exciseTaxType: exciseTaxType, marketingSources: marketingSourcesList, productsTag: productsTagList, logo: logo, hubId: hubId, hubName: hubName, enableOnFleet: enableOnFleet!, onFleetApiKey: onFleetApiKey, onFleetOrganizationId: onFleetOrganizationId, onFleetOrganizationName: onFleetOrganizationName, emailAttachment: emailAttachment, enablePinForCashDrawer: enablePinForCashDrawer!, checkoutType: checkoutType, enableMetrc: enableMetrc!, enableDeliveryMessaging: enableDeliveryMessaging!, exciseTaxInfo: exciseTaxInfo, timezoneOffsetInMinutes: timezoneOffsetInMinutes!, defaultPinTimeoutDuration: defaultPinTimeoutDuration!)
     
     }
     
 }
 
-class TaxInfo : DBModel,Codable {
+class TaxInfo : DBModel{
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -783,7 +989,7 @@ class TaxInfo : DBModel,Codable {
 }
 
 
-class StateTax :DBModel,Codable {
+class StateTax :DBModel{
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -856,28 +1062,28 @@ class StateTax :DBModel,Codable {
 }
 
 
-class AssignedTerminal : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var shopId : String?
-    var dirty : Bool?
-    var active : Bool?
-    var deviceId : String?
-    var name : String?
-    var deviceModel : String?
-    var deviceVersion : String?
-    var deviceName : String?
-    var appVersion : String?
-    var deviceToken : String?
-    var deviceType : String?
-    var assignedInventoryId : String?
-    var cvAccountId : String?
-    var currentEmployeeId : String?
-    var terminalLocations : [TerminalLocations]?
+class AssignedTerminal : DBModel{
+    @objc dynamic var id : String?                  = ""
+    @objc dynamic var created : Int                 = 0
+    @objc dynamic var modified : Int                = 0
+    @objc dynamic var deleted : Bool                = false
+    @objc dynamic var updated : Bool                = false
+    @objc dynamic var companyId : String?           = ""
+    @objc dynamic var shopId : String?              = ""
+    @objc dynamic var dirty : Bool                  = false
+    @objc dynamic var active : Bool                 = false
+    @objc dynamic var deviceId : String?            = ""
+    @objc dynamic var name : String?                = ""
+    @objc dynamic var deviceModel : String?         = ""
+    @objc dynamic var deviceVersion : String?       = ""
+    @objc dynamic var deviceName : String?          = ""
+    @objc dynamic var appVersion : String?          = ""
+    @objc dynamic var deviceToken : String?         = ""
+    @objc dynamic var deviceType : String?          = ""
+    @objc dynamic var assignedInventoryId : String? = ""
+    @objc dynamic var cvAccountId : String?         = ""
+    @objc dynamic var currentEmployeeId : String?   = ""
+                  var terminalLocations = List<TerminalLocations>()
     
     enum CodingKeys: String, CodingKey {
         
@@ -903,48 +1109,77 @@ class AssignedTerminal : Codable {
         case currentEmployeeId = "currentEmployeeId"
         case terminalLocations = "terminalLocations"
     }
-    
-    required init(from decoder: Decoder) throws {
+    convenience init (id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,active : Bool,deviceId : String?,name : String?,deviceModel : String?,deviceVersion : String?,deviceName : String?,appVersion : String?,deviceToken : String?,deviceType : String?,assignedInventoryId : String?,cvAccountId : String?,currentEmployeeId : String?,terminalLocations : List<TerminalLocations>){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.shopId = shopId
+        self.dirty = dirty
+        self.active = active
+        self.deviceId = deviceId
+        self.name = name
+        self.deviceModel = deviceModel
+        self.deviceVersion = deviceVersion
+        self.deviceName = deviceName
+        self.appVersion = appVersion
+        self.deviceToken = deviceToken
+        self.deviceType = deviceType
+        self.assignedInventoryId = assignedInventoryId
+        self.cvAccountId = cvAccountId
+        self.currentEmployeeId = currentEmployeeId
+        self.terminalLocations = terminalLocations
+        
+        
+        
+    }
+  convenience  required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
-        dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
-        active = try values.decodeIfPresent(Bool.self, forKey: .active)
-        deviceId = try values.decodeIfPresent(String.self, forKey: .deviceId)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        deviceModel = try values.decodeIfPresent(String.self, forKey: .deviceModel)
-        deviceVersion = try values.decodeIfPresent(String.self, forKey: .deviceVersion)
-        deviceName = try values.decodeIfPresent(String.self, forKey: .deviceName)
-        appVersion = try values.decodeIfPresent(String.self, forKey: .appVersion)
-        deviceToken = try values.decodeIfPresent(String.self, forKey: .deviceToken)
-        deviceType = try values.decodeIfPresent(String.self, forKey: .deviceType)
-        assignedInventoryId = try values.decodeIfPresent(String.self, forKey: .assignedInventoryId)
-        cvAccountId = try values.decodeIfPresent(String.self, forKey: .cvAccountId)
-        currentEmployeeId = try values.decodeIfPresent(String.self, forKey: .currentEmployeeId)
-        terminalLocations = try values.decodeIfPresent([TerminalLocations].self, forKey: .terminalLocations)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
+        let dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
+        let active = try values.decodeIfPresent(Bool.self, forKey: .active)
+        let deviceId = try values.decodeIfPresent(String.self, forKey: .deviceId)
+        let name = try values.decodeIfPresent(String.self, forKey: .name)
+        let deviceModel = try values.decodeIfPresent(String.self, forKey: .deviceModel)
+        let deviceVersion = try values.decodeIfPresent(String.self, forKey: .deviceVersion)
+        let deviceName = try values.decodeIfPresent(String.self, forKey: .deviceName)
+        let appVersion = try values.decodeIfPresent(String.self, forKey: .appVersion)
+        let deviceToken = try values.decodeIfPresent(String.self, forKey: .deviceToken)
+        let deviceType = try values.decodeIfPresent(String.self, forKey: .deviceType)
+        let assignedInventoryId = try values.decodeIfPresent(String.self, forKey: .assignedInventoryId)
+        let cvAccountId = try values.decodeIfPresent(String.self, forKey: .cvAccountId)
+        let currentEmployeeId = try values.decodeIfPresent(String.self, forKey: .currentEmployeeId)
+        let terminalLocations = try values.decode([TerminalLocations].self, forKey: .terminalLocations)
+        let terminalLocationsList = List<TerminalLocations>()
+            terminalLocationsList.append(objectsIn: terminalLocations)
+        self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, active: active!, deviceId: deviceId, name: name, deviceModel: deviceModel, deviceVersion: deviceVersion, deviceName: deviceName, appVersion: appVersion, deviceToken: deviceToken, deviceType: deviceType, assignedInventoryId: assignedInventoryId, cvAccountId: cvAccountId, currentEmployeeId: currentEmployeeId, terminalLocations: terminalLocationsList)
     }
 }
 
-class CityTax :DBModel,Codable {
-   @objc dynamic var id : String?   = ""
-   @objc dynamic var created : Int  = 0
-   @objc dynamic var modified : Int = 0
-   @objc dynamic var deleted : Bool = false
-   @objc dynamic var updated : Bool = false
-   @objc dynamic var companyId : String? = ""
-   @objc dynamic var shopId : String? = ""
-   @objc dynamic var dirty : Bool = false
-   @objc dynamic var taxRate : Double = 0.0
-   @objc dynamic var compound : Bool = false
-   @objc dynamic var active : Bool = false
-   @objc dynamic var territory : String? = ""
+class CityTax :DBModel{
+   @objc dynamic var id : String?           = ""
+   @objc dynamic var created : Int          = 0
+   @objc dynamic var modified : Int         = 0
+   @objc dynamic var deleted : Bool         = false
+   @objc dynamic var updated : Bool         = false
+   @objc dynamic var companyId : String?    = ""
+   @objc dynamic var shopId : String?       = ""
+   @objc dynamic var dirty : Bool           = false
+   @objc dynamic var taxRate : Double       = 0.0
+   @objc dynamic var compound : Bool        = false
+   @objc dynamic var active : Bool          = false
+   @objc dynamic var territory : String?    = ""
    @objc dynamic var activeExciseTax : Bool = false
-   @objc dynamic var taxOrder : String? = ""
+   @objc dynamic var taxOrder : String?     = ""
     
     enum CodingKeys: String, CodingKey {
         
@@ -1005,36 +1240,36 @@ class CityTax :DBModel,Codable {
     
 }
 
-class Company : DBModel,Codable {
-    @objc dynamic var id : String?  = ""
-    @objc dynamic var created : Int = 0
-    @objc dynamic var modified : Int = 0
-    @objc dynamic var deleted : Bool = false
-    @objc dynamic var updated : Bool = false
-    @objc dynamic var membersShareOption : String? = ""
-    @objc dynamic var isId : String? = ""
-    @objc dynamic var name : String? = ""
-    @objc dynamic var phoneNumber : String? = ""
-    @objc dynamic var email : String? = ""
-    @objc dynamic var address : Address? =   Address()
-    @objc dynamic var logoURL : String? = ""
-    @objc dynamic var supportEmail : String? = ""
-    @objc dynamic var showNameWithLogo : Bool = false
-    @objc dynamic var active : Bool = false
-    @objc dynamic var website : String? = ""
-    @objc dynamic var productSKU : String? = ""
-    @objc dynamic var queueUrl : String? = ""
+class Company : DBModel {
+    @objc dynamic var id : String?                  = ""
+    @objc dynamic var created : Int                 = 0
+    @objc dynamic var modified : Int                = 0
+    @objc dynamic var deleted : Bool                = false
+    @objc dynamic var updated : Bool                = false
+    @objc dynamic var membersShareOption : String?  = ""
+    @objc dynamic var isId : String?                = ""
+    @objc dynamic var name : String?                = ""
+    @objc dynamic var phoneNumber : String?         = ""
+    @objc dynamic var email : String?               = ""
+    @objc dynamic var address : Address?            = Address()
+    @objc dynamic var logoURL : String?             = ""
+    @objc dynamic var supportEmail : String?        = ""
+    @objc dynamic var showNameWithLogo : Bool       = false
+    @objc dynamic var active : Bool                 = false
+    @objc dynamic var website : String?             = ""
+    @objc dynamic var productSKU : String?          = ""
+    @objc dynamic var queueUrl : String?            = ""
     @objc dynamic var preferredEmailColor : String? = ""
-    @objc dynamic var pricingOpt : String? = ""
-    @objc dynamic var enableLoyalty : Bool = false
-    @objc dynamic var dollarToPointRatio : Int = 0
-    @objc dynamic var duration : Int = 0
-    @objc dynamic var portalUrl : String? = ""
-    @objc dynamic var businessLocation : String? = ""
-    @objc dynamic var fax : String? = ""
+    @objc dynamic var pricingOpt : String?          = ""
+    @objc dynamic var enableLoyalty : Bool          = false
+    @objc dynamic var dollarToPointRatio : Int      = 0
+    @objc dynamic var duration : Int                = 0
+    @objc dynamic var portalUrl : String?           = ""
+    @objc dynamic var businessLocation : String?    = ""
+    @objc dynamic var fax : String?                 = ""
     @objc dynamic var primaryContact : PrimaryContact?
-    @objc dynamic var taxId : String? = ""
-    @objc dynamic var loyaltyAccrueOpt : String? = ""
+    @objc dynamic var taxId : String?               = ""
+    @objc dynamic var loyaltyAccrueOpt : String?    = ""
     
     
     enum CodingKeys: String, CodingKey {
@@ -1140,7 +1375,7 @@ class Company : DBModel,Codable {
     
 }
 
-class CountyTax :DBModel,Codable {
+class CountyTax :DBModel{
    @objc dynamic var id : String?   = ""
    @objc dynamic var created : Int  = 0
    @objc dynamic var modified : Int = 0
@@ -1214,7 +1449,7 @@ class CountyTax :DBModel,Codable {
     
 }
 
-class DeliveryFees : DBModel,Codable{
+class DeliveryFees : DBModel{
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -1265,7 +1500,7 @@ class DeliveryFees : DBModel,Codable{
     
 }
 
-class EmailAttachment :DBModel,Codable {
+class EmailAttachment :DBModel {
    
    @objc dynamic var id : String?   = ""
    @objc dynamic var created : Int  =  0
@@ -1350,124 +1585,170 @@ class EmailAttachment :DBModel,Codable {
     
 }
 
-class Employee : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var firstName : String?
-    var lastName : String?
-    var pin : String?
-    var roleId : String?
-    var email : String?
-    var password : String?
-    var driversLicense : String?
-    var dlExpirationDate : String?
-    var vehicleMake : String?
-    var notes : [Notes]?
-    var shops : [String]?
-    var disabled : Bool?
-    var phoneNumber : String?
-    var assignedInventoryId : String?
-    var assignedTerminalId : String?
-    var address : Address?
-    var timecardId : String?
-    var timeCard : TimeCard?
-    var role : Role?
-    var canApplyCustomDiscount : Bool?
-    var insuranceExpireDate : Int?
-    var insuranceCompanyName : String?
-    var policyNumber : String?
-    var registrationExpireDate : Int?
-    var vehiclePin : String?
-    var vinNo : String?
-    var employeeOnFleetInfoList : [EmployeeOnFleetInfoList]?
-    var appAccessList : [String]?
+class Employee :DBModel {
+   @objc dynamic var id : String?                   = ""
+   @objc dynamic var created : Int                  = 0
+   @objc dynamic var modified : Int                 = 0
+   @objc dynamic var deleted : Bool                 = false
+   @objc dynamic var updated : Bool                 = false
+   @objc dynamic var companyId : String?            = ""
+   @objc dynamic var firstName : String?            = ""
+   @objc dynamic var lastName : String?             = ""
+   @objc dynamic var pin : String?                  = ""
+   @objc dynamic var roleId : String?               = ""
+   @objc dynamic var email : String?                = ""
+   @objc dynamic var password : String?             = ""
+   @objc dynamic var driversLicense : String?       = ""
+   @objc dynamic var dlExpirationDate : String?     = ""
+   @objc dynamic var vehicleMake : String?          = ""
+   var notes                                        = List<Notes>()
+   var shops                                        = List<String>()
+   @objc dynamic var disabled : Bool                = false
+   @objc dynamic var phoneNumber : String?          = ""
+   @objc dynamic var assignedInventoryId : String?  = ""
+   @objc dynamic var assignedTerminalId : String?   = ""
+   @objc dynamic var address : Address?
+   @objc dynamic var timecardId : String?           = ""
+   @objc dynamic var timeCard : TimeCard?
+   @objc dynamic var role : Role?
+   @objc dynamic var canApplyCustomDiscount : Bool  = false
+   @objc dynamic var insuranceExpireDate : Int      = 0
+   @objc dynamic var insuranceCompanyName : String? = ""
+   @objc dynamic var policyNumber : String?         = ""
+   @objc dynamic var registrationExpireDate : Int   = 0
+   @objc dynamic var vehiclePin : String?           = ""
+   @objc dynamic var vinNo : String?                = ""
+   var employeeOnFleetInfoList                      = List<EmployeeOnFleetInfoList>()
+                 var appAccessList = List<String>()
     
     enum CodingKeys: String, CodingKey {
         
-        case id = "id"
-        case created = "created"
-        case modified = "modified"
-        case deleted = "deleted"
-        case updated = "updated"
-        case companyId = "companyId"
-        case firstName = "firstName"
-        case lastName = "lastName"
-        case pin = "pin"
-        case roleId = "roleId"
-        case email = "email"
-        case password = "password"
-        case driversLicense = "driversLicense"
-        case dlExpirationDate = "dlExpirationDate"
-        case vehicleMake = "vehicleMake"
-        case notes = "notes"
-        case shops = "shops"
-        case disabled = "disabled"
-        case phoneNumber = "phoneNumber"
-        case assignedInventoryId = "assignedInventoryId"
-        case assignedTerminalId = "assignedTerminalId"
-        case address = "address"
-        case timecardId = "timecardId"
-        case timeCard = "timeCard"
-        case role = "role"
-        case canApplyCustomDiscount = "canApplyCustomDiscount"
-        case insuranceExpireDate = "insuranceExpireDate"
-        case insuranceCompanyName = "insuranceCompanyName"
-        case policyNumber = "policyNumber"
-        case registrationExpireDate = "registrationExpireDate"
-        case vehiclePin = "vehiclePin"
-        case vinNo = "vinNo"
+        case id                      = "id"
+        case created                 = "created"
+        case modified                = "modified"
+        case deleted                 = "deleted"
+        case updated                 = "updated"
+        case companyId               = "companyId"
+        case firstName               = "firstName"
+        case lastName                = "lastName"
+        case pin                     = "pin"
+        case roleId                  = "roleId"
+        case email                   = "email"
+        case password                = "password"
+        case driversLicense          = "driversLicense"
+        case dlExpirationDate        = "dlExpirationDate"
+        case vehicleMake             = "vehicleMake"
+        case notes                   = "notes"
+        case shops                   = "shops"
+        case disabled                = "disabled"
+        case phoneNumber             = "phoneNumber"
+        case assignedInventoryId     = "assignedInventoryId"
+        case assignedTerminalId      = "assignedTerminalId"
+        case address                 = "address"
+        case timecardId              = "timecardId"
+        case timeCard                = "timeCard"
+        case role                    = "role"
+        case canApplyCustomDiscount  = "canApplyCustomDiscount"
+        case insuranceExpireDate     = "insuranceExpireDate"
+        case insuranceCompanyName    = "insuranceCompanyName"
+        case policyNumber            = "policyNumber"
+        case registrationExpireDate  = "registrationExpireDate"
+        case vehiclePin              = "vehiclePin"
+        case vinNo                   = "vinNo"
         case employeeOnFleetInfoList = "employeeOnFleetInfoList"
-        case appAccessList = "appAccessList"
+        case appAccessList           = "appAccessList"
     }
+    convenience init(id : String?,created : Int?,modified : Int?,deleted : Bool,updated : Bool,companyId : String?,firstName : String?,lastName : String?,pin : String?,roleId : String?,email : String?,password : String?,driversLicense : String?, dlExpirationDate : String?,vehicleMake : String?,notes : List<Notes>,shops : List<String>,disabled : Bool,phoneNumber : String?,assignedInventoryId : String?,assignedTerminalId : String?,address : Address?,timecardId : String?,timeCard : TimeCard?,role : Role?,canApplyCustomDiscount : Bool,insuranceExpireDate : Int?,insuranceCompanyName : String?,policyNumber : String?,registrationExpireDate : Int,vehiclePin : String?,vinNo : String?,employeeOnFleetInfoList : List<EmployeeOnFleetInfoList>,appAccessList : List<String>){
+        self.init()
+        self.id                      = id
+        self.created                 =  created  != nil ? created!  : 0
+        self.modified                =  modified != nil ? modified! : 0
+        self.deleted                 = deleted
+        self.companyId               = companyId
+        self.firstName               = firstName
+        self.lastName                = lastName
+        self.pin                     = pin
+        self.roleId                  = roleId
+        self.email                   = email
+        self.password                = password
+        self.driversLicense          = driversLicense
+        self.dlExpirationDate        = dlExpirationDate
+        self.vehicleMake             = vehicleMake
+        self.notes                   = notes
+        self.shops                   = shops
+        self.disabled                = disabled
+        self.phoneNumber             = phoneNumber
+        self.assignedInventoryId     = assignedInventoryId
+        self.assignedTerminalId      = assignedTerminalId
+        self.address                 = address
+        self.timecardId              = timecardId
+        self.timeCard                = timeCard
+        self.role                    = role
+        self.canApplyCustomDiscount  = canApplyCustomDiscount
+        self.insuranceExpireDate     = insuranceExpireDate != nil ? insuranceExpireDate! : 0
+        self.insuranceCompanyName    = insuranceCompanyName
+        self.policyNumber            = policyNumber
+        self.registrationExpireDate  = registrationExpireDate
+        self.vehiclePin              = vehiclePin
+        self.vinNo                   = vinNo
+        self.employeeOnFleetInfoList = employeeOnFleetInfoList
+        self.appAccessList           = appAccessList
+    }
+   convenience  required init(from decoder: Decoder) throws {
+        let values                      = try decoder.container(keyedBy: CodingKeys.self)
+        let id                          = try values.decodeIfPresent(String.self, forKey: .id)
+        let created                     = try values.decodeIfPresent(Int.self, forKey: .created) ?? 0
+        let modified                    = try values.decodeIfPresent(Int.self, forKey: .modified) ?? 0
+        let deleted                     = try values.decodeIfPresent(Bool.self, forKey: .deleted) ?? false
+        let updated                     = try values.decodeIfPresent(Bool.self, forKey: .updated) ?? false
+        let companyId                   = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let firstName                   = try values.decodeIfPresent(String.self, forKey: .firstName)
+        let lastName                    = try values.decodeIfPresent(String.self, forKey: .lastName)
+        let pin                         = try values.decodeIfPresent(String.self, forKey: .pin)
+        let roleId                      = try values.decodeIfPresent(String.self, forKey: .roleId)
+        let email                       = try values.decodeIfPresent(String.self, forKey: .email)
+        let password                    = try values.decodeIfPresent(String.self, forKey: .password)
+        let driversLicense              = try values.decodeIfPresent(String.self, forKey: .driversLicense)
+        let dlExpirationDate            = try values.decodeIfPresent(String.self, forKey: .dlExpirationDate)
+        let vehicleMake                 = try values.decodeIfPresent(String.self, forKey: .vehicleMake)
+        let notes                       = try values.decode([Notes].self, forKey: .notes)
+        let shops                       = try values.decode([String].self, forKey: .shops)
+        let disabled                    = try values.decodeIfPresent(Bool.self, forKey: .disabled) ?? false
+        let phoneNumber                 = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
+        let assignedInventoryId         = try values.decodeIfPresent(String.self, forKey: .assignedInventoryId)
+        let assignedTerminalId          = try values.decodeIfPresent(String.self, forKey: .assignedTerminalId)
+        let address                     = try values.decodeIfPresent(Address.self, forKey: .address)
+        let timecardId                  = try values.decodeIfPresent(String.self, forKey: .timecardId)
+        let timeCard                    = try values.decodeIfPresent(TimeCard.self, forKey: .timeCard)
+        let role                        = try values.decodeIfPresent(Role.self, forKey: .role)
+        let canApplyCustomDiscount      = try values.decodeIfPresent(Bool.self, forKey: .canApplyCustomDiscount)
+        let insuranceExpireDate         = try values.decodeIfPresent(Int.self, forKey: .insuranceExpireDate) ?? 0
+        let insuranceCompanyName        = try values.decodeIfPresent(String.self, forKey: .insuranceCompanyName)
+        let policyNumber                = try values.decodeIfPresent(String.self, forKey: .policyNumber)
+        let registrationExpireDate      = try values.decodeIfPresent(Int.self, forKey: .registrationExpireDate) ?? 0
+        let vehiclePin                  = try values.decodeIfPresent(String.self, forKey: .vehiclePin)
+        let vinNo                       = try values.decodeIfPresent(String.self, forKey: .vinNo)
+        let employeeOnFleetInfoList     = try values.decode([EmployeeOnFleetInfoList].self, forKey: .employeeOnFleetInfoList)
+        let appAccessList               = try values.decode([String].self, forKey: .appAccessList)
+        let notesList                   = List<Notes>()
+        let shopsList                   = List<String>()
+        let employeeOnFleetInfoListList = List<EmployeeOnFleetInfoList>()
+        let appAccessListList           = List<String>()
+            notesList.append(objectsIn: notes)
+            employeeOnFleetInfoListList.append(objectsIn: employeeOnFleetInfoList)
+            appAccessListList.append(objectsIn: appAccessList)
+            shopsList.append(objectsIn: shops)
     
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        firstName = try values.decodeIfPresent(String.self, forKey: .firstName)
-        lastName = try values.decodeIfPresent(String.self, forKey: .lastName)
-        pin = try values.decodeIfPresent(String.self, forKey: .pin)
-        roleId = try values.decodeIfPresent(String.self, forKey: .roleId)
-        email = try values.decodeIfPresent(String.self, forKey: .email)
-        password = try values.decodeIfPresent(String.self, forKey: .password)
-        driversLicense = try values.decodeIfPresent(String.self, forKey: .driversLicense)
-        dlExpirationDate = try values.decodeIfPresent(String.self, forKey: .dlExpirationDate)
-        vehicleMake = try values.decodeIfPresent(String.self, forKey: .vehicleMake)
-        notes = try values.decodeIfPresent([Notes].self, forKey: .notes)
-        shops = try values.decodeIfPresent([String].self, forKey: .shops)
-        disabled = try values.decodeIfPresent(Bool.self, forKey: .disabled)
-        phoneNumber = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
-        assignedInventoryId = try values.decodeIfPresent(String.self, forKey: .assignedInventoryId)
-        assignedTerminalId = try values.decodeIfPresent(String.self, forKey: .assignedTerminalId)
-        address = try values.decodeIfPresent(Address.self, forKey: .address)
-        timecardId = try values.decodeIfPresent(String.self, forKey: .timecardId)
-        timeCard = try values.decodeIfPresent(TimeCard.self, forKey: .timeCard)
-        role = try values.decodeIfPresent(Role.self, forKey: .role)
-        canApplyCustomDiscount = try values.decodeIfPresent(Bool.self, forKey: .canApplyCustomDiscount)
-        insuranceExpireDate = try values.decodeIfPresent(Int.self, forKey: .insuranceExpireDate)
-        insuranceCompanyName = try values.decodeIfPresent(String.self, forKey: .insuranceCompanyName)
-        policyNumber = try values.decodeIfPresent(String.self, forKey: .policyNumber)
-        registrationExpireDate = try values.decodeIfPresent(Int.self, forKey: .registrationExpireDate)
-        vehiclePin = try values.decodeIfPresent(String.self, forKey: .vehiclePin)
-        vinNo = try values.decodeIfPresent(String.self, forKey: .vinNo)
-        employeeOnFleetInfoList = try values.decodeIfPresent([EmployeeOnFleetInfoList].self, forKey: .employeeOnFleetInfoList)
-        appAccessList = try values.decodeIfPresent([String].self, forKey: .appAccessList)
+    
+    self.init(id: id, created: created, modified: modified, deleted: deleted, updated: updated, companyId: companyId, firstName: firstName, lastName: lastName, pin: pin, roleId: roleId, email: email, password: password, driversLicense: driversLicense, dlExpirationDate: dlExpirationDate, vehicleMake: vehicleMake, notes: notesList, shops: shopsList, disabled: disabled, phoneNumber: phoneNumber, assignedInventoryId: assignedInventoryId, assignedTerminalId: assignedTerminalId, address: address, timecardId: timecardId, timeCard: timeCard, role: role, canApplyCustomDiscount: canApplyCustomDiscount!, insuranceExpireDate: insuranceExpireDate, insuranceCompanyName: insuranceCompanyName, policyNumber: policyNumber, registrationExpireDate: registrationExpireDate, vehiclePin: vehiclePin, vinNo: vinNo, employeeOnFleetInfoList: employeeOnFleetInfoListList, appAccessList: appAccessListList)
     }
     
 }
 
-class EmployeeOnFleetInfoList : Codable {
-    var shopId : String?
-    var onFleetWorkerId : String?
-    var onFleetTeamList : [String]?
+class EmployeeOnFleetInfoList : DBModel {
+  @objc dynamic var shopId : String? = ""
+  @objc dynamic var onFleetWorkerId : String? = ""
+                var onFleetTeamList  = List<String>()
     
     enum CodingKeys: String, CodingKey {
         
@@ -1475,17 +1756,26 @@ class EmployeeOnFleetInfoList : Codable {
         case onFleetWorkerId = "onFleetWorkerId"
         case onFleetTeamList = "onFleetTeamList"
     }
-    
-    required init(from decoder: Decoder) throws {
+    convenience init(shopId : String?,onFleetWorkerId : String?,onFleetTeamList : List<String>){
+        self.init()
+        self.shopId = shopId
+        self.onFleetWorkerId = onFleetWorkerId
+        self.onFleetTeamList = onFleetTeamList
+        
+    }
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
-        onFleetWorkerId = try values.decodeIfPresent(String.self, forKey: .onFleetWorkerId)
-        onFleetTeamList = try values.decodeIfPresent([String].self, forKey: .onFleetTeamList)
+        let shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
+        let onFleetWorkerId = try values.decodeIfPresent(String.self, forKey: .onFleetWorkerId)
+        let onFleetTeamList = try values.decode([String].self, forKey: .onFleetTeamList)
+        let onFleetTeamListList = List<String>()
+            onFleetTeamListList.append(objectsIn: onFleetTeamList)
+        self.init(shopId: shopId, onFleetWorkerId: onFleetWorkerId, onFleetTeamList: onFleetTeamListList)
     }
     
 }
 
-class ExciseTaxInfo : DBModel,Codable {
+class ExciseTaxInfo : DBModel {
    @objc dynamic var id : String?      = ""
    @objc dynamic var created : Int     = 0
    @objc dynamic var modified : Int    = 0
@@ -1537,7 +1827,7 @@ class ExciseTaxInfo : DBModel,Codable {
     
 }
 
-class FederalTax : DBModel,Codable {
+class FederalTax : DBModel{
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -1610,7 +1900,7 @@ class FederalTax : DBModel,Codable {
     
 }
 
-class Logo :DBModel,Codable {
+class Logo :DBModel{
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -1695,7 +1985,7 @@ class Logo :DBModel,Codable {
     
 }
 
-class Notes :DBModel,Codable {
+class Notes :DBModel {
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -1744,7 +2034,7 @@ class Notes :DBModel,Codable {
     
 }
 
-class OnlineStoreInfo : DBModel,Codable {
+class OnlineStoreInfo : DBModel {
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -1769,7 +2059,7 @@ class OnlineStoreInfo : DBModel,Codable {
    @objc dynamic var supportEmail : String? = ""
    @objc dynamic var enableOnlinePOS : Bool = false
    @objc dynamic var enableDeliveryAreaRestrictions : Bool = false
-   @objc dynamic var restrictedZipCodes:[String]?
+                 var restrictedZipCodes = List<String>()
    @objc dynamic var useCustomETA : Bool = false
    @objc dynamic var customMessageETA : String? = ""
    @objc dynamic var storeHexColor : String? = ""
@@ -1820,58 +2110,59 @@ class OnlineStoreInfo : DBModel,Codable {
         case websiteUrl = "websiteUrl"
     }
     
-    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,enableStorePickup : Bool,enableDelivery : Bool,enableOnlineShipment : Bool,enableProductReviews : Bool,colorTheme : String,defaultETA : Int,pageOneMessageTitle : String,pageOneMessageBody : String,submissionMessage : String,cartMinimum : Int,cartMinType : String?,enabled : Bool,websiteOrigins : String?,supportEmail : String,enableOnlinePOS : Bool,enableDeliveryAreaRestrictions : Bool,restrictedZipCodes:[String],useCustomETA : Bool,customMessageETA : String?,storeHexColor : String?,viewType : String?,enableInventory : Bool,enableInventoryType : String?,activeInventoryId : String?,enableHtmlText : Bool,htmlText : String?,websiteUrl : String?){
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,enableStorePickup : Bool,enableDelivery : Bool,enableOnlineShipment : Bool,enableProductReviews : Bool,colorTheme : String,defaultETA : Int,pageOneMessageTitle : String,pageOneMessageBody : String,submissionMessage : String,cartMinimum : Int,cartMinType : String?,enabled : Bool,websiteOrigins : String?,supportEmail : String,enableOnlinePOS : Bool,enableDeliveryAreaRestrictions : Bool,restrictedZipCodes:List<String>,useCustomETA : Bool,customMessageETA : String?,storeHexColor : String?,viewType : String?,enableInventory : Bool,enableInventoryType : String?,activeInventoryId : String?,enableHtmlText : Bool,htmlText : String?,websiteUrl : String?){
         self.init()
     }
    convenience required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try values.decodeIfPresent(String.self, forKey: .id)
-        let created = try values.decodeIfPresent(Int.self, forKey: .created)
-        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        let shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
-        let dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
-        let enableStorePickup = try values.decodeIfPresent(Bool.self, forKey: .enableStorePickup)
-        let enableDelivery = try values.decodeIfPresent(Bool.self, forKey: .enableDelivery)
-        let enableOnlineShipment = try values.decodeIfPresent(Bool.self, forKey: .enableOnlineShipment)
-        let enableProductReviews = try values.decodeIfPresent(Bool.self, forKey: .enableProductReviews)
-        let colorTheme = try values.decodeIfPresent(String.self, forKey: .colorTheme)
-        let defaultETA = try values.decodeIfPresent(Int.self, forKey: .defaultETA)
-        let pageOneMessageTitle = try values.decodeIfPresent(String.self, forKey: .pageOneMessageTitle)
-        let pageOneMessageBody = try values.decodeIfPresent(String.self, forKey: .pageOneMessageBody)
-        let submissionMessage = try values.decodeIfPresent(String.self, forKey: .submissionMessage)
-        let cartMinimum = try values.decodeIfPresent(Int.self, forKey: .cartMinimum)
-        let cartMinType = try values.decodeIfPresent(String.self, forKey: .cartMinType)
-        let enabled = try values.decodeIfPresent(Bool.self, forKey: .enabled)
-        let websiteOrigins = try values.decodeIfPresent(String.self, forKey: .websiteOrigins)
-        let supportEmail = try values.decodeIfPresent(String.self, forKey: .supportEmail)
-        let enableOnlinePOS = try values.decodeIfPresent(Bool.self, forKey: .enableOnlinePOS)
+        let values                         = try decoder.container(keyedBy: CodingKeys.self)
+        let id                             = try values.decodeIfPresent(String.self, forKey: .id)
+        let created                        = try values.decodeIfPresent(Int.self, forKey: .created) ?? 0
+        let modified                       = try values.decodeIfPresent(Int.self, forKey: .modified) ?? 0
+        let deleted                        = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated                        = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId                      = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let shopId                         = try values.decodeIfPresent(String.self, forKey: .shopId)
+        let dirty                          = try values.decodeIfPresent(Bool.self, forKey: .dirty)
+        let enableStorePickup              = try values.decodeIfPresent(Bool.self, forKey: .enableStorePickup)
+        let enableDelivery                 = try values.decodeIfPresent(Bool.self, forKey: .enableDelivery)
+        let enableOnlineShipment           = try values.decodeIfPresent(Bool.self, forKey: .enableOnlineShipment)
+        let enableProductReviews           = try values.decodeIfPresent(Bool.self, forKey: .enableProductReviews)
+        let colorTheme                     = try values.decodeIfPresent(String.self, forKey: .colorTheme)
+        let defaultETA                     = try values.decodeIfPresent(Int.self, forKey: .defaultETA) ?? 0
+        let pageOneMessageTitle            = try values.decodeIfPresent(String.self, forKey: .pageOneMessageTitle)
+        let pageOneMessageBody             = try values.decodeIfPresent(String.self, forKey: .pageOneMessageBody)
+        let submissionMessage              = try values.decodeIfPresent(String.self, forKey: .submissionMessage)
+        let cartMinimum                    = try values.decodeIfPresent(Int.self, forKey: .cartMinimum) ?? 0
+        let cartMinType                    = try values.decodeIfPresent(String.self, forKey: .cartMinType)
+        let enabled                        = try values.decodeIfPresent(Bool.self, forKey: .enabled)
+        let websiteOrigins                 = try values.decodeIfPresent(String.self, forKey: .websiteOrigins)
+        let supportEmail                   = try values.decodeIfPresent(String.self, forKey: .supportEmail)
+        let enableOnlinePOS                = try values.decodeIfPresent(Bool.self, forKey: .enableOnlinePOS)
         let enableDeliveryAreaRestrictions = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryAreaRestrictions)
-        let restrictedZipCodes = try values.decodeIfPresent([String].self, forKey: .restrictedZipCodes)
-        let useCustomETA = try values.decodeIfPresent(Bool.self, forKey: .useCustomETA)
-        let customMessageETA = try values.decodeIfPresent(String.self, forKey: .customMessageETA)
-        let storeHexColor = try values.decodeIfPresent(String.self, forKey: .storeHexColor)
-        let viewType = try values.decodeIfPresent(String.self, forKey: .viewType)
-        let enableInventory = try values.decodeIfPresent(Bool.self, forKey: .enableInventory)
-        let enableInventoryType = try values.decodeIfPresent(String.self, forKey: .enableInventoryType)
-        let activeInventoryId = try values.decodeIfPresent(String.self, forKey: .activeInventoryId)
-        let enableHtmlText = try values.decodeIfPresent(Bool.self, forKey: .enableHtmlText)
-        let htmlText = try values.decodeIfPresent(String.self, forKey: .htmlText)
-        let websiteUrl = try values.decodeIfPresent(String.self, forKey: .websiteUrl)
-    
-    self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, enableStorePickup: enableStorePickup!, enableDelivery: enableDelivery!, enableOnlineShipment: enableOnlineShipment!, enableProductReviews: enableProductReviews!, colorTheme: colorTheme!, defaultETA: defaultETA!, pageOneMessageTitle: pageOneMessageTitle!, pageOneMessageBody: pageOneMessageBody!, submissionMessage: submissionMessage!, cartMinimum: cartMinimum!, cartMinType: cartMinType, enabled: enabled!, websiteOrigins: websiteOrigins, supportEmail: supportEmail!, enableOnlinePOS: enableOnlinePOS!, enableDeliveryAreaRestrictions: enableDeliveryAreaRestrictions!, restrictedZipCodes: restrictedZipCodes!, useCustomETA: useCustomETA!, customMessageETA: customMessageETA, storeHexColor: storeHexColor, viewType: viewType, enableInventory: enableInventory!, enableInventoryType: enableInventoryType, activeInventoryId: activeInventoryId, enableHtmlText: enableHtmlText!, htmlText: htmlText, websiteUrl: websiteUrl)
+        let restrictedZipCodes             = try values.decode([String].self, forKey: .restrictedZipCodes)
+        let useCustomETA                   = try values.decodeIfPresent(Bool.self, forKey: .useCustomETA)
+        let customMessageETA               = try values.decodeIfPresent(String.self, forKey: .customMessageETA)
+        let storeHexColor                  = try values.decodeIfPresent(String.self, forKey: .storeHexColor)
+        let viewType                       = try values.decodeIfPresent(String.self, forKey: .viewType)
+        let enableInventory                = try values.decodeIfPresent(Bool.self, forKey: .enableInventory)
+        let enableInventoryType            = try values.decodeIfPresent(String.self, forKey: .enableInventoryType)
+        let activeInventoryId              = try values.decodeIfPresent(String.self, forKey: .activeInventoryId)
+        let enableHtmlText                 = try values.decodeIfPresent(Bool.self, forKey: .enableHtmlText)
+        let htmlText                       = try values.decodeIfPresent(String.self, forKey: .htmlText)
+        let websiteUrl                     = try values.decodeIfPresent(String.self, forKey: .websiteUrl)
+        let restrictedZipCodesList         = List<String>()
+            restrictedZipCodesList.append(objectsIn: restrictedZipCodes)
+    self.init(id: id, created: created, modified: modified, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, enableStorePickup: enableStorePickup!, enableDelivery: enableDelivery!, enableOnlineShipment: enableOnlineShipment!, enableProductReviews: enableProductReviews!, colorTheme: colorTheme!, defaultETA: defaultETA, pageOneMessageTitle: pageOneMessageTitle!, pageOneMessageBody: pageOneMessageBody!, submissionMessage: submissionMessage!, cartMinimum: cartMinimum, cartMinType: cartMinType, enabled: enabled!, websiteOrigins: websiteOrigins, supportEmail: supportEmail!, enableOnlinePOS: enableOnlinePOS!, enableDeliveryAreaRestrictions: enableDeliveryAreaRestrictions!, restrictedZipCodes: restrictedZipCodesList, useCustomETA: useCustomETA!, customMessageETA: customMessageETA, storeHexColor: storeHexColor, viewType: viewType, enableInventory: enableInventory!, enableInventoryType: enableInventoryType, activeInventoryId: activeInventoryId, enableHtmlText: enableHtmlText!, htmlText: htmlText, websiteUrl: websiteUrl)
     
     }
     
 }
 
-class PrimaryContact : DBModel,Codable{
-   @objc dynamic var name : String? = ""
-   @objc dynamic var email : String? = ""
+class PrimaryContact : DBModel{
+   @objc dynamic var name : String?    = ""
+   @objc dynamic var email : String?   = ""
    @objc dynamic var contact : String? = ""
-   var address : Address?  = nil
+   var address : Address?              = nil
     
     enum CodingKeys: String, CodingKey {
         
@@ -1901,7 +2192,7 @@ class PrimaryContact : DBModel,Codable{
     
 }
 
-class ReceiptInfo : DBModel,Codable {
+class ReceiptInfo : DBModel {
     @objc dynamic var id : String?                     = ""
     @objc dynamic var created : Int                    = 0
     @objc dynamic var modified : Int                   = 0
@@ -2004,15 +2295,15 @@ class ReceiptInfo : DBModel,Codable {
     
 }
 
-class Role : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var permissions : [String]?
-    var name : String?
+class Role :DBModel{
+   @objc dynamic var id : String?   = ""
+   @objc dynamic var created : Int  = 0
+   @objc dynamic var modified : Int = 0
+   @objc dynamic var deleted : Bool = false
+   @objc dynamic var updated : Bool = false
+   @objc dynamic var companyId : String? = ""
+                 var permissions = List<String>()
+   @objc dynamic var name : String? = ""
     
     enum CodingKeys: String, CodingKey {
         
@@ -2025,22 +2316,39 @@ class Role : Codable {
         case permissions = "permissions"
         case name = "name"
     }
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,permissions : List<String>,name : String?){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.permissions = permissions
+        self.name = name
+    }
     
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        permissions = try values.decodeIfPresent([String].self, forKey: .permissions)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
+    
+   convenience required init(from decoder: Decoder) throws {
+         let values = try decoder.container(keyedBy: CodingKeys.self)
+         let id = try values.decodeIfPresent(String.self, forKey: .id)
+         let created = try values.decodeIfPresent(Int.self, forKey: .created)
+         let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+         let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+         let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+         let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+         let permissions = try values.decode([String].self, forKey: .permissions)
+         let name = try values.decodeIfPresent(String.self, forKey: .name)
+         let permissionsList = List<String>()
+             permissionsList.append(objectsIn: permissions)
+         self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId!, permissions: permissionsList, name: name)
+    
+    
     }
     
 }
 
-class Sessions :DBModel,Codable{
+class Sessions :DBModel{
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -2108,7 +2416,7 @@ class Sessions :DBModel,Codable{
     
 }
 
-class TaxTables : DBModel,Codable {
+class TaxTables : DBModel {
    @objc dynamic var id : String?   = ""
    @objc dynamic var created : Int  = 0
    @objc dynamic var modified : Int = 0
@@ -2186,21 +2494,21 @@ class TaxTables : DBModel,Codable {
     
 }
 
-class TerminalLocations : Codable {
-    var id : String?
-    var created : Int?
-    var modified : Int?
-    var deleted : Bool?
-    var updated : Bool?
-    var companyId : String?
-    var shopId : String?
-    var dirty : Bool?
-    var terminalId : String?
-    var employeeId : String?
-    var timeCardId : String?
-    var deviceId : String?
-    var name : String?
-    var loc : [Int]?
+class TerminalLocations :DBModel {
+     @objc dynamic var id : String?    = ""
+     @objc dynamic var created : Int = 0
+     @objc dynamic var modified : Int = 0
+     @objc dynamic var deleted : Bool = false
+     @objc dynamic var updated : Bool = false
+     @objc dynamic var companyId : String? = ""
+     @objc dynamic var shopId : String? = ""
+     @objc dynamic var dirty : Bool = false
+     @objc dynamic var terminalId : String? = ""
+     @objc dynamic var employeeId : String? = ""
+     @objc dynamic var timeCardId : String? = ""
+     @objc dynamic var deviceId : String? = ""
+     @objc dynamic var name : String? = ""
+                   var loc = List<Int>()
     
     enum CodingKeys: String, CodingKey {
         
@@ -2219,28 +2527,48 @@ class TerminalLocations : Codable {
         case name = "name"
         case loc = "loc"
     }
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,terminalId : String?,employeeId : String?,timeCardId : String?,deviceId : String?,name : String?, loc : List<Int>){
+        self.init()
+        self.id = id
+        self.created = created
+        self.modified = modified
+        self.deleted = deleted
+        self.updated = updated
+        self.companyId = companyId
+        self.shopId = shopId
+        self.dirty = dirty
+        self.terminalId = terminalId
+        self.employeeId = employeeId
+        self.timeCardId = timeCardId
+        self.deviceId = deviceId
+        self.name = name
+        self.loc = loc
+    }
     
-    required init(from decoder: Decoder) throws {
+   convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        created = try values.decodeIfPresent(Int.self, forKey: .created)
-        modified = try values.decodeIfPresent(Int.self, forKey: .modified)
-        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
-        updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
-        companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
-        shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
-        dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
-        terminalId = try values.decodeIfPresent(String.self, forKey: .terminalId)
-        employeeId = try values.decodeIfPresent(String.self, forKey: .employeeId)
-        timeCardId = try values.decodeIfPresent(String.self, forKey: .timeCardId)
-        deviceId = try values.decodeIfPresent(String.self, forKey: .deviceId)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        loc = try values.decodeIfPresent([Int].self, forKey: .loc)
+        let id = try values.decodeIfPresent(String.self, forKey: .id)
+        let created = try values.decodeIfPresent(Int.self, forKey: .created)
+        let modified = try values.decodeIfPresent(Int.self, forKey: .modified)
+        let deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted)
+        let updated = try values.decodeIfPresent(Bool.self, forKey: .updated)
+        let companyId = try values.decodeIfPresent(String.self, forKey: .companyId)
+        let shopId = try values.decodeIfPresent(String.self, forKey: .shopId)
+        let dirty = try values.decodeIfPresent(Bool.self, forKey: .dirty)
+        let terminalId = try values.decodeIfPresent(String.self, forKey: .terminalId)
+        let employeeId = try values.decodeIfPresent(String.self, forKey: .employeeId)
+        let timeCardId = try values.decodeIfPresent(String.self, forKey: .timeCardId)
+        let deviceId = try values.decodeIfPresent(String.self, forKey: .deviceId)
+        let name = try values.decodeIfPresent(String.self, forKey: .name)
+        let loc = try values.decode([Int].self, forKey: .loc)
+        let locList = List<Int>()
+            locList.append(objectsIn: loc)
+    self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, terminalId: terminalId, employeeId: employeeId, timeCardId: timeCardId, deviceId: deviceId, name: name, loc: locList)
     }
     
 }
 
-class TimeCard :DBModel,Codable {
+class TimeCard :DBModel {
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -2303,12 +2631,11 @@ class TimeCard :DBModel,Codable {
         let clockInTime  = try values.decodeIfPresent(Int.self, forKey: .clockInTime)
         let clockOutTime = try values.decodeIfPresent(Int.self, forKey: .clockOutTime)
         let clockin      = try values.decodeIfPresent(Bool.self, forKey: .clockin)
-    let  sessions    = try values.decodeIfPresent([Sessions].self, forKey: .sessions)
+        let  sessions    = try values.decode([Sessions].self, forKey: .sessions)
 
         let sessionsList = List<Sessions>()
-        for item in sessions!{
-            sessionsList.append(item)
-        }
+            sessionsList.append(objectsIn: sessions)
+    
         self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, employeeId: employeeId, clockInTime: clockInTime!, clockOutTime: clockOutTime!, clockin: clockin!, sessions: sessionsList)
     
     }

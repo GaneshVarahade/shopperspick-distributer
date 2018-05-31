@@ -28,20 +28,21 @@ class ReachabilityManager: NSObject {
         switch reachability.connection {
         case .none:
          
+            return
             
-            showMessage(message:"Network became unreachable")
+          //  showMessage(message:"Network became unreachable")
         case .wifi:
          
             
-         
+         return
           
-            showMessage(message:"Network reachable through WiFi")
+           // showMessage(message:"Network reachable through WiFi")
         case .cellular:
          
          
-          
+          return
             
-            showMessage(message:"Network reachable through Cellular Data")
+           // showMessage(message:"Network reachable through Cellular Data")
             
         }
     }

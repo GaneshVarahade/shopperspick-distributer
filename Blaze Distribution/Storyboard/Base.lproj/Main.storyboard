@@ -134,7 +134,6 @@
                                                 </variation>
                                                 <connections>
                                                     <action selector="loginBtnPressed:" destination="2jQ-wd-ZiM" eventType="touchUpInside" id="hlQ-dG-gFZ"/>
-                                                    <segue destination="efJ-12-MQp" kind="presentation" id="6gT-QA-T3a"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -269,6 +268,7 @@
                     <connections>
                         <outlet property="txtEmail" destination="AYf-e1-xJe" id="lGc-DY-Ka0"/>
                         <outlet property="txtPassword" destination="tbX-Ln-O9V" id="IMh-4v-FrB"/>
+                        <segue destination="efJ-12-MQp" kind="presentation" identifier="goHome" id="Jdl-rK-gGl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1X-Mz-OeP" sceneMemberID="firstResponder"/>
@@ -465,7 +465,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Y6-Zr-ufu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="609" y="1774"/>
+            <point key="canvasLocation" x="1780" y="965"/>
         </scene>
         <!--Invoices-->
         <scene sceneID="dVH-MA-Awx">

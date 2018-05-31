@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SKActivityIndicatorView
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
@@ -34,10 +35,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - IBActions
     @IBAction func loginBtnPressed(_ sender: Any) {
-        
+        SKActivityIndicator.show()
         WebServicesAPI.singleToneObject.login(user_Name: txtEmail.text!, password: txtPassword.text!) { (strERROR) in
             
-            
+            if strERROR == "true"{
+                SKActivityIndicator.dismiss()
+                self.performSegue(withIdentifier: "goHome", sender: self)
+                
+            }
             
         }
 
