@@ -9,7 +9,19 @@
 import Foundation
 import Realm
 import RealmSwift
-class ModelLogin : DBModel{
+class ModelLogin : DBModel, BaseResponseModel{
+    var id: String?
+    
+    var created: Int?
+    
+    var modified: Int?
+    
+    var deleted: Bool?
+    
+    var updated: Bool?
+    
+    var companyId: String?
+    
    @objc dynamic var accessToken : String?      = ""
    @objc dynamic var assetAccessToken : String? = ""
    @objc dynamic var employee : ModelEmployee?
