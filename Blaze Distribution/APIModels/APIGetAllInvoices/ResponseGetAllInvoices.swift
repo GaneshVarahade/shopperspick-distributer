@@ -7,6 +7,18 @@
 //
 
 import Foundation
-public class ResponseGetAllInvoices: Decodable{
+public class ResponseGetAllInvoices: BaseResponseModel{
+    public var id: String?
+    
+    public var created: Int?
+    
+    public var modified: Int?
+    
+    public var deleted: Bool?
+    
+    public var updated: Bool?
+    
+    public var companyId: String?
+    
     var values: [ResponseInvoices]?
 }

@@ -59,6 +59,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
+            
             AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: result?.accessToken ?? "Access nil")
             self.performSegue(withIdentifier: "goHome", sender: self)
         })
