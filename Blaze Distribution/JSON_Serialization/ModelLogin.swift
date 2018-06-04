@@ -9,17 +9,17 @@
 import Foundation
 import Realm
 import RealmSwift
-class Login : DBModel{
+class ModelLogin : DBModel{
    @objc dynamic var accessToken : String?      = ""
    @objc dynamic var assetAccessToken : String? = ""
-   @objc dynamic var employee : Employee?
+   @objc dynamic var employee : ModelEmployee?
    @objc dynamic var loginTime : Int            = 0
    @objc dynamic var expirationTime : Int       = 0
    @objc dynamic var sessionId : String         = ""
-   @objc dynamic var company : Company?         = Company()
-   @objc dynamic var assignedShop : AssignedShop?
+   @objc dynamic var company : ModelCompany?         = ModelCompany()
+   @objc dynamic var assignedShop : ModelAssignedShop?
    //@objc dynamic var newDevice : Bool           = false
-   @objc dynamic var assignedTerminal : AssignedTerminal?
+   @objc dynamic var assignedTerminal : ModelAssignedTerminal?
    @objc dynamic var appType : String?          = ""
    @objc dynamic var appTarget : String?        = ""
                  //var shops                      = List<Shops>()
@@ -40,7 +40,7 @@ class Login : DBModel{
         case appTarget = "appTarget"
     }
     
-    convenience init(accessToken : String?,assetAccessToken : String?,employee : Employee?,loginTime : Int?,expirationTime : Int?,sessionId : String?,company : Company?,shops : List<Shops>,assignedShop : AssignedShop?,assignedTerminal : AssignedTerminal?,appType : String?,appTarget : String?){
+    convenience init(accessToken : String?,assetAccessToken : String?,employee : ModelEmployee?,loginTime : Int?,expirationTime : Int?,sessionId : String?,company : ModelCompany?,shops : List<ModelShops>,assignedShop : ModelAssignedShop?,assignedTerminal : ModelAssignedTerminal?,appType : String?,appTarget : String?){
         self.init()
         self.accessToken = accessToken
         self.assetAccessToken = assetAccessToken
@@ -65,15 +65,15 @@ class Login : DBModel{
         let loginTime = try values.decodeIfPresent(Int.self, forKey: .loginTime)
         let expirationTime = try values.decodeIfPresent(Int.self, forKey: .expirationTime)
         let sessionId = try values.decodeIfPresent(String.self, forKey: .sessionId)
-        let company = try values.decodeIfPresent(Company.self, forKey: .company)
+        let company = try values.decodeIfPresent(ModelCompany.self, forKey: .company)
         //let shops = try values.decode([Shops].self, forKey: .shops)
-        let assignedShop = try values.decodeIfPresent(AssignedShop.self, forKey: .assignedShop)
+        let assignedShop = try values.decodeIfPresent(ModelAssignedShop.self, forKey: .assignedShop)
         //  let newDevice = try values.decodeIfPresent(Bool.self, forKey: .newDevice)
-        let assignedTerminal = try values.decodeIfPresent(AssignedTerminal.self, forKey: .assignedTerminal)
+        let assignedTerminal = try values.decodeIfPresent(ModelAssignedTerminal.self, forKey: .assignedTerminal)
             
         let appType = try values.decodeIfPresent(String.self, forKey: .appType)
         let appTarget = try values.decodeIfPresent(String.self, forKey: .appTarget)
-        let shopsList = List<Shops>()
+        let shopsList = List<ModelShops>()
            // shopsList.append(objectsIn: shops)
     
     
@@ -87,7 +87,7 @@ class Login : DBModel{
     
 }
 
-class Shops :DBModel {
+class ModelShops :DBModel {
    @objc dynamic var id : String?
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -97,7 +97,7 @@ class Shops :DBModel {
    @objc dynamic var shortIdentifier : String? = ""
    @objc dynamic var name : String? = ""
    @objc dynamic var shopType : String? = ""
-   @objc dynamic var address : Address?
+   @objc dynamic var address : ModelAddres?
    @objc dynamic var phoneNumber : String? = ""
    @objc dynamic var emailAdress : String? = ""
    @objc dynamic var license : String? = ""
@@ -116,9 +116,9 @@ class Shops :DBModel {
    @objc dynamic var snapshopTime : Int = 0
    @objc dynamic var defaultCountry : String? = ""
   // @objc dynamic var onlineStoreInfo : OnlineStoreInfo?
-                 var deliveryFees = List<DeliveryFees>()
+                 var deliveryFees = List<ModelDeliveryFees>()
    @objc dynamic var enableSaleLogout : Bool = false
-                 var assets = List<Assets>()
+                 var assets = List<ModelAsset>()
    @objc dynamic var enableBCCReceipt : Bool = false
    @objc dynamic var bccEmailAddress : String? = ""
    @objc dynamic var enableGPSTracking : Bool = false
@@ -145,25 +145,25 @@ class Shops :DBModel {
    @objc dynamic var membersCountSyncDate : Int = 0
    @objc dynamic var enableCannabisLimit : Bool = false
    @objc dynamic var useComplexTax : Bool = false
-                 var taxTables = List<TaxTables>()
+                 var taxTables = List<ModelTaxTables>()
    @objc dynamic var enableExciseTax : Bool = false
    @objc dynamic var exciseTaxType : String? = ""
                  var marketingSources = List<String>()
                  var productsTag = List<String>()
-   @objc dynamic var logo : Logo?
+   @objc dynamic var logo : ModelLogo?
    @objc dynamic var hubId : String? = ""
    @objc dynamic var hubName : String? = ""
    @objc dynamic var enableOnFleet : Bool = false
    @objc dynamic var onFleetApiKey : String? = ""
    @objc dynamic var onFleetOrganizationId : String? = ""
    @objc dynamic var onFleetOrganizationName : String? = ""
-   @objc dynamic var emailAttachment : EmailAttachment?
+   @objc dynamic var emailAttachment : ModelEmailAttachment?
                  //var receiptInfo = List<ReceiptInfo>()
    @objc dynamic var enablePinForCashDrawer : Bool = false
    @objc dynamic var checkoutType : String? = ""
    @objc dynamic var enableMetrc : Bool = false
    @objc dynamic var enableDeliveryMessaging : Bool = false
-   @objc dynamic var exciseTaxInfo : ExciseTaxInfo?
+   @objc dynamic var exciseTaxInfo : ModelExciseTaxInfo?
    @objc dynamic var timezoneOffsetInMinutes : Int = 0
    @objc dynamic var defaultPinTimeoutDuration : Int = 0
     
@@ -249,7 +249,7 @@ class Shops :DBModel {
         case defaultPinTimeoutDuration = "defaultPinTimeoutDuration"
     }
     
-    convenience init(id : String?,created : Int, modified : Int,deleted : Bool,updated : Bool,companyId : String?,shortIdentifier : String?,name : String?,shopType : String?,address : Address?,phoneNumber : String?,emailAdress : String?,license : String?,enableDeliveryFee : Bool,deliveryFee : Int,taxOrder : String?,taxInfo : TaxInfo?, showWalkInQueue : Bool,showDeliveryQueue : Bool,showOnlineQueue : Bool,enableCashInOut : Bool,timeZone : String?,latitude : Int,longitude : Int,active : Bool,snapshopTime : Int,defaultCountry : String?,deliveryFees : List<DeliveryFees>,enableSaleLogout : Bool,assets : List<Assets>,enableBCCReceipt : Bool ,bccEmailAddress : String?,enableGPSTracking : Bool,receivingInventoryId : String?,defaultPinTimeout : Int,showSpecialQueue : Bool,emailList : List<String>,enableLowInventoryEmail : Bool,restrictedViews : Bool,emailMessage : String?,taxRoundOffType : String?,enforceCashDrawers : Bool,useAssignedEmployee : Bool,showProductByAvailableQuantity : Bool,autoCashDrawer : Bool,numAllowActiveTrans : Int,requireValidRecDate : Bool,enableDeliverySignature : Bool,restrictIncomingOrderNotifications : Bool,restrictedNotificationTerminals : List<String>,roundOffType : String?,roundUpMessage : String?,shopEntityType : String?,membersCountSyncDate : Int ,enableCannabisLimit : Bool,useComplexTax : Bool,taxTables : List<TaxTables>,enableExciseTax : Bool,exciseTaxType : String?,marketingSources : List<String>,productsTag : List<String>,logo : Logo?,hubId : String?,hubName : String?,enableOnFleet : Bool,onFleetApiKey : String?,onFleetOrganizationId : String?,onFleetOrganizationName : String?,emailAttachment : EmailAttachment?,enablePinForCashDrawer : Bool,checkoutType : String?,enableMetrc : Bool,enableDeliveryMessaging : Bool,exciseTaxInfo : ExciseTaxInfo?,timezoneOffsetInMinutes : Int,defaultPinTimeoutDuration : Int){
+    convenience init(id : String?,created : Int, modified : Int,deleted : Bool,updated : Bool,companyId : String?,shortIdentifier : String?,name : String?,shopType : String?,address : ModelAddres?,phoneNumber : String?,emailAdress : String?,license : String?,enableDeliveryFee : Bool,deliveryFee : Int,taxOrder : String?,taxInfo : TaxInfo?, showWalkInQueue : Bool,showDeliveryQueue : Bool,showOnlineQueue : Bool,enableCashInOut : Bool,timeZone : String?,latitude : Int,longitude : Int,active : Bool,snapshopTime : Int,defaultCountry : String?,deliveryFees : List<ModelDeliveryFees>,enableSaleLogout : Bool,assets : List<ModelAsset>,enableBCCReceipt : Bool ,bccEmailAddress : String?,enableGPSTracking : Bool,receivingInventoryId : String?,defaultPinTimeout : Int,showSpecialQueue : Bool,emailList : List<String>,enableLowInventoryEmail : Bool,restrictedViews : Bool,emailMessage : String?,taxRoundOffType : String?,enforceCashDrawers : Bool,useAssignedEmployee : Bool,showProductByAvailableQuantity : Bool,autoCashDrawer : Bool,numAllowActiveTrans : Int,requireValidRecDate : Bool,enableDeliverySignature : Bool,restrictIncomingOrderNotifications : Bool,restrictedNotificationTerminals : List<String>,roundOffType : String?,roundUpMessage : String?,shopEntityType : String?,membersCountSyncDate : Int ,enableCannabisLimit : Bool,useComplexTax : Bool,taxTables : List<ModelTaxTables>,enableExciseTax : Bool,exciseTaxType : String?,marketingSources : List<String>,productsTag : List<String>,logo : ModelLogo?,hubId : String?,hubName : String?,enableOnFleet : Bool,onFleetApiKey : String?,onFleetOrganizationId : String?,onFleetOrganizationName : String?,emailAttachment : ModelEmailAttachment?,enablePinForCashDrawer : Bool,checkoutType : String?,enableMetrc : Bool,enableDeliveryMessaging : Bool,exciseTaxInfo : ModelExciseTaxInfo?,timezoneOffsetInMinutes : Int,defaultPinTimeoutDuration : Int){
         self.init()
         self.id = id
         self.created = created
@@ -341,7 +341,7 @@ class Shops :DBModel {
         let shortIdentifier = try values.decodeIfPresent(String.self, forKey: .shortIdentifier)
         let name = try values.decodeIfPresent(String.self, forKey: .name)
         let shopType = try values.decodeIfPresent(String.self, forKey: .shopType)
-        let address = try values.decodeIfPresent(Address.self, forKey: .address)
+        let address = try values.decodeIfPresent(ModelAddres.self, forKey: .address)
         let phoneNumber = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
         let emailAdress = try values.decodeIfPresent(String.self, forKey: .emailAdress)
         let license = try values.decodeIfPresent(String.self, forKey: .license)
@@ -360,9 +360,9 @@ class Shops :DBModel {
         let snapshopTime = try values.decodeIfPresent(Int.self, forKey: .snapshopTime)
         let defaultCountry = try values.decodeIfPresent(String.self, forKey: .defaultCountry)
        // let onlineStoreInfo = try values.decodeIfPresent(OnlineStoreInfo.self, forKey: .onlineStoreInfo)
-        let deliveryFees = try values.decode([DeliveryFees].self, forKey: .deliveryFees)
+        let deliveryFees = try values.decode([ModelDeliveryFees].self, forKey: .deliveryFees)
         let enableSaleLogout = try values.decodeIfPresent(Bool.self, forKey: .enableSaleLogout)
-        let assets = try values.decode([Assets].self, forKey: .assets)
+        let assets = try values.decode([ModelAsset].self, forKey: .assets)
         let enableBCCReceipt = try values.decodeIfPresent(Bool.self, forKey: .enableBCCReceipt)
         let bccEmailAddress = try values.decodeIfPresent(String.self, forKey: .bccEmailAddress)
         let enableGPSTracking = try values.decodeIfPresent(Bool.self, forKey: .enableGPSTracking)
@@ -389,35 +389,35 @@ class Shops :DBModel {
         let membersCountSyncDate = try values.decodeIfPresent(Int.self, forKey: .membersCountSyncDate)
         let enableCannabisLimit = try values.decodeIfPresent(Bool.self, forKey: .enableCannabisLimit)
         let useComplexTax = try values.decodeIfPresent(Bool.self, forKey: .useComplexTax)
-        let taxTables = try values.decode([TaxTables].self, forKey: .taxTables)
+        let taxTables = try values.decode([ModelTaxTables].self, forKey: .taxTables)
         let enableExciseTax = try values.decodeIfPresent(Bool.self, forKey: .enableExciseTax)
         let exciseTaxType = try values.decodeIfPresent(String.self, forKey: .exciseTaxType)
         let marketingSources = try values.decode([String].self, forKey: .marketingSources)
         let productsTag = try values.decode([String].self, forKey: .productsTag)
-        let logo = try values.decodeIfPresent(Logo.self, forKey: .logo)
+        let logo = try values.decodeIfPresent(ModelLogo.self, forKey: .logo)
         let hubId = try values.decodeIfPresent(String.self, forKey: .hubId)
         let hubName = try values.decodeIfPresent(String.self, forKey: .hubName)
         let enableOnFleet = try values.decodeIfPresent(Bool.self, forKey: .enableOnFleet)
         let onFleetApiKey = try values.decodeIfPresent(String.self, forKey: .onFleetApiKey)
         let onFleetOrganizationId = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationId)
         let onFleetOrganizationName = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationName)
-        let emailAttachment = try values.decodeIfPresent(EmailAttachment.self, forKey: .emailAttachment)
+        let emailAttachment = try values.decodeIfPresent(ModelEmailAttachment.self, forKey: .emailAttachment)
         //let receiptInfo = try values.decode([ReceiptInfo].self, forKey: .receiptInfo)
         let enablePinForCashDrawer = try values.decodeIfPresent(Bool.self, forKey: .enablePinForCashDrawer)
         let checkoutType = try values.decodeIfPresent(String.self, forKey: .checkoutType)
         let enableMetrc = try values.decodeIfPresent(Bool.self, forKey: .enableMetrc)
         let enableDeliveryMessaging = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryMessaging)
-        let exciseTaxInfo = try values.decodeIfPresent(ExciseTaxInfo.self, forKey: .exciseTaxInfo)
+        let exciseTaxInfo = try values.decodeIfPresent(ModelExciseTaxInfo.self, forKey: .exciseTaxInfo)
         let timezoneOffsetInMinutes = try values.decodeIfPresent(Int.self, forKey: .timezoneOffsetInMinutes)
         let defaultPinTimeoutDuration = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeoutDuration)
-        let assetsList = List<Assets>()
+        let assetsList = List<ModelAsset>()
         let emailListList = List<String>()
-        let taxTablesList = List<TaxTables>()
+        let taxTablesList = List<ModelTaxTables>()
         let marketingSourcesList = List<String>()
         let productsTagList = List<String>()
-        let deliveryFeesList = List<DeliveryFees>()
+        let deliveryFeesList = List<ModelDeliveryFees>()
         let restrictedNotificationTerminalsList = List<String>()
-        let receiptInfoList = List<ReceiptInfo>()
+        let receiptInfoList = List<ModelReceiptInfo>()
             assetsList.append(objectsIn: assets)
             emailListList.append(objectsIn: emailList)
             taxTablesList.append(objectsIn: taxTables)
@@ -439,7 +439,7 @@ class Shops :DBModel {
 }
 
 
-class Address: DBModel{
+class ModelAddres: DBModel{
    @objc dynamic var id : String?        = " "
    @objc dynamic var  created : Int      = 0
    @objc dynamic var modified : Int      = 0
@@ -503,7 +503,7 @@ class Address: DBModel{
     
 }
 
-class Assets : DBModel {
+class ModelAsset : DBModel {
    @objc dynamic  var id : String?       = ""
    @objc dynamic var created : Int       = 0
    @objc dynamic var modified : Int      = 0
@@ -588,7 +588,7 @@ class Assets : DBModel {
     
 }
 
-class AssignedShop :DBModel {
+class ModelAssignedShop :DBModel {
    @objc dynamic  var id : String?                              = ""
    @objc dynamic  var created : Int                             = 0
    @objc dynamic  var modified : Int                            = 0
@@ -598,7 +598,7 @@ class AssignedShop :DBModel {
    @objc dynamic  var shortIdentifier : String?                 = ""
    @objc dynamic  var name : String?                            = ""
    @objc dynamic  var shopType : String?                        = ""
-   @objc dynamic  var address : Address?
+   @objc dynamic  var address : ModelAddres?
    @objc dynamic  var phoneNumber : String?                     = ""
    @objc dynamic  var emailAdress : String?                     = ""
    @objc dynamic  var license : String?                         = ""
@@ -616,10 +616,10 @@ class AssignedShop :DBModel {
    @objc dynamic  var active : Bool                             = false
    @objc dynamic  var snapshopTime : Int                        = 0
    @objc dynamic  var defaultCountry : String?                  = ""
-   @objc dynamic  var onlineStoreInfo : OnlineStoreInfo?
-                  var deliveryFees  = List<DeliveryFees>()
+   @objc dynamic  var onlineStoreInfo : ModelOnlineStoreInfo?
+                  var deliveryFees  = List<ModelDeliveryFees>()
    @objc dynamic  var enableSaleLogout : Bool                   = false
-                  var assets = List<Assets>()
+                  var assets = List<ModelAsset>()
    @objc dynamic  var enableBCCReceipt : Bool                   = false
    @objc dynamic  var bccEmailAddress : String?                 = ""
    @objc dynamic  var enableGPSTracking : Bool                  = false
@@ -646,25 +646,25 @@ class AssignedShop :DBModel {
    @objc dynamic  var membersCountSyncDate : Int                = 0
    @objc dynamic  var enableCannabisLimit : Bool                = false
    @objc dynamic  var useComplexTax : Bool                      = false
-                  var taxTables = List<TaxTables>()
+                  var taxTables = List<ModelTaxTables>()
    @objc dynamic  var enableExciseTax : Bool                    = false
    @objc dynamic  var exciseTaxType : String?                   = ""
                   var marketingSources = List<String>()
                   var productsTag = List<String>()
-   @objc dynamic  var logo : Logo?
+   @objc dynamic  var logo : ModelLogo?
    @objc dynamic  var hubId : String?                           = ""
    @objc dynamic  var hubName : String?                         = ""
    @objc dynamic  var enableOnFleet : Bool                      = false
    @objc dynamic  var onFleetApiKey : String?                   = ""
    @objc dynamic  var onFleetOrganizationId : String?           = ""
    @objc dynamic  var onFleetOrganizationName : String?         = ""
-   @objc dynamic  var emailAttachment : EmailAttachment?
+   @objc dynamic  var emailAttachment : ModelEmailAttachment?
                   //var receiptInfo = List<ReceiptInfo>()
    @objc dynamic  var enablePinForCashDrawer : Bool             = false
    @objc dynamic  var checkoutType : String?                    = ""
    @objc dynamic  var enableMetrc : Bool                        = false
    @objc dynamic  var enableDeliveryMessaging : Bool            = false
-   @objc dynamic  var exciseTaxInfo : ExciseTaxInfo?
+   @objc dynamic  var exciseTaxInfo : ModelExciseTaxInfo?
    @objc dynamic  var timezoneOffsetInMinutes : Int             = 0
    @objc dynamic  var defaultPinTimeoutDuration : Int           = 0
     
@@ -749,7 +749,7 @@ class AssignedShop :DBModel {
         case timezoneOffsetInMinutes            = "timezoneOffsetInMinutes"
         case defaultPinTimeoutDuration          = "defaultPinTimeoutDuration"
     }
-    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shortIdentifier : String?,name : String?,shopType : String?,address : Address?,phoneNumber : String?,emailAdress : String?,license : String?,enableDeliveryFee : Bool,deliveryFee : Int,taxOrder : String?,taxInfo : TaxInfo?,showWalkInQueue : Bool,showDeliveryQueue : Bool,showOnlineQueue : Bool,enableCashInOut : Bool,timeZone : String?,latitude : Double,longitude : Double,active : Bool,snapshopTime : Int,defaultCountry : String?,onlineStoreInfo : OnlineStoreInfo?,deliveryFees : List<DeliveryFees>,enableSaleLogout : Bool,assets : List<Assets>,enableBCCReceipt : Bool,bccEmailAddress : String?,enableGPSTracking : Bool,receivingInventoryId : String?,defaultPinTimeout : Int,showSpecialQueue : Bool,emailList : List<String>,enableLowInventoryEmail : Bool,restrictedViews : Bool,emailMessage : String?,taxRoundOffType : String?, enforceCashDrawers : Bool,useAssignedEmployee : Bool,showProductByAvailableQuantity : Bool,autoCashDrawer : Bool,numAllowActiveTrans : Int,requireValidRecDate : Bool,enableDeliverySignature : Bool,restrictIncomingOrderNotifications : Bool,restrictedNotificationTerminals : List<String>,roundOffType : String?,roundUpMessage : String?,shopEntityType : String?,membersCountSyncDate : Int,enableCannabisLimit : Bool,useComplexTax : Bool,taxTables : List<TaxTables>,enableExciseTax : Bool,exciseTaxType : String?,marketingSources : List<String>,productsTag : List<String>,logo : Logo?,hubId : String?,hubName : String?,enableOnFleet : Bool,onFleetApiKey : String?,onFleetOrganizationId : String?,onFleetOrganizationName : String?,emailAttachment : EmailAttachment?,enablePinForCashDrawer : Bool,checkoutType : String?,enableMetrc : Bool,enableDeliveryMessaging : Bool,exciseTaxInfo : ExciseTaxInfo?,timezoneOffsetInMinutes : Int,defaultPinTimeoutDuration : Int){
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shortIdentifier : String?,name : String?,shopType : String?,address : ModelAddres?,phoneNumber : String?,emailAdress : String?,license : String?,enableDeliveryFee : Bool,deliveryFee : Int,taxOrder : String?,taxInfo : TaxInfo?,showWalkInQueue : Bool,showDeliveryQueue : Bool,showOnlineQueue : Bool,enableCashInOut : Bool,timeZone : String?,latitude : Double,longitude : Double,active : Bool,snapshopTime : Int,defaultCountry : String?,onlineStoreInfo : ModelOnlineStoreInfo?,deliveryFees : List<ModelDeliveryFees>,enableSaleLogout : Bool,assets : List<ModelAsset>,enableBCCReceipt : Bool,bccEmailAddress : String?,enableGPSTracking : Bool,receivingInventoryId : String?,defaultPinTimeout : Int,showSpecialQueue : Bool,emailList : List<String>,enableLowInventoryEmail : Bool,restrictedViews : Bool,emailMessage : String?,taxRoundOffType : String?, enforceCashDrawers : Bool,useAssignedEmployee : Bool,showProductByAvailableQuantity : Bool,autoCashDrawer : Bool,numAllowActiveTrans : Int,requireValidRecDate : Bool,enableDeliverySignature : Bool,restrictIncomingOrderNotifications : Bool,restrictedNotificationTerminals : List<String>,roundOffType : String?,roundUpMessage : String?,shopEntityType : String?,membersCountSyncDate : Int,enableCannabisLimit : Bool,useComplexTax : Bool,taxTables : List<ModelTaxTables>,enableExciseTax : Bool,exciseTaxType : String?,marketingSources : List<String>,productsTag : List<String>,logo : ModelLogo?,hubId : String?,hubName : String?,enableOnFleet : Bool,onFleetApiKey : String?,onFleetOrganizationId : String?,onFleetOrganizationName : String?,emailAttachment : ModelEmailAttachment?,enablePinForCashDrawer : Bool,checkoutType : String?,enableMetrc : Bool,enableDeliveryMessaging : Bool,exciseTaxInfo : ModelExciseTaxInfo?,timezoneOffsetInMinutes : Int,defaultPinTimeoutDuration : Int){
         self.init()
         self.id = id
         self.created = created
@@ -843,7 +843,7 @@ class AssignedShop :DBModel {
         let shortIdentifier                    = try values.decodeIfPresent(String.self, forKey: .shortIdentifier)
         let name                               = try values.decodeIfPresent(String.self, forKey: .name)
         let shopType                           = try values.decodeIfPresent(String.self, forKey: .shopType)
-        let address                            = try values.decodeIfPresent(Address.self, forKey: .address)
+        let address                            = try values.decodeIfPresent(ModelAddres.self, forKey: .address)
         let phoneNumber                        = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
         let emailAdress                        = try values.decodeIfPresent(String.self, forKey: .emailAdress)
         let license                            = try values.decodeIfPresent(String.self, forKey: .license)
@@ -861,10 +861,10 @@ class AssignedShop :DBModel {
         let active                             = try values.decodeIfPresent(Bool.self, forKey: .active)
         let snapshopTime                       = try values.decodeIfPresent(Int.self, forKey: .snapshopTime)
         let defaultCountry                     = try values.decodeIfPresent(String.self, forKey: .defaultCountry)
-        let onlineStoreInfo                    = try values.decodeIfPresent(OnlineStoreInfo.self, forKey: .onlineStoreInfo)
-        let deliveryFees                       = try values.decode([DeliveryFees].self, forKey: .deliveryFees)
+        let onlineStoreInfo                    = try values.decodeIfPresent(ModelOnlineStoreInfo.self, forKey: .onlineStoreInfo)
+        let deliveryFees                       = try values.decode([ModelDeliveryFees].self, forKey: .deliveryFees)
         let enableSaleLogout                   = try values.decodeIfPresent(Bool.self, forKey: .enableSaleLogout)
-        let assets                             = try values.decode([Assets].self, forKey: .assets)
+        let assets                             = try values.decode([ModelAsset].self, forKey: .assets)
         let enableBCCReceipt                   = try values.decodeIfPresent(Bool.self, forKey: .enableBCCReceipt)
         let bccEmailAddress                    = try values.decodeIfPresent(String.self, forKey: .bccEmailAddress)
         let enableGPSTracking                  = try values.decodeIfPresent(Bool.self, forKey: .enableGPSTracking)
@@ -891,36 +891,36 @@ class AssignedShop :DBModel {
         let membersCountSyncDate               = try values.decodeIfPresent(Int.self, forKey: .membersCountSyncDate)
         let enableCannabisLimit                = try values.decodeIfPresent(Bool.self, forKey: .enableCannabisLimit)
         let useComplexTax                      = try values.decodeIfPresent(Bool.self, forKey: .useComplexTax)
-        let taxTables                          = try values.decode([TaxTables].self, forKey: .taxTables)
+        let taxTables                          = try values.decode([ModelTaxTables].self, forKey: .taxTables)
         let enableExciseTax                    = try values.decodeIfPresent(Bool.self, forKey: .enableExciseTax)
         let exciseTaxType                      = try values.decodeIfPresent(String.self, forKey: .exciseTaxType)
         let marketingSources                   = try values.decode([String].self, forKey: .marketingSources)
         let productsTag                        = try values.decode([String].self, forKey: .productsTag)
-        let logo                               = try values.decodeIfPresent(Logo.self, forKey: .logo)
+        let logo                               = try values.decodeIfPresent(ModelLogo.self, forKey: .logo)
         let hubId                              = try values.decodeIfPresent(String.self, forKey: .hubId)
         let hubName                            = try values.decodeIfPresent(String.self, forKey: .hubName)
         let enableOnFleet                      = try values.decodeIfPresent(Bool.self, forKey: .enableOnFleet)
         let onFleetApiKey                      = try values.decodeIfPresent(String.self, forKey: .onFleetApiKey)
         let onFleetOrganizationId              = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationId)
         let onFleetOrganizationName            = try values.decodeIfPresent(String.self, forKey: .onFleetOrganizationName)
-        let emailAttachment                    = try values.decodeIfPresent(EmailAttachment.self, forKey: .emailAttachment)
+        let emailAttachment                    = try values.decodeIfPresent(ModelEmailAttachment.self, forKey: .emailAttachment)
         //let receiptInfo                        = try values.decode([ReceiptInfo].self, forKey: .receiptInfo)
         let enablePinForCashDrawer             = try values.decodeIfPresent(Bool.self, forKey: .enablePinForCashDrawer)
         let checkoutType                       = try values.decodeIfPresent(String.self, forKey: .checkoutType)
         let enableMetrc                        = try values.decodeIfPresent(Bool.self, forKey: .enableMetrc)
         let enableDeliveryMessaging            = try values.decodeIfPresent(Bool.self, forKey: .enableDeliveryMessaging)
-        let exciseTaxInfo                      = try values.decodeIfPresent(ExciseTaxInfo.self, forKey: .exciseTaxInfo)
+        let exciseTaxInfo                      = try values.decodeIfPresent(ModelExciseTaxInfo.self, forKey: .exciseTaxInfo)
         let timezoneOffsetInMinutes            = try values.decodeIfPresent(Int.self, forKey: .timezoneOffsetInMinutes)
         let defaultPinTimeoutDuration          = try values.decodeIfPresent(Int.self, forKey: .defaultPinTimeoutDuration)
     
-        let assetsList = List<Assets>()
+        let assetsList = List<ModelAsset>()
         let emailListList = List<String>()
-        let taxTablesList = List<TaxTables>()
+        let taxTablesList = List<ModelTaxTables>()
         let marketingSourcesList = List<String>()
         let productsTagList = List<String>()
-        let deliveryFeesList = List<DeliveryFees>()
+        let deliveryFeesList = List<ModelDeliveryFees>()
         let restrictedNotificationTerminalsList = List<String>()
-        let receiptInfoList = List<ReceiptInfo>()
+        let receiptInfoList = List<ModelReceiptInfo>()
         assetsList.append(objectsIn: assets)
         emailListList.append(objectsIn: emailList)
         taxTablesList.append(objectsIn: taxTables)
@@ -989,7 +989,7 @@ class TaxInfo : DBModel{
 }
 
 
-class StateTax :DBModel{
+class ModelStateTax :DBModel{
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -1062,7 +1062,7 @@ class StateTax :DBModel{
 }
 
 
-class AssignedTerminal : DBModel{
+class ModelAssignedTerminal : DBModel{
     @objc dynamic var id : String?                  = ""
     @objc dynamic var created : Int                 = 0
     @objc dynamic var modified : Int                = 0
@@ -1083,7 +1083,7 @@ class AssignedTerminal : DBModel{
     @objc dynamic var assignedInventoryId : String? = ""
     @objc dynamic var cvAccountId : String?         = ""
     @objc dynamic var currentEmployeeId : String?   = ""
-                  var terminalLocations = List<TerminalLocations>()
+                  var terminalLocations = List<ModelTerminalLocations>()
     
     enum CodingKeys: String, CodingKey {
         
@@ -1109,7 +1109,7 @@ class AssignedTerminal : DBModel{
         case currentEmployeeId = "currentEmployeeId"
         case terminalLocations = "terminalLocations"
     }
-    convenience init (id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,active : Bool,deviceId : String?,name : String?,deviceModel : String?,deviceVersion : String?,deviceName : String?,appVersion : String?,deviceToken : String?,deviceType : String?,assignedInventoryId : String?,cvAccountId : String?,currentEmployeeId : String?,terminalLocations : List<TerminalLocations>){
+    convenience init (id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,active : Bool,deviceId : String?,name : String?,deviceModel : String?,deviceVersion : String?,deviceName : String?,appVersion : String?,deviceToken : String?,deviceType : String?,assignedInventoryId : String?,cvAccountId : String?,currentEmployeeId : String?,terminalLocations : List<ModelTerminalLocations>){
         self.init()
         self.id = id
         self.created = created
@@ -1158,14 +1158,14 @@ class AssignedTerminal : DBModel{
         let assignedInventoryId = try values.decodeIfPresent(String.self, forKey: .assignedInventoryId)
         let cvAccountId = try values.decodeIfPresent(String.self, forKey: .cvAccountId)
         let currentEmployeeId = try values.decodeIfPresent(String.self, forKey: .currentEmployeeId)
-        let terminalLocations = try values.decode([TerminalLocations].self, forKey: .terminalLocations)
-        let terminalLocationsList = List<TerminalLocations>()
+        let terminalLocations = try values.decode([ModelTerminalLocations].self, forKey: .terminalLocations)
+        let terminalLocationsList = List<ModelTerminalLocations>()
             terminalLocationsList.append(objectsIn: terminalLocations)
         self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, active: active!, deviceId: deviceId, name: name, deviceModel: deviceModel, deviceVersion: deviceVersion, deviceName: deviceName, appVersion: appVersion, deviceToken: deviceToken, deviceType: deviceType, assignedInventoryId: assignedInventoryId, cvAccountId: cvAccountId, currentEmployeeId: currentEmployeeId, terminalLocations: terminalLocationsList)
     }
 }
 
-class CityTax :DBModel{
+class ModelCityTax :DBModel{
    @objc dynamic var id : String?           = ""
    @objc dynamic var created : Int          = 0
    @objc dynamic var modified : Int         = 0
@@ -1240,7 +1240,7 @@ class CityTax :DBModel{
     
 }
 
-class Company : DBModel {
+class ModelCompany : DBModel {
     @objc dynamic var id : String?                  = ""
     @objc dynamic var created : Int                 = 0
     @objc dynamic var modified : Int                = 0
@@ -1251,7 +1251,7 @@ class Company : DBModel {
     @objc dynamic var name : String?                = ""
     @objc dynamic var phoneNumber : String?         = ""
     @objc dynamic var email : String?               = ""
-    @objc dynamic var address : Address?            = Address()
+    @objc dynamic var address : ModelAddres?            = ModelAddres()
     @objc dynamic var logoURL : String?             = ""
     @objc dynamic var supportEmail : String?        = ""
     @objc dynamic var showNameWithLogo : Bool       = false
@@ -1267,7 +1267,7 @@ class Company : DBModel {
     @objc dynamic var portalUrl : String?           = ""
     @objc dynamic var businessLocation : String?    = ""
     @objc dynamic var fax : String?                 = ""
-    @objc dynamic var primaryContact : PrimaryContact?
+    @objc dynamic var primaryContact : ModelPrimaryContact?
     @objc dynamic var taxId : String?               = ""
     @objc dynamic var loyaltyAccrueOpt : String?    = ""
     
@@ -1305,7 +1305,7 @@ class Company : DBModel {
         case loyaltyAccrueOpt = "loyaltyAccrueOpt"
     }
     
-    convenience init(id : String?,created : Int?,modified : Int?,deleted : Bool?,updated : Bool?,membersShareOption : String?,isId : String?,name : String?,phoneNumber : String?,email : String?,address : Address?,logoURL : String?,supportEmail : String?,showNameWithLogo : Bool?,active : Bool?,website : String?,productSKU : String?,queueUrl : String?,preferredEmailColor : String?,pricingOpt : String?,enableLoyalty : Bool?,dollarToPointRatio : Int?,duration : Int?,portalUrl : String?,businessLocation : String?,fax : String?,primaryContact : PrimaryContact?,taxId : String?,loyaltyAccrueOpt : String?){
+    convenience init(id : String?,created : Int?,modified : Int?,deleted : Bool?,updated : Bool?,membersShareOption : String?,isId : String?,name : String?,phoneNumber : String?,email : String?,address : ModelAddres?,logoURL : String?,supportEmail : String?,showNameWithLogo : Bool?,active : Bool?,website : String?,productSKU : String?,queueUrl : String?,preferredEmailColor : String?,pricingOpt : String?,enableLoyalty : Bool?,dollarToPointRatio : Int?,duration : Int?,portalUrl : String?,businessLocation : String?,fax : String?,primaryContact : ModelPrimaryContact?,taxId : String?,loyaltyAccrueOpt : String?){
         self.init()
         self.id = id
         self.created = created!
@@ -1351,7 +1351,7 @@ class Company : DBModel {
         let name = try values.decodeIfPresent(String.self, forKey: .name)
         let phoneNumber = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
         let email = try values.decodeIfPresent(String.self, forKey: .email)
-        let address = try values.decodeIfPresent(Address.self, forKey: .address)
+        let address = try values.decodeIfPresent(ModelAddres.self, forKey: .address)
         let logoURL = try values.decodeIfPresent(String.self, forKey: .logoURL)
         let supportEmail = try values.decodeIfPresent(String.self, forKey: .supportEmail)
         let showNameWithLogo = try values.decodeIfPresent(Bool.self, forKey: .showNameWithLogo)
@@ -1367,7 +1367,7 @@ class Company : DBModel {
         let portalUrl = try values.decodeIfPresent(String.self, forKey: .portalUrl)
         let businessLocation = try values.decodeIfPresent(String.self, forKey: .businessLocation)
         let fax = try values.decodeIfPresent(String.self, forKey: .fax)
-        let primaryContact = try values.decodeIfPresent(PrimaryContact.self, forKey: .primaryContact)
+        let primaryContact = try values.decodeIfPresent(ModelPrimaryContact.self, forKey: .primaryContact)
         let taxId = try values.decodeIfPresent(String.self, forKey: .taxId)
         let loyaltyAccrueOpt = try values.decodeIfPresent(String.self, forKey: .loyaltyAccrueOpt)
         self.init(id: id, created: created, modified: modified, deleted: deleted, updated: updated, membersShareOption: membersShareOption, isId: isId, name: name, phoneNumber: phoneNumber, email: email, address: address, logoURL: logoURL, supportEmail: supportEmail, showNameWithLogo: showNameWithLogo, active: active, website: website, productSKU: productSKU, queueUrl: queueUrl, preferredEmailColor: preferredEmailColor, pricingOpt: pricingOpt, enableLoyalty: enableLoyalty, dollarToPointRatio: dollarToPointRatio, duration: duration, portalUrl: portalUrl, businessLocation: businessLocation, fax: fax, primaryContact: primaryContact, taxId: taxId, loyaltyAccrueOpt: loyaltyAccrueOpt)
@@ -1375,7 +1375,7 @@ class Company : DBModel {
     
 }
 
-class CountyTax :DBModel{
+class ModelCountyTax :DBModel{
    @objc dynamic var id : String?   = ""
    @objc dynamic var created : Int  = 0
    @objc dynamic var modified : Int = 0
@@ -1449,7 +1449,7 @@ class CountyTax :DBModel{
     
 }
 
-class DeliveryFees : DBModel{
+class ModelDeliveryFees : DBModel{
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -1500,7 +1500,7 @@ class DeliveryFees : DBModel{
     
 }
 
-class EmailAttachment :DBModel {
+class ModelEmailAttachment :DBModel {
    
    @objc dynamic var id : String?   = ""
    @objc dynamic var created : Int  =  0
@@ -1585,7 +1585,7 @@ class EmailAttachment :DBModel {
     
 }
 
-class Employee :DBModel {
+class ModelEmployee :DBModel {
    @objc dynamic var id : String?                   = ""
    @objc dynamic var created : Int                  = 0
    @objc dynamic var modified : Int                 = 0
@@ -1601,16 +1601,16 @@ class Employee :DBModel {
    @objc dynamic var driversLicense : String?       = ""
    @objc dynamic var dlExpirationDate : String?     = ""
    @objc dynamic var vehicleMake : String?          = ""
-   var notes                                        = List<Notes>()
+   var notes                                        = List<ModelNotes>()
    var shops                                        = List<String>()
    @objc dynamic var disabled : Bool                = false
    @objc dynamic var phoneNumber : String?          = ""
    @objc dynamic var assignedInventoryId : String?  = ""
    @objc dynamic var assignedTerminalId : String?   = ""
-   @objc dynamic var address : Address?
+   @objc dynamic var address : ModelAddres?
    @objc dynamic var timecardId : String?           = ""
-   @objc dynamic var timeCard : TimeCard?
-   @objc dynamic var role : Role?
+   @objc dynamic var timeCard : ModelTimeCard?
+   @objc dynamic var role : ModelRole?
    @objc dynamic var canApplyCustomDiscount : Bool  = false
    @objc dynamic var insuranceExpireDate : Int      = 0
    @objc dynamic var insuranceCompanyName : String? = ""
@@ -1618,7 +1618,7 @@ class Employee :DBModel {
    @objc dynamic var registrationExpireDate : Int   = 0
    @objc dynamic var vehiclePin : String?           = ""
    @objc dynamic var vinNo : String?                = ""
-   var employeeOnFleetInfoList                      = List<EmployeeOnFleetInfoList>()
+   var employeeOnFleetInfoList                      = List<ModelEmployeeOnFleetInfoList>()
                  var appAccessList = List<String>()
     
     enum CodingKeys: String, CodingKey {
@@ -1658,7 +1658,7 @@ class Employee :DBModel {
         case employeeOnFleetInfoList = "employeeOnFleetInfoList"
         case appAccessList           = "appAccessList"
     }
-    convenience init(id : String?,created : Int?,modified : Int?,deleted : Bool,updated : Bool,companyId : String?,firstName : String?,lastName : String?,pin : String?,roleId : String?,email : String?,password : String?,driversLicense : String?, dlExpirationDate : String?,vehicleMake : String?,notes : List<Notes>,shops : List<String>,disabled : Bool,phoneNumber : String?,assignedInventoryId : String?,assignedTerminalId : String?,address : Address?,timecardId : String?,timeCard : TimeCard?,role : Role?,canApplyCustomDiscount : Bool,insuranceExpireDate : Int?,insuranceCompanyName : String?,policyNumber : String?,registrationExpireDate : Int,vehiclePin : String?,vinNo : String?,employeeOnFleetInfoList : List<EmployeeOnFleetInfoList>,appAccessList : List<String>){
+    convenience init(id : String?,created : Int?,modified : Int?,deleted : Bool,updated : Bool,companyId : String?,firstName : String?,lastName : String?,pin : String?,roleId : String?,email : String?,password : String?,driversLicense : String?, dlExpirationDate : String?,vehicleMake : String?,notes : List<ModelNotes>,shops : List<String>,disabled : Bool,phoneNumber : String?,assignedInventoryId : String?,assignedTerminalId : String?,address : ModelAddres?,timecardId : String?,timeCard : ModelTimeCard?,role : ModelRole?,canApplyCustomDiscount : Bool,insuranceExpireDate : Int?,insuranceCompanyName : String?,policyNumber : String?,registrationExpireDate : Int,vehiclePin : String?,vinNo : String?,employeeOnFleetInfoList : List<ModelEmployeeOnFleetInfoList>,appAccessList : List<String>){
         self.init()
         self.id                      = id
         self.created                 =  created  != nil ? created!  : 0
@@ -1711,16 +1711,16 @@ class Employee :DBModel {
         let driversLicense              = try values.decodeIfPresent(String.self, forKey: .driversLicense)
         let dlExpirationDate            = try values.decodeIfPresent(String.self, forKey: .dlExpirationDate)
         let vehicleMake                 = try values.decodeIfPresent(String.self, forKey: .vehicleMake)
-        let notes                       = try values.decode([Notes].self, forKey: .notes)
+        let notes                       = try values.decode([ModelNotes].self, forKey: .notes)
         let shops                       = try values.decode([String].self, forKey: .shops)
         let disabled                    = try values.decodeIfPresent(Bool.self, forKey: .disabled) ?? false
         let phoneNumber                 = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
         let assignedInventoryId         = try values.decodeIfPresent(String.self, forKey: .assignedInventoryId)
         let assignedTerminalId          = try values.decodeIfPresent(String.self, forKey: .assignedTerminalId)
-        let address                     = try values.decodeIfPresent(Address.self, forKey: .address)
+        let address                     = try values.decodeIfPresent(ModelAddres.self, forKey: .address)
         let timecardId                  = try values.decodeIfPresent(String.self, forKey: .timecardId)
-        let timeCard                    = try values.decodeIfPresent(TimeCard.self, forKey: .timeCard)
-        let role                        = try values.decodeIfPresent(Role.self, forKey: .role)
+        let timeCard                    = try values.decodeIfPresent(ModelTimeCard.self, forKey: .timeCard)
+        let role                        = try values.decodeIfPresent(ModelRole.self, forKey: .role)
         let canApplyCustomDiscount      = try values.decodeIfPresent(Bool.self, forKey: .canApplyCustomDiscount)
         let insuranceExpireDate         = try values.decodeIfPresent(Int.self, forKey: .insuranceExpireDate) ?? 0
         let insuranceCompanyName        = try values.decodeIfPresent(String.self, forKey: .insuranceCompanyName)
@@ -1728,11 +1728,11 @@ class Employee :DBModel {
         let registrationExpireDate      = try values.decodeIfPresent(Int.self, forKey: .registrationExpireDate) ?? 0
         let vehiclePin                  = try values.decodeIfPresent(String.self, forKey: .vehiclePin)
         let vinNo                       = try values.decodeIfPresent(String.self, forKey: .vinNo)
-        let employeeOnFleetInfoList     = try values.decode([EmployeeOnFleetInfoList].self, forKey: .employeeOnFleetInfoList)
+        let employeeOnFleetInfoList     = try values.decode([ModelEmployeeOnFleetInfoList].self, forKey: .employeeOnFleetInfoList)
         let appAccessList               = try values.decode([String].self, forKey: .appAccessList)
-        let notesList                   = List<Notes>()
+        let notesList                   = List<ModelNotes>()
         let shopsList                   = List<String>()
-        let employeeOnFleetInfoListList = List<EmployeeOnFleetInfoList>()
+        let employeeOnFleetInfoListList = List<ModelEmployeeOnFleetInfoList>()
         let appAccessListList           = List<String>()
             notesList.append(objectsIn: notes)
             employeeOnFleetInfoListList.append(objectsIn: employeeOnFleetInfoList)
@@ -1745,7 +1745,7 @@ class Employee :DBModel {
     
 }
 
-class EmployeeOnFleetInfoList : DBModel {
+class ModelEmployeeOnFleetInfoList : DBModel {
   @objc dynamic var shopId : String? = ""
   @objc dynamic var onFleetWorkerId : String? = ""
                 var onFleetTeamList  = List<String>()
@@ -1775,7 +1775,7 @@ class EmployeeOnFleetInfoList : DBModel {
     
 }
 
-class ExciseTaxInfo : DBModel {
+class ModelExciseTaxInfo : DBModel {
    @objc dynamic var id : String?      = ""
    @objc dynamic var created : Int     = 0
    @objc dynamic var modified : Int    = 0
@@ -1827,7 +1827,7 @@ class ExciseTaxInfo : DBModel {
     
 }
 
-class FederalTax : DBModel{
+class ModelFederalTax : DBModel{
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -1900,7 +1900,7 @@ class FederalTax : DBModel{
     
 }
 
-class Logo :DBModel{
+class ModelLogo :DBModel{
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -1985,7 +1985,7 @@ class Logo :DBModel{
     
 }
 
-class Notes :DBModel {
+class ModelNotes :DBModel {
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -2034,7 +2034,7 @@ class Notes :DBModel {
     
 }
 
-class OnlineStoreInfo : DBModel {
+class ModelOnlineStoreInfo : DBModel {
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -2158,11 +2158,11 @@ class OnlineStoreInfo : DBModel {
     
 }
 
-class PrimaryContact : DBModel{
+class ModelPrimaryContact : DBModel{
    @objc dynamic var name : String?    = ""
    @objc dynamic var email : String?   = ""
    @objc dynamic var contact : String? = ""
-   var address : Address?              = nil
+   var address : ModelAddres?              = nil
     
     enum CodingKeys: String, CodingKey {
         
@@ -2172,7 +2172,7 @@ class PrimaryContact : DBModel{
         case address = "address"
     }
     
-    convenience  init(name : String?,email : String?,contact : String?,address : Address?) {
+    convenience  init(name : String?,email : String?,contact : String?,address : ModelAddres?) {
         self.init()
         self.name = name
         self.email = email
@@ -2186,13 +2186,13 @@ class PrimaryContact : DBModel{
         let name = try values.decodeIfPresent(String.self, forKey: .name)
         let email = try values.decodeIfPresent(String.self, forKey: .email)
         let contact = try values.decodeIfPresent(String.self, forKey: .contact)
-        let address = try values.decodeIfPresent(Address.self, forKey: .address)
+        let address = try values.decodeIfPresent(ModelAddres.self, forKey: .address)
         self.init(name: name, email: email, contact: contact, address: address)
     }
     
 }
 
-class ReceiptInfo : DBModel {
+class ModelReceiptInfo : DBModel {
     @objc dynamic var id : String?                     = ""
     @objc dynamic var created : Int                    = 0
     @objc dynamic var modified : Int                   = 0
@@ -2295,7 +2295,7 @@ class ReceiptInfo : DBModel {
     
 }
 
-class Role :DBModel{
+class ModelRole :DBModel{
    @objc dynamic var id : String?   = ""
    @objc dynamic var created : Int  = 0
    @objc dynamic var modified : Int = 0
@@ -2348,7 +2348,7 @@ class Role :DBModel{
     
 }
 
-class Sessions :DBModel{
+class ModelSessions :DBModel{
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -2416,7 +2416,7 @@ class Sessions :DBModel{
     
 }
 
-class TaxTables : DBModel {
+class ModelTaxTables : DBModel {
    @objc dynamic var id : String?   = ""
    @objc dynamic var created : Int  = 0
    @objc dynamic var modified : Int = 0
@@ -2430,10 +2430,10 @@ class TaxTables : DBModel {
    @objc dynamic var taxType : String? = ""
    @objc dynamic var taxOrder : String? = ""
    @objc dynamic var consumerType : String? = ""
-   @objc dynamic var cityTax : CityTax?
-   @objc dynamic var countyTax : CountyTax?
-   @objc dynamic var stateTax : StateTax?
-   @objc dynamic var federalTax : FederalTax?
+   @objc dynamic var cityTax : ModelCityTax?
+   @objc dynamic var countyTax : ModelCountyTax?
+   @objc dynamic var stateTax : ModelStateTax?
+   @objc dynamic var federalTax : ModelFederalTax?
     
     enum CodingKeys: String, CodingKey {
         
@@ -2456,7 +2456,7 @@ class TaxTables : DBModel {
         case federalTax = "federalTax"
     }
     
-    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,name : String?,active : Bool,taxType : String?,taxOrder : String?,consumerType : String?,cityTax : CityTax?,countyTax : CountyTax?,stateTax : StateTax?,federalTax : FederalTax?){
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,name : String?,active : Bool,taxType : String?,taxOrder : String?,consumerType : String?,cityTax : ModelCityTax?,countyTax : ModelCountyTax?,stateTax : ModelStateTax?,federalTax : ModelFederalTax?){
         self.init()
         self.id = id
         self.created = created
@@ -2485,16 +2485,16 @@ class TaxTables : DBModel {
         let taxType = try values.decodeIfPresent(String.self, forKey: .taxType)
         let taxOrder = try values.decodeIfPresent(String.self, forKey: .taxOrder)
         let consumerType = try values.decodeIfPresent(String.self, forKey: .consumerType)
-        let cityTax = try values.decodeIfPresent(CityTax.self, forKey: .cityTax)
-        let countyTax = try values.decodeIfPresent(CountyTax.self, forKey: .countyTax)
-        let stateTax = try values.decodeIfPresent(StateTax.self, forKey: .stateTax)
-        let federalTax = try values.decodeIfPresent(FederalTax.self, forKey: .federalTax)
+        let cityTax = try values.decodeIfPresent(ModelCityTax.self, forKey: .cityTax)
+        let countyTax = try values.decodeIfPresent(ModelCountyTax.self, forKey: .countyTax)
+        let stateTax = try values.decodeIfPresent(ModelStateTax.self, forKey: .stateTax)
+        let federalTax = try values.decodeIfPresent(ModelFederalTax.self, forKey: .federalTax)
         self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, name: name, active: active!, taxType: taxType, taxOrder: taxOrder, consumerType: consumerType, cityTax: cityTax, countyTax: countyTax, stateTax: stateTax, federalTax: federalTax)
     }
     
 }
 
-class TerminalLocations :DBModel {
+class ModelTerminalLocations :DBModel {
      @objc dynamic var id : String?    = ""
      @objc dynamic var created : Int = 0
      @objc dynamic var modified : Int = 0
@@ -2568,7 +2568,7 @@ class TerminalLocations :DBModel {
     
 }
 
-class TimeCard :DBModel {
+class ModelTimeCard :DBModel {
    @objc dynamic var id : String? = ""
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
@@ -2581,7 +2581,7 @@ class TimeCard :DBModel {
    @objc dynamic var clockInTime : Int = 0
    @objc dynamic var clockOutTime : Int = 0
    @objc dynamic var clockin : Bool = false
-                 var sessions = List<Sessions>()
+                 var sessions = List<ModelSessions>()
     
     enum CodingKeys: String, CodingKey {
         
@@ -2600,7 +2600,7 @@ class TimeCard :DBModel {
         case sessions = "sessions"
     }
     
-    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,employeeId : String?,clockInTime : Int,clockOutTime : Int,clockin : Bool,sessions:List<Sessions>){
+    convenience init(id : String?,created : Int,modified : Int,deleted : Bool,updated : Bool,companyId : String?,shopId : String?,dirty : Bool,employeeId : String?,clockInTime : Int,clockOutTime : Int,clockin : Bool,sessions:List<ModelSessions>){
         self.init()
         self.id = id
         self.created = created
@@ -2631,9 +2631,9 @@ class TimeCard :DBModel {
         let clockInTime  = try values.decodeIfPresent(Int.self, forKey: .clockInTime)
         let clockOutTime = try values.decodeIfPresent(Int.self, forKey: .clockOutTime)
         let clockin      = try values.decodeIfPresent(Bool.self, forKey: .clockin)
-        let  sessions    = try values.decode([Sessions].self, forKey: .sessions)
+        let  sessions    = try values.decode([ModelSessions].self, forKey: .sessions)
 
-        let sessionsList = List<Sessions>()
+        let sessionsList = List<ModelSessions>()
             sessionsList.append(objectsIn: sessions)
     
         self.init(id: id, created: created!, modified: modified!, deleted: deleted!, updated: updated!, companyId: companyId, shopId: shopId, dirty: dirty!, employeeId: employeeId, clockInTime: clockInTime!, clockOutTime: clockOutTime!, clockin: clockin!, sessions: sessionsList)

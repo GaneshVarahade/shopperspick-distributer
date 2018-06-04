@@ -19,7 +19,7 @@ class WebServicesAPI: NSObject {
     }
     // MARK: -  Login API
     func login(user_Name:String,password:String,onComplition:@escaping (String)->Void){
-        var data:Login!
+        var data:ModelLogin!
         let url = "https://api.dev.blaze.me/api/v1/session/terminal/init"
         print("URL:",url)
         let header:HTTPHeaders = ["Content-Type":Constants.Development.Content_Type]
@@ -35,7 +35,7 @@ class WebServicesAPI: NSObject {
                 if response.response?.statusCode == 200{
                 
                 do{
-                    data = try JSONDecoder().decode(Login.self, from:response.data!)
+                    data = try JSONDecoder().decode(ModelLogin.self, from:response.data!)
                     let realm = try! Realm()
                     try! realm.write {
                         
