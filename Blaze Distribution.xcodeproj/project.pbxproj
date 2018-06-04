@@ -658,10 +658,9 @@
 				B9266C3020AEC8FB0021356C /* Sources */,
 				B9266C3120AEC8FB0021356C /* Frameworks */,
 				B9266C3220AEC8FB0021356C /* Resources */,
-				24A4D93A53AF37DF95E8F577 /* [CP] Embed Pods Frameworks */,
 				1846DB8720B213860076BECD /* Run Config Script */,
-				C7CE56BB19B369F0278419F3 /* [CP] Copy Pods Resources */,
 				B9E5268820B2FD5F00127E43 /* ShellScript */,
+				E5FA8CC561E3EE8CE98C61AC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -680,8 +679,6 @@
 				B9266C4720AEC8FE0021356C /* Sources */,
 				B9266C4820AEC8FE0021356C /* Frameworks */,
 				B9266C4920AEC8FE0021356C /* Resources */,
-				E62210BE47A878B8B9AC5AE5 /* [CP] Embed Pods Frameworks */,
-				D2788C074DDFF55802C13A9F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -701,8 +698,6 @@
 				B9266C5220AEC8FE0021356C /* Sources */,
 				B9266C5320AEC8FE0021356C /* Frameworks */,
 				B9266C5420AEC8FE0021356C /* Resources */,
-				E0370EE4950CA9B52615128D /* [CP] Embed Pods Frameworks */,
-				BB6FB2D7D063EE0FAD5A0414 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -823,38 +818,6 @@
 			shellPath = /bin/sh;
 			shellScript = "BUILD_VERSION=\"0.0.1\"\nENV_STR=\"\"\n\necho \"Build ${BUILD_VERSION}\"\necho \"PROJECT_DIR ${PROJECT_DIR}\"\necho \"configuration: ${CONFIGURATION}\"\n\ntouch \"${PROJECT_DIR}/Blaze Distribution/Config/environment-override.json\"\ntouch \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\n\nREQUIRED_HTTPS=\"false\"\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\necho \"Do something really debug-like\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-debug.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Dev\" ]; then\necho \"Do something really Development\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-dev.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Stage\" ]; then\necho \"Do something really Stage\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-stage.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\necho \"Do something really Release\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-prod.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\n# For extension in Build Version Name\nif [ \"${CONFIGURATION}\" = \"Dev\"  ] || [ \"${CONFIGURATION}\" = \"Stage\"  ] || [ \"${CONFIGURATION}\" = \"Debug\"  ]\nthen ENV_STR=\".${CONFIGURATION}\"\nfi\n\n\n#update version\nbuildNumber=$(git rev-list --count HEAD)\nbuildVersion=\"$BUILD_VERSION$ENV_STR\"\necho \"buildVersion: ${buildVersion}\"\necho \"buildNumber ${buildNumber}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $buildVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n#/usr/libexec/PlistBuddy -c \"Set :NSAppTransportSecurity:NSAllowsArbitraryLoads $REQUIRED_HTTPS\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
-		24A4D93A53AF37DF95E8F577 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/KSToastView/KSToastView.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SKActivityIndicatorView/SKActivityIndicatorView.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KSToastView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SKActivityIndicatorView.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		501329DEFA3BF50C2121BCEC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -904,79 +867,36 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" c9d72e6d19d9e4ba78ca12b119c2b8f1417d2a8d e6dd12affcf4b8dbd355f1449174fa9ecc0a9b7e433beca6bb10f3e8e0e4ce74";
 		};
-		BB6FB2D7D063EE0FAD5A0414 /* [CP] Copy Pods Resources */ = {
+		E5FA8CC561E3EE8CE98C61AC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze DistributionUITests/Pods-Blaze DistributionUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C7CE56BB19B369F0278419F3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D2788C074DDFF55802C13A9F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E0370EE4950CA9B52615128D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/KSToastView/KSToastView.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SKActivityIndicatorView/SKActivityIndicatorView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KSToastView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SKActivityIndicatorView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze DistributionUITests/Pods-Blaze DistributionUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E62210BE47A878B8B9AC5AE5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1170,10 +1090,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-Distribution";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1190,11 +1107,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze DistributionTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-DistributionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1211,11 +1124,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze DistributionUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-DistributionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1286,10 +1195,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-Distribution";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1306,11 +1212,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze DistributionTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-DistributionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1327,11 +1229,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze DistributionUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-DistributionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1462,10 +1360,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-Distribution";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1481,10 +1376,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-Distribution";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1501,11 +1393,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze DistributionTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-DistributionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1523,11 +1411,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze DistributionTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-DistributionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1544,11 +1428,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze DistributionUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-DistributionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1565,11 +1445,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WDSFCZBD66;
 				INFOPLIST_FILE = "Blaze DistributionUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blaze.distribution.Blaze-DistributionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
