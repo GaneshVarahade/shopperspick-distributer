@@ -25,6 +25,19 @@ DEPENDENCIES:
   - RealmSwift
   - SKActivityIndicatorView
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Crashlytics
+    - Fabric
+    - IQKeyboardManagerSwift
+    - Kingfisher
+    - KSToastView
+    - ReachabilitySwift
+    - Realm
+    - RealmSwift
+    - SKActivityIndicatorView
+
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Crashlytics: 0360624eea1c978a743feddb2fb1ef8b37fb7a0d
@@ -37,6 +50,6 @@ SPEC CHECKSUMS:
   RealmSwift: 973e1499c44ab571f894c2c908e2db450be280c3
   SKActivityIndicatorView: f46936f760d33eb8235333242269bf01cc9248ae
 
-PODFILE CHECKSUM: a4c50e784caf1b8d6c6d9a26781a2de097e2271f
+PODFILE CHECKSUM: d14a4bbbef40fa832e4f68a6bbcb7e4e19a331f8
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

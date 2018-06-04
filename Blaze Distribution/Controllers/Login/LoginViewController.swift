@@ -37,32 +37,35 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - IBActions
     @IBAction func loginBtnPressed(_ sender: Any) {
         SKActivityIndicator.show()
-        WebServicesAPI.singleToneObject.login(user_Name: txtEmail.text!, password: txtPassword.text!) { (strERROR) in
-            if strERROR == "200"{
-                SKActivityIndicator.dismiss()
+
+//        WebServicesAPI.sharedInstance().login(user_Name: txtEmail.text!, password: txtPassword.text!) { (strERROR) in
+//
+//            if strERROR == "true"{
+//                SKActivityIndicator.dismiss()
+//                self.performSegue(withIdentifier: "goHome", sender: self)
+//
+//            }
+//
+//        }
+        
+        let reqLogin:RequestLogin = RequestLogin()
+        reqLogin.email = txtEmail.text!
+        reqLogin.password = txtPassword.text!
+        reqLogin.version = "2.10.9"
+        
+        WebServicesAPI.sharedInstance().loginAPI(request: reqLogin, onComplition: {(result:ModelLogin?, error:PlatformError?) in
+            
+            SKActivityIndicator.dismiss()
+            if error != nil {
                 
-                let data = DBManager.sharedInstance.getDataFromDB(object: Login.self)
-                
-                
-                   var item = Login()
-                       item = data[3] as! Login
-                
-                
-                   /// let itemedit = item.
-                    //    itemedit.accessToken = "Test"
-                    //    DBManager.sharedInstance.addData(object: itemedit)
-                
-                
-                
-                self.performSegue(withIdentifier: "goHome", sender: self)
-            }else if strERROR == "400"{
-                KSToastView.ks_showToast("Bad request ")
-            }else if strERROR == "401"{
-                KSToastView.ks_showToast("Unauthorized user")
-            }else{
-                KSToastView.ks_showToast("Server error")
+                return
             }
-        }
+            
+            
+            AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: result?.accessToken ?? "Access nil")
+            self.performSegue(withIdentifier: "goHome", sender: self)
+        })
+ 
     }
     // MARK: - Helper Methods
     func setup(){
