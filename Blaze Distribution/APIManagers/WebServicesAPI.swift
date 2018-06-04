@@ -36,48 +36,37 @@ class WebServicesAPI: NSObject {
                 
                 do{
                     data = try JSONDecoder().decode(Login.self, from:response.data!)
-                    let realm = try! Realm()
-                    try! realm.write {
-                        
-                        realm.add((data)!)
-                        
-                        onComplition("true")
-                        
-                    }
-                    
-                    
+ //                   let realm = try! Realm()
+//                    try! realm.write {
+//                        realm.add((data)!)
+//                        onComplition("200")
+//                        print("Success ok ...!")
+//                    }
+                    //data.assetAccessToken = ""
+                     DBManager.sharedInstance.addData(object: data)
+                     onComplition("200")
+
                 }catch{
                     print(error)
                 }
-    
-                   
                 }else if response.response?.statusCode == 400{
-                    
-                    print("Bad request ...")
-                    
+                     print("Bad request ...")
+                     onComplition("400")
                 }else if response.response?.statusCode == 401{
-                    
-                    print("Unauthorized user ...")
-                    
+                     print("Unauthorized user ...")
+                     onComplition("401")
                 }else{
-                    
-                    print("Server error ....")
-                    
+                     print("Server error ....")
+                     onComplition("server error")
                 }
-                 
-                    
-                    
-                //onComplition(jsonData,"",code!)
                 break
             case .failure(let error):
                 print(error)
-                //onComplition(JSON.null,error.localizedDescription,0)
+                onComplition(error.localizedDescription)
                 break
             }
         })
-        
     }
-    
 }
 
 

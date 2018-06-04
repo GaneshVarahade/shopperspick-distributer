@@ -8,6 +8,7 @@
 
 import UIKit
 import SKActivityIndicatorView
+import KSToastView
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
@@ -37,15 +38,31 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func loginBtnPressed(_ sender: Any) {
         SKActivityIndicator.show()
         WebServicesAPI.singleToneObject.login(user_Name: txtEmail.text!, password: txtPassword.text!) { (strERROR) in
-            
-            if strERROR == "true"{
+            if strERROR == "200"{
                 SKActivityIndicator.dismiss()
-                self.performSegue(withIdentifier: "goHome", sender: self)
                 
+                let data = DBManager.sharedInstance.getDataFromDB(object: Login.self)
+                
+                
+                   var item = Login()
+                       item = data[3] as! Login
+                
+                
+                   /// let itemedit = item.
+                    //    itemedit.accessToken = "Test"
+                    //    DBManager.sharedInstance.addData(object: itemedit)
+                
+                
+                
+                self.performSegue(withIdentifier: "goHome", sender: self)
+            }else if strERROR == "400"{
+                KSToastView.ks_showToast("Bad request ")
+            }else if strERROR == "401"{
+                KSToastView.ks_showToast("Unauthorized user")
+            }else{
+                KSToastView.ks_showToast("Server error")
             }
-            
         }
-
     }
     // MARK: - Helper Methods
     func setup(){

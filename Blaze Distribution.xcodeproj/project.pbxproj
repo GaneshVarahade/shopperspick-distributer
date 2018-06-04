@@ -27,6 +27,7 @@
 		B9266C5B20AEC8FE0021356C /* Blaze_DistributionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C5A20AEC8FE0021356C /* Blaze_DistributionUITests.swift */; };
 		B9266C7320AED9BA0021356C /* SplashScreenVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C7220AED9BA0021356C /* SplashScreenVCViewController.swift */; };
 		B9266C7520AEDC940021356C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C7420AEDC940021356C /* ForgotPasswordViewController.swift */; };
+		B92755F920C1256B008F0499 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92755F820C1256B008F0499 /* DBManager.swift */; };
 		B92A65A820AF209200CDA4CC /* ShippingManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65A720AF209200CDA4CC /* ShippingManifestViewController.swift */; };
 		B92A65AA20AF2E3F00CDA4CC /* InvoicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65A920AF2E3E00CDA4CC /* InvoicesViewController.swift */; };
 		B92A65AC20AF303500CDA4CC /* InvoicesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65AB20AF303400CDA4CC /* InvoicesTableViewCell.swift */; };
@@ -140,6 +141,7 @@
 		B9266C5C20AEC8FE0021356C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9266C7220AED9BA0021356C /* SplashScreenVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVCViewController.swift; sourceTree = "<group>"; };
 		B9266C7420AEDC940021356C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		B92755F820C1256B008F0499 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		B92A65A720AF209200CDA4CC /* ShippingManifestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingManifestViewController.swift; sourceTree = "<group>"; };
 		B92A65A920AF2E3E00CDA4CC /* InvoicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoicesViewController.swift; sourceTree = "<group>"; };
 		B92A65AB20AF303400CDA4CC /* InvoicesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoicesTableViewCell.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				B9266C6B20AED0280021356C /* Venders */,
 				B9266C6A20AED0160021356C /* Utilities */,
 				B9266C6920AECFFF0021356C /* Resources */,
+				B92755F720C12501008F0499 /* DataBaseManager */,
 				B9266C4120AEC8FE0021356C /* Assets.xcassets */,
 				B9266C4620AEC8FE0021356C /* Info.plist */,
 			);
@@ -418,6 +421,14 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		B92755F720C12501008F0499 /* DataBaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				B92755F820C1256B008F0499 /* DBManager.swift */,
+			);
+			path = DataBaseManager;
 			sourceTree = "<group>";
 		};
 		B938034F20B56E190024EDA7 /* JSON_Serialization */ = {
@@ -999,6 +1010,7 @@
 				B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */,
 				B92A65B420AF459C00CDA4CC /* InvoiceItemsViewController.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
+				B92755F920C1256B008F0499 /* DBManager.swift in Sources */,
 				B985566920B43B2900A56497 /* YPDrawSignatureView.swift in Sources */,
 				B9CAC8E020AF1155008F1650 /* UILabelX.swift in Sources */,
 				B985566D20B43B8700A56497 /* ShippingManifestTableViewCell.swift in Sources */,
