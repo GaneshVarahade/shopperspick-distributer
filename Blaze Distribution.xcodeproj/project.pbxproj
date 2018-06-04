@@ -17,9 +17,16 @@
 		1846DBA720B21B5B0076BECD /* environment-debug.json in Resources */ = {isa = PBXBuildFile; fileRef = 1846DB9F20B21B5B0076BECD /* environment-debug.json */; };
 		1846DBA820B21B5B0076BECD /* DistributionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DBA020B21B5B0076BECD /* DistributionConfig.swift */; };
 		1846DBA920B21B5B0076BECD /* environment-prod.json in Resources */ = {isa = PBXBuildFile; fileRef = 1846DBA120B21B5B0076BECD /* environment-prod.json */; };
-		189F82AA20C4FD640054986E /* RealmHelpers in Resources */ = {isa = PBXBuildFile; fileRef = 189F82A720C4FD640054986E /* RealmHelpers */; };
-		189F82AB20C4FD640054986E /* APIModels in Resources */ = {isa = PBXBuildFile; fileRef = 189F82A820C4FD640054986E /* APIModels */; };
-		189F82AC20C4FD640054986E /* RealmModels in Resources */ = {isa = PBXBuildFile; fileRef = 189F82A920C4FD640054986E /* RealmModels */; };
+		189F82BC20C501B70054986E /* BaseDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B020C501B70054986E /* BaseDAO.swift */; };
+		189F82BD20C501B70054986E /* InvoiceDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B120C501B70054986E /* InvoiceDao.swift */; };
+		189F82BE20C501B70054986E /* RealmSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B220C501B70054986E /* RealmSingleton.swift */; };
+		189F82BF20C501B70054986E /* ResponseGetAllInvoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */; };
+		189F82C020C501B70054986E /* ResponseInvoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B620C501B70054986E /* ResponseInvoices.swift */; };
+		189F82C120C501B70054986E /* BaseResponseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B720C501B70054986E /* BaseResponseProtocol.swift */; };
+		189F82C220C501B70054986E /* ModelBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B920C501B70054986E /* ModelBase.swift */; };
+		189F82C320C501B70054986E /* ModelInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82BA20C501B70054986E /* ModelInvoice.swift */; };
+		189F82C420C501B70054986E /* ModelShipingMenifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82BB20C501B70054986E /* ModelShipingMenifest.swift */; };
+		189F82C620C501F80054986E /* ShipingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82C520C501F80054986E /* ShipingController.swift */; };
 		2FD731EB83170AF88FAF96D0 /* Pods_Blaze_DistributionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22B1597E869879AC4DD12C3 /* Pods_Blaze_DistributionTests.framework */; };
 		B913500720BD5A2F00A9FFA7 /* DBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B913500620BD5A2F00A9FFA7 /* DBModel.swift */; };
 		B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C3720AEC8FB0021356C /* AppDelegate.swift */; };
@@ -119,9 +126,16 @@
 		1846DBA020B21B5B0076BECD /* DistributionConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionConfig.swift; sourceTree = "<group>"; };
 		1846DBA120B21B5B0076BECD /* environment-prod.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "environment-prod.json"; sourceTree = "<group>"; };
 		1856C76199F812D749E0AA01 /* Pods-Blaze DistributionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.release.xcconfig"; sourceTree = "<group>"; };
-		189F82A720C4FD640054986E /* RealmHelpers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RealmHelpers; sourceTree = "<group>"; };
-		189F82A820C4FD640054986E /* APIModels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = APIModels; sourceTree = "<group>"; };
-		189F82A920C4FD640054986E /* RealmModels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RealmModels; sourceTree = "<group>"; };
+		189F82B020C501B70054986E /* BaseDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseDAO.swift; sourceTree = "<group>"; };
+		189F82B120C501B70054986E /* InvoiceDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceDao.swift; sourceTree = "<group>"; };
+		189F82B220C501B70054986E /* RealmSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmSingleton.swift; sourceTree = "<group>"; };
+		189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseGetAllInvoices.swift; sourceTree = "<group>"; };
+		189F82B620C501B70054986E /* ResponseInvoices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseInvoices.swift; sourceTree = "<group>"; };
+		189F82B720C501B70054986E /* BaseResponseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponseProtocol.swift; sourceTree = "<group>"; };
+		189F82B920C501B70054986E /* ModelBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelBase.swift; sourceTree = "<group>"; };
+		189F82BA20C501B70054986E /* ModelInvoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInvoice.swift; sourceTree = "<group>"; };
+		189F82BB20C501B70054986E /* ModelShipingMenifest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelShipingMenifest.swift; sourceTree = "<group>"; };
+		189F82C520C501F80054986E /* ShipingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipingController.swift; sourceTree = "<group>"; };
 		22C3488055382B11C1D20750 /* Pods_Blaze_Distribution.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blaze_Distribution.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4071D8F6404055871EE91139 /* Pods-Blaze DistributionTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.dev.xcconfig"; sourceTree = "<group>"; };
 		7BD414FACE98F6854EA2F12E /* Pods-Blaze Distribution.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.stage.xcconfig"; sourceTree = "<group>"; };
@@ -258,6 +272,44 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		189F82AF20C501B70054986E /* RealmHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				189F82B020C501B70054986E /* BaseDAO.swift */,
+				189F82B120C501B70054986E /* InvoiceDao.swift */,
+				189F82B220C501B70054986E /* RealmSingleton.swift */,
+			);
+			path = RealmHelpers;
+			sourceTree = "<group>";
+		};
+		189F82B320C501B70054986E /* APIModels */ = {
+			isa = PBXGroup;
+			children = (
+				189F82B420C501B70054986E /* APIGetAllInvoices */,
+				189F82B720C501B70054986E /* BaseResponseProtocol.swift */,
+			);
+			path = APIModels;
+			sourceTree = "<group>";
+		};
+		189F82B420C501B70054986E /* APIGetAllInvoices */ = {
+			isa = PBXGroup;
+			children = (
+				189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */,
+				189F82B620C501B70054986E /* ResponseInvoices.swift */,
+			);
+			path = APIGetAllInvoices;
+			sourceTree = "<group>";
+		};
+		189F82B820C501B70054986E /* RealmModels */ = {
+			isa = PBXGroup;
+			children = (
+				189F82B920C501B70054986E /* ModelBase.swift */,
+				189F82BA20C501B70054986E /* ModelInvoice.swift */,
+				189F82BB20C501B70054986E /* ModelShipingMenifest.swift */,
+			);
+			path = RealmModels;
+			sourceTree = "<group>";
+		};
 		AE1281069DB163211F8B8D92 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,9 +354,10 @@
 		B9266C3620AEC8FB0021356C /* Blaze Distribution */ = {
 			isa = PBXGroup;
 			children = (
-				189F82A820C4FD640054986E /* APIModels */,
-				189F82A720C4FD640054986E /* RealmHelpers */,
-				189F82A920C4FD640054986E /* RealmModels */,
+				189F82C520C501F80054986E /* ShipingController.swift */,
+				189F82B320C501B70054986E /* APIModels */,
+				189F82AF20C501B70054986E /* RealmHelpers */,
+				189F82B820C501B70054986E /* RealmModels */,
 				B938034F20B56E190024EDA7 /* JSON_Serialization */,
 				1846DB8920B219CD0076BECD /* Config */,
 				B9266C6820AECFEA0021356C /* App Delegate */,
@@ -772,11 +825,8 @@
 				B9266C4520AEC8FE0021356C /* LaunchScreen.storyboard in Resources */,
 				B9266C4220AEC8FE0021356C /* Assets.xcassets in Resources */,
 				B9266C3D20AEC8FB0021356C /* Main.storyboard in Resources */,
-				189F82AB20C4FD640054986E /* APIModels in Resources */,
 				1846DBA920B21B5B0076BECD /* environment-prod.json in Resources */,
-				189F82AC20C4FD640054986E /* RealmModels in Resources */,
 				1846DBA520B21B5B0076BECD /* environment-override.json in Resources */,
-				189F82AA20C4FD640054986E /* RealmHelpers in Resources */,
 				1846DBA720B21B5B0076BECD /* environment-debug.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -918,6 +968,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				189F82C620C501F80054986E /* ShipingController.swift in Sources */,
 				B9E5268320B2DFC800127E43 /* AddItemTableViewCell.swift in Sources */,
 				B92DAF5720B6FFAE0021EE30 /* ModelLogin.swift in Sources */,
 				B985566720B438AD00A56497 /* ReachabilityManager.swift in Sources */,
@@ -930,6 +981,8 @@
 				B9E5266620B2C38600127E43 /* ConfirmTransferTableViewCell.swift in Sources */,
 				B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */,
 				B92A65B420AF459C00CDA4CC /* InvoiceItemsViewController.swift in Sources */,
+				189F82BD20C501B70054986E /* InvoiceDao.swift in Sources */,
+				189F82C320C501B70054986E /* ModelInvoice.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
 				B985566920B43B2900A56497 /* YPDrawSignatureView.swift in Sources */,
 				B9CAC8E020AF1155008F1650 /* UILabelX.swift in Sources */,
@@ -954,14 +1007,21 @@
 				B9E5268720B2E39C00127E43 /* PurchaseOrderViewController.swift in Sources */,
 				B9CAC8DA20AF1155008F1650 /* UIVisualEffectViewX.swift in Sources */,
 				B9CAC8DD20AF1155008F1650 /* UIButtonX.swift in Sources */,
+				189F82BF20C501B70054986E /* ResponseGetAllInvoices.swift in Sources */,
+				189F82C020C501B70054986E /* ResponseInvoices.swift in Sources */,
 				B985566F20B440E500A56497 /* WebServicesAPI.swift in Sources */,
 				B9CAC8DF20AF1155008F1650 /* UIViewControllerX.swift in Sources */,
 				1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */,
+				189F82BE20C501B70054986E /* RealmSingleton.swift in Sources */,
+				189F82C220C501B70054986E /* ModelBase.swift in Sources */,
 				B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */,
 				B95A8A3020B423F500F76A15 /* AddProductViewController.swift in Sources */,
 				B9E5267D20B2DAAA00127E43 /* Completed_PurchaseOrderDetailsTableViewController.swift in Sources */,
+				189F82C420C501B70054986E /* ModelShipingMenifest.swift in Sources */,
 				B9E5266420B2C35A00127E43 /* LookUpTableViewCell.swift in Sources */,
 				B9CAC8E220AF1155008F1650 /* UIViewXRadialGradient.swift in Sources */,
+				189F82BC20C501B70054986E /* BaseDAO.swift in Sources */,
+				189F82C120C501B70054986E /* BaseResponseProtocol.swift in Sources */,
 				B985566B20B43B6000A56497 /* QuantityBatchTableViewCell.swift in Sources */,
 				B913500720BD5A2F00A9FFA7 /* DBModel.swift in Sources */,
 				B985566520B4379F00A56497 /* Constants.swift in Sources */,
