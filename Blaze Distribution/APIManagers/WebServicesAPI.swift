@@ -79,7 +79,7 @@ class WebServicesAPI: NSObject {
     
     
 //    func getAllInvoicesAPI(request:RequestLogin,onComplition:@escaping (_ result:ModelLogin?, _ error:PlatformError?) -> ()){
-//        
+//
 //        makeRequest(Router.sessionLogin(request: request), callback: onComplition)
 //    }
     

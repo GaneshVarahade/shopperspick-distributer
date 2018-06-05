@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1828E6C320C6D0F300EB74B4 /* Tables.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1828E6C220C6D0F300EB74B4 /* Tables.txt */; };
 		1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7B20B213010076BECD /* TextHelpers.swift */; };
 		1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7C20B213010076BECD /* SwiftExtentions.swift */; };
 		1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */; };
@@ -34,6 +35,7 @@
 		189F82D720C5096F0054986E /* UtilityUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82D620C5096F0054986E /* UtilityUserDefaults.swift */; };
 		189F82DB20C50C090054986E /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82DA20C50C090054986E /* BaseRequest.swift */; };
 		189F82DD20C50EB40054986E /* PlatformError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82DC20C50EB40054986E /* PlatformError.swift */; };
+		18CD0BFC20C6B1C1007E8515 /* SingleInvoice.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */; };
 		2FD731EB83170AF88FAF96D0 /* Pods_Blaze_DistributionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22B1597E869879AC4DD12C3 /* Pods_Blaze_DistributionTests.framework */; };
 		B913500720BD5A2F00A9FFA7 /* DBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B913500620BD5A2F00A9FFA7 /* DBModel.swift */; };
 		B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C3720AEC8FB0021356C /* AppDelegate.swift */; };
@@ -122,6 +124,7 @@
 /* Begin PBXFileReference section */
 		0258B61748E9715829B0B522 /* Pods-Blaze DistributionTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.stage.xcconfig"; sourceTree = "<group>"; };
 		0938C2F5672F799D7AB60923 /* Pods-Blaze Distribution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.dev.xcconfig"; sourceTree = "<group>"; };
+		1828E6C220C6D0F300EB74B4 /* Tables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tables.txt; sourceTree = "<group>"; };
 		1846DB7B20B213010076BECD /* TextHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelpers.swift; sourceTree = "<group>"; };
 		1846DB7C20B213010076BECD /* SwiftExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtentions.swift; sourceTree = "<group>"; };
 		1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVar.swift; sourceTree = "<group>"; };
@@ -150,6 +153,7 @@
 		189F82D620C5096F0054986E /* UtilityUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityUserDefaults.swift; sourceTree = "<group>"; };
 		189F82DA20C50C090054986E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		189F82DC20C50EB40054986E /* PlatformError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformError.swift; sourceTree = "<group>"; };
+		18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SingleInvoice.txt; sourceTree = "<group>"; };
 		22C3488055382B11C1D20750 /* Pods_Blaze_Distribution.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blaze_Distribution.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4071D8F6404055871EE91139 /* Pods-Blaze DistributionTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.dev.xcconfig"; sourceTree = "<group>"; };
 		7BD414FACE98F6854EA2F12E /* Pods-Blaze Distribution.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.stage.xcconfig"; sourceTree = "<group>"; };
@@ -379,7 +383,9 @@
 		B9266C3620AEC8FB0021356C /* Blaze Distribution */ = {
 			isa = PBXGroup;
 			children = (
+				18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */,
 				189F82C720C502A90054986E /* GetAllInvoices.txt */,
+				1828E6C220C6D0F300EB74B4 /* Tables.txt */,
 				189F82C520C501F80054986E /* ShipingController.swift */,
 				189F82B320C501B70054986E /* APIModels */,
 				189F82AF20C501B70054986E /* RealmHelpers */,
@@ -850,8 +856,10 @@
 			files = (
 				1846DBA420B21B5B0076BECD /* environment.json in Resources */,
 				1846DBA320B21B5B0076BECD /* environment-stage.json in Resources */,
+				18CD0BFC20C6B1C1007E8515 /* SingleInvoice.txt in Resources */,
 				1846DBA620B21B5B0076BECD /* environment-dev.json in Resources */,
 				B9266C4520AEC8FE0021356C /* LaunchScreen.storyboard in Resources */,
+				1828E6C320C6D0F300EB74B4 /* Tables.txt in Resources */,
 				B9266C4220AEC8FE0021356C /* Assets.xcassets in Resources */,
 				B9266C3D20AEC8FB0021356C /* Main.storyboard in Resources */,
 				1846DBA920B21B5B0076BECD /* environment-prod.json in Resources */,
