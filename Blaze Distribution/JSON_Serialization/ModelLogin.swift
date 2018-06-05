@@ -85,7 +85,7 @@ class ModelLogin : DBModel, BaseResponseModel{
             
         let appType = try values.decodeIfPresent(String.self, forKey: .appType)
         let appTarget = try values.decodeIfPresent(String.self, forKey: .appTarget)
-        let shopsList = List<ModelShops>()ß
+        let shopsList = List<ModelShops>()
            // shopsList.append(objectsIn: shops)
 
     
@@ -100,7 +100,7 @@ class ModelLogin : DBModel, BaseResponseModel{
 }
 
 class ModelShops :DBModel {
-   @objc dynamic var id : String?ß
+   @objc dynamic var id : String?
    @objc dynamic var created : Int = 0
    @objc dynamic var modified : Int = 0
    @objc dynamic var deleted : Bool = false

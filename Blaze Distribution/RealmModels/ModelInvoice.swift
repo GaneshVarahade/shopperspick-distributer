@@ -27,7 +27,6 @@ public class ModelInvoice:ModelBase {
     
     public override func copy(with zone: NSZone? = nil) -> Any {
         let modelInvoice = ModelInvoice()
-
         modelInvoice.id = self.id
         modelInvoice.companyId = self.companyId
         modelInvoice.shopId = self.shopId
@@ -37,12 +36,11 @@ public class ModelInvoice:ModelBase {
         for ship in self.shippingManifests {
             modelInvoice.shippingManifests.append(ship.copy() as! ModelShipingMenifest)
         }
-
-
         return modelInvoice
     }
-    
     public func getString() -> String {
+        
         return "id: \(self.id), companyId: \(self.companyId), invoiceNumber: \(self.invoiceNumber)"
+    
     }
 }

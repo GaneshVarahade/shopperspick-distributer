@@ -45,6 +45,7 @@
 		B9266C7320AED9BA0021356C /* SplashScreenVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C7220AED9BA0021356C /* SplashScreenVCViewController.swift */; };
 		B9266C7520AEDC940021356C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C7420AEDC940021356C /* ForgotPasswordViewController.swift */; };
 		B92755F920C1256B008F0499 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92755F820C1256B008F0499 /* DBManager.swift */; };
+		B92822EC20C556D300BC32A1 /* RequestInvoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92822EB20C556D300BC32A1 /* RequestInvoices.swift */; };
 		B92A65A820AF209200CDA4CC /* ShippingManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65A720AF209200CDA4CC /* ShippingManifestViewController.swift */; };
 		B92A65AA20AF2E3F00CDA4CC /* InvoicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65A920AF2E3E00CDA4CC /* InvoicesViewController.swift */; };
 		B92A65AC20AF303500CDA4CC /* InvoicesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65AB20AF303400CDA4CC /* InvoicesTableViewCell.swift */; };
@@ -176,6 +177,7 @@
 		B9266C7220AED9BA0021356C /* SplashScreenVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVCViewController.swift; sourceTree = "<group>"; };
 		B9266C7420AEDC940021356C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		B92755F820C1256B008F0499 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		B92822EB20C556D300BC32A1 /* RequestInvoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInvoices.swift; sourceTree = "<group>"; };
 		B92A65A720AF209200CDA4CC /* ShippingManifestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingManifestViewController.swift; sourceTree = "<group>"; };
 		B92A65A920AF2E3E00CDA4CC /* InvoicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoicesViewController.swift; sourceTree = "<group>"; };
 		B92A65AB20AF303400CDA4CC /* InvoicesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoicesTableViewCell.swift; sourceTree = "<group>"; };
@@ -292,8 +294,8 @@
 			isa = PBXGroup;
 			children = (
 				189F82B020C501B70054986E /* BaseDAO.swift */,
-				189F82B120C501B70054986E /* InvoiceDao.swift */,
 				189F82B220C501B70054986E /* RealmSingleton.swift */,
+				189F82B120C501B70054986E /* InvoiceDao.swift */,
 			);
 			path = RealmHelpers;
 			sourceTree = "<group>";
@@ -314,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */,
+				B92822EB20C556D300BC32A1 /* RequestInvoices.swift */,
 				189F82B620C501B70054986E /* ResponseInvoices.swift */,
 			);
 			path = APIGetAllInvoices;
@@ -381,6 +384,7 @@
 		B9266C3620AEC8FB0021356C /* Blaze Distribution */ = {
 			isa = PBXGroup;
 			children = (
+				B92822EA20C5563E00BC32A1 /* RequestModels */,
 				189F82C720C502A90054986E /* GetAllInvoices.txt */,
 				189F82C520C501F80054986E /* ShipingController.swift */,
 				189F82B320C501B70054986E /* APIModels */,
@@ -520,6 +524,13 @@
 				B92755F820C1256B008F0499 /* DBManager.swift */,
 			);
 			path = DataBaseManager;
+			sourceTree = "<group>";
+		};
+		B92822EA20C5563E00BC32A1 /* RequestModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RequestModels;
 			sourceTree = "<group>";
 		};
 		B938034F20B56E190024EDA7 /* JSON_Serialization */ = {
@@ -1018,6 +1029,7 @@
 				189F82D220C507DF0054986E /* AQLog.swift in Sources */,
 				B95A8A3220B4247900F76A15 /* SignatureViewController.swift in Sources */,
 				B9E5267E20B2DAAA00127E43 /* Completed_POStaticDetailsTableViewController.swift in Sources */,
+				B92822EC20C556D300BC32A1 /* RequestInvoices.swift in Sources */,
 				189F82CE20C5054E0054986E /* Router.swift in Sources */,
 				189F82DB20C50C090054986E /* BaseRequest.swift in Sources */,
 				B92A65AC20AF303500CDA4CC /* InvoicesTableViewCell.swift in Sources */,

@@ -9,6 +9,7 @@
 import Foundation
 
 public class ResponseInvoices:BaseResponseModel {
+   
     public var id: String?
     
     public var created: Int?
