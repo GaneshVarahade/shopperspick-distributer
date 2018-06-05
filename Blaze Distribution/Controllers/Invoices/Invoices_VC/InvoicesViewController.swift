@@ -8,11 +8,12 @@
 
 import UIKit
 import SKActivityIndicatorView
-
+import RealmSwift
+import Realm
 class InvoicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var tempDataList : [[String:Any]] = []
-    
+   
+    var valueDataObj : Results<ModelInvoice>!
     @IBOutlet weak var invoiceSegmentController: UISegmentedControl!
     @IBOutlet weak var invoicesSearchBar: UISearchBar!
     @IBOutlet weak var invoiceTableView: UITableView!
@@ -21,41 +22,87 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         self.tabBarController?.selectedIndex = 1
-        
         setSearchBarUI()
-        
-        tempDataList = [["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"]]
-        
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        SKActivityIndicator.show()
         let invoiceReq = RequestInvoices()
-            invoiceReq.shopId = "56cf846ee38179985229e59e"
-            
+        invoiceReq.shopId = "56cf846ee38179985229e59e"
         WebServicesAPI.sharedInstance().InvoiceAPI(request: invoiceReq) { (result:ResponseGetAllInvoices?, error:PlatformError?) in
-            
             SKActivityIndicator.dismiss()
             if error != nil {
-                
-                print(error?.message!)
+                print(error?.message! ?? "Error")
                 return
             }
             
-            
-            AQLog.debug(AQLog.TAG_DATABASE_DATA, functionName: result?.companyId ?? "Access nil")
+            self.saveData(jsonData: result)
             
         }
         
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.title = "Invoices"
+       
+    }
+    
+    func saveData(jsonData:ResponseGetAllInvoices?){
+        
+        if let values = jsonData?.values{
+            for valu in values{
+               // print("From json id: " + (valu.id)!)
+                let model: ModelInvoice = ModelInvoice()
+                model.id                = valu.id
+                model.companyId         = valu.companyId
+                model.shopId            = valu.shopId
+                model.invoiceNumber     = valu.invoiceNumber
+                model.customerId        = valu.customerId
+                model.dueDate           = valu.dueDate?.description
+                model.employeeName      = valu.employeeName
+                if valu.shippingManifests != nil, valu.shippingManifests!.count > 0 {
+                    //print("From json shipingMenifest: " + (valu.shippingManifests![0].shippingManifestNo)!)
+                    
+                    if let shippingManifests = valu.shippingManifests {
+                        
+                        for ship in shippingManifests {
+                            let shipMen                 =   ModelShipingMenifest()
+                            shipMen.id                  =   ship.id
+                            shipMen.companyId           =   ship.companyId
+                            shipMen.shopId              =   ship.shopId
+                            shipMen.invoiceId           =   ship.invoiceId
+                            shipMen.shippingManifestNo  =   ship.shippingManifestNo
+                            shipMen.invoiceAmount       =   ship.invoiceAmount ?? 0.0
+                            shipMen.invoiceBalanceDue   =   ship.invoiceBalanceDue ?? 0.0
+                            
+                           // print("ModelShpping: "+shipMen.getString())
+                            
+                            model.shippingManifests.append(shipMen)
+                        }
+                    }
+                    
+                }else{
+                   // print("From json shipingMenifest: Nil")
+                }
+                //print("ModelInvoice: "+model.getString())
+                DBManager.sharedInstance.addData(object: model)
+               // print("----DataSave-----")
+                
+            }
+        }
+        
+        print("----DataWrite-----")
+        getData()
+    }
+    
+    func getData(){
+        let  database = try! Realm()
+        valueDataObj =  database.objects(ModelInvoice.self)
+        invoiceTableView.reloadData()
+        print("----DataRead-----")
+
     }
     
     // MARK:- Utilities
@@ -69,34 +116,6 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
     }
-    
-    
-    // MARK: - UITableview Datasource/Delegate
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tempDataList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! InvoicesTableViewCell
-        
-        cell.invoicesNoLabel.text = (tempDataList[indexPath.row])["invoice_no"] as? String
-        cell.dueDateLabel.text = (tempDataList[indexPath.row])["due_date"] as? String
-        cell.createdByLabel.text =  (tempDataList[indexPath.row])["created_by"] as? String
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if deviceIdiom == .pad {
-            return 60
-        }
-        else {
-            return 44
-        }
-    }
-    
     
     //MARK:- Segment Value Change
     @IBAction func invoiceSegmentValueChanged(_ sender: UISegmentedControl) {
@@ -123,15 +142,39 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+}
+
+extension InvoicesViewController{
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - UITableview Datasource/Delegate
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if valueDataObj != nil{
+            return valueDataObj.count
+        }else{
+            return 0
+        }
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! InvoicesTableViewCell
+        
+        let temp = valueDataObj[indexPath.row]
+        cell.invoicesNoLabel.text = temp.invoiceNumber
+        cell.dueDateLabel.text   =  temp.dueDate?.description
+        cell.createdByLabel.text =  temp.employeeName
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if deviceIdiom == .pad {
+            return 60
+        }
+        else {
+            return 44
+        }
+    }
+    
 }

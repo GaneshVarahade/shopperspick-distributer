@@ -18,6 +18,10 @@ public class ModelInvoice:ModelBase {
     
     @objc public dynamic var invoiceNumber: String?
     
+    @objc public dynamic var dueDate:String?
+    
+    @objc public dynamic var employeeName:String?
+    
     let shippingManifests = List<ModelShipingMenifest>()
     
     open override class func primaryKey() -> String? {

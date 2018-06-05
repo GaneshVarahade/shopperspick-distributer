@@ -38,16 +38,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func loginBtnPressed(_ sender: Any) {
         SKActivityIndicator.show()
 
-//        WebServicesAPI.sharedInstance().login(user_Name: txtEmail.text!, password: txtPassword.text!) { (strERROR) in
-//
-//            if strERROR == "true"{
-//                SKActivityIndicator.dismiss()
-//                self.performSegue(withIdentifier: "goHome", sender: self)
-//
-//            }
-//
-//        }
-        
         let reqLogin:RequestLogin = RequestLogin()
         reqLogin.email = txtEmail.text!
         reqLogin.password = txtPassword.text!
@@ -58,11 +48,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             SKActivityIndicator.dismiss()
             if error != nil {
                 
+                print(error?.details ?? "Error")
                 return
             }
-            
-            
-            AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: result?.accessToken ?? "Access nil")
+            //AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: result?.accessToken ?? "Access nil")
+            UserDefaults.standard.set(result?.accessToken, forKey: "ACCESS_TOKEN")
+            UserDefaults.standard.synchronize()
             self.performSegue(withIdentifier: "goHome", sender: self)
         })
  

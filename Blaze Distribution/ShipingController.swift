@@ -45,7 +45,7 @@ class ShipingController: UIViewController {
                     
                     for responseInvoice in responseGellAllInvoices.values! {
                         
-                        print("From json id: " + (responseInvoice.id)!)
+                        //print("From json id: " + (responseInvoice.id)!)
                         let model: ModelInvoice = ModelInvoice()
                         model.id                = responseInvoice.id
                         model.companyId         = responseInvoice.companyId
@@ -54,7 +54,7 @@ class ShipingController: UIViewController {
                         model.customerId        = responseInvoice.customerId
                         
                         if responseInvoice.shippingManifests != nil, responseInvoice.shippingManifests!.count > 0 {
-                            print("From json shipingMenifest: " + (responseInvoice.shippingManifests![0].shippingManifestNo)!)
+                            //print("From json shipingMenifest: " + (responseInvoice.shippingManifests![0].shippingManifestNo)!)
                             
                             if let shippingManifests = responseInvoice.shippingManifests {
                                 
@@ -68,7 +68,7 @@ class ShipingController: UIViewController {
                                     shipMen.invoiceAmount       =   ship.invoiceAmount ?? 0.0
                                     shipMen.invoiceBalanceDue   =   ship.invoiceBalanceDue ?? 0.0
 
-                                    print("ModelShpping: "+shipMen.getString())
+                                    //print("ModelShpping: "+shipMen.getString())
                                     
                                     model.shippingManifests.append(shipMen)
                                 }
@@ -77,9 +77,9 @@ class ShipingController: UIViewController {
                         }else{
                             print("From json shipingMenifest: Nil")
                         }
-                        print("ModelInvoice: "+model.getString())
+                        //print("ModelInvoice: "+model.getString())
                         InvoiceDao().write(table: model)
-                        print("--------------------------")
+                       // print("--------------------------")
                         
                     }
                 }

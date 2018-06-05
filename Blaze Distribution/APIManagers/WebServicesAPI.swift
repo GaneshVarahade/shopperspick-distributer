@@ -26,7 +26,7 @@ class WebServicesAPI: NSObject {
         }
         return webServiceAPI
     }
-    fileprivate func makeRequest<T:BaseResponseModel>(_ request:URLRequestConvertible, callback:@escaping (_ result:T?, _ error:PlatformError?)-> Void ){
+    fileprivate func makeRequest<T:BaseResponseModel>(_ request:URLRequestConvertible, callback:@escaping (_ result:T?,_ error:PlatformError?)-> Void ){
         Alamofire.request(request)
             .responseJSON { (response:DataResponse<Any>) in
                 let data = response.result.value
@@ -42,8 +42,14 @@ class WebServicesAPI: NSObject {
                         }
                         
                         if (res.statusCode == 200 || res.statusCode == 204) {
+                            
                             let res2  = try? JSONDecoder().decode(T.self, from:response.data!)
+                            
+                            
+                            print("RESPONSE:",res2!)
                             callback(res2,nil)
+                            
+                            
                         } else if (data != nil) {
                             let errorRes = try JSONDecoder().decode(PlatformError.self, from:response.data!)
                             callback(nil, errorRes)
@@ -77,7 +83,7 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.sessionLogin(request: request), callback: onComplition)
     }
     
-    func InvoiceAPI(request:RequestInvoices,onComplition:@escaping (_ result:ResponseGetAllInvoices?, _ error:PlatformError?) -> ()){
+    func InvoiceAPI(request:RequestInvoices,onComplition:@escaping (_ result:ResponseGetAllInvoices?, _ error:PlatformError?)-> ()){
         
         makeRequest(Router.sessionInvoice(request: ["shopId":request.shopId]), callback: onComplition)
     }
@@ -98,8 +104,8 @@ class WebServicesAPI: NSObject {
             //Convert back to string.
             if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
                 
-                
-                AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str) \n Response: \(JSONString)")
+                //print(JSONString)
+                AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str)")// \n Response: \(JSONString)")
                 
             }else{
                 AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "NonJson Response: \(jsonData)")

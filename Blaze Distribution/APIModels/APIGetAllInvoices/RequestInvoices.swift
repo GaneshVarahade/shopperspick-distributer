@@ -10,5 +10,8 @@ import Foundation
 class RequestInvoices:BaseRequest{
     
     public var shopId:String!
+    public var accessToken:String!
+    public var ContentType:String!
+    
     
 }

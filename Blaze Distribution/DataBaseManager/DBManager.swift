@@ -17,26 +17,21 @@ class DBManager {
     private init() {
         database = try! Realm()
     }
-    
     func getDataFromDB(object:Any) ->  Results<Object>{
         let results =   database.objects(object as! Object.Type)
         return results
     }
-    
     func addData(object: Object)   {
         try! database.write {
-            database.add(object)
-            print("Added new object")
-          
+            database.add(object, update: true)
+           // print("Added new object")
         }
     }
-    
     func deleteAllFromDatabase()  {
         try!   database.write {
             database.deleteAll()
         }
     }
-    
     func deleteFromDb(object: Object)   {
         try!   database.write {
             database.delete(object)

@@ -29,7 +29,7 @@ enum Router : URLRequestConvertible {
     // authentications
     case sessionLogin(request: RequestLogin)
     //Invoice
-    case sessionInvoice(request: [String:Any])
+    case sessionInvoice(request: [String:String])
     
     
     
@@ -50,7 +50,7 @@ enum Router : URLRequestConvertible {
                 //Convert back to string.
                 if let jsonRequest = String(data: jsonData, encoding: String.Encoding.utf8) {
                     
-                    AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "======================================================= \n Request URL: \(request.urlRequest!) \n Request Body: \n \(jsonRequest)")
+                 
                 }else{
                     AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "NonJson Request: \(jsonData)")
                 }
@@ -64,9 +64,8 @@ enum Router : URLRequestConvertible {
         }
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        if let sessionToken = UtilityUserDefaults.sharedInstance().getToken() {
+        if let sessionToken = UserDefaults.standard.object(forKey: "ACCESS_TOKEN") as! String? {
             let sessionData = "Token \(sessionToken)"
-            //AQLog.info("\(AQLog.TAG_SESSONDATA) : \(sessionData)")
             request.setValue(sessionData, forHTTPHeaderField: "Authorization")
         }
         
@@ -80,9 +79,9 @@ enum Router : URLRequestConvertible {
             
         // SESSIONS
         case .sessionLogin(let request):
-                    return (Method.POST, "/api/v1/session/terminal/init",encode(request),nil)
+                    return (Method.POST,"/api/v1/session/terminal/init",encode(request),nil)
         case .sessionInvoice(let request):
-                    return (Method.GET, "/api/v1/warehouse/mgmt/invoice",nil,request)
+            return (Method.GET,"/api/v1/warehouse/mgmt/invoice",nil,request)
         }
        
     }
