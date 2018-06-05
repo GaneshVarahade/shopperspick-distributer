@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SKActivityIndicatorView
 
 class InvoicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -27,6 +28,25 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         setSearchBarUI()
         
         tempDataList = [["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"]]
+        
+        let invoiceReq = RequestInvoices()
+            invoiceReq.shopId = "56cf846ee38179985229e59e"
+            
+        WebServicesAPI.sharedInstance().InvoiceAPI(request: invoiceReq) { (result:ResponseGetAllInvoices?, error:PlatformError?) in
+            
+            SKActivityIndicator.dismiss()
+            if error != nil {
+                
+                print(error?.message!)
+                return
+            }
+            
+            
+            AQLog.debug(AQLog.TAG_DATABASE_DATA, functionName: result?.companyId ?? "Access nil")
+            
+        }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

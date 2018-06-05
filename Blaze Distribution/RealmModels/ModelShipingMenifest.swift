@@ -12,6 +12,17 @@ import RealmSwift
 
 public class ModelShipingMenifest:ModelBase {
     
+    @objc public var shopId: String?             = ""
+    
+    @objc public var invoiceId: String?          = ""
+    
+    @objc public var shippingManifestNo: String? = ""
+    
+    @objc public var invoiceAmount: Double       = 0.0
+    
+    @objc public var invoiceBalanceDue: Double   = 0.0
+    
+    
     open override class func primaryKey() -> String? {
         return "id"
         
@@ -31,28 +42,17 @@ public class ModelShipingMenifest:ModelBase {
         self.invoiceAmount      = invoiceAmount
         self.invoiceBalanceDue  = invoiceBalanceDue
     }
-    @objc public var shopId: String? = ""
-    
-    @objc public var invoiceId: String? = ""
-    
-    @objc public var shippingManifestNo: String? = ""
-    
-    @objc public var invoiceAmount: Double = 0.0
-
-    @objc public var invoiceBalanceDue: Double = 0.0
-    
+   
     public override func copy(with zone: NSZone?) -> Any { 
         
-        let modelShipingMenifest = ModelShipingMenifest()
-        
-        modelShipingMenifest.id = self.id
-        modelShipingMenifest.companyId = self.companyId
-        modelShipingMenifest.shopId = self.shopId
-        modelShipingMenifest.invoiceId = self.invoiceId
+        let modelShipingMenifest                = ModelShipingMenifest()
+        modelShipingMenifest.id                 = self.id
+        modelShipingMenifest.companyId          = self.companyId
+        modelShipingMenifest.shopId             = self.shopId
+        modelShipingMenifest.invoiceId          = self.invoiceId
         modelShipingMenifest.shippingManifestNo = self.shippingManifestNo
-        modelShipingMenifest.invoiceAmount = self.invoiceAmount
-        modelShipingMenifest.invoiceBalanceDue = self.invoiceBalanceDue
-        
+        modelShipingMenifest.invoiceAmount      = self.invoiceAmount
+        modelShipingMenifest.invoiceBalanceDue  = self.invoiceBalanceDue
         return modelShipingMenifest
     }
     

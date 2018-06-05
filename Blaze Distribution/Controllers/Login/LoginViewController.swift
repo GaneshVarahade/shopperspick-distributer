@@ -8,6 +8,7 @@
 
 import UIKit
 import SKActivityIndicatorView
+import KSToastView
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
@@ -36,6 +37,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - IBActions
     @IBAction func loginBtnPressed(_ sender: Any) {
         SKActivityIndicator.show()
+
 //        WebServicesAPI.sharedInstance().login(user_Name: txtEmail.text!, password: txtPassword.text!) { (strERROR) in
 //
 //            if strERROR == "true"{
@@ -63,7 +65,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: result?.accessToken ?? "Access nil")
             self.performSegue(withIdentifier: "goHome", sender: self)
         })
-
+ 
     }
     // MARK: - Helper Methods
     func setup(){

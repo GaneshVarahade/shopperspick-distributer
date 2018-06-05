@@ -28,6 +28,9 @@ enum Router : URLRequestConvertible {
     
     // authentications
     case sessionLogin(request: RequestLogin)
+    //Invoice
+    case sessionInvoice(request: [String:Any])
+    
     
     
     
@@ -75,13 +78,13 @@ enum Router : URLRequestConvertible {
         
         switch(self) {
             
-            // SESSIONS
+        // SESSIONS
         case .sessionLogin(let request):
-            
-                return (Method.POST, "/api/v1/session/terminal/init",encode(request),nil)
-           
-        
+                    return (Method.POST, "/api/v1/session/terminal/init",encode(request),nil)
+        case .sessionInvoice(let request):
+                    return (Method.GET, "/api/v1/warehouse/mgmt/invoice",nil,request)
         }
+       
     }
     private func encode <T: BaseRequest>(_ requestObj: T) -> Data?{
         return try? JSONEncoder().encode(requestObj)

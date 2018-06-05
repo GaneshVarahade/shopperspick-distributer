@@ -1,4 +1,5 @@
 import Foundation
+
 public protocol BaseResponseModel:Decodable{
     var id:String?{get set}
     var created: Int?{get set}

@@ -6,7 +6,7 @@ public class InvoiceDao: BaseDao<ModelInvoice> {
     
     public override func write<ModelInvoice: Object>(table: ModelInvoice) {
         try! getRealm().write {
-            getRealm().add(table.copy() as! ModelInvoice,update: true)
+             getRealm().add(table.copy() as! ModelInvoice,update: true)
         }
     }
     
