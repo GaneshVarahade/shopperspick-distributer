@@ -17,7 +17,7 @@ PaymentInfo
     - amount
     - notest
 
-ShippingMenifest
+ShippingMenifest Table
     - shippingNo
     - deliveryDate
     - driverName
@@ -44,6 +44,7 @@ Invoice Tables
     - remainingProducts: [Product]
     - items: [Product]
     - paymentInfo: [PaymentInfo]
+    - shippingMenifests: [ShippingMenifest]
 
 Location Table
     - shop
@@ -54,13 +55,14 @@ ProductTransfer Table
     - transfer Amount
     - expected total
 
-Transfer Table
+InventoryTransfer Table
     - name
     - request
     - date
     - fromLocation: Location
     - toLocation: Location
     - products: [ProductTransfer]
+    - productsInShipment: [Product] 
 
 ProductReceived Table
     - name
