@@ -13,7 +13,7 @@ import Realm
 class InvoicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
    
-    var valueDataObj : Results<ModelInvoice>!
+    var valueDataObj : [ModelInvoice]!
     @IBOutlet weak var invoiceSegmentController: UISegmentedControl!
     @IBOutlet weak var invoicesSearchBar: UISearchBar!
     @IBOutlet weak var invoiceTableView: UITableView!
@@ -31,6 +31,7 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         SKActivityIndicator.show()
         let invoiceReq = RequestInvoices()
         invoiceReq.shopId = "56cf846ee38179985229e59e"
+        
         WebServicesAPI.sharedInstance().InvoiceAPI(request: invoiceReq) { (result:ResponseGetAllInvoices?, error:PlatformError?) in
             SKActivityIndicator.dismiss()
             if error != nil {
@@ -102,7 +103,7 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         
         valueDataObj =  RealmManager().readList(type: ModelInvoice.self)
         invoiceTableView.reloadData()
-        print("----DataRead----- \(valueDataObj?.count)")
+        print("----DataRead----- \(valueDataObj.count)")
 
     }
     

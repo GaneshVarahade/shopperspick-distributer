@@ -38,16 +38,40 @@ public class RealmManager <T: ModelBase>{
         }
     }
     
-    public func read<T: ModelBase>(type: T.Type,primaryKey: String) -> T? {
-        return getRealm().object(ofType: type, forPrimaryKey: primaryKey)
-    } 
-    
-    public func readList<T: ModelBase>(type: T.Type) -> Results<T>? {
-        return getRealm().objects(type)
+    public func write<T: ModelBase>(_ list:[T]) {
+        for obj in list {
+            write(table: obj)
+        }
     }
     
-    public func readPredicate<T: ModelBase>(type: T.Type,predicate: String) -> Results<T>?{
-        return getRealm().objects(type).filter(predicate)
+    public func read<T: ModelBase>(type: T.Type,primaryKey: String) -> T? {
+        return (getRealm().object(ofType: type, forPrimaryKey: primaryKey))?.copy() as? T
+    } 
+    
+    public func readList<T: ModelBase>(type: T.Type) -> [T] {
+        let result: Results<T>? = getRealm().objects(type)
+        var array:[T] = [T]()
+        guard let resultObj = result else {
+            return array
+        }
+        
+        for obj in resultObj {
+                array.append(obj.copy() as! T)
+        }
+        return array
+    }
+    
+    public func readPredicate<T: ModelBase>(type: T.Type,predicate: String) -> [T]{
+        let result: Results<T>? = getRealm().objects(type).filter(predicate)
+        var array:[T] = [T]()
+        guard let resultObj = result else {
+            return array
+        }
+        
+        for obj in resultObj {
+            array.append(obj.copy() as! T)
+        }
+        return array
     }
     
     public func getRealm() -> Realm {
