@@ -36,7 +36,6 @@
 		189F82DD20C50EB40054986E /* PlatformError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82DC20C50EB40054986E /* PlatformError.swift */; };
 		18CD0BFC20C6B1C1007E8515 /* SingleInvoice.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */; };
 		2FD731EB83170AF88FAF96D0 /* Pods_Blaze_DistributionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22B1597E869879AC4DD12C3 /* Pods_Blaze_DistributionTests.framework */; };
-		B90CC47320C6A7B30097F6AC /* TestResponseInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90CC47220C6A7B20097F6AC /* TestResponseInvoice.swift */; };
 		B913500720BD5A2F00A9FFA7 /* DBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B913500620BD5A2F00A9FFA7 /* DBModel.swift */; };
 		B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C3720AEC8FB0021356C /* AppDelegate.swift */; };
 		B9266C3D20AEC8FB0021356C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9266C3B20AEC8FB0021356C /* Main.storyboard */; };
@@ -164,7 +163,6 @@
 		9E28B7084B56F1714CF4E522 /* Pods_Blaze_DistributionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blaze_DistributionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00FD6ED4D5D54B839B4CE82 /* Pods-Blaze Distribution.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.release.xcconfig"; sourceTree = "<group>"; };
 		A8CF122677EC62CFD1812DB8 /* Pods-Blaze DistributionUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionUITests.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionUITests/Pods-Blaze DistributionUITests.dev.xcconfig"; sourceTree = "<group>"; };
-		B90CC47220C6A7B20097F6AC /* TestResponseInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResponseInvoice.swift; sourceTree = "<group>"; };
 		B913500620BD5A2F00A9FFA7 /* DBModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBModel.swift; sourceTree = "<group>"; };
 		B9266C3420AEC8FB0021356C /* Blaze Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blaze Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9266C3720AEC8FB0021356C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -306,11 +304,9 @@
 		189F82B320C501B70054986E /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				B92B26D820C7C1F5004DE575 /* PlatformError */,
 				189F82D320C508390054986E /* APILogin */,
 				189F82B420C501B70054986E /* APIGetAllInvoices */,
-				189F82B720C501B70054986E /* BaseResponseProtocol.swift */,
-				189F82DA20C50C090054986E /* BaseRequest.swift */,
-				189F82DC20C50EB40054986E /* PlatformError.swift */,
 			);
 			path = APIModels;
 			sourceTree = "<group>";
@@ -318,10 +314,8 @@
 		189F82B420C501B70054986E /* APIGetAllInvoices */ = {
 			isa = PBXGroup;
 			children = (
-				189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */,
-				B92822EB20C556D300BC32A1 /* RequestInvoices.swift */,
-				189F82B620C501B70054986E /* ResponseInvoices.swift */,
-				B90CC47220C6A7B20097F6AC /* TestResponseInvoice.swift */,
+				B92B26D920C7C219004DE575 /* ResponseModel */,
+				B92B26D720C7C197004DE575 /* RequestModels */,
 			);
 			path = APIGetAllInvoices;
 			sourceTree = "<group>";
@@ -537,6 +531,33 @@
 			children = (
 			);
 			path = RequestModels;
+			sourceTree = "<group>";
+		};
+		B92B26D720C7C197004DE575 /* RequestModels */ = {
+			isa = PBXGroup;
+			children = (
+				189F82DA20C50C090054986E /* BaseRequest.swift */,
+				B92822EB20C556D300BC32A1 /* RequestInvoices.swift */,
+			);
+			path = RequestModels;
+			sourceTree = "<group>";
+		};
+		B92B26D820C7C1F5004DE575 /* PlatformError */ = {
+			isa = PBXGroup;
+			children = (
+				189F82DC20C50EB40054986E /* PlatformError.swift */,
+			);
+			path = PlatformError;
+			sourceTree = "<group>";
+		};
+		B92B26D920C7C219004DE575 /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */,
+				189F82B620C501B70054986E /* ResponseInvoices.swift */,
+				189F82B720C501B70054986E /* BaseResponseProtocol.swift */,
+			);
+			path = ResponseModel;
 			sourceTree = "<group>";
 		};
 		B938034F20B56E190024EDA7 /* JSON_Serialization */ = {
@@ -1084,7 +1105,6 @@
 				189F82C420C501B70054986E /* ModelShipingMenifest.swift in Sources */,
 				B9E5266420B2C35A00127E43 /* LookUpTableViewCell.swift in Sources */,
 				189F82DD20C50EB40054986E /* PlatformError.swift in Sources */,
-				B90CC47320C6A7B30097F6AC /* TestResponseInvoice.swift in Sources */,
 				B9CAC8E220AF1155008F1650 /* UIViewXRadialGradient.swift in Sources */,
 				189F82BC20C501B70054986E /* RealmManager.swift in Sources */,
 				189F82D720C5096F0054986E /* UtilityUserDefaults.swift in Sources */,
