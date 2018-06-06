@@ -85,28 +85,21 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                     
                 }else{
-                   // print("From json shipingMenifest: Nil")
+                  //  print("From json shipingMenifest: Nil")
                 }
                 //print("ModelInvoice: "+model.getString())
-
                 RealmManager().write(table: model)
                // print("----DataSave-----")
-                
             }
         }
-        
         print("----DataWrite-----")
         getData()
     }
-    
     func getData(){
-        
         valueDataObj =  RealmManager().readList(type: ModelInvoice.self)
         invoiceTableView.reloadData()
         print("----DataRead----- \(valueDataObj.count)")
-
     }
-    
     // MARK:- Utilities
     func setSearchBarUI() {
         invoicesSearchBar.layer.borderWidth = 1;
@@ -132,14 +125,10 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
             invoiceTableView.reloadData()
         }
     }
-    
     // MARK:- UIButton Events
-    
     @IBAction func scanInvoiceBtnPressed(_ sender: Any) {
-       // let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScanInvoiceViewController")
-       // self.navigationController?.pushViewController(obj, animated: true)
+
     }
-    
     // MARK:- UITouch events
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -159,9 +148,7 @@ extension InvoicesViewController{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! InvoicesTableViewCell
-        
         let temp = valueDataObj[indexPath.row]
         cell.invoicesNoLabel.text = temp.invoiceNumber
         cell.dueDateLabel.text   =  temp.dueDate?.description
@@ -171,6 +158,7 @@ extension InvoicesViewController{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+       
         if deviceIdiom == .pad {
             return 60
         }
