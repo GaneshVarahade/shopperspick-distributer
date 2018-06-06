@@ -87,7 +87,8 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
                    // print("From json shipingMenifest: Nil")
                 }
                 //print("ModelInvoice: "+model.getString())
-                DBManager.sharedInstance.addData(object: model)
+
+                RealmManager().write(table: model)
                // print("----DataSave-----")
                 
             }
@@ -98,10 +99,10 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func getData(){
-        let  database = try! Realm()
-        valueDataObj =  database.objects(ModelInvoice.self)
+        
+        valueDataObj =  RealmManager().readList(type: ModelInvoice.self)
         invoiceTableView.reloadData()
-        print("----DataRead-----")
+        print("----DataRead----- \(valueDataObj?.count)")
 
     }
     

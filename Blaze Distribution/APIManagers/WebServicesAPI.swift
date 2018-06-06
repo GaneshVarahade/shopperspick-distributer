@@ -88,7 +88,6 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.sessionInvoice(request: ["shopId":request.shopId]), callback: onComplition)
     }
     
-
     private func printRequest(_ requestUrl:URLRequest?,_ data: Any?){
         
         let str = "Request is Nil"
