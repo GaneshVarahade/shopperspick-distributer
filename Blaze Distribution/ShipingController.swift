@@ -78,7 +78,7 @@ class ShipingController: UIViewController {
                             print("From json shipingMenifest: Nil")
                         }
                         //print("ModelInvoice: "+model.getString())
-                        InvoiceDao().write(table: model)
+                        RealmManager().write(table: model)
                        // print("--------------------------")
                         
                     }

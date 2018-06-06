@@ -74,7 +74,7 @@ public class RealmManager <T: ModelBase>{
         return array
     }
     
-    public func getRealm() -> Realm {
+    private func getRealm() -> Realm {
         return RealmSingleton.sharedInstance().getRealm()
     }
      
