@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1828E6C320C6D0F300EB74B4 /* Tables.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1828E6C220C6D0F300EB74B4 /* Tables.txt */; };
+		182B920420C7E0860041915B /* StoreImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920220C7E0850041915B /* StoreImage.swift */; };
+		182B920520C7E0860041915B /* HexGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920320C7E0850041915B /* HexGenerator.swift */; };
+		182B920720C7E5330041915B /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920620C7E5330041915B /* SyncService.swift */; };
+		182B920920C803A10041915B /* bulkrequestjson.txt in Resources */ = {isa = PBXBuildFile; fileRef = 182B920820C803A10041915B /* bulkrequestjson.txt */; };
 		1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7B20B213010076BECD /* TextHelpers.swift */; };
 		1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7C20B213010076BECD /* SwiftExtentions.swift */; };
 		1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */; };
@@ -127,6 +131,10 @@
 		0258B61748E9715829B0B522 /* Pods-Blaze DistributionTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.stage.xcconfig"; sourceTree = "<group>"; };
 		0938C2F5672F799D7AB60923 /* Pods-Blaze Distribution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.dev.xcconfig"; sourceTree = "<group>"; };
 		1828E6C220C6D0F300EB74B4 /* Tables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tables.txt; sourceTree = "<group>"; };
+		182B920220C7E0850041915B /* StoreImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreImage.swift; sourceTree = "<group>"; };
+		182B920320C7E0850041915B /* HexGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexGenerator.swift; sourceTree = "<group>"; };
+		182B920620C7E5330041915B /* SyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
+		182B920820C803A10041915B /* bulkrequestjson.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = bulkrequestjson.txt; sourceTree = "<group>"; };
 		1846DB7B20B213010076BECD /* TextHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelpers.swift; sourceTree = "<group>"; };
 		1846DB7C20B213010076BECD /* SwiftExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtentions.swift; sourceTree = "<group>"; };
 		1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVar.swift; sourceTree = "<group>"; };
@@ -279,6 +287,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		182B920A20C807DE0041915B /* TextFilesForReference */ = {
+			isa = PBXGroup;
+			children = (
+				1828E6C220C6D0F300EB74B4 /* Tables.txt */,
+				18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */,
+				189F82C720C502A90054986E /* GetAllInvoices.txt */,
+				182B920820C803A10041915B /* bulkrequestjson.txt */,
+			);
+			path = TextFilesForReference;
+			sourceTree = "<group>";
+		};
 		1846DB8920B219CD0076BECD /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,28 +407,26 @@
 		B9266C3620AEC8FB0021356C /* Blaze Distribution */ = {
 			isa = PBXGroup;
 			children = (
-				18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */,
-				B92822EA20C5563E00BC32A1 /* RequestModels */,
-				189F82C720C502A90054986E /* GetAllInvoices.txt */,
-				1828E6C220C6D0F300EB74B4 /* Tables.txt */,
-				189F82C520C501F80054986E /* ShipingController.swift */,
+				182B920A20C807DE0041915B /* TextFilesForReference */,
+				B9266C6D20AED04E0021356C /* APIManagers */,
 				189F82B320C501B70054986E /* APIModels */,
+				B9266C6820AECFEA0021356C /* App Delegate */,
+				B9266C4120AEC8FE0021356C /* Assets.xcassets */,
+				1846DB8920B219CD0076BECD /* Config */,
+				B9266C6E20AED0620021356C /* Controllers */,
+				B92755F720C12501008F0499 /* DataBaseManager */,
+				B9266C4620AEC8FE0021356C /* Info.plist */,
+				B938034F20B56E190024EDA7 /* JSON_Serialization */,
+				B9266C7020AED0800021356C /* Models */,
 				189F82AF20C501B70054986E /* RealmHelpers */,
 				189F82B820C501B70054986E /* RealmModels */,
-				B938034F20B56E190024EDA7 /* JSON_Serialization */,
-				1846DB8920B219CD0076BECD /* Config */,
-				B9266C6820AECFEA0021356C /* App Delegate */,
-				B9266C7020AED0800021356C /* Models */,
-				B9266C6F20AED0750021356C /* Views */,
-				B9266C6E20AED0620021356C /* Controllers */,
-				B9266C6D20AED04E0021356C /* APIManagers */,
-				B9266C6C20AED03A0021356C /* Storyboard */,
-				B9266C6B20AED0280021356C /* Venders */,
-				B9266C6A20AED0160021356C /* Utilities */,
+				B92822EA20C5563E00BC32A1 /* RequestModels */,
 				B9266C6920AECFFF0021356C /* Resources */,
-				B92755F720C12501008F0499 /* DataBaseManager */,
-				B9266C4120AEC8FE0021356C /* Assets.xcassets */,
-				B9266C4620AEC8FE0021356C /* Info.plist */,
+				189F82C520C501F80054986E /* ShipingController.swift */,
+				B9266C6C20AED03A0021356C /* Storyboard */,
+				B9266C6A20AED0160021356C /* Utilities */,
+				B9266C6B20AED0280021356C /* Venders */,
+				B9266C6F20AED0750021356C /* Views */,
 			);
 			path = "Blaze Distribution";
 			sourceTree = "<group>";
@@ -451,6 +468,8 @@
 			isa = PBXGroup;
 			children = (
 				B985566320B4372E00A56497 /* UIDesignableX */,
+				182B920320C7E0850041915B /* HexGenerator.swift */,
+				182B920220C7E0850041915B /* StoreImage.swift */,
 				1846DB7C20B213010076BECD /* SwiftExtentions.swift */,
 				B985566620B438AD00A56497 /* ReachabilityManager.swift */,
 				B985566420B4379E00A56497 /* Constants.swift */,
@@ -483,6 +502,7 @@
 			children = (
 				189F82CA20C5054D0054986E /* Router.swift */,
 				B985566E20B440E500A56497 /* WebServicesAPI.swift */,
+				182B920620C7E5330041915B /* SyncService.swift */,
 			);
 			path = APIManagers;
 			sourceTree = "<group>";
@@ -876,6 +896,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182B920920C803A10041915B /* bulkrequestjson.txt in Resources */,
 				1846DBA420B21B5B0076BECD /* environment.json in Resources */,
 				1846DBA320B21B5B0076BECD /* environment-stage.json in Resources */,
 				18CD0BFC20C6B1C1007E8515 /* SingleInvoice.txt in Resources */,
@@ -1061,9 +1082,11 @@
 				B9E5266A20B2CAA100127E43 /* LookupPOsViewController.swift in Sources */,
 				B9266C7320AED9BA0021356C /* SplashScreenVCViewController.swift in Sources */,
 				B92A65AA20AF2E3F00CDA4CC /* InvoicesViewController.swift in Sources */,
+				182B920420C7E0860041915B /* StoreImage.swift in Sources */,
 				B9E5265820B2BB7800127E43 /* InventoryTableViewCell.swift in Sources */,
 				B9E5266820B2C39300127E43 /* ReceiveShipmentTableViewCell.swift in Sources */,
 				B9E5265420B2B93600127E43 /* CreateTransferViewController.swift in Sources */,
+				182B920520C7E0860041915B /* HexGenerator.swift in Sources */,
 				B9E5265E20B2C2B100127E43 /* BasketViewController.swift in Sources */,
 				B9CAC8E320AF1155008F1650 /* UIViewX.swift in Sources */,
 				B9E5267220B2D7DF00127E43 /* Receive ShipmentViewController.swift in Sources */,
@@ -1089,6 +1112,7 @@
 				189F82BC20C501B70054986E /* BaseDAO.swift in Sources */,
 				189F82D720C5096F0054986E /* UtilityUserDefaults.swift in Sources */,
 				189F82C120C501B70054986E /* BaseResponseProtocol.swift in Sources */,
+				182B920720C7E5330041915B /* SyncService.swift in Sources */,
 				B985566B20B43B6000A56497 /* QuantityBatchTableViewCell.swift in Sources */,
 				B913500720BD5A2F00A9FFA7 /* DBModel.swift in Sources */,
 				B985566520B4379F00A56497 /* Constants.swift in Sources */,
