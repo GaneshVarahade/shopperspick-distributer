@@ -10,16 +10,14 @@ import Foundation
 
 public class ResponseInvoice :BaseResponseModel{
     public var id: String?
-    
     public var created: Int?
-    
     public var modified: Int?
-    
     public var deleted: Bool?
-    
     public var updated: Bool?
-    
     public var companyId: String?
-    
-    
+    public var invoiceNumber: String?
+    public var dueDate:Int?
+    public var balanceDue:Double?
+    public var shippingManifests: [ResponseShippingManifests]?
+    public var total: ResponseCart?
 }

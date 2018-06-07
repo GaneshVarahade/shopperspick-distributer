@@ -94,6 +94,8 @@
 		B9AA85DF20C9092A00751BF2 /* ResponseLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA85DE20C9092A00751BF2 /* ResponseLogin.swift */; };
 		B9AA85E220C925B800751BF2 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA85E120C925B800751BF2 /* LoginModel.swift */; };
 		B9AA85E420C95E3100751BF2 /* InvoiceTables.txt in Resources */ = {isa = PBXBuildFile; fileRef = B9AA85E320C95E3100751BF2 /* InvoiceTables.txt */; };
+		B9AA85E620C973B200751BF2 /* ResponseShippingManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA85E520C973B200751BF2 /* ResponseShippingManifests.swift */; };
+		B9AA85E820C97E0F00751BF2 /* ResponseCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA85E720C97E0F00751BF2 /* ResponseCart.swift */; };
 		B9CAC8DA20AF1155008F1650 /* UIVisualEffectViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D020AF1153008F1650 /* UIVisualEffectViewX.swift */; };
 		B9CAC8DB20AF1155008F1650 /* UITextFieldX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D120AF1153008F1650 /* UITextFieldX.swift */; };
 		B9CAC8DC20AF1155008F1650 /* UISliderX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D220AF1154008F1650 /* UISliderX.swift */; };
@@ -252,6 +254,8 @@
 		B9AA85DE20C9092A00751BF2 /* ResponseLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseLogin.swift; sourceTree = "<group>"; };
 		B9AA85E120C925B800751BF2 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		B9AA85E320C95E3100751BF2 /* InvoiceTables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = InvoiceTables.txt; sourceTree = "<group>"; };
+		B9AA85E520C973B200751BF2 /* ResponseShippingManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseShippingManifests.swift; sourceTree = "<group>"; };
+		B9AA85E720C97E0F00751BF2 /* ResponseCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCart.swift; sourceTree = "<group>"; };
 		B9CAC8D020AF1153008F1650 /* UIVisualEffectViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIVisualEffectViewX.swift; sourceTree = "<group>"; };
 		B9CAC8D120AF1153008F1650 /* UITextFieldX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldX.swift; sourceTree = "<group>"; };
 		B9CAC8D220AF1154008F1650 /* UISliderX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISliderX.swift; sourceTree = "<group>"; };
@@ -433,6 +437,8 @@
 				18EE27B720C96262002A329B /* ResponseArrayPurchaseOrder.swift */,
 				18EE27B920C962AB002A329B /* ResponseInventory.swift */,
 				18EE27BB20C962BA002A329B /* ResponsePurchaseOrder.swift */,
+				B9AA85E520C973B200751BF2 /* ResponseShippingManifests.swift */,
+				B9AA85E720C97E0F00751BF2 /* ResponseCart.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -1256,6 +1262,7 @@
 				189F82C120C501B70054986E /* BaseResponseProtocol.swift in Sources */,
 				182B920720C7E5330041915B /* SyncService.swift in Sources */,
 				182B920C20C838C00041915B /* ModelTransfer.swift in Sources */,
+				B9AA85E820C97E0F00751BF2 /* ResponseCart.swift in Sources */,
 				B985566B20B43B6000A56497 /* QuantityBatchTableViewCell.swift in Sources */,
 				B913500720BD5A2F00A9FFA7 /* DBModel.swift in Sources */,
 				B985566520B4379F00A56497 /* Constants.swift in Sources */,
@@ -1270,6 +1277,7 @@
 				B9E5268120B2DF9200127E43 /* PurchaseOrderTableViewCell.swift in Sources */,
 				B95A8A2E20B4238B00F76A15 /* ManifestInfoTableViewController.swift in Sources */,
 				B92A65AE20AF3CE900CDA4CC /* ScanInvoiceViewController.swift in Sources */,
+				B9AA85E620C973B200751BF2 /* ResponseShippingManifests.swift in Sources */,
 				1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */,
 				B9E5266C20B2CF0E00127E43 /* PurchaseOrderDetailsTableViewController.swift in Sources */,
 				B92A65B020AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift in Sources */,
