@@ -180,7 +180,7 @@ public class ResponseProductReceived:BaseResponseModel{
    public var received:String?
 }
 
-public class ResponsePurchaseOrder:BaseResponseModel{
+public class ResponsePurchaseOrderOld:BaseResponseModel{
    public var id: String?
     
    public var created: Int?
