@@ -40,13 +40,10 @@ class WebServicesAPI: NSObject {
                         if let tokenHeader:String = headers["X-Auth-Token"] as? String {
                             UtilityUserDefaults.sharedInstance().saveToken(strToken: tokenHeader)
                         }
-                        
+                        print("RESPONSE StatusCode:",res.statusCode)
                         if (res.statusCode == 200 || res.statusCode == 204) {
                             
                             let res2  = try? JSONDecoder().decode(T.self, from:response.data!)
-                            
-                            
-                            print("RESPONSE:",res2!)
                             callback(res2,nil)
                             
                             
@@ -78,7 +75,7 @@ class WebServicesAPI: NSObject {
         }
     }
     
-    func loginAPI(request:RequestLogin,onComplition:@escaping (_ result:ModelLogin?, _ error:PlatformError?) -> ()){
+    func loginAPI(request:RequestLogin,onComplition:@escaping (_ result:ResponseLogin?, _ error:PlatformError?) -> ()){
         
         makeRequest(Router.sessionLogin(request: request), callback: onComplition)
     }
@@ -104,7 +101,8 @@ class WebServicesAPI: NSObject {
             if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
                 
                 //print(JSONString)
-                AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str)")// \n Response: \(JSONString)")
+                AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "URL: \(requestUrl?.description ?? str)")
+                AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str) \n Response: \(JSONString)")
                 
             }else{
                 AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "NonJson Response: \(jsonData)")
@@ -114,9 +112,7 @@ class WebServicesAPI: NSObject {
             print("In RestWrapper.makeRequest \(error.localizedDescription)")
         }
         
-    } 
-
-
+    }
 }
     
 

@@ -32,6 +32,7 @@
 		1846DBA720B21B5B0076BECD /* environment-debug.json in Resources */ = {isa = PBXBuildFile; fileRef = 1846DB9F20B21B5B0076BECD /* environment-debug.json */; };
 		1846DBA820B21B5B0076BECD /* DistributionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DBA020B21B5B0076BECD /* DistributionConfig.swift */; };
 		1846DBA920B21B5B0076BECD /* environment-prod.json in Resources */ = {isa = PBXBuildFile; fileRef = 1846DBA120B21B5B0076BECD /* environment-prod.json */; };
+		18984BF220C94CA500381603 /* LoginResponse in Resources */ = {isa = PBXBuildFile; fileRef = 18984BF120C94CA500381603 /* LoginResponse */; };
 		189F82BC20C501B70054986E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B020C501B70054986E /* RealmManager.swift */; };
 		189F82BF20C501B70054986E /* ResponseGetAllInvoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */; };
 		189F82C020C501B70054986E /* ResponseInvoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B620C501B70054986E /* ResponseInvoices.swift */; };
@@ -82,6 +83,8 @@
 		B985566B20B43B6000A56497 /* QuantityBatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B985566A20B43B6000A56497 /* QuantityBatchTableViewCell.swift */; };
 		B985566D20B43B8700A56497 /* ShippingManifestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B985566C20B43B8700A56497 /* ShippingManifestTableViewCell.swift */; };
 		B985566F20B440E500A56497 /* WebServicesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B985566E20B440E500A56497 /* WebServicesAPI.swift */; };
+		B9AA85DF20C9092A00751BF2 /* ResponseLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA85DE20C9092A00751BF2 /* ResponseLogin.swift */; };
+		B9AA85E220C925B800751BF2 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA85E120C925B800751BF2 /* LoginModel.swift */; };
 		B9CAC8DA20AF1155008F1650 /* UIVisualEffectViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D020AF1153008F1650 /* UIVisualEffectViewX.swift */; };
 		B9CAC8DB20AF1155008F1650 /* UITextFieldX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D120AF1153008F1650 /* UITextFieldX.swift */; };
 		B9CAC8DC20AF1155008F1650 /* UISliderX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D220AF1154008F1650 /* UISliderX.swift */; };
@@ -164,6 +167,7 @@
 		1846DBA020B21B5B0076BECD /* DistributionConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionConfig.swift; sourceTree = "<group>"; };
 		1846DBA120B21B5B0076BECD /* environment-prod.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "environment-prod.json"; sourceTree = "<group>"; };
 		1856C76199F812D749E0AA01 /* Pods-Blaze DistributionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.release.xcconfig"; sourceTree = "<group>"; };
+		18984BF120C94CA500381603 /* LoginResponse */ = {isa = PBXFileReference; lastKnownFileType = text; path = LoginResponse; sourceTree = "<group>"; };
 		189F82B020C501B70054986E /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseGetAllInvoices.swift; sourceTree = "<group>"; };
 		189F82B620C501B70054986E /* ResponseInvoices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseInvoices.swift; sourceTree = "<group>"; };
@@ -228,6 +232,8 @@
 		B985566A20B43B6000A56497 /* QuantityBatchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuantityBatchTableViewCell.swift; sourceTree = "<group>"; };
 		B985566C20B43B8700A56497 /* ShippingManifestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingManifestTableViewCell.swift; sourceTree = "<group>"; };
 		B985566E20B440E500A56497 /* WebServicesAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServicesAPI.swift; sourceTree = "<group>"; };
+		B9AA85DE20C9092A00751BF2 /* ResponseLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseLogin.swift; sourceTree = "<group>"; };
+		B9AA85E120C925B800751BF2 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		B9CAC8D020AF1153008F1650 /* UIVisualEffectViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIVisualEffectViewX.swift; sourceTree = "<group>"; };
 		B9CAC8D120AF1153008F1650 /* UITextFieldX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldX.swift; sourceTree = "<group>"; };
 		B9CAC8D220AF1154008F1650 /* UISliderX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISliderX.swift; sourceTree = "<group>"; };
@@ -310,6 +316,7 @@
 				18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */,
 				189F82C720C502A90054986E /* GetAllInvoices.txt */,
 				182B920820C803A10041915B /* bulkrequestjson.txt */,
+				18984BF120C94CA500381603 /* LoginResponse */,
 			);
 			path = TextFilesForReference;
 			sourceTree = "<group>";
@@ -359,6 +366,7 @@
 		189F82B820C501B70054986E /* RealmModels */ = {
 			isa = PBXGroup;
 			children = (
+				B9AA85E020C9254300751BF2 /* LoginModels */,
 				189F82B920C501B70054986E /* ModelBase.swift */,
 				189F82BA20C501B70054986E /* ModelInvoice.swift */,
 				189F82BB20C501B70054986E /* ModelShipingMenifest.swift */,
@@ -378,7 +386,8 @@
 		189F82D320C508390054986E /* APILogin */ = {
 			isa = PBXGroup;
 			children = (
-				189F82D420C5084D0054986E /* RequestLogin.swift */,
+				B9AA85DD20C9084600751BF2 /* ResponseModel */,
+				B9AA85DC20C9081900751BF2 /* RequestModel */,
 			);
 			path = APILogin;
 			sourceTree = "<group>";
@@ -760,6 +769,30 @@
 			path = UIDesignableX;
 			sourceTree = "<group>";
 		};
+		B9AA85DC20C9081900751BF2 /* RequestModel */ = {
+			isa = PBXGroup;
+			children = (
+				189F82D420C5084D0054986E /* RequestLogin.swift */,
+			);
+			path = RequestModel;
+			sourceTree = "<group>";
+		};
+		B9AA85DD20C9084600751BF2 /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				B9AA85DE20C9092A00751BF2 /* ResponseLogin.swift */,
+			);
+			path = ResponseModel;
+			sourceTree = "<group>";
+		};
+		B9AA85E020C9254300751BF2 /* LoginModels */ = {
+			isa = PBXGroup;
+			children = (
+				B9AA85E120C925B800751BF2 /* LoginModel.swift */,
+			);
+			path = LoginModels;
+			sourceTree = "<group>";
+		};
 		B9E5267320B2DA2200127E43 /* Completed_Purchase Order Details */ = {
 			isa = PBXGroup;
 			children = (
@@ -951,6 +984,7 @@
 				1846DBA620B21B5B0076BECD /* environment-dev.json in Resources */,
 				B9266C4520AEC8FE0021356C /* LaunchScreen.storyboard in Resources */,
 				1828E6C320C6D0F300EB74B4 /* Tables.txt in Resources */,
+				18984BF220C94CA500381603 /* LoginResponse in Resources */,
 				B9266C4220AEC8FE0021356C /* Assets.xcassets in Resources */,
 				B9266C3D20AEC8FB0021356C /* Main.storyboard in Resources */,
 				1846DBA920B21B5B0076BECD /* environment-prod.json in Resources */,
@@ -1111,6 +1145,7 @@
 				189F82CE20C5054E0054986E /* Router.swift in Sources */,
 				182B921020C839290041915B /* ModelLocation.swift in Sources */,
 				189F82DB20C50C090054986E /* BaseRequest.swift in Sources */,
+				B9AA85E220C925B800751BF2 /* LoginModel.swift in Sources */,
 				B92A65AC20AF303500CDA4CC /* InvoicesTableViewCell.swift in Sources */,
 				B92A65A820AF209200CDA4CC /* ShippingManifestViewController.swift in Sources */,
 				B9E5266620B2C38600127E43 /* ConfirmTransferTableViewCell.swift in Sources */,
@@ -1130,6 +1165,7 @@
 				B9E5269020B3063C00127E43 /* LoginViewController.swift in Sources */,
 				B9CAC8DB20AF1155008F1650 /* UITextFieldX.swift in Sources */,
 				B9266C7520AEDC940021356C /* ForgotPasswordViewController.swift in Sources */,
+				B9AA85DF20C9092A00751BF2 /* ResponseLogin.swift in Sources */,
 				B95A8A2720B420F200F76A15 /* ShippingItemsViewController.swift in Sources */,
 				B9E5266A20B2CAA100127E43 /* LookupPOsViewController.swift in Sources */,
 				B9266C7320AED9BA0021356C /* SplashScreenVCViewController.swift in Sources */,

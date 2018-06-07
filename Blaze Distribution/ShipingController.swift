@@ -25,9 +25,6 @@ class ShipingController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    
     private func getjson(){
         
         if let filePath = Bundle.main.path(forResource: "GetAllInvoices", ofType: "txt"){
@@ -53,30 +50,30 @@ class ShipingController: UIViewController {
                         model.invoiceNumber     = responseInvoice.invoiceNumber
                         model.customerId        = responseInvoice.customerId
                         
-                        if responseInvoice.shippingManifests != nil, responseInvoice.shippingManifests!.count > 0 {
-                            //print("From json shipingMenifest: " + (responseInvoice.shippingManifests![0].shippingManifestNo)!)
-                            
-                            if let shippingManifests = responseInvoice.shippingManifests {
-                                
-                                for ship in shippingManifests {
-                                    let shipMen                 =   ModelShipingMenifest()
-                                    shipMen.id                  =   ship.id
-                                    shipMen.companyId           =   ship.companyId
-                                    shipMen.shopId              =   ship.shopId
-                                    shipMen.invoiceId           =   ship.invoiceId
-                                    shipMen.shippingManifestNo  =   ship.shippingManifestNo
-                                    shipMen.invoiceAmount       =   ship.invoiceAmount ?? 0.0
-                                    shipMen.invoiceBalanceDue   =   ship.invoiceBalanceDue ?? 0.0
-
-                                    //print("ModelShpping: "+shipMen.getString())
-                                    
-                                    model.shippingManifests.append(shipMen)
-                                }
-                            }
-                            
-                        }else{
-                            print("From json shipingMenifest: Nil")
-                        }
+//                        if responseInvoice.shippingManifests != nil, responseInvoice.shippingManifests!.count > 0 {
+//                            //print("From json shipingMenifest: " + (responseInvoice.shippingManifests![0].shippingManifestNo)!)
+//
+//                            if let shippingManifests = responseInvoice.shippingManifests {
+//
+//                                for ship in shippingManifests {
+//                                    let shipMen                 =   ModelShipingMenifest()
+//                                    shipMen.id                  =   ship.id
+//                                    shipMen.companyId           =   ship.companyId
+//                                    shipMen.shopId              =   ship.shopId
+//                                    shipMen.invoiceId           =   ship.invoiceId
+//                                    shipMen.shippingManifestNo  =   ship.shippingManifestNo
+//                                    shipMen.invoiceAmount       =   ship.invoiceAmount ?? 0.0
+//                                    shipMen.invoiceBalanceDue   =   ship.invoiceBalanceDue ?? 0.0
+//
+//                                    //print("ModelShpping: "+shipMen.getString())
+//
+//                                    model.shippingManifests.append(shipMen)
+//                                }
+//                            }
+//
+//                        }else{
+//                            print("From json shipingMenifest: Nil")
+//                        }
                         //print("ModelInvoice: "+model.getString())
                         RealmManager().write(table: model)
                        // print("--------------------------")

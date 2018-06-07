@@ -11,7 +11,6 @@ import Realm
 import RealmSwift
 class ModelLogin : DBModel, BaseResponseModel{
     var id: String?
-    
     var created: Int?
     
     var modified: Int?
@@ -34,7 +33,7 @@ class ModelLogin : DBModel, BaseResponseModel{
    @objc dynamic var assignedTerminal : ModelAssignedTerminal?
    @objc dynamic var appType : String?          = ""
    @objc dynamic var appTarget : String?        = ""
-                 //var shops                      = List<Shops>()
+               //  var shops                      = List<Shops>()
     enum CodingKeys: String, CodingKey {
         
         case accessToken      = "accessToken"
@@ -87,16 +86,9 @@ class ModelLogin : DBModel, BaseResponseModel{
         let appTarget = try values.decodeIfPresent(String.self, forKey: .appTarget)
         let shopsList = List<ModelShops>()
            // shopsList.append(objectsIn: shops)
-
-    
-    
     
         self.init(accessToken: accessToken, assetAccessToken: assetAccessToken, employee: nil, loginTime: loginTime, expirationTime: expirationTime, sessionId: sessionId, company: company, shops: shopsList, assignedShop: assignedShop, assignedTerminal: assignedTerminal, appType: appType, appTarget: appTarget)
-    
     }
-    
-
-    
 }
 
 class ModelShops :DBModel {

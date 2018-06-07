@@ -21,5 +21,5 @@ public class ResponseGetAllInvoices: BaseResponseModel{
     
     public var companyId: String?
     
-    var values: [ResponseInvoices]?
+    public var values: [ResponseInvoices]?
 }

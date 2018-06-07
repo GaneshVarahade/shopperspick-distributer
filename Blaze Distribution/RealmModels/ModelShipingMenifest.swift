@@ -10,8 +10,6 @@ import Foundation
 import Realm
 import RealmSwift
 
-
-
 public class ModelShipingMenifest:ModelBase {
     
     @objc public var shopId: String?             = ""

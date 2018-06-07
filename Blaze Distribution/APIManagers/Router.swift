@@ -44,27 +44,12 @@ enum Router : URLRequestConvertible {
         var request = URLRequest(url: URL.appendingPathComponent(path))
         request.httpMethod = method.rawValue 
         if let requestJson = requestJson {
-            do {
                 let jsonData = requestJson
-                
-                //Convert back to string.
-                if let jsonRequest = String(data: jsonData, encoding: String.Encoding.utf8) {
-                    
-                 
-                }else{
-                    AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "NonJson Request: \(jsonData)")
-                }
-                
                 request.httpBody = jsonData
-                
-            } catch let error as NSError {
-                print(error)
-            }
-
         }
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        if let sessionToken = UserDefaults.standard.object(forKey: "ACCESS_TOKEN") as! String? {
+        if let sessionToken = UtilityUserDefaults.sharedInstance().getToken(){
             let sessionData = "Token \(sessionToken)"
             request.setValue(sessionData, forHTTPHeaderField: "Authorization")
         }

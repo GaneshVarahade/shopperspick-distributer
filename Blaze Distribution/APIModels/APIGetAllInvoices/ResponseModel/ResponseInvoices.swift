@@ -34,7 +34,7 @@ public class ResponseInvoices:BaseResponseModel {
 //    public var items:[ResponseProduct]?
 //    public var paymentInfo: [ResponsePaymentInfo]?
     public var employeeName:String?
-    public var shippingManifests: [ResponseShipingMenifest]?
+ //   public var shippingManifests: [ResponseShipingMenifest]?
     
 }
 
@@ -180,7 +180,7 @@ public class ResponseProductReceived:BaseResponseModel{
    public var received:String?
 }
 
-public   class ResponsePurchaseOrder:BaseResponseModel{
+public class ResponsePurchaseOrder:BaseResponseModel{
    public var id: String?
     
    public var created: Int?

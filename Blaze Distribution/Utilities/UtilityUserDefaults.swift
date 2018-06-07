@@ -23,8 +23,10 @@ public class UtilityUserDefaults {
     
     public func saveToken(strToken:String){
         UserDefaults.standard.set(strToken, forKey: UtilityUserDefaults.TOKEN)
+        UserDefaults.standard.synchronize()
     }
     public func getToken() -> String?{
         return UserDefaults.standard.string(forKey: UtilityUserDefaults.TOKEN)
+        
     }
 }
