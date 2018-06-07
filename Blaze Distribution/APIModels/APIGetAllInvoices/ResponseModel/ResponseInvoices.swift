@@ -34,7 +34,7 @@ public class ResponseInvoices:BaseResponseModel {
 //    public var items:[ResponseProduct]?
 //    public var paymentInfo: [ResponsePaymentInfo]?
     public var employeeName:String?
-    public var shippingManifests: [ResponseShipingMenifest]?
+ //   public var shippingManifests: [ResponseShipingMenifest]?
     
 }
 

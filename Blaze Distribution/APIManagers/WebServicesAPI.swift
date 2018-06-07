@@ -78,7 +78,7 @@ class WebServicesAPI: NSObject {
         }
     }
     
-    func loginAPI(request:RequestLogin,onComplition:@escaping (_ result:ModelLogin?, _ error:PlatformError?) -> ()){
+    func loginAPI(request:RequestLogin,onComplition:@escaping (_ result:ResponseLogin?, _ error:PlatformError?) -> ()){
         
         makeRequest(Router.sessionLogin(request: request), callback: onComplition)
     }
