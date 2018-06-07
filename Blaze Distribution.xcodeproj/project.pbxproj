@@ -12,7 +12,7 @@
 		182B920420C7E0860041915B /* StoreImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920220C7E0850041915B /* StoreImage.swift */; };
 		182B920520C7E0860041915B /* HexGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920320C7E0850041915B /* HexGenerator.swift */; };
 		182B920720C7E5330041915B /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920620C7E5330041915B /* SyncService.swift */; };
-		182B920920C803A10041915B /* bulkrequestjson.txt in Resources */ = {isa = PBXBuildFile; fileRef = 182B920820C803A10041915B /* bulkrequestjson.txt */; };
+		182B920920C803A10041915B /* idealbulkrequestjson.txt in Resources */ = {isa = PBXBuildFile; fileRef = 182B920820C803A10041915B /* idealbulkrequestjson.txt */; };
 		182B920C20C838C00041915B /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920B20C838C00041915B /* ModelTransfer.swift */; };
 		182B920E20C838FE0041915B /* ModelProductTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920D20C838FE0041915B /* ModelProductTransfer.swift */; };
 		182B921020C839290041915B /* ModelLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920F20C839290041915B /* ModelLocation.swift */; };
@@ -49,6 +49,14 @@
 		189F82DB20C50C090054986E /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82DA20C50C090054986E /* BaseRequest.swift */; };
 		189F82DD20C50EB40054986E /* PlatformError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82DC20C50EB40054986E /* PlatformError.swift */; };
 		18CD0BFC20C6B1C1007E8515 /* SingleInvoice.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */; };
+		18EE27A820C95EED002A329B /* bulkrequest.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 18EE27A720C95EED002A329B /* bulkrequest.rtf */; };
+		18EE27B020C96003002A329B /* ResponseBulkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27AF20C96003002A329B /* ResponseBulkRequest.swift */; };
+		18EE27B220C960F0002A329B /* ResponseArrayInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27B120C960F0002A329B /* ResponseArrayInvoice.swift */; };
+		18EE27B420C96178002A329B /* ResponseInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27B320C96178002A329B /* ResponseInvoice.swift */; };
+		18EE27B620C9623A002A329B /* ResponseArrayInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27B520C9623A002A329B /* ResponseArrayInventory.swift */; };
+		18EE27B820C96262002A329B /* ResponseArrayPurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27B720C96262002A329B /* ResponseArrayPurchaseOrder.swift */; };
+		18EE27BA20C962AB002A329B /* ResponseInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27B920C962AB002A329B /* ResponseInventory.swift */; };
+		18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27BB20C962BA002A329B /* ResponsePurchaseOrder.swift */; };
 		2FD731EB83170AF88FAF96D0 /* Pods_Blaze_DistributionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22B1597E869879AC4DD12C3 /* Pods_Blaze_DistributionTests.framework */; };
 		B913500720BD5A2F00A9FFA7 /* DBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B913500620BD5A2F00A9FFA7 /* DBModel.swift */; };
 		B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C3720AEC8FB0021356C /* AppDelegate.swift */; };
@@ -146,7 +154,7 @@
 		182B920220C7E0850041915B /* StoreImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreImage.swift; sourceTree = "<group>"; };
 		182B920320C7E0850041915B /* HexGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexGenerator.swift; sourceTree = "<group>"; };
 		182B920620C7E5330041915B /* SyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
-		182B920820C803A10041915B /* bulkrequestjson.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = bulkrequestjson.txt; sourceTree = "<group>"; };
+		182B920820C803A10041915B /* idealbulkrequestjson.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = idealbulkrequestjson.txt; sourceTree = "<group>"; };
 		182B920B20C838C00041915B /* ModelTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTransfer.swift; sourceTree = "<group>"; };
 		182B920D20C838FE0041915B /* ModelProductTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProductTransfer.swift; sourceTree = "<group>"; };
 		182B920F20C839290041915B /* ModelLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLocation.swift; sourceTree = "<group>"; };
@@ -184,6 +192,14 @@
 		189F82DA20C50C090054986E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		189F82DC20C50EB40054986E /* PlatformError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformError.swift; sourceTree = "<group>"; };
 		18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SingleInvoice.txt; sourceTree = "<group>"; };
+		18EE27A720C95EED002A329B /* bulkrequest.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = bulkrequest.rtf; sourceTree = "<group>"; };
+		18EE27AF20C96003002A329B /* ResponseBulkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseBulkRequest.swift; sourceTree = "<group>"; };
+		18EE27B120C960F0002A329B /* ResponseArrayInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseArrayInvoice.swift; sourceTree = "<group>"; };
+		18EE27B320C96178002A329B /* ResponseInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInvoice.swift; sourceTree = "<group>"; };
+		18EE27B520C9623A002A329B /* ResponseArrayInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseArrayInventory.swift; sourceTree = "<group>"; };
+		18EE27B720C96262002A329B /* ResponseArrayPurchaseOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseArrayPurchaseOrder.swift; sourceTree = "<group>"; };
+		18EE27B920C962AB002A329B /* ResponseInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInventory.swift; sourceTree = "<group>"; };
+		18EE27BB20C962BA002A329B /* ResponsePurchaseOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsePurchaseOrder.swift; sourceTree = "<group>"; };
 		22C3488055382B11C1D20750 /* Pods_Blaze_Distribution.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blaze_Distribution.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4071D8F6404055871EE91139 /* Pods-Blaze DistributionTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.dev.xcconfig"; sourceTree = "<group>"; };
 		7BD414FACE98F6854EA2F12E /* Pods-Blaze Distribution.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.stage.xcconfig"; sourceTree = "<group>"; };
@@ -312,10 +328,11 @@
 		182B920A20C807DE0041915B /* TextFilesForReference */ = {
 			isa = PBXGroup;
 			children = (
+				18EE27A720C95EED002A329B /* bulkrequest.rtf */,
 				1828E6C220C6D0F300EB74B4 /* Tables.txt */,
 				18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */,
 				189F82C720C502A90054986E /* GetAllInvoices.txt */,
-				182B920820C803A10041915B /* bulkrequestjson.txt */,
+				182B920820C803A10041915B /* idealbulkrequestjson.txt */,
 				18984BF120C94CA500381603 /* LoginResponse */,
 			);
 			path = TextFilesForReference;
@@ -347,6 +364,9 @@
 		189F82B320C501B70054986E /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				189F82B720C501B70054986E /* BaseResponseProtocol.swift */,
+				189F82DA20C50C090054986E /* BaseRequest.swift */,
+				18EE27AD20C95FDC002A329B /* APIBulkRequest */,
 				B92B26D820C7C1F5004DE575 /* PlatformError */,
 				189F82D320C508390054986E /* APILogin */,
 				189F82B420C501B70054986E /* APIGetAllInvoices */,
@@ -390,6 +410,28 @@
 				B9AA85DC20C9081900751BF2 /* RequestModel */,
 			);
 			path = APILogin;
+			sourceTree = "<group>";
+		};
+		18EE27AD20C95FDC002A329B /* APIBulkRequest */ = {
+			isa = PBXGroup;
+			children = (
+				18EE27AE20C95FEB002A329B /* ResponseModel */,
+			);
+			path = APIBulkRequest;
+			sourceTree = "<group>";
+		};
+		18EE27AE20C95FEB002A329B /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				18EE27AF20C96003002A329B /* ResponseBulkRequest.swift */,
+				18EE27B120C960F0002A329B /* ResponseArrayInvoice.swift */,
+				18EE27B320C96178002A329B /* ResponseInvoice.swift */,
+				18EE27B520C9623A002A329B /* ResponseArrayInventory.swift */,
+				18EE27B720C96262002A329B /* ResponseArrayPurchaseOrder.swift */,
+				18EE27B920C962AB002A329B /* ResponseInventory.swift */,
+				18EE27BB20C962BA002A329B /* ResponsePurchaseOrder.swift */,
+			);
+			path = ResponseModel;
 			sourceTree = "<group>";
 		};
 		AE1281069DB163211F8B8D92 /* Pods */ = {
@@ -592,7 +634,6 @@
 		B92B26D720C7C197004DE575 /* RequestModels */ = {
 			isa = PBXGroup;
 			children = (
-				189F82DA20C50C090054986E /* BaseRequest.swift */,
 				B92822EB20C556D300BC32A1 /* RequestInvoices.swift */,
 			);
 			path = RequestModels;
@@ -611,7 +652,6 @@
 			children = (
 				189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */,
 				189F82B620C501B70054986E /* ResponseInvoices.swift */,
-				189F82B720C501B70054986E /* BaseResponseProtocol.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -977,7 +1017,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				182B920920C803A10041915B /* bulkrequestjson.txt in Resources */,
+				182B920920C803A10041915B /* idealbulkrequestjson.txt in Resources */,
+				18EE27A820C95EED002A329B /* bulkrequest.rtf in Resources */,
 				1846DBA420B21B5B0076BECD /* environment.json in Resources */,
 				1846DBA320B21B5B0076BECD /* environment-stage.json in Resources */,
 				18CD0BFC20C6B1C1007E8515 /* SingleInvoice.txt in Resources */,
@@ -1171,10 +1212,13 @@
 				B9266C7320AED9BA0021356C /* SplashScreenVCViewController.swift in Sources */,
 				B92A65AA20AF2E3F00CDA4CC /* InvoicesViewController.swift in Sources */,
 				182B920420C7E0860041915B /* StoreImage.swift in Sources */,
+				18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */,
 				B9E5265820B2BB7800127E43 /* InventoryTableViewCell.swift in Sources */,
 				182B921420C8397B0041915B /* ModelPurchaseOrder.swift in Sources */,
+				18EE27B820C96262002A329B /* ResponseArrayPurchaseOrder.swift in Sources */,
 				B9E5266820B2C39300127E43 /* ReceiveShipmentTableViewCell.swift in Sources */,
 				B9E5265420B2B93600127E43 /* CreateTransferViewController.swift in Sources */,
+				18EE27B420C96178002A329B /* ResponseInvoice.swift in Sources */,
 				182B920520C7E0860041915B /* HexGenerator.swift in Sources */,
 				B9E5265E20B2C2B100127E43 /* BasketViewController.swift in Sources */,
 				B9CAC8E320AF1155008F1650 /* UIViewX.swift in Sources */,
@@ -1189,6 +1233,7 @@
 				189F82BF20C501B70054986E /* ResponseGetAllInvoices.swift in Sources */,
 				189F82C020C501B70054986E /* ResponseInvoices.swift in Sources */,
 				B985566F20B440E500A56497 /* WebServicesAPI.swift in Sources */,
+				18EE27B020C96003002A329B /* ResponseBulkRequest.swift in Sources */,
 				B9CAC8DF20AF1155008F1650 /* UIViewControllerX.swift in Sources */,
 				1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */,
 				189F82C220C501B70054986E /* ModelBase.swift in Sources */,
@@ -1196,7 +1241,9 @@
 				B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */,
 				B95A8A3020B423F500F76A15 /* AddProductViewController.swift in Sources */,
 				B9E5267D20B2DAAA00127E43 /* Completed_PurchaseOrderDetailsTableViewController.swift in Sources */,
+				18EE27B220C960F0002A329B /* ResponseArrayInvoice.swift in Sources */,
 				189F82C420C501B70054986E /* ModelShipingMenifest.swift in Sources */,
+				18EE27B620C9623A002A329B /* ResponseArrayInventory.swift in Sources */,
 				B9E5266420B2C35A00127E43 /* LookUpTableViewCell.swift in Sources */,
 				189F82DD20C50EB40054986E /* PlatformError.swift in Sources */,
 				B9CAC8E220AF1155008F1650 /* UIViewXRadialGradient.swift in Sources */,
@@ -1214,6 +1261,7 @@
 				B9E5265620B2BAA500127E43 /* InventoryViewController.swift in Sources */,
 				B9CAC8DC20AF1155008F1650 /* UISliderX.swift in Sources */,
 				B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */,
+				18EE27BA20C962AB002A329B /* ResponseInventory.swift in Sources */,
 				1846DBA820B21B5B0076BECD /* DistributionConfig.swift in Sources */,
 				B9E5268120B2DF9200127E43 /* PurchaseOrderTableViewCell.swift in Sources */,
 				B95A8A2E20B4238B00F76A15 /* ManifestInfoTableViewController.swift in Sources */,

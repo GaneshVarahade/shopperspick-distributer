@@ -31,6 +31,8 @@ enum Router : URLRequestConvertible {
     //Invoice
     case sessionInvoice(request: [String:String])
     
+    case bulkGet()
+    
     
     
     
@@ -67,6 +69,8 @@ enum Router : URLRequestConvertible {
                     return (Method.POST,"/api/v1/session/terminal/init",encode(request),nil)
         case .sessionInvoice(let request):
             return (Method.GET,"/api/v1/warehouse/mgmt/invoice",nil,request)
+        case .bulkGet():
+            return (Method.GET,"/api/v1/warehouse/mgmt/dataSync",nil,nil)
         }
        
     }
