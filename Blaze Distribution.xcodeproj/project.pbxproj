@@ -85,6 +85,7 @@
 		B985566F20B440E500A56497 /* WebServicesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B985566E20B440E500A56497 /* WebServicesAPI.swift */; };
 		B9AA85DF20C9092A00751BF2 /* ResponseLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA85DE20C9092A00751BF2 /* ResponseLogin.swift */; };
 		B9AA85E220C925B800751BF2 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA85E120C925B800751BF2 /* LoginModel.swift */; };
+		B9AA85E420C95E3100751BF2 /* InvoiceTables.txt in Resources */ = {isa = PBXBuildFile; fileRef = B9AA85E320C95E3100751BF2 /* InvoiceTables.txt */; };
 		B9CAC8DA20AF1155008F1650 /* UIVisualEffectViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D020AF1153008F1650 /* UIVisualEffectViewX.swift */; };
 		B9CAC8DB20AF1155008F1650 /* UITextFieldX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D120AF1153008F1650 /* UITextFieldX.swift */; };
 		B9CAC8DC20AF1155008F1650 /* UISliderX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D220AF1154008F1650 /* UISliderX.swift */; };
@@ -234,6 +235,7 @@
 		B985566E20B440E500A56497 /* WebServicesAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServicesAPI.swift; sourceTree = "<group>"; };
 		B9AA85DE20C9092A00751BF2 /* ResponseLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseLogin.swift; sourceTree = "<group>"; };
 		B9AA85E120C925B800751BF2 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		B9AA85E320C95E3100751BF2 /* InvoiceTables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = InvoiceTables.txt; sourceTree = "<group>"; };
 		B9CAC8D020AF1153008F1650 /* UIVisualEffectViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIVisualEffectViewX.swift; sourceTree = "<group>"; };
 		B9CAC8D120AF1153008F1650 /* UITextFieldX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldX.swift; sourceTree = "<group>"; };
 		B9CAC8D220AF1154008F1650 /* UISliderX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISliderX.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				189F82C720C502A90054986E /* GetAllInvoices.txt */,
 				182B920820C803A10041915B /* bulkrequestjson.txt */,
 				18984BF120C94CA500381603 /* LoginResponse */,
+				B9AA85E320C95E3100751BF2 /* InvoiceTables.txt */,
 			);
 			path = TextFilesForReference;
 			sourceTree = "<group>";
@@ -980,6 +983,7 @@
 				182B920920C803A10041915B /* bulkrequestjson.txt in Resources */,
 				1846DBA420B21B5B0076BECD /* environment.json in Resources */,
 				1846DBA320B21B5B0076BECD /* environment-stage.json in Resources */,
+				B9AA85E420C95E3100751BF2 /* InvoiceTables.txt in Resources */,
 				18CD0BFC20C6B1C1007E8515 /* SingleInvoice.txt in Resources */,
 				1846DBA620B21B5B0076BECD /* environment-dev.json in Resources */,
 				B9266C4520AEC8FE0021356C /* LaunchScreen.storyboard in Resources */,

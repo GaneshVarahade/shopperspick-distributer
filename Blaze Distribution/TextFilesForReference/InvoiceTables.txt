@@ -1,0 +1,83 @@
+
+Product
+- name        = ?
+- batchId     = Invoice.Cart.item.batchId
+- quantity    = Invoice.Cart.item.quantity
+
+Asset
+- icon url
+
+SignatureTable
+- name
+
+PaymentInfo
+- debitNo
+- ACHTransfer
+- paymentDate
+- referenceNumber
+- amount
+- notest
+
+ShippingMenifest Table
+- shippingNo
+- deliveryDate
+- driverName
+- driverLicenseNumber
+- driverMake
+- driverModel
+- driverColor
+- driverLicenPlate
+- asset:Asset
+- itemsToShip: [Product]
+
+Invoice Tables
+- invoicenumber    =  Invoice.invoiceNumber
+- duedate          =  Invoice.dueDate
+- company          = ?
+- contact          = ?
+- total            = Invoice.Cart.total
+- balanceDue       = Invoice.balanceDue
+- receiverCompany  = ?
+- receiverType     = ?
+- receiverContact  = ?
+- receiverLicense  = ?
+- receiverAddress  = ?
+- remainingProducts: [Product] = ?
+- items: [Product] = Invoice.Cart.items
+- paymentInfo: [PaymentInfo] = ?
+- shippingMenifests: [ShippingMenifest] = Invoice.shippingManifests
+
+Location Table
+- shop
+- Inventory
+
+ProductTransfer Table
+- name
+- transfer Amount
+- expected total
+
+InventoryTransfer Table
+- name                           = Inventory.name
+- request                        = ?
+- date                           = ?
+- fromLocation: Location         = ?
+- toLocation: Location           = ?
+- products: [ProductTransfer]
+- productsInShipment: [Product]
+
+ProductReceived Table
+- name           = ?
+- expected       = ?
+- received       = ?
+
+Purchase Order Table
+- purchaseOrderNumber         = ?
+- isMetRc                     = ?
+- metrcId                     = ?
+- status                      = PurchaseOrder.purchaseOrderStatus
+- origin                      = ?
+- received                    =  ?
+- productInShipment:[Product] = PurchaseOrder.poProductRequestResultList.Product
+- productReceived:[ProductReceived] = ?
+
+
