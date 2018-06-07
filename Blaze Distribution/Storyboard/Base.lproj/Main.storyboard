@@ -136,6 +136,13 @@
                                                     <action selector="loginBtnPressed:" destination="2jQ-wd-ZiM" eventType="touchUpInside" id="hlQ-dG-gFZ"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="ucT-Sq-aZF">
+                                                <rect key="frame" x="126" y="93" width="42" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -266,6 +273,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="8Oh-zy-i02"/>
                     <connections>
+                        <outlet property="labelVersion" destination="ucT-Sq-aZF" id="UoM-X0-XoX"/>
                         <outlet property="txtEmail" destination="AYf-e1-xJe" id="lGc-DY-Ka0"/>
                         <outlet property="txtPassword" destination="tbX-Ln-O9V" id="IMh-4v-FrB"/>
                         <segue destination="efJ-12-MQp" kind="presentation" identifier="goHome" id="Jdl-rK-gGl"/>

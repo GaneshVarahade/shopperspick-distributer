@@ -15,12 +15,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - IBOutlets
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var labelVersion: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        txtEmail.text = "test@test.com"
-        txtPassword.text = "test"
+        txtEmail.text       = "test@test.com"
+        txtPassword.text    = "test"
+        labelVersion.text   = Versionutils.getAppVersion()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,8 +34,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             statusbar.backgroundColor = nil
         }
     }
-    
-
+ 
     // MARK: - IBActions
     @IBAction func loginBtnPressed(_ sender: Any) {
         SKActivityIndicator.show()

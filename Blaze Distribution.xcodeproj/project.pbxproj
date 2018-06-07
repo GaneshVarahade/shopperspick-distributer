@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
 		1828E6C320C6D0F300EB74B4 /* Tables.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1828E6C220C6D0F300EB74B4 /* Tables.txt */; };
 		182B920420C7E0860041915B /* StoreImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920220C7E0850041915B /* StoreImage.swift */; };
 		182B920520C7E0860041915B /* HexGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920320C7E0850041915B /* HexGenerator.swift */; };
@@ -137,6 +138,7 @@
 /* Begin PBXFileReference section */
 		0258B61748E9715829B0B522 /* Pods-Blaze DistributionTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.stage.xcconfig"; sourceTree = "<group>"; };
 		0938C2F5672F799D7AB60923 /* Pods-Blaze Distribution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.dev.xcconfig"; sourceTree = "<group>"; };
+		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
 		1828E6C220C6D0F300EB74B4 /* Tables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tables.txt; sourceTree = "<group>"; };
 		182B920220C7E0850041915B /* StoreImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreImage.swift; sourceTree = "<group>"; };
 		182B920320C7E0850041915B /* HexGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexGenerator.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 				1846DB7B20B213010076BECD /* TextHelpers.swift */,
 				189F82D120C507DF0054986E /* AQLog.swift */,
 				189F82D620C5096F0054986E /* UtilityUserDefaults.swift */,
+				1815A01B20C91C23000B0328 /* VersionUtils.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1004,7 +1007,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "BUILD_VERSION=\"0.0.1\"\nENV_STR=\"\"\n\necho \"Build ${BUILD_VERSION}\"\necho \"PROJECT_DIR ${PROJECT_DIR}\"\necho \"configuration: ${CONFIGURATION}\"\n\ntouch \"${PROJECT_DIR}/Blaze Distribution/Config/environment-override.json\"\ntouch \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\n\nREQUIRED_HTTPS=\"false\"\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\necho \"Do something really debug-like\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-debug.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Dev\" ]; then\necho \"Do something really Development\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-dev.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Stage\" ]; then\necho \"Do something really Stage\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-stage.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\necho \"Do something really Release\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-prod.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\n# For extension in Build Version Name\nif [ \"${CONFIGURATION}\" = \"Dev\"  ] || [ \"${CONFIGURATION}\" = \"Stage\"  ] || [ \"${CONFIGURATION}\" = \"Debug\"  ]\nthen ENV_STR=\".${CONFIGURATION}\"\nfi\n\n\n#update version\nbuildNumber=$(git rev-list --count HEAD)\nbuildVersion=\"$BUILD_VERSION$ENV_STR\"\necho \"buildVersion: ${buildVersion}\"\necho \"buildNumber ${buildNumber}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $buildVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n#/usr/libexec/PlistBuddy -c \"Set :NSAppTransportSecurity:NSAllowsArbitraryLoads $REQUIRED_HTTPS\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+			shellScript = "BUILD_VERSION=\"0.0.2\"\nENV_STR=\"\"\n\necho \"Build ${BUILD_VERSION}\"\necho \"PROJECT_DIR ${PROJECT_DIR}\"\necho \"configuration: ${CONFIGURATION}\"\n\ntouch \"${PROJECT_DIR}/Blaze Distribution/Config/environment-override.json\"\ntouch \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\n\nREQUIRED_HTTPS=\"false\"\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\necho \"Do something really debug-like\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-debug.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Dev\" ]; then\necho \"Do something really Development\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-dev.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Stage\" ]; then\necho \"Do something really Stage\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-stage.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\necho \"Do something really Release\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-prod.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\n# For extension in Build Version Name\nif [ \"${CONFIGURATION}\" = \"Dev\"  ] || [ \"${CONFIGURATION}\" = \"Stage\"  ] || [ \"${CONFIGURATION}\" = \"Debug\"  ]\nthen ENV_STR=\".${CONFIGURATION}\"\nfi\n\n\n#update version\nbuildNumber=$(git rev-list --count HEAD)\nbuildVersion=\"$BUILD_VERSION$ENV_STR\"\necho \"buildVersion: ${buildVersion}\"\necho \"buildNumber ${buildNumber}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $buildVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n#/usr/libexec/PlistBuddy -c \"Set :NSAppTransportSecurity:NSAllowsArbitraryLoads $REQUIRED_HTTPS\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
 		501329DEFA3BF50C2121BCEC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1103,6 +1106,7 @@
 				189F82D220C507DF0054986E /* AQLog.swift in Sources */,
 				B95A8A3220B4247900F76A15 /* SignatureViewController.swift in Sources */,
 				B9E5267E20B2DAAA00127E43 /* Completed_POStaticDetailsTableViewController.swift in Sources */,
+				1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */,
 				B92822EC20C556D300BC32A1 /* RequestInvoices.swift in Sources */,
 				189F82CE20C5054E0054986E /* Router.swift in Sources */,
 				182B921020C839290041915B /* ModelLocation.swift in Sources */,
