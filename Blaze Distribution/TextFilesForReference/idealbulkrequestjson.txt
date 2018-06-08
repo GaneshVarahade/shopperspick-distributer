@@ -1,12 +1,12 @@
 {
     invoices:[
         {
-            invoicenumber:<String>,
-            duedate:<String>,
+            invoicenumber: Invoice.invoiceNumber,
+            duedate: Invoice.dueDate,
             company:<String>,
             contact:<String>,
-            total:<String>,
-            balanceDue:<String>,
+            total: Invoice.Cart.total,
+            balanceDue: Invoice.balanceDue,
             receiverCompany:<String>,
             receiverType:<String>,
             receiverContact:<String>,
@@ -15,7 +15,7 @@
             remainingProducts: [Product],
             items:[Product],
             paymentInfo:[PaymentInfo],
-            shippingMenifests:[ShippingMenifest]
+            shippingMenifests:[ShippingMenifest] = Invoice.shippingManifests
         }
     ],
     inventories:[

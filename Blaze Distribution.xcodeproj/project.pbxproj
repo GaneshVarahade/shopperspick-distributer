@@ -49,7 +49,6 @@
 		189F82DB20C50C090054986E /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82DA20C50C090054986E /* BaseRequest.swift */; };
 		189F82DD20C50EB40054986E /* PlatformError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82DC20C50EB40054986E /* PlatformError.swift */; };
 		18CD0BFC20C6B1C1007E8515 /* SingleInvoice.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */; };
-		18EE27A820C95EED002A329B /* bulkrequest.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 18EE27A720C95EED002A329B /* bulkrequest.rtf */; };
 		18EE27B020C96003002A329B /* ResponseBulkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27AF20C96003002A329B /* ResponseBulkRequest.swift */; };
 		18EE27B220C960F0002A329B /* ResponseArrayInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27B120C960F0002A329B /* ResponseArrayInvoice.swift */; };
 		18EE27B420C96178002A329B /* ResponseInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27B320C96178002A329B /* ResponseInvoice.swift */; };
@@ -161,6 +160,7 @@
 		0258B61748E9715829B0B522 /* Pods-Blaze DistributionTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.stage.xcconfig"; sourceTree = "<group>"; };
 		0938C2F5672F799D7AB60923 /* Pods-Blaze Distribution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.dev.xcconfig"; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
+		1824C0BE20CA796400F7E1B4 /* bulkrequest.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = bulkrequest.rtf; path = "/Volumes/Development/Projects/iOSWorkspace/blaze-distribution-ios/Blaze Distribution/TextFilesForReference/bulkrequest.rtf"; sourceTree = "<absolute>"; };
 		1828E6C220C6D0F300EB74B4 /* Tables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tables.txt; sourceTree = "<group>"; };
 		182B920220C7E0850041915B /* StoreImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreImage.swift; sourceTree = "<group>"; };
 		182B920320C7E0850041915B /* HexGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexGenerator.swift; sourceTree = "<group>"; };
@@ -203,7 +203,6 @@
 		189F82DA20C50C090054986E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		189F82DC20C50EB40054986E /* PlatformError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformError.swift; sourceTree = "<group>"; };
 		18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SingleInvoice.txt; sourceTree = "<group>"; };
-		18EE27A720C95EED002A329B /* bulkrequest.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = bulkrequest.rtf; sourceTree = "<group>"; };
 		18EE27AF20C96003002A329B /* ResponseBulkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseBulkRequest.swift; sourceTree = "<group>"; };
 		18EE27B120C960F0002A329B /* ResponseArrayInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseArrayInvoice.swift; sourceTree = "<group>"; };
 		18EE27B320C96178002A329B /* ResponseInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInvoice.swift; sourceTree = "<group>"; };
@@ -350,7 +349,7 @@
 		182B920A20C807DE0041915B /* TextFilesForReference */ = {
 			isa = PBXGroup;
 			children = (
-				18EE27A720C95EED002A329B /* bulkrequest.rtf */,
+				1824C0BE20CA796400F7E1B4 /* bulkrequest.rtf */,
 				1828E6C220C6D0F300EB74B4 /* Tables.txt */,
 				18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */,
 				189F82C720C502A90054986E /* GetAllInvoices.txt */,
@@ -1075,7 +1074,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				182B920920C803A10041915B /* idealbulkrequestjson.txt in Resources */,
-				18EE27A820C95EED002A329B /* bulkrequest.rtf in Resources */,
 				1846DBA420B21B5B0076BECD /* environment.json in Resources */,
 				1846DBA320B21B5B0076BECD /* environment-stage.json in Resources */,
 				B9AA85E420C95E3100751BF2 /* InvoiceTables.txt in Resources */,

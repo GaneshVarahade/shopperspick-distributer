@@ -1,67 +1,68 @@
 
 Product
-- name        = ?
+- name        = Invoice.Cart.item.product.name
 - batchId     = Invoice.Cart.item.batchId
 - quantity    = Invoice.Cart.item.quantity
 
 Asset
-- icon url        = ?
+- icon url        = ?  // Ignore this
+
 SignatureTable
-- name            = ?
+- name            = ?  //Ignore this
+
 PaymentInfo
 - debitNo          = ?
 - ACHTransfer      = ?
-- paymentDate      = ?
-- referenceNumber  = Inovoice.paymentsReceived.notes.referenceNo
-- amount           = ?
-- notest           = ?
+- paymentDate      = Inovoice.paymentsReceived.paidDate
+- referenceNumber  = Inovoice.paymentsReceived.referenceNo
+- amount           = Inovoice.paymentsReceived.amountPaid
+- notes            = Inovoice.paymentsReceived.notes.message
 
 ShippingMenifest Table
-- shippingNo          = Invoice.ShippingMeniFest.shippingManifestNo ????? Making loop to read value?????
-- deliveryDate        = ?
-- driverName
-- driverLicenseNumber   = Invoice.salesPerson.Licensenumber
-- driverMake           = ?
-- driverModel          = ?
-- driverColor          = ?
-- driverLicenPlate     = ?
-- asset:Asset              =  Invoice.vendor.asset
-- itemsToShip: [Product] = ?
+- shippingNo                = ShipMen.shipMeniNo
+- deliveryDate              = ShipMen.estimatedArrival
+- receiverCompany           = ShipMen.receiverCustomerCompany.name
+- receiverType              = ShipMen.receiverCustomerCompany.vendorType
+- receiverContact           = ShipMen.receiverCustomerCompany.phone
+- receiverLicense           = ShipMen.receiverCustomerCompany.licenseNumber
+- receiverAddress           = ShipMen.receiverCustomerCompany.Address
+- driverName                = ShipMen.driverName
+- driverLicenseNumber       = ShipMen.driverLicenceNumber
+- driverMake                = ?
+- driverModel               = ?
+- driverColor               = ?
+- driverLicenPlate          = ?
+- asset:Asset               = ShipMen.signaturePhoto
+- itemsToShip: [Product]    = ?         // created by by ios Device in Post
 
 Invoice Tables
-- invoicenumber    =  Invoice.invoiceNumber
-- duedate          =  Invoice.dueDate
-- company          = ?
-- contact          = ?
-- total            = Invoice.Cart.total
-- balanceDue       = Invoice.balanceDue
-- receiverCompany  = ?
-- receiverType     = ?
-- receiverContact  = ?
-- receiverLicense  = ?
-- receiverAddress  = ?
-- remainingProducts: [Product] = ?
-- items: [Product] = ?
-- paymentInfo: [PaymentInfo] = ?
+- invoicenumber                         = Invoice.invoiceNumber
+- duedate                               = Invoice.dueDate
+- company                               = Invoice.Vendor.name
+- contact                               = Invoice.companyContact
+- total                                 = Invoice.Cart.total
+- balanceDue                            = Invoice.balanceDue
+- remainingProducts: [Product]          = ?
+- items: [Product]                      = Invoice.Cart.item
+- paymentInfo: [PaymentInfo]            = Inovoice.paymentsReceived
 - shippingMenifests: [ShippingMenifest] = Invoice.shippingManifests
-
-Location Table
-- shop              = Invoice.salesPerson.shop
-- Inventory         = ?
 
 ProductTransfer Table
 - name              = ?
 - transfer Amount   = ?
 - expected total    = ?
 
-InventoryTransfer Table
+OPENTransfer Table
 - name                           = Inventory.name
-- request                        = ?
-- date                           = ?
-- fromLocation: Location         = ?
-- toLocation: Location           = ?
-- products: [ProductTransfer]    = ?
-- productsInShipment: [Product]  = ?
+- requestNo                      = Inventory.transferNo
+- date                           = Inventory.created
+- fromShopId                     = Inventory.fromShopId
+- toShopId                       = Inventory.toShopId
+- fromShopName                   = Inventory.fromShopName
+- toShopName                     = Inventory.toShopName
+- fromInventoryname              = Inventory.fromInventoryName
+- toInventoryName                = Inventory.toInventoryName
+- productToTransfer:[ProductTransfer]    = ?   // Created by ios device
 
 ProductReceived Table
 - name           = ?
@@ -69,15 +70,21 @@ ProductReceived Table
 - received       = ?
 
 Purchase Order Table
-- purchaseOrderNumber         = ?
-- isMetRc                     = ?
+- purchaseOrderNumber         = PurchaseOrder.poNumber
+- isMetRc                     = PurchaseOrder.metrc
 - metrcId                     = ?
 - status                      = PurchaseOrder.purchaseOrderStatus
 - origin                      = ?
-- received                    =  ?
+- received                    = PurchaseOrder.receivedDate
 - productInShipment:[Product] = PurchaseOrder.poProductRequestResultList.Product
-- productReceived:[ProductReceived] = ?
+- productReceived:[ProductReceived] = ? // Created by ios device
 
+Address Table
+- address
+- city
+- state
+- zipCode
+- country
 
 Q:Product is available in two objects like Invoice.Cart.items  and PurchaseOrder.poProductRequestResultList.Product so which
 one should use ?
