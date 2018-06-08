@@ -34,7 +34,7 @@ public class ResponseInvoices:BaseResponseModel {
 //    public var items:[ResponseProduct]?
 //    public var paymentInfo: [ResponsePaymentInfo]?
     public var employeeName:String?
- //   public var shippingManifests: [ResponseShipingMenifest]?
+    public var shippingManifests: [ResponseShipingMenifest]?
     
 }
 
@@ -64,83 +64,40 @@ public class ResponseShipingMenifest: BaseResponseModel {
     
 }
 
-public class ResponseProduct:BaseResponseModel{
-    public var id: String?
-    public var created: Int?
-    public var modified: Int?
-    public var deleted: Bool?
-    public var updated: Bool?
-    public var companyId: String?
-    public var name:String?
-    public var batchId:String?
-    public var quantity:String?
-}
-
-public class ResponseAsset:BaseResponseModel{
-    public var id: String?
-    public var created: Int?
-    public var modified: Int?
-    public var deleted: Bool?
-    public var updated: Bool?
-    public var companyId: String?
-    public var iconurl:String?
-}
-
 public class ResponseSignature:BaseResponseModel{
    public var id: String?
-    
    public var created: Int?
-    
    public var modified: Int?
-    
    public var deleted: Bool?
-    
    public var updated: Bool?
-    
    public var companyId: String?
-    
-    
-    public var name:String?
+   public var name:String?
 }
 
 public class ResponsePaymentInfo:BaseResponseModel{
    public var id: String?
-    
    public var created: Int?
-    
    public var modified: Int?
-    
    public var deleted: Bool?
-    
    public var updated: Bool?
-    
    public var companyId: String?
-    
-    
-    public var debitNo:Int?
-    public var ACHTransfer:String?
-    public var paymentDate:Int?
-    public var referenceNumber:Int?
-    public var amount:Double?
-    public var notest:String?
+   public var debitNo:Int?
+   public var ACHTransfer:String?
+   public var paymentDate:Int?
+   public var referenceNumber:Int?
+   public var amount:Double?
+   public var notest:String?
 }
 
 public class ResponseLocation:BaseResponseModel{
    public var id: String?
-    
    public var created: Int?
-    
    public var modified: Int?
-    
    public var deleted: Bool?
-    
    public var updated: Bool?
-    
    public var companyId: String?
-    
-    
-    public var shop:String?
-    public var inventory:String?
+   public var shop:String?
+   public var inventory:String?
 }
 public class ResponseProductTransfer:BaseResponseModel{
    public var id: String?

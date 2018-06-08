@@ -61,6 +61,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         })
  
     }
+    
     // MARK: - Helper Methods
     func setup(){
         if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
@@ -68,23 +69,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // MARK: - Mapping Response to Model Classes
     func saveData(jsonData:ResponseLogin?){
         
-        if let data = jsonData{
-            let modelLogin: LoginModel  = LoginModel()
-            modelLogin.accessToken      = data.accessToken
-            modelLogin.assetAccessToken = data.assetAccessToken
-            modelLogin.appTarget        = data.appTarget
-            modelLogin.appType          = data.appType
-            modelLogin.sessionId        = data.sessionId
+            if let data = jsonData{
+                let modelLogin: LoginModel  = LoginModel()
+                modelLogin.accessToken      = data.accessToken
+                modelLogin.assetAccessToken = data.assetAccessToken
+                modelLogin.appTarget        = data.appTarget
+                modelLogin.appType          = data.appType
+                modelLogin.sessionId        = data.sessionId
             
             //Employee Mapping
             if data.employee != nil{
-                  modelLogin.employee?.id         = data.employee?.id
-                  modelLogin.employee?.firstName  = data.employee?.firstName
-                  modelLogin.employee?.lastName   = data.employee?.lastName
-                  modelLogin.employee?.pin        = data.employee?.pin
-                  modelLogin.employee?.roleId     = data.employee?.roleId
+                modelLogin.employee?.id         = data.employee?.id
+                modelLogin.employee?.firstName  = data.employee?.firstName
+                modelLogin.employee?.lastName   = data.employee?.lastName
+                modelLogin.employee?.pin        = data.employee?.pin
+                modelLogin.employee?.roleId     = data.employee?.roleId
                 
                
             }else{

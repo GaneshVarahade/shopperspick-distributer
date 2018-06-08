@@ -30,10 +30,10 @@ enum Router : URLRequestConvertible {
     case sessionLogin(request: RequestLogin)
     //Invoice
     case sessionInvoice(request: [String:String])
-    
+    //BulkAPI
     case bulkGet()
-    
-    
+    //Forgot Password
+    case forgotPassword(request: RequestForgotPassword)
     
     
     
@@ -66,11 +66,13 @@ enum Router : URLRequestConvertible {
             
         // SESSIONS
         case .sessionLogin(let request):
-                    return (Method.POST,"/api/v1/session/terminal/init",encode(request),nil)
+            return (Method.POST,"/api/v1/session/terminal/init",encode(request),nil)
         case .sessionInvoice(let request):
             return (Method.GET,"/api/v1/warehouse/mgmt/invoice",nil,request)
         case .bulkGet():
             return (Method.GET,"/api/v1/warehouse/mgmt/dataSync",nil,nil)
+        case.forgotPassword(let request):
+            return (Method.POST,"/api/v1/mgmt/password/reset",encode(request),nil)
         }
        
     }

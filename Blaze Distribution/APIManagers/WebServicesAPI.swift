@@ -48,8 +48,10 @@ class WebServicesAPI: NSObject {
                             
                             
                         } else if (data != nil) {
+                       
                             let errorRes = try JSONDecoder().decode(PlatformError.self, from:response.data!)
                             callback(nil, errorRes)
+                      
                         } else {
                             let pError = PlatformError()
                             pError.message = "Network error"
@@ -84,7 +86,10 @@ class WebServicesAPI: NSObject {
         
         makeRequest(Router.sessionInvoice(request: ["shopId":request.shopId]), callback: onComplition)
     }
-    
+    func ForgorPasswordAPI(request:RequestForgotPassword,onComplition:@escaping (_ result:ResponseForgotPassword?, _ error:PlatformError?)-> ()){
+        
+        makeRequest(Router.forgotPassword(request: request), callback: onComplition)
+    }
     private func printRequest(_ requestUrl:URLRequest?,_ data: Any?){
         
         let str = "Request is Nil"
