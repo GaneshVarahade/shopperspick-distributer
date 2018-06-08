@@ -89,3 +89,5 @@ Address Table
 Q:Product is available in two objects like Invoice.Cart.items  and PurchaseOrder.poProductRequestResultList.Product so which
 one should use ?
 
+Q: On sucess of forgot password response there is no any message to show the user ?
+0

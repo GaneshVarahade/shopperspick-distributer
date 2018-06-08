@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import KSToastView
 class ForgotPasswordViewController: UIViewController{
 
     @IBOutlet weak var txtEmail: UITextField!
@@ -30,7 +30,10 @@ class ForgotPasswordViewController: UIViewController{
             request.email = txtEmail.text
             WebServicesAPI.sharedInstance().ForgorPasswordAPI(request: request) { (result, error) in
                 
-                print(error?.message ?? "ERROR")
+                if let err = error{
+                    
+                    KSToastView.ks_showToast(err.message)
+                }
             }
         }
     }

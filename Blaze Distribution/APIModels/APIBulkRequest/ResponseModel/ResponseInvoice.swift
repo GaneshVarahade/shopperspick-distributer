@@ -20,4 +20,5 @@ public class ResponseInvoice :BaseResponseModel{
     public var balanceDue:Double?
     public var shippingManifests: [ResponseShippingManifests]?
     public var total: ResponseCart?
+   
 }

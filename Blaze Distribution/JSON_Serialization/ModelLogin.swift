@@ -12,13 +12,9 @@ import RealmSwift
 class ModelLogin : DBModel, BaseResponseModel{
     var id: String?
     var created: Int?
-    
     var modified: Int?
-    
     var deleted: Bool?
-    
     var updated: Bool?
-    
     var companyId: String?
     
    @objc dynamic var accessToken : String?      = ""
