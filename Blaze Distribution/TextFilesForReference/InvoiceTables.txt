@@ -52,8 +52,8 @@ ProductTransfer Table
 - transfer Amount   = ?
 - expected total    = ?
 
-OPENTransfer Table
-- name                           = Inventory.name
+InventoryTransfer Table
+- name                           = ?
 - requestNo                      = Inventory.transferNo
 - date                           = Inventory.created
 - fromShopId                     = Inventory.fromShopId
@@ -65,9 +65,9 @@ OPENTransfer Table
 - productToTransfer:[ProductTransfer]    = ?   // Created by ios device
 
 ProductReceived Table
-- name           = ?
-- expected       = ?
-- received       = ?
+- name
+- expected
+- received
 
 Purchase Order Table
 - purchaseOrderNumber         = PurchaseOrder.poNumber
@@ -76,7 +76,7 @@ Purchase Order Table
 - status                      = PurchaseOrder.purchaseOrderStatus
 - origin                      = ?
 - received                    = PurchaseOrder.receivedDate
-- productInShipment:[Product] = PurchaseOrder.poProductRequestResultList.Product
+- productInShipment:[Product] = PurchaseOrder.poProductRequestResultList
 - productReceived:[ProductReceived] = ? // Created by ios device
 
 Address Table
