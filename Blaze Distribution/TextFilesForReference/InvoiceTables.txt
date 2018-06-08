@@ -1,8 +1,14 @@
 
-Product
+CartProduct
 - name        = Invoice.Cart.item.product.name
 - batchId     = Invoice.Cart.item.batchId
 - quantity    = Invoice.Cart.item.quantity
+
+RemainingProduct
+- productId             = Invoice.remainingProductInformations.productId
+- productName           = Invoice.remainingProductInformations.productName
+- remainingQuantity     = Invoice.remainingProductInformations.remainingQuantity
+- requestQuantity       = Invoice.remainingProductInformations.requestQuantity
 
 Asset
 - icon url        = ?  // Ignore this
@@ -33,17 +39,17 @@ ShippingMenifest Table
 - driverColor               = ?
 - driverLicenPlate          = ShipMen.vehicleLicensePlate
 - asset:Asset               = ShipMen.signaturePhoto
-- itemsToShip: [Product]    = ?         // created by by ios Device in Post these will be selected from Invoice.items
+- itemsToShip: [CartProduct]    = ?         // created by by ios Device in Post these will be selected from Invoice.items
 
-Invoice Tables
+Invoice
 - invoicenumber                         = Invoice.invoiceNumber
 - duedate                               = Invoice.dueDate
 - company                               = Invoice.Vendor.name
 - contact                               = Invoice.companyContact
-- total                                 = Invoice.Cart.total
+- total                                 = Invoice.total
 - balanceDue                            = Invoice.balanceDue
-- remainingProducts: [Product]          = Invoice.remainingProductInformations
-- items: [Product]                      = Invoice.Cart.item
+- remainingProducts: [RemainingProduct] = Invoice.remainingProductInformations
+- items: [CartProduct]                  = Invoice.items
 - paymentInfo: [PaymentInfo]            = Inovoice.paymentsReceived
 - shippingMenifests: [ShippingMenifest] = Invoice.shippingManifests
 
@@ -54,10 +60,10 @@ ProductTransfer Table
 - transfer Amount
 - expected total
 
-InventoryTransfer Table
+Transfer
 - name                           = ?
-- requestNo                      = Inventory.transferNo
-- date                           = Inventory.created
+- transferNo                      = Inventory.transferNo
+- created                           = Inventory.created
 - fromShopId                     = Inventory.fromShopId
 - toShopId                       = Inventory.toShopId
 - fromShopName                   = Inventory.fromShopName
@@ -73,17 +79,17 @@ ProductReceived Table
 - expected
 - received
 
-Purchase Order Table
+PurchaseOrder
 - purchaseOrderNumber         = PurchaseOrder.poNumber
 - isMetRc                     = PurchaseOrder.metrc
 - metrcId                     = ?
 - status                      = PurchaseOrder.purchaseOrderStatus
 - origin                      = ?
 - received                    = PurchaseOrder.receivedDate
-- productInShipment:[Product] = PurchaseOrder.poProductRequestResultList
+- productInShipment:[CartProduct] = PurchaseOrder.poProductRequestResultList
 - productReceived:[ProductReceived] = ? // Created by ios device
 
-AllProducts
+Products
 - id                                = Product.id
 - name                              = Product.name
 - quantities:[ProductQuantities]    = Product.quantities
@@ -99,5 +105,7 @@ Address Table
 - state
 - zipCode
 - country
+
+
 
 
