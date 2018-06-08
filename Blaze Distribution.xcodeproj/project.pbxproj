@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1812B33F20CAB31800B4DC26 /* ModelInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventory.swift */; };
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
 		1828E6C320C6D0F300EB74B4 /* Tables.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1828E6C220C6D0F300EB74B4 /* Tables.txt */; };
 		182B920420C7E0860041915B /* StoreImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920220C7E0850041915B /* StoreImage.swift */; };
@@ -159,6 +160,7 @@
 /* Begin PBXFileReference section */
 		0258B61748E9715829B0B522 /* Pods-Blaze DistributionTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.stage.xcconfig"; sourceTree = "<group>"; };
 		0938C2F5672F799D7AB60923 /* Pods-Blaze Distribution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.dev.xcconfig"; sourceTree = "<group>"; };
+		1812B33E20CAB31800B4DC26 /* ModelInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventory.swift; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
 		1824C0BE20CA796400F7E1B4 /* bulkrequest.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = bulkrequest.rtf; path = "/Volumes/Development/Projects/iOSWorkspace/blaze-distribution-ios/Blaze Distribution/TextFilesForReference/bulkrequest.rtf"; sourceTree = "<absolute>"; };
 		1828E6C220C6D0F300EB74B4 /* Tables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tables.txt; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 				182B921720C839C00041915B /* ModelAssets.swift */,
 				182B921920C83A140041915B /* ModelPaymentInfo.swift */,
 				182B921B20C83A360041915B /* ModelProduct.swift */,
+				1812B33E20CAB31800B4DC26 /* ModelInventory.swift */,
 			);
 			path = RealmModels;
 			sourceTree = "<group>";
@@ -1309,6 +1312,7 @@
 				B9E5266420B2C35A00127E43 /* LookUpTableViewCell.swift in Sources */,
 				189F82DD20C50EB40054986E /* PlatformError.swift in Sources */,
 				B9CAC8E220AF1155008F1650 /* UIViewXRadialGradient.swift in Sources */,
+				1812B33F20CAB31800B4DC26 /* ModelInventory.swift in Sources */,
 				189F82BC20C501B70054986E /* RealmManager.swift in Sources */,
 				189F82D720C5096F0054986E /* UtilityUserDefaults.swift in Sources */,
 				189F82C120C501B70054986E /* BaseResponseProtocol.swift in Sources */,
