@@ -63,30 +63,30 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
                 model.customerId        = valu.customerId
                 model.dueDate           = valu.dueDate?.description
                 model.employeeName      = valu.employeeName
-//                if valu.shippingManifests != nil, valu.shippingManifests!.count > 0 {
-//                    //print("From json shipingMenifest: " + (valu.shippingManifests![0].shippingManifestNo)!)
-//
-//                    if let shippingManifests = valu.shippingManifests {
-//
-//                        for ship in shippingManifests {
-//                            let shipMen                 =   ModelShipingMenifest()
-//                            shipMen.id                  =   ship.id
-//                            shipMen.companyId           =   ship.companyId
-//                            shipMen.shopId              =   ship.shopId
-//                            shipMen.invoiceId           =   ship.invoiceId
-//                            shipMen.shippingManifestNo  =   ship.shippingManifestNo
-//                            shipMen.invoiceAmount       =   ship.invoiceAmount ?? 0.0
-//                            shipMen.invoiceBalanceDue   =   ship.invoiceBalanceDue ?? 0.0
-//
-//                           // print("ModelShpping: "+shipMen.getString())
-//
-//                            model.shippingManifests.append(shipMen)
-//                        }
-//                    }
-//
-//                }else{
-//                  //  print("From json shipingMenifest: Nil")
-//                }
+                if valu.shippingManifests != nil, valu.shippingManifests!.count > 0 {
+                    //print("From json shipingMenifest: " + (valu.shippingManifests![0].shippingManifestNo)!)
+
+                    if let shippingManifests = valu.shippingManifests {
+
+                        for ship in shippingManifests {
+                            let shipMen                 =   ModelShipingMenifest()
+                            shipMen.id                  =   ship.id
+                            shipMen.companyId           =   ship.companyId
+                            shipMen.shopId              =   ship.shopId
+                            shipMen.invoiceId           =   ship.invoiceId
+                            shipMen.shippingManifestNo  =   ship.shippingManifestNo
+                            shipMen.invoiceAmount       =   ship.invoiceAmount ?? 0.0
+                            shipMen.invoiceBalanceDue   =   ship.invoiceBalanceDue ?? 0.0
+
+                            print("ModelShpping: "+shipMen.getString())
+
+                            model.shippingManifests.append(shipMen)
+                        }
+                    }
+
+                }else{
+                    print("From json shipingMenifest: Nil")
+                }
                 //print("ModelInvoice: "+model.getString())
                 RealmManager().write(table: model)
                // print("----DataSave-----")

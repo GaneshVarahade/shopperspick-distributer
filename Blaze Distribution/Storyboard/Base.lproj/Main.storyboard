@@ -391,6 +391,9 @@
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                         </variation>
+                                        <connections>
+                                            <action selector="resetAction:" destination="zJY-yf-DL3" eventType="touchUpInside" id="zgk-DP-6NN"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -445,6 +448,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hc5-aQ-oes"/>
                     </view>
+                    <connections>
+                        <outlet property="txtEmail" destination="dHW-8m-mAC" id="FRx-EM-JID"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WRX-G6-Uf3" sceneMemberID="firstResponder"/>
             </objects>

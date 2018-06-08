@@ -106,6 +106,14 @@
 		B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D720AF1154008F1650 /* UIViewAnchorPoint.swift */; };
 		B9CAC8E220AF1155008F1650 /* UIViewXRadialGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D820AF1154008F1650 /* UIViewXRadialGradient.swift */; };
 		B9CAC8E320AF1155008F1650 /* UIViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D920AF1154008F1650 /* UIViewX.swift */; };
+		B9D45A0320CA528000E4E0E8 /* ResponseAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0220CA528000E4E0E8 /* ResponseAsset.swift */; };
+		B9D45A0520CA53F900E4E0E8 /* ResponseProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0420CA53F900E4E0E8 /* ResponseProduct.swift */; };
+		B9D45A0720CA55E200E4E0E8 /* ResponseSalesPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0620CA55E200E4E0E8 /* ResponseSalesPerson.swift */; };
+		B9D45A0920CA566C00E4E0E8 /* ResponseVendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0820CA566C00E4E0E8 /* ResponseVendor.swift */; };
+		B9D45A0B20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0A20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift */; };
+		B9D45A0D20CA57B800E4E0E8 /* ResponseNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0C20CA57B800E4E0E8 /* ResponseNotes.swift */; };
+		B9D45A1120CA741600E4E0E8 /* RequestForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A1020CA741600E4E0E8 /* RequestForgotPassword.swift */; };
+		B9D45A1420CA74CB00E4E0E8 /* ResponseForgorPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A1320CA74CB00E4E0E8 /* ResponseForgorPassword.swift */; };
 		B9E5265420B2B93600127E43 /* CreateTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5265320B2B93500127E43 /* CreateTransferViewController.swift */; };
 		B9E5265620B2BAA500127E43 /* InventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5265520B2BAA400127E43 /* InventoryViewController.swift */; };
 		B9E5265820B2BB7800127E43 /* InventoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E5265720B2BB7700127E43 /* InventoryTableViewCell.swift */; };
@@ -266,6 +274,14 @@
 		B9CAC8D720AF1154008F1650 /* UIViewAnchorPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewAnchorPoint.swift; sourceTree = "<group>"; };
 		B9CAC8D820AF1154008F1650 /* UIViewXRadialGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewXRadialGradient.swift; sourceTree = "<group>"; };
 		B9CAC8D920AF1154008F1650 /* UIViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewX.swift; sourceTree = "<group>"; };
+		B9D45A0220CA528000E4E0E8 /* ResponseAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAsset.swift; sourceTree = "<group>"; };
+		B9D45A0420CA53F900E4E0E8 /* ResponseProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseProduct.swift; sourceTree = "<group>"; };
+		B9D45A0620CA55E200E4E0E8 /* ResponseSalesPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseSalesPerson.swift; sourceTree = "<group>"; };
+		B9D45A0820CA566C00E4E0E8 /* ResponseVendor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseVendor.swift; sourceTree = "<group>"; };
+		B9D45A0A20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsePaymentsReceived.swift; sourceTree = "<group>"; };
+		B9D45A0C20CA57B800E4E0E8 /* ResponseNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseNotes.swift; sourceTree = "<group>"; };
+		B9D45A1020CA741600E4E0E8 /* RequestForgotPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestForgotPassword.swift; sourceTree = "<group>"; };
+		B9D45A1320CA74CB00E4E0E8 /* ResponseForgorPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseForgorPassword.swift; sourceTree = "<group>"; };
 		B9E5265320B2B93500127E43 /* CreateTransferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTransferViewController.swift; sourceTree = "<group>"; };
 		B9E5265520B2BAA400127E43 /* InventoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryViewController.swift; sourceTree = "<group>"; };
 		B9E5265720B2BB7700127E43 /* InventoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -371,6 +387,7 @@
 		189F82B320C501B70054986E /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				B9D45A0E20CA734600E4E0E8 /* APIForgotPassword */,
 				189F82B720C501B70054986E /* BaseResponseProtocol.swift */,
 				189F82DA20C50C090054986E /* BaseRequest.swift */,
 				18EE27AD20C95FDC002A329B /* APIBulkRequest */,
@@ -439,6 +456,12 @@
 				18EE27BB20C962BA002A329B /* ResponsePurchaseOrder.swift */,
 				B9AA85E520C973B200751BF2 /* ResponseShippingManifests.swift */,
 				B9AA85E720C97E0F00751BF2 /* ResponseCart.swift */,
+				B9D45A0220CA528000E4E0E8 /* ResponseAsset.swift */,
+				B9D45A0420CA53F900E4E0E8 /* ResponseProduct.swift */,
+				B9D45A0620CA55E200E4E0E8 /* ResponseSalesPerson.swift */,
+				B9D45A0820CA566C00E4E0E8 /* ResponseVendor.swift */,
+				B9D45A0A20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift */,
+				B9D45A0C20CA57B800E4E0E8 /* ResponseNotes.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -842,6 +865,31 @@
 			path = LoginModels;
 			sourceTree = "<group>";
 		};
+		B9D45A0E20CA734600E4E0E8 /* APIForgotPassword */ = {
+			isa = PBXGroup;
+			children = (
+				B9D45A1220CA748C00E4E0E8 /* ResponseModel */,
+				B9D45A0F20CA73CC00E4E0E8 /* RequestModel */,
+			);
+			path = APIForgotPassword;
+			sourceTree = "<group>";
+		};
+		B9D45A0F20CA73CC00E4E0E8 /* RequestModel */ = {
+			isa = PBXGroup;
+			children = (
+				B9D45A1020CA741600E4E0E8 /* RequestForgotPassword.swift */,
+			);
+			path = RequestModel;
+			sourceTree = "<group>";
+		};
+		B9D45A1220CA748C00E4E0E8 /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				B9D45A1320CA74CB00E4E0E8 /* ResponseForgorPassword.swift */,
+			);
+			path = ResponseModel;
+			sourceTree = "<group>";
+		};
 		B9E5267320B2DA2200127E43 /* Completed_Purchase Order Details */ = {
 			isa = PBXGroup;
 			children = (
@@ -1198,6 +1246,7 @@
 				189F82DB20C50C090054986E /* BaseRequest.swift in Sources */,
 				B9AA85E220C925B800751BF2 /* LoginModel.swift in Sources */,
 				B92A65AC20AF303500CDA4CC /* InvoicesTableViewCell.swift in Sources */,
+				B9D45A1120CA741600E4E0E8 /* RequestForgotPassword.swift in Sources */,
 				B92A65A820AF209200CDA4CC /* ShippingManifestViewController.swift in Sources */,
 				B9E5266620B2C38600127E43 /* ConfirmTransferTableViewCell.swift in Sources */,
 				182B921220C8394E0041915B /* ModelProductReceived.swift in Sources */,
@@ -1206,6 +1255,7 @@
 				189F82C320C501B70054986E /* ModelInvoice.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
 				B92755F920C1256B008F0499 /* DBManager.swift in Sources */,
+				B9D45A0520CA53F900E4E0E8 /* ResponseProduct.swift in Sources */,
 				182B921C20C83A360041915B /* ModelProduct.swift in Sources */,
 				B985566920B43B2900A56497 /* YPDrawSignatureView.swift in Sources */,
 				B9CAC8E020AF1155008F1650 /* UILabelX.swift in Sources */,
@@ -1219,6 +1269,7 @@
 				B9AA85DF20C9092A00751BF2 /* ResponseLogin.swift in Sources */,
 				B95A8A2720B420F200F76A15 /* ShippingItemsViewController.swift in Sources */,
 				B9E5266A20B2CAA100127E43 /* LookupPOsViewController.swift in Sources */,
+				B9D45A0D20CA57B800E4E0E8 /* ResponseNotes.swift in Sources */,
 				B9266C7320AED9BA0021356C /* SplashScreenVCViewController.swift in Sources */,
 				B92A65AA20AF2E3F00CDA4CC /* InvoicesViewController.swift in Sources */,
 				182B920420C7E0860041915B /* StoreImage.swift in Sources */,
@@ -1228,6 +1279,7 @@
 				18EE27B820C96262002A329B /* ResponseArrayPurchaseOrder.swift in Sources */,
 				B9E5266820B2C39300127E43 /* ReceiveShipmentTableViewCell.swift in Sources */,
 				B9E5265420B2B93600127E43 /* CreateTransferViewController.swift in Sources */,
+				B9D45A0720CA55E200E4E0E8 /* ResponseSalesPerson.swift in Sources */,
 				18EE27B420C96178002A329B /* ResponseInvoice.swift in Sources */,
 				182B920520C7E0860041915B /* HexGenerator.swift in Sources */,
 				B9E5265E20B2C2B100127E43 /* BasketViewController.swift in Sources */,
@@ -1240,9 +1292,11 @@
 				B9CAC8DA20AF1155008F1650 /* UIVisualEffectViewX.swift in Sources */,
 				B9CAC8DD20AF1155008F1650 /* UIButtonX.swift in Sources */,
 				182B921620C839A30041915B /* ModelSignature.swift in Sources */,
+				B9D45A1420CA74CB00E4E0E8 /* ResponseForgorPassword.swift in Sources */,
 				189F82BF20C501B70054986E /* ResponseGetAllInvoices.swift in Sources */,
 				189F82C020C501B70054986E /* ResponseInvoices.swift in Sources */,
 				B985566F20B440E500A56497 /* WebServicesAPI.swift in Sources */,
+				B9D45A0B20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift in Sources */,
 				18EE27B020C96003002A329B /* ResponseBulkRequest.swift in Sources */,
 				B9CAC8DF20AF1155008F1650 /* UIViewControllerX.swift in Sources */,
 				1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */,
@@ -1272,6 +1326,7 @@
 				B9E5265620B2BAA500127E43 /* InventoryViewController.swift in Sources */,
 				B9CAC8DC20AF1155008F1650 /* UISliderX.swift in Sources */,
 				B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */,
+				B9D45A0920CA566C00E4E0E8 /* ResponseVendor.swift in Sources */,
 				18EE27BA20C962AB002A329B /* ResponseInventory.swift in Sources */,
 				1846DBA820B21B5B0076BECD /* DistributionConfig.swift in Sources */,
 				B9E5268120B2DF9200127E43 /* PurchaseOrderTableViewCell.swift in Sources */,
@@ -1281,6 +1336,7 @@
 				1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */,
 				B9E5266C20B2CF0E00127E43 /* PurchaseOrderDetailsTableViewController.swift in Sources */,
 				B92A65B020AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift in Sources */,
+				B9D45A0320CA528000E4E0E8 /* ResponseAsset.swift in Sources */,
 				189F82D520C5084D0054986E /* RequestLogin.swift in Sources */,
 				B9E5266E20B2D18E00127E43 /* POStaticDetailsTableViewController.swift in Sources */,
 				B95A8A3420B424A100F76A15 /* QuantityAndBatchViewController.swift in Sources */,
