@@ -1,8 +1,19 @@
 
-CartProduct
+ItemsToShip
+- name        =
+- batchId     =
+- quantity    =
+
+InvoiceItems
 - name        = Invoice.Cart.item.product.name
 - batchId     = Invoice.Cart.item.batchId
 - quantity    = Invoice.Cart.item.quantity
+
+PurchaseOrderProduct
+- name        =
+- batchId     =
+- quantity    =
+
 
 RemainingProduct
 - productId             = Invoice.remainingProductInformations.productId
@@ -39,7 +50,7 @@ ShippingMenifest Table
 - driverColor               = ?
 - driverLicenPlate          = ShipMen.vehicleLicensePlate
 - asset:Asset               = ShipMen.signaturePhoto
-- itemsToShip: [CartProduct]    = ?         // created by by ios Device in Post these will be selected from Invoice.items
+- itemsToShip: [ItemsToShip]    = ?         // created by by ios Device in Post these will be selected from Invoice.items
 
 Invoice
 - invoicenumber                         = Invoice.invoiceNumber
@@ -49,7 +60,8 @@ Invoice
 - total                                 = Invoice.total
 - balanceDue                            = Invoice.balanceDue
 - remainingProducts: [RemainingProduct] = Invoice.remainingProductInformations
-- items: [CartProduct]                  = Invoice.items
+- items: [InvoiceItems]                  = Invoice.items
+    id                                  =   productId
 - paymentsReceived: [paymentsReceived]            = Inovoice.paymentsReceived
 - shippingMenifests: [ShippingMenifest] = Invoice.shippingManifests
 
@@ -86,7 +98,7 @@ PurchaseOrder
 - status                      = PurchaseOrder.purchaseOrderStatus
 - origin                      = ?
 - received                    = PurchaseOrder.receivedDate
-- productInShipment:[CartProduct] = PurchaseOrder.poProductRequestResultList
+- productInShipment:[PurchaseOrderProduct] = PurchaseOrder.poProductRequestResultList
 - productReceived:[ProductReceived] = ? // Created by ios device
 
 Products
