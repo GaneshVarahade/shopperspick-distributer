@@ -180,6 +180,17 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         print("---Inventory Data Save---")
         getData()
     }
+    func saveDataProduct(jsonData:ResponseProducts){
+        
+        if let products = jsonData.values{
+         
+            for prod in products{
+             
+                
+                
+            }
+        }
+    }
     func getData(){
         
         SKActivityIndicator.show()

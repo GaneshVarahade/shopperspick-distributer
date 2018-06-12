@@ -83,6 +83,8 @@
 		B942E45E20CFD26C00E474E1 /* ModelAddres.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45D20CFD26C00E474E1 /* ModelAddres.swift */; };
 		B942E46320D00A4000E474E1 /* ResponseProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E46220D00A4000E474E1 /* ResponseProduct.swift */; };
 		B942E46520D00B5300E474E1 /* ResponseQuantities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E46420D00B5300E474E1 /* ResponseQuantities.swift */; };
+		B942E46720D0103A00E474E1 /* ModelProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E46620D0103A00E474E1 /* ModelProduct.swift */; };
+		B942E46920D010D800E474E1 /* ModelQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E46820D010D800E474E1 /* ModelQuantity.swift */; };
 		B95A8A2720B420F200F76A15 /* ShippingItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */; };
 		B95A8A2920B4220F00F76A15 /* AddPaymentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */; };
 		B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2B20B422F300F76A15 /* ItemsToShipViewController.swift */; };
@@ -257,6 +259,8 @@
 		B942E45D20CFD26C00E474E1 /* ModelAddres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAddres.swift; sourceTree = "<group>"; };
 		B942E46220D00A4000E474E1 /* ResponseProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseProduct.swift; sourceTree = "<group>"; };
 		B942E46420D00B5300E474E1 /* ResponseQuantities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseQuantities.swift; sourceTree = "<group>"; };
+		B942E46620D0103A00E474E1 /* ModelProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProduct.swift; sourceTree = "<group>"; };
+		B942E46820D010D800E474E1 /* ModelQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelQuantity.swift; sourceTree = "<group>"; };
 		B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingItemsViewController.swift; sourceTree = "<group>"; };
 		B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentTableViewController.swift; sourceTree = "<group>"; };
 		B95A8A2B20B422F300F76A15 /* ItemsToShipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsToShipViewController.swift; sourceTree = "<group>"; };
@@ -435,6 +439,8 @@
 				1812B33E20CAB31800B4DC26 /* ModelInventory.swift */,
 				B942E45B20CFC11400E474E1 /* ModelInvoiceItems.swift */,
 				B942E45D20CFD26C00E474E1 /* ModelAddres.swift */,
+				B942E46620D0103A00E474E1 /* ModelProduct.swift */,
+				B942E46820D010D800E474E1 /* ModelQuantity.swift */,
 			);
 			path = RealmModels;
 			sourceTree = "<group>";
@@ -1270,6 +1276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B942E46920D010D800E474E1 /* ModelQuantity.swift in Sources */,
 				B9E5268320B2DFC800127E43 /* AddItemTableViewCell.swift in Sources */,
 				B985566720B438AD00A56497 /* ReachabilityManager.swift in Sources */,
 				1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */,
@@ -1319,6 +1326,7 @@
 				B942E46320D00A4000E474E1 /* ResponseProduct.swift in Sources */,
 				B9E5265820B2BB7800127E43 /* InventoryTableViewCell.swift in Sources */,
 				182B921420C8397B0041915B /* ModelPurchaseOrder.swift in Sources */,
+				B942E46720D0103A00E474E1 /* ModelProduct.swift in Sources */,
 				18EE27B820C96262002A329B /* ResponseArrayPurchaseOrder.swift in Sources */,
 				B9E5266820B2C39300127E43 /* ReceiveShipmentTableViewCell.swift in Sources */,
 				B9E5265420B2B93600127E43 /* CreateTransferViewController.swift in Sources */,

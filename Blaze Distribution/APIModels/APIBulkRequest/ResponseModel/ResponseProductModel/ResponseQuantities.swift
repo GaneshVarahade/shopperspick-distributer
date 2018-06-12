@@ -15,5 +15,5 @@ public class ResponseQuantities:BaseResponseModel{
     public var updated: Bool?
     public var companyId: String?
     public var inventoryId:String?
-    public var quantity:Double = 0.0
+    public var quantity:Double?
 }
