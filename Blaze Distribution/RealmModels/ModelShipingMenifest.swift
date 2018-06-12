@@ -21,7 +21,6 @@ public class ModelShipingMenifest:ModelBase {
     @objc public var vehicleLicensePlate:String? = ""
     @objc public var driverLicenPlate:String?    = ""
     @objc public var signaturePhoto:String?      = ""
-
     @objc public var receiverCompany:String?     = ""
     @objc public var receiverType:String?        = ""
     @objc public var receiverContact:String?     = ""
@@ -30,10 +29,9 @@ public class ModelShipingMenifest:ModelBase {
 
     
     @objc public var asset:ModelAssets?
-    var itemsToShip = List<ModelProduct>()
+    var itemsToShip = List<ModelCartProduct>()
     open override class func primaryKey() -> String? {
         return "id"
-        
     }
    
     public override func copy(with zone: NSZone?) -> Any { 
@@ -59,7 +57,7 @@ public class ModelShipingMenifest:ModelBase {
        
         for itos in self.itemsToShip {
             
-            modelShipingMenifest.itemsToShip.append(itos.copy() as! ModelProduct)
+            modelShipingMenifest.itemsToShip.append(itos.copy() as! ModelCartProduct)
             
         }
         

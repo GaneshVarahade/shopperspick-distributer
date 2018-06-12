@@ -24,4 +24,5 @@ public class ResponseInvoice :BaseResponseModel{
     public var items:[ResponseCartProduct]?
     public var paymentsReceived:[ResponsePaymentsReceived]?
     public var shippingManifests: [ResponseShippingManifests]?
+    public var remainingProducts:[ResponseRemaingProduct]?
 }

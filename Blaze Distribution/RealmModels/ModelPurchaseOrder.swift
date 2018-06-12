@@ -17,7 +17,7 @@ public class ModelPurchaseOrder:ModelBase{
     @objc public dynamic var status:String?              = ""
     @objc public dynamic var origin:String?              = ""
     @objc public dynamic var received:String?            = ""
-    var productInShipment = List<ModelProduct>()
+   // var productInShipment = List<ModelProduct>()
     var productReceived   = List<ModelProductReceived>()
     public override func copy(with zone:NSZone? = nil) -> Any {
         
@@ -29,9 +29,9 @@ public class ModelPurchaseOrder:ModelBase{
         modelPurchaseOrder.origin              = self.origin
         modelPurchaseOrder.received            = self.received
         
-        for prodInShip in self.productInShipment{
-            modelPurchaseOrder.productInShipment.append(prodInShip.copy() as! ModelProduct)
-        }
+      //  for prodInShip in self.productInShipment{
+     //       modelPurchaseOrder.productInShipment.append(prodInShip.copy() as! ModelProduct)
+     //   }
         for prodRcv in self.productReceived{
             modelPurchaseOrder.productReceived.append(prodRcv)
         }

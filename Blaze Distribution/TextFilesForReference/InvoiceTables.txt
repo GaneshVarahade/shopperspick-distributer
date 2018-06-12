@@ -39,7 +39,8 @@ ShippingMenifest Table
 - driverColor               = ?
 - driverLicenPlate          = ShipMen.vehicleLicensePlate
 - asset:Asset               = ShipMen.signaturePhoto
-- itemsToShip: [CartProduct]    = ?         // created by by ios Device in Post these will be selected from Invoice.items
+- itemsToShip: [
+]    = ?         // created by by ios Device in Post these will be selected from Invoice.items
 
 Invoice
 - invoicenumber                         = Invoice.invoiceNumber

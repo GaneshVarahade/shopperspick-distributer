@@ -18,6 +18,9 @@ public class ModelPaymentInfo:ModelBase{
     @objc public dynamic var referenceNumber:String = ""
     @objc public dynamic var amount:Double          = 0.0
     @objc public dynamic var notest:String          = ""
+    open override class func primaryKey() -> String? {
+        return "id"
+    }
     
     public override func copy(with zone: NSZone? = nil) -> Any {
         let modelPaymentInfo             = ModelPaymentInfo()

@@ -84,11 +84,36 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
                 model.contact           = valu.companyContact
                 model.total             = valu.total!
                 
+                if let remaingProducts = valu.remainingProducts{
+                    for remProd  in remaingProducts{
+                     let temp   = ModelRemainingProduct()
+                        temp.productId = remProd.productId
+                        temp.productName = remProd.productName
+                        temp.requestQuantity = remProd.requestQuantity!
+                        temp.remainingQuantity = remProd.remainingQuantity!
+                        model.remainingProducts.append(temp)
+                        print("Reaming Product ID:",remProd.productId!)
+                    }
+                }else{
+                    
+                    print("Remaing nil..")
+                }
                 
+                
+                ///Mapping Items
                 if let items = valu.items{
+                    for item in items{
+                        let itemTemp = ModelCartProduct()
+                        itemTemp.id = item.id
+                        itemTemp.name = item.name
+                        itemTemp.quantity = item.quantity!
+                        model.items.append(itemTemp)
+                        print("Item ID:",item.id!)
+
+                    }
                     
                 }else{
-                    print("Items nil")
+                  //  print("Items nil")
                 }
                 
                 
@@ -97,14 +122,16 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
                 
                     for payment in paymentRec{
                         let paymentTemp             = ModelPaymentInfo()
+                        paymentTemp.id              = payment.id
                         paymentTemp.paymentDate     = payment.paidDate!
-                        paymentTemp.referenceNumber = payment.referenceNo!
+                        paymentTemp.referenceNumber = payment.referenceNo ?? ""
                         paymentTemp.amount          = payment.amountPaid!
+                        print("Payment ID:",payment.id!)
                         model.paymentInfo.append(paymentTemp)
                     }
                 }else{
                     
-                    print("Payment info nil")
+                  //  print("Payment info nil")
                 }
                 
                 ///Mapping Shipping Manifests

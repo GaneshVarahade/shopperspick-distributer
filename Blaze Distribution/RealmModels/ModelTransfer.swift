@@ -17,7 +17,7 @@ public class ModelTransfer:ModelBase{
     @objc public dynamic var date:String?    = ""
     @objc public dynamic var fromLocation:ModelLocation?
     @objc public dynamic var toLocation:ModelLocation?
-    var product = List<ModelProduct>()
+   // var product = List<ModelProduct>()
     public override func copy(with zone:NSZone? = nil) -> Any {
         
         let modelTransfer          = ModelTransfer()
@@ -26,10 +26,9 @@ public class ModelTransfer:ModelBase{
         modelTransfer.date         = self.date
         modelTransfer.fromLocation = self.fromLocation
         modelTransfer.toLocation   = self.toLocation
-        for prod in self.product{
-            
-            modelTransfer.product.append(prod.copy() as! ModelProduct)
-        }
+//        for prod in self.product{
+//            modelTransfer.product.append(prod.copy() as! ModelProduct)
+//        }
         return modelTransfer
     }
 }

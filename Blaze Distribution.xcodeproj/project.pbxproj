@@ -22,7 +22,7 @@
 		182B921620C839A30041915B /* ModelSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921520C839A30041915B /* ModelSignature.swift */; };
 		182B921820C839C00041915B /* ModelAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921720C839C00041915B /* ModelAssets.swift */; };
 		182B921A20C83A140041915B /* ModelPaymentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921920C83A140041915B /* ModelPaymentInfo.swift */; };
-		182B921C20C83A360041915B /* ModelProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921B20C83A360041915B /* ModelProduct.swift */; };
+		182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921B20C83A360041915B /* ModelCartProduct.swift */; };
 		1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7B20B213010076BECD /* TextHelpers.swift */; };
 		1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7C20B213010076BECD /* SwiftExtentions.swift */; };
 		1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */; };
@@ -81,6 +81,8 @@
 		B92DAF5720B6FFAE0021EE30 /* ModelLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92DAF5620B6FFAE0021EE30 /* ModelLogin.swift */; };
 		B942801820CE5DF500F2FA0F /* RequestBulkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942801720CE5DF500F2FA0F /* RequestBulkAPI.swift */; };
 		B942801A20CE708400F2FA0F /* ReponseCartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942801920CE708400F2FA0F /* ReponseCartProduct.swift */; };
+		B942E45620CFA19300E474E1 /* ModelRemainingProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45520CFA19300E474E1 /* ModelRemainingProduct.swift */; };
+		B942E45820CFA48000E474E1 /* ResponseRemaingProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45720CFA48000E474E1 /* ResponseRemaingProduct.swift */; };
 		B95A8A2720B420F200F76A15 /* ShippingItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */; };
 		B95A8A2920B4220F00F76A15 /* AddPaymentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */; };
 		B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2B20B422F300F76A15 /* ItemsToShipViewController.swift */; };
@@ -179,7 +181,7 @@
 		182B921520C839A30041915B /* ModelSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSignature.swift; sourceTree = "<group>"; };
 		182B921720C839C00041915B /* ModelAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAssets.swift; sourceTree = "<group>"; };
 		182B921920C83A140041915B /* ModelPaymentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPaymentInfo.swift; sourceTree = "<group>"; };
-		182B921B20C83A360041915B /* ModelProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProduct.swift; sourceTree = "<group>"; };
+		182B921B20C83A360041915B /* ModelCartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCartProduct.swift; sourceTree = "<group>"; };
 		1846DB7B20B213010076BECD /* TextHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelpers.swift; sourceTree = "<group>"; };
 		1846DB7C20B213010076BECD /* SwiftExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtentions.swift; sourceTree = "<group>"; };
 		1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVar.swift; sourceTree = "<group>"; };
@@ -253,6 +255,8 @@
 		B92DAF5620B6FFAE0021EE30 /* ModelLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLogin.swift; sourceTree = "<group>"; };
 		B942801720CE5DF500F2FA0F /* RequestBulkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBulkAPI.swift; sourceTree = "<group>"; };
 		B942801920CE708400F2FA0F /* ReponseCartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponseCartProduct.swift; sourceTree = "<group>"; };
+		B942E45520CFA19300E474E1 /* ModelRemainingProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRemainingProduct.swift; sourceTree = "<group>"; };
+		B942E45720CFA48000E474E1 /* ResponseRemaingProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseRemaingProduct.swift; sourceTree = "<group>"; };
 		B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingItemsViewController.swift; sourceTree = "<group>"; };
 		B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentTableViewController.swift; sourceTree = "<group>"; };
 		B95A8A2B20B422F300F76A15 /* ItemsToShipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsToShipViewController.swift; sourceTree = "<group>"; };
@@ -429,7 +433,7 @@
 				182B921520C839A30041915B /* ModelSignature.swift */,
 				182B921720C839C00041915B /* ModelAssets.swift */,
 				182B921920C83A140041915B /* ModelPaymentInfo.swift */,
-				182B921B20C83A360041915B /* ModelProduct.swift */,
+				182B921B20C83A360041915B /* ModelCartProduct.swift */,
 				1812B33E20CAB31800B4DC26 /* ModelInventory.swift */,
 			);
 			path = RealmModels;
@@ -473,6 +477,7 @@
 				B9D45A0C20CA57B800E4E0E8 /* ResponseNotes.swift */,
 				B942801920CE708400F2FA0F /* ReponseCartProduct.swift */,
 				B910833320CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift */,
+				B942E45720CFA48000E474E1 /* ResponseRemaingProduct.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -880,6 +885,7 @@
 			isa = PBXGroup;
 			children = (
 				B9AA85E120C925B800751BF2 /* LoginModel.swift */,
+				B942E45520CFA19300E474E1 /* ModelRemainingProduct.swift */,
 			);
 			path = LoginModels;
 			sourceTree = "<group>";
@@ -1274,7 +1280,7 @@
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
 				B92755F920C1256B008F0499 /* DBManager.swift in Sources */,
 				B9D45A0520CA53F900E4E0E8 /* ResponseProduct.swift in Sources */,
-				182B921C20C83A360041915B /* ModelProduct.swift in Sources */,
+				182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */,
 				B985566920B43B2900A56497 /* YPDrawSignatureView.swift in Sources */,
 				B9CAC8E020AF1155008F1650 /* UILabelX.swift in Sources */,
 				B985566D20B43B8700A56497 /* ShippingManifestTableViewCell.swift in Sources */,
@@ -1314,6 +1320,7 @@
 				B9D45A1420CA74CB00E4E0E8 /* ResponseForgorPassword.swift in Sources */,
 				189F82BF20C501B70054986E /* ResponseGetAllInvoices.swift in Sources */,
 				189F82C020C501B70054986E /* ResponseInvoices.swift in Sources */,
+				B942E45820CFA48000E474E1 /* ResponseRemaingProduct.swift in Sources */,
 				B985566F20B440E500A56497 /* WebServicesAPI.swift in Sources */,
 				B9D45A0B20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift in Sources */,
 				18EE27B020C96003002A329B /* ResponseBulkRequest.swift in Sources */,
@@ -1345,6 +1352,7 @@
 				B9E5266320B2C35A00127E43 /* BasketTableViewCell.swift in Sources */,
 				B9E5265C20B2C1EE00127E43 /* LookUpProductViewController.swift in Sources */,
 				B9E5265620B2BAA500127E43 /* InventoryViewController.swift in Sources */,
+				B942E45620CFA19300E474E1 /* ModelRemainingProduct.swift in Sources */,
 				B9CAC8DC20AF1155008F1650 /* UISliderX.swift in Sources */,
 				B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */,
 				B9D45A0920CA566C00E4E0E8 /* ResponseVendor.swift in Sources */,
