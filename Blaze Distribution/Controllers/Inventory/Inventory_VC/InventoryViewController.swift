@@ -21,15 +21,6 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     var inventoryData : [ModelInventory] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        self.title = "Inventory"
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         SKActivityIndicator.show()
         let requestBulk = RequestBulkAPI()
         WebServicesAPI.sharedInstance().BulkAPI(request: requestBulk) { (result:ResponseBulkRequest?,error:PlatformError?) in
@@ -40,6 +31,16 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             self.saveDataInvoice(jsonData: result?.invoice)
             self.saveDataInventory(jsonData: result?.inventoryTransfers)
         }
+        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.title = "Inventory"
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
     }
     
     // MARK:- UISegmentController Valu Changed
@@ -162,6 +163,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             for value in values{
                 let tempInventory = ModelInventory()
                 tempInventory.id = value.id
+                tempInventory.created = value.created!
                 tempInventory.transferNo = value.transferNo
                 tempInventory.fromInventoryName = value.fromInventoryName
                 tempInventory.fromShopName = value.fromShopName
@@ -203,15 +205,17 @@ extension InventoryViewController{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
+        let cell = inventoryTableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
         let temp   = inventoryData[indexPath.row]
-        cell.nameLabel.text    =  "ASA"//temp.toInventoryName
+        cell.nameLabel.text    =  temp.toInventoryName
         cell.requestLabel.text =  temp.transferNo
+        
         if segmentControl.selectedSegmentIndex == 0 {
             cell.dateLabel.isHidden = false
-            cell.dateLabel.text     = temp.fromShopId
+            cell.dateLabel.text     = String(temp.created)
         }
         else {
+            
             cell.dateLabel.isHidden = true
         }
         return cell
