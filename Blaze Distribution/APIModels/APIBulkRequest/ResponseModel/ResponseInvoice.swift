@@ -17,8 +17,11 @@ public class ResponseInvoice :BaseResponseModel{
     public var companyId: String?
     public var invoiceNumber: String?
     public var dueDate:Int?
+    public var company:ResponseVendor?
     public var balanceDue:Double?
+    public var companyContact:String?
+    public var total:Double?
+    public var items:[ResponseCartProduct]?
+    public var paymentsReceived:[ResponsePaymentsReceived]?
     public var shippingManifests: [ResponseShippingManifests]?
-    public var total: ResponseCart?
-   
 }

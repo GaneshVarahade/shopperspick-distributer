@@ -20,6 +20,7 @@ public class LoginModel:ModelBase {
     @objc public var appType:String?
     @objc public var appTarget:String?
     @objc public var sessionId:String?
+    var   shops = List<ShopsModel>()
     open override class func primaryKey() -> String? {
         return "id"
     }
@@ -34,6 +35,9 @@ public class LoginModel:ModelBase {
         loginModel.assignedShop     = self.assignedShop
         loginModel.sessionId        = self.sessionId
         loginModel.assignedTerminal = self.assignedTerminal
+        for shop in self.shops {
+            loginModel.shops.append(shop.copy() as! ShopsModel)
+        }
         return loginModel
     }
     
@@ -116,5 +120,19 @@ public class AddressModel:ModelBase{
         addressModel.state   = self.state
     
         return addressModel
+    }
+}
+public class ShopsModel:ModelBase{
+    @objc public var name:String? = ""
+    @objc public var shopType:String? = ""
+    open override class func primaryKey() -> String? {
+        return "id"
+    }
+    public override func copy(with zone: NSZone?) -> Any {
+        let shopsModel = ShopsModel()
+        shopsModel.id  = self.id
+        shopsModel.name = self.name
+        shopsModel.shopType = self.shopType
+        return shopsModel
     }
 }

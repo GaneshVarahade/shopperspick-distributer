@@ -8,20 +8,15 @@
 
 import Foundation
 
-public class ResponseArrayInvoice: BaseResponseModel {
-    
+public class ResponseArrayInvoice:BaseResponseModel{
     public var id: String?
-    
     public var created: Int?
-    
     public var modified: Int?
-    
     public var deleted: Bool?
-    
     public var updated: Bool?
-    
     public var companyId: String?
-    
-    
-    var values: [ResponseInvoice]?
+    public var total:Int?
+    public var beforeDate:Int?
+    public var afterDate:Int?
+    public var values:[ResponseInvoice]?
 }

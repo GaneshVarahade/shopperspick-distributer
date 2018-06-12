@@ -40,10 +40,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         SKActivityIndicator.show()
 
         let reqLogin:RequestLogin = RequestLogin()
-        reqLogin.email = txtEmail.text!
+        reqLogin.email    = txtEmail.text!
         reqLogin.password = txtPassword.text!
-        reqLogin.version = "2.10.9"
+        reqLogin.version  = "2.10.10"
+        reqLogin.deviceId = "1F036D8E-1EE4-4C1C-B451-0EA44760344F"
         
+        print(UIDevice.current.identifierForVendor!.uuidString)
         WebServicesAPI.sharedInstance().loginAPI(request: reqLogin, onComplition: {(result:ResponseLogin?, error:PlatformError?) in
             
             SKActivityIndicator.dismiss()
@@ -53,6 +55,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
+           
             self.saveData(jsonData: result)
             //AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: result?.accessToken ?? "Access nil")
             UtilityUserDefaults.sharedInstance().saveToken(strToken: (result?.accessToken)!)
@@ -126,6 +129,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
                 print("Address nil")
             }
+            ///Shops Mapping
+            if let shops = data.shops{
+                
+                for shop in shops{
+                let temp = ShopsModel()
+                    temp.id = shop.id
+                    temp.name = shop.name
+                    temp.shopType = shop.shopType
+                    modelLogin.shops.append(temp)
+                }
+                
+            }else{
+            
+                print("Shops nil")
+            }
+                
             RealmManager().write(table: modelLogin)
             print("----Login Data Save----")
         }else{

@@ -13,10 +13,10 @@ import RealmSwift
 public class ModelPaymentInfo:ModelBase{
     
     @objc public dynamic var debitNo:String?        = ""
-    @objc public dynamic var ACHTransfer:String     = ""
-    @objc public dynamic var paymentDate:String     = ""
+    @objc public dynamic var ACHTransfer:String?     = ""
+    @objc public dynamic var paymentDate:Int        =   0
     @objc public dynamic var referenceNumber:String = ""
-    @objc public dynamic var amount:String          = ""
+    @objc public dynamic var amount:Double          = 0.0
     @objc public dynamic var notest:String          = ""
     
     public override func copy(with zone: NSZone? = nil) -> Any {

@@ -46,9 +46,9 @@ class ShipingController: UIViewController {
                         let model: ModelInvoice = ModelInvoice()
                         model.id                = responseInvoice.id
                         model.companyId         = responseInvoice.companyId
-                        model.shopId            = responseInvoice.shopId
+                        //model.shopId            = responseInvoice.shopId
                         model.invoiceNumber     = responseInvoice.invoiceNumber
-                        model.customerId        = responseInvoice.customerId
+                       // model.customerId        = responseInvoice.customerId
                         
 //                        if responseInvoice.shippingManifests != nil, responseInvoice.shippingManifests!.count > 0 {
 //                            //print("From json shipingMenifest: " + (responseInvoice.shippingManifests![0].shippingManifestNo)!)

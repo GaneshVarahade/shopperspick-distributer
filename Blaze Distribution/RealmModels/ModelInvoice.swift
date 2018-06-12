@@ -12,24 +12,17 @@ import RealmSwift
 
 public class ModelInvoice:ModelBase {
 
-    @objc public dynamic var shopId: String?         = ""
-    @objc public dynamic var customerId: String?     = ""
+  
+ 
     @objc public dynamic var invoiceNumber: String?  = ""
     @objc public dynamic var dueDate:String?         = ""
-    @objc public dynamic var employeeName:String?    = ""
-    @objc public dynamic var duedate:String?         = ""
     @objc public dynamic var company:String?         = ""
     @objc public dynamic var contact:String?         = ""
-    @objc public dynamic var total:String?           = ""
-    @objc public dynamic var balanceDue:String?      = ""
-    @objc public dynamic var receiverCompany:String? = ""
-    @objc public dynamic var receiverType:String?    = ""
-    @objc public dynamic var receiverContact:String? = ""
-    @objc public dynamic var receiverLicense:String? = ""
-    @objc public dynamic var receiverAddress:String? = ""
+    @objc public dynamic var total:Double           = 0.0
+    @objc public dynamic var balanceDue:Double      = 0.0
     //var remainingProducts = List<ModelProduct>()
     //var items = List<ModelProduct>()
-   // var paymentInfo = List<ModelPaymentInfo>()
+    var paymentInfo = List<ModelPaymentInfo>()
     var shippingManifests = List<ModelShipingMenifest>()
     open override class func primaryKey() -> String? {
         return "id"
@@ -39,11 +32,8 @@ public class ModelInvoice:ModelBase {
         let modelInvoice               = ModelInvoice()
         modelInvoice.id                = self.id
         modelInvoice.companyId         = self.companyId
-        modelInvoice.shopId            = self.shopId
-        modelInvoice.customerId        = self.customerId
         modelInvoice.invoiceNumber     = self.invoiceNumber
         modelInvoice.dueDate           = self.dueDate
-        modelInvoice.employeeName      = self.employeeName
         modelInvoice.company           = self.company
 //        modelInvoice.contact           = self.contact
 //        modelInvoice.total             = self.total

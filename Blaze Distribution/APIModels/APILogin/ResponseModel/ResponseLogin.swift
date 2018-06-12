@@ -16,12 +16,15 @@ public class ResponseLogin:BaseResponseModel{
     public var companyId: String?
     public var accessToken: String?
     public var assetAccessToken: String?
+    public var appType: String?
+    
+    public var appTarget: String?
+    public var sessionId: String?
+    public var shops:[ResponseShop]?
     public var employee: ResponseEmployee?
     public var assignedShop: ResponseAssignedShop?
     public var assignedTerminal: ResponseAssignedTerminal?
-    public var appType: String?
-    public var appTarget: String?
-    public var sessionId: String?
+    
 }
 
 public class ResponseEmployee:BaseResponseModel{
@@ -63,6 +66,17 @@ public class ResponseAssignedTerminal:BaseResponseModel{
     public var assignedInventoryId: String?
     public var currentEmployeeId: String?
     
+}
+
+public class ResponseShop:BaseResponseModel{
+    public var id:String?
+    public var created: Int?
+    public var modified: Int?
+    public var deleted: Bool?
+    public var updated: Bool?
+    public var companyId: String?
+    public var name:String?
+    public var shopType:String?
 }
 
 public class ResponseAddress:BaseResponseModel{

@@ -90,6 +90,10 @@ class WebServicesAPI: NSObject {
         
         makeRequest(Router.forgotPassword(request: request), callback: onComplition)
     }
+    func BulkAPI(request:RequestBulkAPI,onComplition:@escaping (_ result:ResponseBulkRequest?, _ error:PlatformError?)-> ()){
+        makeRequest(Router.bulkGet(), callback: onComplition)
+        
+    }
     private func printRequest(_ requestUrl:URLRequest?,_ data: Any?){
         
         let str = "Request is Nil"
@@ -105,9 +109,9 @@ class WebServicesAPI: NSObject {
             //Convert back to string.
             if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
                 
-                //print(JSONString)
-                AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "URL: \(requestUrl?.description ?? str)")
-                AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str) \n Response: \(JSONString)")
+               // print(JSONString)
+              //  AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "URL: \(requestUrl?.description ?? str)")
+              //  AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str) \n Response: \(JSONString)")
                 
             }else{
                 AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "NonJson Response: \(jsonData)")

@@ -12,19 +12,23 @@ import RealmSwift
 
 public class ModelShipingMenifest:ModelBase {
     
-    @objc public var shopId: String?             = ""
-    @objc public var invoiceId: String?          = ""
-    @objc public var shippingManifestNo: String? = ""
-    @objc public var invoiceAmount: Double       = 0.0
-    @objc public var invoiceBalanceDue: Double   = 0.0
-    @objc public var shippingNo: Int             = 0
+    @objc public var shippingManifestNo:String?  = ""
     @objc public var deliveryDate : Int          = 0
     @objc public var driverName:String?          = ""
-    @objc public var driverLicenseNumber         = 0
-    @objc public var driverMake:String?          = ""
-    @objc public var driverModel:String?         = ""
-    @objc public var driverColor:String?         = ""
+    @objc public var driverLicenseNumber:String? = ""
+    @objc public var vehicleMake:String?         = ""
+    @objc public var vehicleModel:String?        = ""
+    @objc public var vehicleLicensePlate:String? = ""
     @objc public var driverLicenPlate:String?    = ""
+    @objc public var signaturePhoto:String?      = ""
+
+    @objc public var receiverCompany:String?     = ""
+    @objc public var receiverType:String?        = ""
+    @objc public var receiverContact:String?     = ""
+    @objc public var receiverLicense:String?     = ""
+     var receiverAddress:ModelAddres?
+
+    
     @objc public var asset:ModelAssets?
     var itemsToShip = List<ModelProduct>()
     open override class func primaryKey() -> String? {
@@ -37,21 +41,22 @@ public class ModelShipingMenifest:ModelBase {
         let modelShipingMenifest                 = ModelShipingMenifest()
         modelShipingMenifest.id                  = self.id
         modelShipingMenifest.companyId           = self.companyId
-        modelShipingMenifest.shopId              = self.shopId
-        modelShipingMenifest.invoiceId           = self.invoiceId
         modelShipingMenifest.shippingManifestNo  = self.shippingManifestNo
-        modelShipingMenifest.invoiceAmount       = self.invoiceAmount
-        modelShipingMenifest.invoiceBalanceDue   = self.invoiceBalanceDue
-        modelShipingMenifest.shippingNo          = self.shippingNo
         modelShipingMenifest.deliveryDate        = self.deliveryDate
         modelShipingMenifest.driverName          = self.driverName
         modelShipingMenifest.driverLicenseNumber = self.driverLicenseNumber
-        modelShipingMenifest.driverMake          = self.driverMake
-        modelShipingMenifest.driverModel         = self.driverModel
-        modelShipingMenifest.driverColor         = self.driverColor
+        modelShipingMenifest.vehicleMake         = self.vehicleMake
+        modelShipingMenifest.vehicleModel        = self.vehicleModel
+        modelShipingMenifest.signaturePhoto      = self.signaturePhoto
         modelShipingMenifest.driverLicenPlate    = self.driverLicenPlate
+        modelShipingMenifest.vehicleLicensePlate = self.vehicleLicensePlate
+        modelShipingMenifest.receiverCompany     = self.receiverCompany
+        modelShipingMenifest.receiverType        = self.receiverType
+        modelShipingMenifest.receiverContact     = self.receiverContact
+        modelShipingMenifest.receiverLicense     = self.receiverLicense
+        modelShipingMenifest.receiverAddress     = self.receiverAddress
         modelShipingMenifest.asset               = self.asset
-        
+       
         for itos in self.itemsToShip {
             
             modelShipingMenifest.itemsToShip.append(itos.copy() as! ModelProduct)
@@ -63,6 +68,6 @@ public class ModelShipingMenifest:ModelBase {
     }
     
     public func getString() -> String {
-        return "id: \(self.id), companyId:\(self.companyId), shopId: \(self.shopId)"
+        return "id: \(self.id), companyId:\(self.companyId)"
     }
 }
