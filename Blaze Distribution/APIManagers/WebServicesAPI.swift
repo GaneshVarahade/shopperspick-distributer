@@ -82,10 +82,10 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.sessionLogin(request: request), callback: onComplition)
     }
     
-    func InvoiceAPI(request:RequestInvoices,onComplition:@escaping (_ result:ResponseGetAllInvoices?, _ error:PlatformError?)-> ()){
-        
-        makeRequest(Router.sessionInvoice(request: ["shopId":request.shopId]), callback: onComplition)
-    }
+//    func InvoiceAPI(request:RequestInvoices,onComplition:@escaping (_ result:ResponseGetAllInvoices?, _ error:PlatformError?)-> ()){
+//        
+//        makeRequest(Router.sessionInvoice(request: ["shopId":request.shopId]), callback: onComplition)
+//    }
     func ForgorPasswordAPI(request:RequestForgotPassword,onComplition:@escaping (_ result:ResponseForgotPassword?, _ error:PlatformError?)-> ()){
         
         makeRequest(Router.forgotPassword(request: request), callback: onComplition)

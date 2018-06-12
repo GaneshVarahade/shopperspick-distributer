@@ -50,7 +50,9 @@ ShippingMenifest Table
 - driverColor               = ?
 - driverLicenPlate          = ShipMen.vehicleLicensePlate
 - asset:Asset               = ShipMen.signaturePhoto
+- itemsToShip: []           = ?         // created by by ios Device in Post these will be selected from Invoice.items
 - itemsToShip: [ItemsToShip]    = ?         // created by by ios Device in Post these will be selected from Invoice.items
+ 4275ee476490b1d7229178fb0531c302fc32a962
 
 Invoice
 - invoicenumber                         = Invoice.invoiceNumber
@@ -73,15 +75,18 @@ ProductTransfer Table
 - expected total
 
 Transfer
-- name                           = ?
-- transferNo                      = Inventory.transferNo
-- created                           = Inventory.created
+
+- name                           = ?//
+- transferNo                     = Inventory.transferNo
+- created                        = Inventory.created
 - fromShopId                     = Inventory.fromShopId
 - toShopId                       = Inventory.toShopId
 - fromShopName                   = Inventory.fromShopName
 - toShopName                     = Inventory.toShopName
 - fromInventoryname              = Inventory.fromInventoryName
 - toInventoryName                = Inventory.toInventoryName
+
+
 - productToTransfer:[ProductTransfer]    = ?   // Created by ios device
 
 

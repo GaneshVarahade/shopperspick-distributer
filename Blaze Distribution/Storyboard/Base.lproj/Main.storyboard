@@ -853,7 +853,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5aC-di-XMD">
                                                     <rect key="frame" x="16" y="0.0" width="310" height="43.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ty-oM-Ijh">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ty-oM-Ijh">
                                                             <rect key="frame" x="0.0" y="0.0" width="103.5" height="43.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
@@ -862,7 +862,7 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             </variation>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Request #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5I-2j-Pt3">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Request #" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5I-2j-Pt3">
                                                             <rect key="frame" x="103.5" y="0.0" width="103" height="43.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
@@ -871,7 +871,7 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             </variation>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zhi-Ck-PZ4">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zhi-Ck-PZ4">
                                                             <rect key="frame" x="206.5" y="0.0" width="103.5" height="43.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
@@ -917,10 +917,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Inventory" id="Dlw-Kw-hzo"/>
                     <connections>
+                        <outlet property="createBtn" destination="XA5-tx-sGD" id="K5W-In-qN1"/>
                         <outlet property="dateLabel" destination="Ja6-cc-FuN" id="RYB-Bj-bU9"/>
+                        <outlet property="inventoryTableView" destination="UlP-mR-xhf" id="kGh-yT-eYB"/>
                         <outlet property="nameLabel" destination="Yea-Tx-CP6" id="jsW-yg-Vdo"/>
                         <outlet property="requestLabel" destination="QxF-Po-znx" id="vvE-hU-O02"/>
                         <outlet property="segmentControl" destination="PpG-WB-GZy" id="qoX-He-CnN"/>
+                        <outlet property="topView" destination="JDx-iq-5y5" id="aNI-EM-AJJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hsf-uF-ZLd" userLabel="First Responder" sceneMemberID="firstResponder"/>

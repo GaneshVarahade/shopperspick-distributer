@@ -21,7 +21,8 @@ public class ResponseInvoice :BaseResponseModel{
     public var balanceDue:Double?
     public var companyContact:String?
     public var total:Double?
-    public var items:[ResponseCartProduct]?
+    public var items:[ResponseInvoiceItems]?
     public var paymentsReceived:[ResponsePaymentsReceived]?
     public var shippingManifests: [ResponseShippingManifests]?
+    public var remainingProductInformations:[ResponseRemaingProduct]?
 }

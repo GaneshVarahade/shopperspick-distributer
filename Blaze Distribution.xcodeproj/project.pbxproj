@@ -22,9 +22,8 @@
 		182B921620C839A30041915B /* ModelSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921520C839A30041915B /* ModelSignature.swift */; };
 		182B921820C839C00041915B /* ModelAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921720C839C00041915B /* ModelAssets.swift */; };
 		182B921A20C83A140041915B /* ModelPaymentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921920C83A140041915B /* ModelPaymentInfo.swift */; };
-		182B921C20C83A360041915B /* ModelProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921B20C83A360041915B /* ModelProduct.swift */; };
+		182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921B20C83A360041915B /* ModelCartProduct.swift */; };
 		182F83AB20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */; };
-		182F83AD20CFF1B3007A1019 /* ModelPurchaseOrderProductReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AC20CFF1B3007A1019 /* ModelPurchaseOrderProductReceived.swift */; };
 		1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7B20B213010076BECD /* TextHelpers.swift */; };
 		1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7C20B213010076BECD /* SwiftExtentions.swift */; };
 		1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */; };
@@ -37,13 +36,10 @@
 		1846DBA920B21B5B0076BECD /* environment-prod.json in Resources */ = {isa = PBXBuildFile; fileRef = 1846DBA120B21B5B0076BECD /* environment-prod.json */; };
 		18984BF220C94CA500381603 /* LoginResponse in Resources */ = {isa = PBXBuildFile; fileRef = 18984BF120C94CA500381603 /* LoginResponse */; };
 		189F82BC20C501B70054986E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B020C501B70054986E /* RealmManager.swift */; };
-		189F82BF20C501B70054986E /* ResponseGetAllInvoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */; };
-		189F82C020C501B70054986E /* ResponseInvoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B620C501B70054986E /* ResponseInvoices.swift */; };
 		189F82C120C501B70054986E /* BaseResponseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B720C501B70054986E /* BaseResponseProtocol.swift */; };
 		189F82C220C501B70054986E /* ModelBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B920C501B70054986E /* ModelBase.swift */; };
 		189F82C320C501B70054986E /* ModelInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82BA20C501B70054986E /* ModelInvoice.swift */; };
 		189F82C420C501B70054986E /* ModelShipingMenifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82BB20C501B70054986E /* ModelShipingMenifest.swift */; };
-		189F82C620C501F80054986E /* ShipingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82C520C501F80054986E /* ShipingController.swift */; };
 		189F82C820C502AA0054986E /* GetAllInvoices.txt in Resources */ = {isa = PBXBuildFile; fileRef = 189F82C720C502A90054986E /* GetAllInvoices.txt */; };
 		189F82CE20C5054E0054986E /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82CA20C5054D0054986E /* Router.swift */; };
 		189F82D220C507DF0054986E /* AQLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82D120C507DF0054986E /* AQLog.swift */; };
@@ -61,7 +57,6 @@
 		18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27BB20C962BA002A329B /* ResponsePurchaseOrder.swift */; };
 		2FD731EB83170AF88FAF96D0 /* Pods_Blaze_DistributionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22B1597E869879AC4DD12C3 /* Pods_Blaze_DistributionTests.framework */; };
 		B910833420CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910833320CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift */; };
-		B913500720BD5A2F00A9FFA7 /* DBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B913500620BD5A2F00A9FFA7 /* DBModel.swift */; };
 		B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C3720AEC8FB0021356C /* AppDelegate.swift */; };
 		B9266C3D20AEC8FB0021356C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9266C3B20AEC8FB0021356C /* Main.storyboard */; };
 		B9266C4220AEC8FE0021356C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9266C4120AEC8FE0021356C /* Assets.xcassets */; };
@@ -80,9 +75,13 @@
 		B92A65B220AF424500CDA4CC /* FixedInvoiceDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65B120AF424400CDA4CC /* FixedInvoiceDetailsTableViewController.swift */; };
 		B92A65B420AF459C00CDA4CC /* InvoiceItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65B320AF459B00CDA4CC /* InvoiceItemsViewController.swift */; };
 		B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65B520AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift */; };
-		B92DAF5720B6FFAE0021EE30 /* ModelLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92DAF5620B6FFAE0021EE30 /* ModelLogin.swift */; };
 		B942801820CE5DF500F2FA0F /* RequestBulkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942801720CE5DF500F2FA0F /* RequestBulkAPI.swift */; };
 		B942801A20CE708400F2FA0F /* ReponseCartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942801920CE708400F2FA0F /* ReponseCartProduct.swift */; };
+		B942E45620CFA19300E474E1 /* ModelRemainingProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45520CFA19300E474E1 /* ModelRemainingProduct.swift */; };
+		B942E45820CFA48000E474E1 /* ResponseRemaingProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45720CFA48000E474E1 /* ResponseRemaingProduct.swift */; };
+		B942E45A20CFBE3800E474E1 /* ResponseInvoiceItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45920CFBE3700E474E1 /* ResponseInvoiceItems.swift */; };
+		B942E45C20CFC11400E474E1 /* ModelInvoiceItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45B20CFC11400E474E1 /* ModelInvoiceItems.swift */; };
+		B942E45E20CFD26C00E474E1 /* ModelAddres.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45D20CFD26C00E474E1 /* ModelAddres.swift */; };
 		B95A8A2720B420F200F76A15 /* ShippingItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */; };
 		B95A8A2920B4220F00F76A15 /* AddPaymentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */; };
 		B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2B20B422F300F76A15 /* ItemsToShipViewController.swift */; };
@@ -181,9 +180,8 @@
 		182B921520C839A30041915B /* ModelSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSignature.swift; sourceTree = "<group>"; };
 		182B921720C839C00041915B /* ModelAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAssets.swift; sourceTree = "<group>"; };
 		182B921920C83A140041915B /* ModelPaymentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPaymentInfo.swift; sourceTree = "<group>"; };
-		182B921B20C83A360041915B /* ModelProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProduct.swift; sourceTree = "<group>"; };
+		182B921B20C83A360041915B /* ModelCartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCartProduct.swift; sourceTree = "<group>"; };
 		182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProduct.swift; sourceTree = "<group>"; };
-		182F83AC20CFF1B3007A1019 /* ModelPurchaseOrderProductReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProductReceived.swift; sourceTree = "<group>"; };
 		1846DB7B20B213010076BECD /* TextHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelpers.swift; sourceTree = "<group>"; };
 		1846DB7C20B213010076BECD /* SwiftExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtentions.swift; sourceTree = "<group>"; };
 		1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVar.swift; sourceTree = "<group>"; };
@@ -197,13 +195,10 @@
 		1856C76199F812D749E0AA01 /* Pods-Blaze DistributionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.release.xcconfig"; sourceTree = "<group>"; };
 		18984BF120C94CA500381603 /* LoginResponse */ = {isa = PBXFileReference; lastKnownFileType = text; path = LoginResponse; sourceTree = "<group>"; };
 		189F82B020C501B70054986E /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
-		189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseGetAllInvoices.swift; sourceTree = "<group>"; };
-		189F82B620C501B70054986E /* ResponseInvoices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseInvoices.swift; sourceTree = "<group>"; };
 		189F82B720C501B70054986E /* BaseResponseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponseProtocol.swift; sourceTree = "<group>"; };
 		189F82B920C501B70054986E /* ModelBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelBase.swift; sourceTree = "<group>"; };
 		189F82BA20C501B70054986E /* ModelInvoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInvoice.swift; sourceTree = "<group>"; };
 		189F82BB20C501B70054986E /* ModelShipingMenifest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelShipingMenifest.swift; sourceTree = "<group>"; };
-		189F82C520C501F80054986E /* ShipingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipingController.swift; sourceTree = "<group>"; };
 		189F82C720C502A90054986E /* GetAllInvoices.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetAllInvoices.txt; sourceTree = "<group>"; };
 		189F82CA20C5054D0054986E /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		189F82D120C507DF0054986E /* AQLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQLog.swift; sourceTree = "<group>"; };
@@ -229,7 +224,6 @@
 		A00FD6ED4D5D54B839B4CE82 /* Pods-Blaze Distribution.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.release.xcconfig"; sourceTree = "<group>"; };
 		A8CF122677EC62CFD1812DB8 /* Pods-Blaze DistributionUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionUITests.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionUITests/Pods-Blaze DistributionUITests.dev.xcconfig"; sourceTree = "<group>"; };
 		B910833320CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseReceiverCustomerCompany.swift; sourceTree = "<group>"; };
-		B913500620BD5A2F00A9FFA7 /* DBModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBModel.swift; sourceTree = "<group>"; };
 		B9266C3420AEC8FB0021356C /* Blaze Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blaze Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9266C3720AEC8FB0021356C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9266C3C20AEC8FB0021356C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -254,9 +248,13 @@
 		B92A65B120AF424400CDA4CC /* FixedInvoiceDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedInvoiceDetailsTableViewController.swift; sourceTree = "<group>"; };
 		B92A65B320AF459B00CDA4CC /* InvoiceItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceItemsViewController.swift; sourceTree = "<group>"; };
 		B92A65B520AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceItemsTableViewCell.swift; sourceTree = "<group>"; };
-		B92DAF5620B6FFAE0021EE30 /* ModelLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLogin.swift; sourceTree = "<group>"; };
 		B942801720CE5DF500F2FA0F /* RequestBulkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBulkAPI.swift; sourceTree = "<group>"; };
 		B942801920CE708400F2FA0F /* ReponseCartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponseCartProduct.swift; sourceTree = "<group>"; };
+		B942E45520CFA19300E474E1 /* ModelRemainingProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRemainingProduct.swift; sourceTree = "<group>"; };
+		B942E45720CFA48000E474E1 /* ResponseRemaingProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseRemaingProduct.swift; sourceTree = "<group>"; };
+		B942E45920CFBE3700E474E1 /* ResponseInvoiceItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInvoiceItems.swift; sourceTree = "<group>"; };
+		B942E45B20CFC11400E474E1 /* ModelInvoiceItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInvoiceItems.swift; sourceTree = "<group>"; };
+		B942E45D20CFD26C00E474E1 /* ModelAddres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAddres.swift; sourceTree = "<group>"; };
 		B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingItemsViewController.swift; sourceTree = "<group>"; };
 		B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentTableViewController.swift; sourceTree = "<group>"; };
 		B95A8A2B20B422F300F76A15 /* ItemsToShipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsToShipViewController.swift; sourceTree = "<group>"; };
@@ -399,8 +397,6 @@
 			isa = PBXGroup;
 			children = (
 				B9D45A0E20CA734600E4E0E8 /* APIForgotPassword */,
-				189F82B720C501B70054986E /* BaseResponseProtocol.swift */,
-				189F82DA20C50C090054986E /* BaseRequest.swift */,
 				18EE27AD20C95FDC002A329B /* APIBulkRequest */,
 				B92B26D820C7C1F5004DE575 /* PlatformError */,
 				189F82D320C508390054986E /* APILogin */,
@@ -433,10 +429,11 @@
 				182B921520C839A30041915B /* ModelSignature.swift */,
 				182B921720C839C00041915B /* ModelAssets.swift */,
 				182B921920C83A140041915B /* ModelPaymentInfo.swift */,
-				182B921B20C83A360041915B /* ModelProduct.swift */,
+				182B921B20C83A360041915B /* ModelCartProduct.swift */,
 				1812B33E20CAB31800B4DC26 /* ModelInventory.swift */,
 				182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */,
-				182F83AC20CFF1B3007A1019 /* ModelPurchaseOrderProductReceived.swift */,
+				B942E45B20CFC11400E474E1 /* ModelInvoiceItems.swift */,
+				B942E45D20CFD26C00E474E1 /* ModelAddres.swift */,
 			);
 			path = RealmModels;
 			sourceTree = "<group>";
@@ -462,23 +459,19 @@
 		18EE27AE20C95FEB002A329B /* ResponseModel */ = {
 			isa = PBXGroup;
 			children = (
+				B942E46020CFDCCB00E474E1 /* ResponseInventoryModel */,
 				18EE27AF20C96003002A329B /* ResponseBulkRequest.swift */,
-				18EE27B120C960F0002A329B /* ResponseArrayInvoice.swift */,
-				18EE27B320C96178002A329B /* ResponseInvoice.swift */,
+				B942E45F20CFDA0700E474E1 /* ResponseInvoiceModels */,
 				18EE27B520C9623A002A329B /* ResponseArrayInventory.swift */,
 				18EE27B720C96262002A329B /* ResponseArrayPurchaseOrder.swift */,
-				18EE27B920C962AB002A329B /* ResponseInventory.swift */,
+				B942801920CE708400F2FA0F /* ReponseCartProduct.swift */,
 				18EE27BB20C962BA002A329B /* ResponsePurchaseOrder.swift */,
-				B9AA85E520C973B200751BF2 /* ResponseShippingManifests.swift */,
 				B9AA85E720C97E0F00751BF2 /* ResponseCart.swift */,
 				B9D45A0220CA528000E4E0E8 /* ResponseAsset.swift */,
 				B9D45A0420CA53F900E4E0E8 /* ResponseProduct.swift */,
 				B9D45A0620CA55E200E4E0E8 /* ResponseSalesPerson.swift */,
 				B9D45A0820CA566C00E4E0E8 /* ResponseVendor.swift */,
 				B9D45A0A20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift */,
-				B9D45A0C20CA57B800E4E0E8 /* ResponseNotes.swift */,
-				B942801920CE708400F2FA0F /* ReponseCartProduct.swift */,
-				B910833320CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -536,13 +529,11 @@
 				B9266C6E20AED0620021356C /* Controllers */,
 				B92755F720C12501008F0499 /* DataBaseManager */,
 				B9266C4620AEC8FE0021356C /* Info.plist */,
-				B938034F20B56E190024EDA7 /* JSON_Serialization */,
 				B9266C7020AED0800021356C /* Models */,
 				189F82AF20C501B70054986E /* RealmHelpers */,
 				189F82B820C501B70054986E /* RealmModels */,
 				B92822EA20C5563E00BC32A1 /* RequestModels */,
 				B9266C6920AECFFF0021356C /* Resources */,
-				189F82C520C501F80054986E /* ShipingController.swift */,
 				B9266C6C20AED03A0021356C /* Storyboard */,
 				B9266C6A20AED0160021356C /* Utilities */,
 				B9266C6B20AED0280021356C /* Venders */,
@@ -699,19 +690,8 @@
 		B92B26D920C7C219004DE575 /* ResponseModel */ = {
 			isa = PBXGroup;
 			children = (
-				189F82B520C501B70054986E /* ResponseGetAllInvoices.swift */,
-				189F82B620C501B70054986E /* ResponseInvoices.swift */,
 			);
 			path = ResponseModel;
-			sourceTree = "<group>";
-		};
-		B938034F20B56E190024EDA7 /* JSON_Serialization */ = {
-			isa = PBXGroup;
-			children = (
-				B92DAF5620B6FFAE0021EE30 /* ModelLogin.swift */,
-				B913500620BD5A2F00A9FFA7 /* DBModel.swift */,
-			);
-			path = JSON_Serialization;
 			sourceTree = "<group>";
 		};
 		B942801620CE5CBD00F2FA0F /* RequestModel */ = {
@@ -720,6 +700,28 @@
 				B942801720CE5DF500F2FA0F /* RequestBulkAPI.swift */,
 			);
 			path = RequestModel;
+			sourceTree = "<group>";
+		};
+		B942E45F20CFDA0700E474E1 /* ResponseInvoiceModels */ = {
+			isa = PBXGroup;
+			children = (
+				B9D45A0C20CA57B800E4E0E8 /* ResponseNotes.swift */,
+				B942E45720CFA48000E474E1 /* ResponseRemaingProduct.swift */,
+				B942E45920CFBE3700E474E1 /* ResponseInvoiceItems.swift */,
+				B910833320CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift */,
+				B9AA85E520C973B200751BF2 /* ResponseShippingManifests.swift */,
+				18EE27B320C96178002A329B /* ResponseInvoice.swift */,
+				18EE27B120C960F0002A329B /* ResponseArrayInvoice.swift */,
+			);
+			path = ResponseInvoiceModels;
+			sourceTree = "<group>";
+		};
+		B942E46020CFDCCB00E474E1 /* ResponseInventoryModel */ = {
+			isa = PBXGroup;
+			children = (
+				18EE27B920C962AB002A329B /* ResponseInventory.swift */,
+			);
+			path = ResponseInventoryModel;
 			sourceTree = "<group>";
 		};
 		B95A8A2520B416A500F76A15 /* Shipping_Manifest */ = {
@@ -886,6 +888,7 @@
 			isa = PBXGroup;
 			children = (
 				B9AA85E120C925B800751BF2 /* LoginModel.swift */,
+				B942E45520CFA19300E474E1 /* ModelRemainingProduct.swift */,
 			);
 			path = LoginModels;
 			sourceTree = "<group>";
@@ -902,6 +905,7 @@
 		B9D45A0F20CA73CC00E4E0E8 /* RequestModel */ = {
 			isa = PBXGroup;
 			children = (
+				189F82DA20C50C090054986E /* BaseRequest.swift */,
 				B9D45A1020CA741600E4E0E8 /* RequestForgotPassword.swift */,
 			);
 			path = RequestModel;
@@ -910,6 +914,7 @@
 		B9D45A1220CA748C00E4E0E8 /* ResponseModel */ = {
 			isa = PBXGroup;
 			children = (
+				189F82B720C501B70054986E /* BaseResponseProtocol.swift */,
 				B9D45A1320CA74CB00E4E0E8 /* ResponseForgorPassword.swift */,
 			);
 			path = ResponseModel;
@@ -1254,9 +1259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				189F82C620C501F80054986E /* ShipingController.swift in Sources */,
 				B9E5268320B2DFC800127E43 /* AddItemTableViewCell.swift in Sources */,
-				B92DAF5720B6FFAE0021EE30 /* ModelLogin.swift in Sources */,
 				B985566720B438AD00A56497 /* ReachabilityManager.swift in Sources */,
 				1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */,
 				B95A8A2920B4220F00F76A15 /* AddPaymentTableViewController.swift in Sources */,
@@ -1274,15 +1277,17 @@
 				B92A65A820AF209200CDA4CC /* ShippingManifestViewController.swift in Sources */,
 				B9E5266620B2C38600127E43 /* ConfirmTransferTableViewCell.swift in Sources */,
 				182B921220C8394E0041915B /* ModelProductReceived.swift in Sources */,
+				B942E45C20CFC11400E474E1 /* ModelInvoiceItems.swift in Sources */,
 				B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */,
 				B92A65B420AF459C00CDA4CC /* InvoiceItemsViewController.swift in Sources */,
 				189F82C320C501B70054986E /* ModelInvoice.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
 				B92755F920C1256B008F0499 /* DBManager.swift in Sources */,
 				B9D45A0520CA53F900E4E0E8 /* ResponseProduct.swift in Sources */,
-				182B921C20C83A360041915B /* ModelProduct.swift in Sources */,
+				182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */,
 				B985566920B43B2900A56497 /* YPDrawSignatureView.swift in Sources */,
 				B9CAC8E020AF1155008F1650 /* UILabelX.swift in Sources */,
+				B942E45E20CFD26C00E474E1 /* ModelAddres.swift in Sources */,
 				B985566D20B43B8700A56497 /* ShippingManifestTableViewCell.swift in Sources */,
 				182B921820C839C00041915B /* ModelAssets.swift in Sources */,
 				B9E5267F20B2DAAA00127E43 /* Completed_InvoiceItemsViewController.swift in Sources */,
@@ -1318,10 +1323,10 @@
 				B9CAC8DD20AF1155008F1650 /* UIButtonX.swift in Sources */,
 				182B921620C839A30041915B /* ModelSignature.swift in Sources */,
 				B9D45A1420CA74CB00E4E0E8 /* ResponseForgorPassword.swift in Sources */,
-				189F82BF20C501B70054986E /* ResponseGetAllInvoices.swift in Sources */,
-				189F82C020C501B70054986E /* ResponseInvoices.swift in Sources */,
+				B942E45820CFA48000E474E1 /* ResponseRemaingProduct.swift in Sources */,
 				B985566F20B440E500A56497 /* WebServicesAPI.swift in Sources */,
 				B9D45A0B20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift in Sources */,
+				B942E45A20CFBE3800E474E1 /* ResponseInvoiceItems.swift in Sources */,
 				18EE27B020C96003002A329B /* ResponseBulkRequest.swift in Sources */,
 				B9CAC8DF20AF1155008F1650 /* UIViewControllerX.swift in Sources */,
 				1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */,
@@ -1346,13 +1351,12 @@
 				182B920C20C838C00041915B /* ModelTransfer.swift in Sources */,
 				B9AA85E820C97E0F00751BF2 /* ResponseCart.swift in Sources */,
 				B985566B20B43B6000A56497 /* QuantityBatchTableViewCell.swift in Sources */,
-				B913500720BD5A2F00A9FFA7 /* DBModel.swift in Sources */,
 				B985566520B4379F00A56497 /* Constants.swift in Sources */,
-				182F83AD20CFF1B3007A1019 /* ModelPurchaseOrderProductReceived.swift in Sources */,
 				B9CAC8DE20AF1155008F1650 /* UIImageViewX.swift in Sources */,
 				B9E5266320B2C35A00127E43 /* BasketTableViewCell.swift in Sources */,
 				B9E5265C20B2C1EE00127E43 /* LookUpProductViewController.swift in Sources */,
 				B9E5265620B2BAA500127E43 /* InventoryViewController.swift in Sources */,
+				B942E45620CFA19300E474E1 /* ModelRemainingProduct.swift in Sources */,
 				B9CAC8DC20AF1155008F1650 /* UISliderX.swift in Sources */,
 				B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */,
 				B9D45A0920CA566C00E4E0E8 /* ResponseVendor.swift in Sources */,

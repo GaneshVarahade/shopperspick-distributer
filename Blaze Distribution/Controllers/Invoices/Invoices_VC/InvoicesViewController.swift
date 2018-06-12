@@ -28,6 +28,7 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         SKActivityIndicator.show()
         let invoiceReq = RequestInvoices()
         
@@ -46,9 +47,9 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
 //            self.saveData(jsonData: result?.invoice)
 //
 //        }
-        
+       
+        getData()
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         self.title = "Invoices"
        
@@ -137,12 +138,14 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         }
         print("----DataWrite-----")
         getData()
+
     }
     func getData(){
         
-        SKActivityIndicator.dismiss()
+        SKActivityIndicator.show()
         valueDataObj =  RealmManager().readList(type: ModelInvoice.self)
         invoiceTableView.reloadData()
+        SKActivityIndicator.dismiss()
         print("----DataRead----- \(valueDataObj.count)")
     }
     // MARK:- Utilities
@@ -197,7 +200,7 @@ extension InvoicesViewController{
         let temp = valueDataObj[indexPath.row]
         cell.invoicesNoLabel.text = temp.invoiceNumber
         cell.dueDateLabel.text   =  temp.dueDate?.description
-       // cell.createdByLabel.text =  temp.employeeName
+        cell.createdByLabel.text =  temp.company
         
         return cell
     }
