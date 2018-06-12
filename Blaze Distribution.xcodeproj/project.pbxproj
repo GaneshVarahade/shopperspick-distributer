@@ -23,6 +23,8 @@
 		182B921820C839C00041915B /* ModelAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921720C839C00041915B /* ModelAssets.swift */; };
 		182B921A20C83A140041915B /* ModelPaymentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921920C83A140041915B /* ModelPaymentInfo.swift */; };
 		182B921C20C83A360041915B /* ModelProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921B20C83A360041915B /* ModelProduct.swift */; };
+		182F83AB20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */; };
+		182F83AD20CFF1B3007A1019 /* ModelPurchaseOrderProductReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AC20CFF1B3007A1019 /* ModelPurchaseOrderProductReceived.swift */; };
 		1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7B20B213010076BECD /* TextHelpers.swift */; };
 		1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7C20B213010076BECD /* SwiftExtentions.swift */; };
 		1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */; };
@@ -180,6 +182,8 @@
 		182B921720C839C00041915B /* ModelAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAssets.swift; sourceTree = "<group>"; };
 		182B921920C83A140041915B /* ModelPaymentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPaymentInfo.swift; sourceTree = "<group>"; };
 		182B921B20C83A360041915B /* ModelProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProduct.swift; sourceTree = "<group>"; };
+		182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProduct.swift; sourceTree = "<group>"; };
+		182F83AC20CFF1B3007A1019 /* ModelPurchaseOrderProductReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProductReceived.swift; sourceTree = "<group>"; };
 		1846DB7B20B213010076BECD /* TextHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelpers.swift; sourceTree = "<group>"; };
 		1846DB7C20B213010076BECD /* SwiftExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtentions.swift; sourceTree = "<group>"; };
 		1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVar.swift; sourceTree = "<group>"; };
@@ -431,6 +435,8 @@
 				182B921920C83A140041915B /* ModelPaymentInfo.swift */,
 				182B921B20C83A360041915B /* ModelProduct.swift */,
 				1812B33E20CAB31800B4DC26 /* ModelInventory.swift */,
+				182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */,
+				182F83AC20CFF1B3007A1019 /* ModelPurchaseOrderProductReceived.swift */,
 			);
 			path = RealmModels;
 			sourceTree = "<group>";
@@ -1321,6 +1327,7 @@
 				1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */,
 				189F82C220C501B70054986E /* ModelBase.swift in Sources */,
 				182B921A20C83A140041915B /* ModelPaymentInfo.swift in Sources */,
+				182F83AB20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift in Sources */,
 				B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */,
 				B95A8A3020B423F500F76A15 /* AddProductViewController.swift in Sources */,
 				B9E5267D20B2DAAA00127E43 /* Completed_PurchaseOrderDetailsTableViewController.swift in Sources */,
@@ -1341,6 +1348,7 @@
 				B985566B20B43B6000A56497 /* QuantityBatchTableViewCell.swift in Sources */,
 				B913500720BD5A2F00A9FFA7 /* DBModel.swift in Sources */,
 				B985566520B4379F00A56497 /* Constants.swift in Sources */,
+				182F83AD20CFF1B3007A1019 /* ModelPurchaseOrderProductReceived.swift in Sources */,
 				B9CAC8DE20AF1155008F1650 /* UIImageViewX.swift in Sources */,
 				B9E5266320B2C35A00127E43 /* BasketTableViewCell.swift in Sources */,
 				B9E5265C20B2C1EE00127E43 /* LookUpProductViewController.swift in Sources */,

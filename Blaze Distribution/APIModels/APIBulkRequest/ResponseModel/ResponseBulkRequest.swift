@@ -19,5 +19,5 @@ public class ResponseBulkRequest: BaseResponseModel  {
     
     //public var inventory: ResponseArrayInventory?
     
-   // public var purchaseOrder: ResponseArrayPurchaseOrder?
+    public var purchaseOrder: ResponseArrayPurchaseOrder?
 }

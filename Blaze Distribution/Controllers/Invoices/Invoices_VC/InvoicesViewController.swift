@@ -33,29 +33,19 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         
         invoiceReq.shopId = "56cf846ee38179985229e59e"
         
-//        WebServicesAPI.sharedInstance().InvoiceAPI(request: invoiceReq) { (result:ResponseGetAllInvoices?, error:PlatformError?) in
-//            SKActivityIndicator.dismiss()
-//            if error != nil {
+        let requestBulk = RequestBulkAPI()
+        
+        SyncService.sharedInstance().syncData()
+//       WebServicesAPI.sharedInstance().BulkAPI(request: requestBulk) { (result:ResponseBulkRequest?,error:PlatformError?) in
+//
+//            if error != nil{
 //                print(error?.message! ?? "Error")
 //                return
 //            }
 //
-//            print(result?.values?.first?.shippingManifests?.first?.driverName!)
-//            self.saveData(jsonData: result)
+//            self.saveData(jsonData: result?.invoice)
 //
 //        }
-        let requestBulk = RequestBulkAPI()
-        
-       WebServicesAPI.sharedInstance().BulkAPI(request: requestBulk) { (result:ResponseBulkRequest?,error:PlatformError?) in
-     
-            if error != nil{
-                print(error?.message! ?? "Error")
-                return
-            }
-        
-            self.saveData(jsonData: result?.invoice)
-        
-        }
         
     }
     
@@ -66,7 +56,8 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     
     func saveData(jsonData:ResponseArrayInvoice?){
         
-         print("From json id: ",(jsonData?.values?.count)!)
+         print("From jsonData: ",(jsonData))
+         print("From jsonData?.values: ",(jsonData?.values?.count))
         if let values = jsonData?.values{
             
            
@@ -97,9 +88,9 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
                 
                     for payment in paymentRec{
                         let paymentTemp             = ModelPaymentInfo()
-                        paymentTemp.paymentDate     = payment.paidDate!
-                        paymentTemp.referenceNumber = payment.referenceNo!
-                        paymentTemp.amount          = payment.amountPaid!
+                        paymentTemp.paymentDate     = payment.paidDate ?? 0
+                        paymentTemp.referenceNumber = payment.referenceNo ?? ""
+                        paymentTemp.amount          = payment.amountPaid ?? 0.0
                         model.paymentInfo.append(paymentTemp)
                     }
                 }else{

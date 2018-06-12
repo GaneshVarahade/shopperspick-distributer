@@ -12,12 +12,12 @@ import RealmSwift
 
 public class ModelPurchaseOrder:ModelBase{
     @objc public dynamic var purchaseOrderNumber:String? = ""
-    @objc public dynamic var isMetRc:String?             = ""
+    @objc public dynamic var isMetRc:Bool             = false
     @objc public dynamic var metrcId:String?             = ""
     @objc public dynamic var status:String?              = ""
     @objc public dynamic var origin:String?              = ""
-    @objc public dynamic var received:String?            = ""
-    var productInShipment = List<ModelProduct>()
+    @objc public dynamic var received:Int64            = 0
+    var productInShipment = List<ModelPurchaseOrderProduct>()
     var productReceived   = List<ModelProductReceived>()
     public override func copy(with zone:NSZone? = nil) -> Any {
         
@@ -30,13 +30,17 @@ public class ModelPurchaseOrder:ModelBase{
         modelPurchaseOrder.received            = self.received
         
         for prodInShip in self.productInShipment{
-            modelPurchaseOrder.productInShipment.append(prodInShip.copy() as! ModelProduct)
+            modelPurchaseOrder.productInShipment.append(prodInShip.copy() as! ModelPurchaseOrderProduct)
         }
         for prodRcv in self.productReceived{
-            modelPurchaseOrder.productReceived.append(prodRcv)
+            modelPurchaseOrder.productReceived.append(prodRcv.copy() as! ModelProductReceived)
         }
         
         return modelPurchaseOrder
+    }
+    
+    open override class func primaryKey() -> String? {
+        return "purchaseOrderNumber"
     }
     
 }

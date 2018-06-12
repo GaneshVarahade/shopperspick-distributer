@@ -79,10 +79,54 @@ public final class SyncService {
     
     private func syncGetBulkData() {
         
+        WebServicesAPI.sharedInstance().BulkAPI(request: RequestBulkAPI()) { (result:ResponseBulkRequest?,error:PlatformError?) in
+            if error != nil{
+                print(error?.message! ?? "Error")
+                return
+            }
+            
+            print(result?.invoice?.values?.count)
+            print(result?.purchaseOrder?.values?[0].poNumber)
+            print(result?.purchaseOrder?.values?[0].poProductRequestList?[0].productName)
+            
+            if let arrayPurchaseOrders = result?.purchaseOrder?.values {
+                    self.savePurchaseOrder(arrayPurchaseOrders)
+            }
+        }
     }
     
      private func resync() {
         isUpdating = false
         syncData()
+        
+    }
+    
+    private func savePurchaseOrder(_ arrayPurchase: [ResponsePurchaseOrder]){
+        
+        for respPurchaseOrder in arrayPurchase {
+            
+            let modelPurcahseOrder:ModelPurchaseOrder = ModelPurchaseOrder()
+            
+            modelPurcahseOrder.purchaseOrderNumber = respPurchaseOrder.poNumber
+            modelPurcahseOrder.isMetRc = respPurchaseOrder.metrc ?? false
+            modelPurcahseOrder.received = respPurchaseOrder.receivedDate ?? 0
+            modelPurcahseOrder.status = respPurchaseOrder.purchaseOrderStatus
+            
+            if let listProdReq = respPurchaseOrder.poProductRequestList {
+                
+                for productReq in listProdReq {
+                    let modelPOProduct = ModelPurchaseOrderProduct()
+                    modelPOProduct.id   = productReq.id
+                    modelPOProduct.name = productReq.productName
+                    modelPOProduct.quantity = productReq.requestQuantity ?? 0
+                    modelPOProduct.batchId = productReq.batchId
+                    
+                    modelPurcahseOrder.productInShipment.append(modelPOProduct)
+                }
+            }
+            
+            //Write to database
+            RealmManager().write(table: modelPurcahseOrder)
+        }
     }
 }
