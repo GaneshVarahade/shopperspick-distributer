@@ -14,5 +14,5 @@ public class ResponseArrayPurchaseOrder: BaseResponseModel {
     public var deleted: Bool?
     public var updated: Bool?
     public var companyId: String?
-    var values: [ResponsePurchaseOrder]?
+    public var values: [ResponsePurchaseOrder]?
 }

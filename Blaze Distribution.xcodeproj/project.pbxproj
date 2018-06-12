@@ -23,6 +23,7 @@
 		182B921820C839C00041915B /* ModelAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921720C839C00041915B /* ModelAssets.swift */; };
 		182B921A20C83A140041915B /* ModelPaymentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921920C83A140041915B /* ModelPaymentInfo.swift */; };
 		182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921B20C83A360041915B /* ModelCartProduct.swift */; };
+		182F83AB20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */; };
 		1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7B20B213010076BECD /* TextHelpers.swift */; };
 		1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7C20B213010076BECD /* SwiftExtentions.swift */; };
 		1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */; };
@@ -184,6 +185,7 @@
 		182B921720C839C00041915B /* ModelAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAssets.swift; sourceTree = "<group>"; };
 		182B921920C83A140041915B /* ModelPaymentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPaymentInfo.swift; sourceTree = "<group>"; };
 		182B921B20C83A360041915B /* ModelCartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCartProduct.swift; sourceTree = "<group>"; };
+		182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProduct.swift; sourceTree = "<group>"; };
 		1846DB7B20B213010076BECD /* TextHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelpers.swift; sourceTree = "<group>"; };
 		1846DB7C20B213010076BECD /* SwiftExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtentions.swift; sourceTree = "<group>"; };
 		1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVar.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 				182B921920C83A140041915B /* ModelPaymentInfo.swift */,
 				182B921B20C83A360041915B /* ModelCartProduct.swift */,
 				1812B33E20CAB31800B4DC26 /* ModelInventory.swift */,
+				182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */,
 				B942E45B20CFC11400E474E1 /* ModelInvoiceItems.swift */,
 				B942E45D20CFD26C00E474E1 /* ModelAddres.swift */,
 				B942E46620D0103A00E474E1 /* ModelProduct.swift */,
@@ -1353,6 +1356,7 @@
 				1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */,
 				189F82C220C501B70054986E /* ModelBase.swift in Sources */,
 				182B921A20C83A140041915B /* ModelPaymentInfo.swift in Sources */,
+				182F83AB20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift in Sources */,
 				B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */,
 				B95A8A3020B423F500F76A15 /* AddProductViewController.swift in Sources */,
 				B9E5267D20B2DAAA00127E43 /* Completed_PurchaseOrderDetailsTableViewController.swift in Sources */,

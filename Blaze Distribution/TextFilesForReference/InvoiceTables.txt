@@ -103,7 +103,7 @@ PurchaseOrder
 - status                      = PurchaseOrder.purchaseOrderStatus
 - origin                      = ?
 - received                    = PurchaseOrder.receivedDate
-- productInShipment:[PurchaseOrderProduct] = PurchaseOrder.poProductRequestResultList
+- productInShipment:[PurchaseOrderProduct] = PurchaseOrder.poProductRequestList
 - productReceived:[ProductReceived] = ? // Created by ios device
 
 Products
