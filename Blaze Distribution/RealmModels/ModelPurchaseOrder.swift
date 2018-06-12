@@ -18,7 +18,7 @@ public class ModelPurchaseOrder:ModelBase{
     @objc public dynamic var origin:String?              = ""
     @objc public dynamic var received:Int64            = 0
     var productInShipment = List<ModelPurchaseOrderProduct>()
-    var productReceived   = List<ModelProductReceived>()
+    var productReceived   = List<ModelPurchaseOrderProductReceived>()
     public override func copy(with zone:NSZone? = nil) -> Any {
         
         let modelPurchaseOrder                 = ModelPurchaseOrder()
@@ -33,7 +33,7 @@ public class ModelPurchaseOrder:ModelBase{
             modelPurchaseOrder.productInShipment.append(prodInShip.copy() as! ModelPurchaseOrderProduct)
         }
         for prodRcv in self.productReceived{
-            modelPurchaseOrder.productReceived.append(prodRcv.copy() as! ModelProductReceived)
+            modelPurchaseOrder.productReceived.append(prodRcv.copy() as! ModelPurchaseOrderProductReceived)
         }
         
         return modelPurchaseOrder

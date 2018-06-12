@@ -17,13 +17,14 @@
 		182B920C20C838C00041915B /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920B20C838C00041915B /* ModelTransfer.swift */; };
 		182B920E20C838FE0041915B /* ModelProductTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920D20C838FE0041915B /* ModelProductTransfer.swift */; };
 		182B921020C839290041915B /* ModelLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920F20C839290041915B /* ModelLocation.swift */; };
-		182B921220C8394E0041915B /* ModelProductReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921120C8394E0041915B /* ModelProductReceived.swift */; };
+		182B921220C8394E0041915B /* ModelPurchaseOrderProductReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921120C8394E0041915B /* ModelPurchaseOrderProductReceived.swift */; };
 		182B921420C8397B0041915B /* ModelPurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921320C8397B0041915B /* ModelPurchaseOrder.swift */; };
 		182B921620C839A30041915B /* ModelSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921520C839A30041915B /* ModelSignature.swift */; };
 		182B921820C839C00041915B /* ModelAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921720C839C00041915B /* ModelAssets.swift */; };
 		182B921A20C83A140041915B /* ModelPaymentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921920C83A140041915B /* ModelPaymentInfo.swift */; };
 		182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921B20C83A360041915B /* ModelCartProduct.swift */; };
 		182F83AB20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */; };
+		182F83AF20D007F3007A1019 /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AE20D007F3007A1019 /* EventBus.swift */; };
 		1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7B20B213010076BECD /* TextHelpers.swift */; };
 		1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7C20B213010076BECD /* SwiftExtentions.swift */; };
 		1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */; };
@@ -175,13 +176,14 @@
 		182B920B20C838C00041915B /* ModelTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTransfer.swift; sourceTree = "<group>"; };
 		182B920D20C838FE0041915B /* ModelProductTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProductTransfer.swift; sourceTree = "<group>"; };
 		182B920F20C839290041915B /* ModelLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLocation.swift; sourceTree = "<group>"; };
-		182B921120C8394E0041915B /* ModelProductReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProductReceived.swift; sourceTree = "<group>"; };
+		182B921120C8394E0041915B /* ModelPurchaseOrderProductReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProductReceived.swift; sourceTree = "<group>"; };
 		182B921320C8397B0041915B /* ModelPurchaseOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrder.swift; sourceTree = "<group>"; };
 		182B921520C839A30041915B /* ModelSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSignature.swift; sourceTree = "<group>"; };
 		182B921720C839C00041915B /* ModelAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAssets.swift; sourceTree = "<group>"; };
 		182B921920C83A140041915B /* ModelPaymentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPaymentInfo.swift; sourceTree = "<group>"; };
 		182B921B20C83A360041915B /* ModelCartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCartProduct.swift; sourceTree = "<group>"; };
 		182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProduct.swift; sourceTree = "<group>"; };
+		182F83AE20D007F3007A1019 /* EventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
 		1846DB7B20B213010076BECD /* TextHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelpers.swift; sourceTree = "<group>"; };
 		1846DB7C20B213010076BECD /* SwiftExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtentions.swift; sourceTree = "<group>"; };
 		1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVar.swift; sourceTree = "<group>"; };
@@ -424,7 +426,7 @@
 				182B920B20C838C00041915B /* ModelTransfer.swift */,
 				182B920D20C838FE0041915B /* ModelProductTransfer.swift */,
 				182B920F20C839290041915B /* ModelLocation.swift */,
-				182B921120C8394E0041915B /* ModelProductReceived.swift */,
+				182B921120C8394E0041915B /* ModelPurchaseOrderProductReceived.swift */,
 				182B921320C8397B0041915B /* ModelPurchaseOrder.swift */,
 				182B921520C839A30041915B /* ModelSignature.swift */,
 				182B921720C839C00041915B /* ModelAssets.swift */,
@@ -589,6 +591,7 @@
 				189F82D120C507DF0054986E /* AQLog.swift */,
 				189F82D620C5096F0054986E /* UtilityUserDefaults.swift */,
 				1815A01B20C91C23000B0328 /* VersionUtils.swift */,
+				182F83AE20D007F3007A1019 /* EventBus.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1276,10 +1279,11 @@
 				B9D45A1120CA741600E4E0E8 /* RequestForgotPassword.swift in Sources */,
 				B92A65A820AF209200CDA4CC /* ShippingManifestViewController.swift in Sources */,
 				B9E5266620B2C38600127E43 /* ConfirmTransferTableViewCell.swift in Sources */,
-				182B921220C8394E0041915B /* ModelProductReceived.swift in Sources */,
+				182B921220C8394E0041915B /* ModelPurchaseOrderProductReceived.swift in Sources */,
 				B942E45C20CFC11400E474E1 /* ModelInvoiceItems.swift in Sources */,
 				B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */,
 				B92A65B420AF459C00CDA4CC /* InvoiceItemsViewController.swift in Sources */,
+				182F83AF20D007F3007A1019 /* EventBus.swift in Sources */,
 				189F82C320C501B70054986E /* ModelInvoice.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
 				B92755F920C1256B008F0499 /* DBManager.swift in Sources */,

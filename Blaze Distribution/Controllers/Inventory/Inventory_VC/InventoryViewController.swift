@@ -30,18 +30,30 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        EventBus.sharedBus().subscribe(self,
+                                       selector: #selector(syncComplete(_:)),
+                                       eventType: EventBusEventType.SYNCDATA)
         SKActivityIndicator.show()
-        let requestBulk = RequestBulkAPI()
-        WebServicesAPI.sharedInstance().BulkAPI(request: requestBulk) { (result:ResponseBulkRequest?,error:PlatformError?) in
-            if error != nil{
-                print(error?.message! ?? "Error")
-                return
-            }
-            self.saveDataInvoice(jsonData: result?.invoice)
-            self.saveDataInventory(jsonData: result?.inventoryTransfers)
-        }
+//        let requestBulk = RequestBulkAPI()
+//        WebServicesAPI.sharedInstance().BulkAPI(request: requestBulk) { (result:ResponseBulkRequest?,error:PlatformError?) in
+//            if error != nil{
+//                print(error?.message! ?? "Error")
+//                return
+//            }
+//            self.saveDataInvoice(jsonData: result?.invoice)
+//            self.saveDataInventory(jsonData: result?.inventoryTransfers)
+//        }
+
+        
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        EventBus.sharedBus().unsubscribe(self, eventType: EventBusEventType.SYNCDATA)
+    }
+    
+    @objc func syncComplete(_ notification:NSNotification) {
+        SKActivityIndicator.dismiss()
+    }
     // MARK:- UISegmentController Valu Changed
     
     @IBAction func segmentChanged(_ sender: Any) {
