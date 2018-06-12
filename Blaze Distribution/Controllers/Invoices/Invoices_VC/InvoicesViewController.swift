@@ -28,157 +28,17 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        SKActivityIndicator.show()
-        let invoiceReq = RequestInvoices()
-        
-        invoiceReq.shopId = "56cf846ee38179985229e59e"
-        
-//        WebServicesAPI.sharedInstance().InvoiceAPI(request: invoiceReq) { (result:ResponseGetAllInvoices?, error:PlatformError?) in
-//            SKActivityIndicator.dismiss()
-//            if error != nil {
-//                print(error?.message! ?? "Error")
-//                return
-//            }
-//
-//            print(result?.values?.first?.shippingManifests?.first?.driverName!)
-//            self.saveData(jsonData: result)
-//
-//        }
-        let requestBulk = RequestBulkAPI()
-        
-       WebServicesAPI.sharedInstance().BulkAPI(request: requestBulk) { (result:ResponseBulkRequest?,error:PlatformError?) in
-     
-            if error != nil{
-                print(error?.message! ?? "Error")
-                return
-            }
-        
-            self.saveData(jsonData: result?.invoice)
-        
-        }
-        
+        getData()
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         self.title = "Invoices"
-       
-    }
-    
-    func saveData(jsonData:ResponseArrayInvoice?){
-        
-         print("From json id: ",(jsonData?.values?.count)!)
-        if let values = jsonData?.values{
-            
-           
-            
-            for valu in values{
-                
-                let model: ModelInvoice = ModelInvoice()
-                model.id                = valu.id
-                model.companyId         = valu.companyId
-                model.invoiceNumber     = valu.invoiceNumber
-                model.dueDate           = valu.dueDate?.description
-                model.balanceDue        = valu.balanceDue!
-                model.company           = valu.company?.name
-                model.balanceDue        = valu.balanceDue!
-                model.contact           = valu.companyContact
-                model.total             = valu.total!
-                
-                if let remaingProducts = valu.remainingProducts{
-                    for remProd  in remaingProducts{
-                     let temp   = ModelRemainingProduct()
-                        temp.productId = remProd.productId
-                        temp.productName = remProd.productName
-                        temp.requestQuantity = remProd.requestQuantity!
-                        temp.remainingQuantity = remProd.remainingQuantity!
-                        model.remainingProducts.append(temp)
-                        print("Reaming Product ID:",remProd.productId!)
-                    }
-                }else{
-                    
-                    print("Remaing nil..")
-                }
-                
-                
-                ///Mapping Items
-                if let items = valu.items{
-                    for item in items{
-                        let itemTemp = ModelCartProduct()
-                        itemTemp.id = item.id
-                        itemTemp.name = item.name
-                        itemTemp.quantity = item.quantity!
-                        model.items.append(itemTemp)
-                        print("Item ID:",item.id!)
-
-                    }
-                    
-                }else{
-                  //  print("Items nil")
-                }
-                
-                
-                //Mapping Payment Info
-                if let  paymentRec = valu.paymentsReceived{
-                
-                    for payment in paymentRec{
-                        let paymentTemp             = ModelPaymentInfo()
-                        paymentTemp.id              = payment.id
-                        paymentTemp.paymentDate     = payment.paidDate!
-                        paymentTemp.referenceNumber = payment.referenceNo ?? ""
-                        paymentTemp.amount          = payment.amountPaid!
-                        print("Payment ID:",payment.id!)
-                        model.paymentInfo.append(paymentTemp)
-                    }
-                }else{
-                    
-                  //  print("Payment info nil")
-                }
-                
-                ///Mapping Shipping Manifests
-                if valu.shippingManifests != nil, valu.shippingManifests!.count > 0 {
-                    
-                    for ship in valu.shippingManifests! {
-                            let shipMen                 = ModelShipingMenifest()
-                            shipMen.id                  = ship.id
-                            shipMen.companyId           = ship.companyId
-                            shipMen.driverName          = ship.driverName
-                            shipMen.driverLicenseNumber = ship.driverLicenceNumber
-                            shipMen.vehicleMake         = ship.vehicleMake
-                            shipMen.vehicleModel        = ship.vehicleModel
-                            shipMen.vehicleLicensePlate = ship.vehicleLicensePlate
-                            shipMen.signaturePhoto      = ship.signaturePhoto
-                            shipMen.receiverCompany     = ship.receiverCompany?.name
-                            shipMen.receiverType        = ship.receiverCompany?.vendorType
-                            shipMen.receiverContact     = ship.receiverCompany?.phone
-                            shipMen.receiverLicense     = ship.receiverCompany?.licenseNumber
-                        
-                            if let add = ship.receiverAddress?.address{
-                                
-                                shipMen.receiverAddress?.id      = add.id
-                                shipMen.receiverAddress?.city    = add.city
-                                shipMen.receiverAddress?.address = add.address
-                                shipMen.receiverAddress?.state   = add.state
-                                
-                            }
-                        
-                            model.shippingManifests.append(shipMen)
-                    }
-                }else{
-                    print("From json shipingMenifest: Nil")
-                }
-                
-                RealmManager().write(table: model)
-               // print("----DataSave-----")
-            }
-        }
-        print("----DataWrite-----")
-        getData()
     }
     func getData(){
         
-        SKActivityIndicator.dismiss()
+        SKActivityIndicator.show()
         valueDataObj =  RealmManager().readList(type: ModelInvoice.self)
         invoiceTableView.reloadData()
+        SKActivityIndicator.dismiss()
         print("----DataRead----- \(valueDataObj.count)")
     }
     // MARK:- Utilities
@@ -233,7 +93,7 @@ extension InvoicesViewController{
         let temp = valueDataObj[indexPath.row]
         cell.invoicesNoLabel.text = temp.invoiceNumber
         cell.dueDateLabel.text   =  temp.dueDate?.description
-       // cell.createdByLabel.text =  temp.employeeName
+        cell.createdByLabel.text =  temp.company
         
         return cell
     }

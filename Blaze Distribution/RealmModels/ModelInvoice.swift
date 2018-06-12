@@ -21,7 +21,7 @@ public class ModelInvoice:ModelBase {
     @objc public dynamic var total:Double           = 0.0
     @objc public dynamic var balanceDue:Double      = 0.0
     var remainingProducts = List<ModelRemainingProduct>()
-    var items = List<ModelCartProduct>()
+    var items = List<ModelInvoiceItems>()
     var paymentInfo = List<ModelPaymentInfo>()
     var shippingManifests = List<ModelShipingMenifest>()
     open override class func primaryKey() -> String? {
@@ -49,7 +49,7 @@ public class ModelInvoice:ModelBase {
             modelInvoice.remainingProducts.append(rem.copy() as! ModelRemainingProduct)
         }
         for item in self.items{
-            modelInvoice.items.append(item.copy() as! ModelCartProduct)
+            modelInvoice.items.append(item.copy() as! ModelInvoiceItems)
         }
 
         return modelInvoice

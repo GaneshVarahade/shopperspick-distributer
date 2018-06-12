@@ -25,7 +25,7 @@ public class ModelShipingMenifest:ModelBase {
     @objc public var receiverType:String?        = ""
     @objc public var receiverContact:String?     = ""
     @objc public var receiverLicense:String?     = ""
-     var receiverAddress:ModelAddres?
+    var receiverAddress:ModelAddres?
 
     
     @objc public var asset:ModelAssets?
@@ -63,9 +63,5 @@ public class ModelShipingMenifest:ModelBase {
         
         
         return modelShipingMenifest
-    }
-    
-    public func getString() -> String {
-        return "id: \(self.id), companyId:\(self.companyId)"
     }
 }

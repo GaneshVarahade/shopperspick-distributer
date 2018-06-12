@@ -16,8 +16,7 @@ public class ResponseBulkRequest: BaseResponseModel  {
     public var updated: Bool?
     public var companyId: String?
     public var invoice: ResponseArrayInvoice?
-    
-    //public var inventory: ResponseArrayInventory?
+    public var inventoryTransfers: ResponseArrayInventory?
     
    // public var purchaseOrder: ResponseArrayPurchaseOrder?
 }
