@@ -83,6 +83,10 @@
 		B942E45A20CFBE3800E474E1 /* ResponseInvoiceItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45920CFBE3700E474E1 /* ResponseInvoiceItems.swift */; };
 		B942E45C20CFC11400E474E1 /* ModelInvoiceItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45B20CFC11400E474E1 /* ModelInvoiceItems.swift */; };
 		B942E45E20CFD26C00E474E1 /* ModelAddres.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45D20CFD26C00E474E1 /* ModelAddres.swift */; };
+		B942E46320D00A4000E474E1 /* ResponseProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E46220D00A4000E474E1 /* ResponseProduct.swift */; };
+		B942E46520D00B5300E474E1 /* ResponseQuantities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E46420D00B5300E474E1 /* ResponseQuantities.swift */; };
+		B942E46720D0103A00E474E1 /* ModelProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E46620D0103A00E474E1 /* ModelProduct.swift */; };
+		B942E46920D010D800E474E1 /* ModelQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E46820D010D800E474E1 /* ModelQuantity.swift */; };
 		B95A8A2720B420F200F76A15 /* ShippingItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */; };
 		B95A8A2920B4220F00F76A15 /* AddPaymentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */; };
 		B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2B20B422F300F76A15 /* ItemsToShipViewController.swift */; };
@@ -112,7 +116,7 @@
 		B9CAC8E220AF1155008F1650 /* UIViewXRadialGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D820AF1154008F1650 /* UIViewXRadialGradient.swift */; };
 		B9CAC8E320AF1155008F1650 /* UIViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CAC8D920AF1154008F1650 /* UIViewX.swift */; };
 		B9D45A0320CA528000E4E0E8 /* ResponseAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0220CA528000E4E0E8 /* ResponseAsset.swift */; };
-		B9D45A0520CA53F900E4E0E8 /* ResponseProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0420CA53F900E4E0E8 /* ResponseProduct.swift */; };
+		B9D45A0520CA53F900E4E0E8 /* ResponseProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0420CA53F900E4E0E8 /* ResponseProducts.swift */; };
 		B9D45A0720CA55E200E4E0E8 /* ResponseSalesPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0620CA55E200E4E0E8 /* ResponseSalesPerson.swift */; };
 		B9D45A0920CA566C00E4E0E8 /* ResponseVendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0820CA566C00E4E0E8 /* ResponseVendor.swift */; };
 		B9D45A0B20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D45A0A20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift */; };
@@ -257,6 +261,10 @@
 		B942E45920CFBE3700E474E1 /* ResponseInvoiceItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInvoiceItems.swift; sourceTree = "<group>"; };
 		B942E45B20CFC11400E474E1 /* ModelInvoiceItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInvoiceItems.swift; sourceTree = "<group>"; };
 		B942E45D20CFD26C00E474E1 /* ModelAddres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAddres.swift; sourceTree = "<group>"; };
+		B942E46220D00A4000E474E1 /* ResponseProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseProduct.swift; sourceTree = "<group>"; };
+		B942E46420D00B5300E474E1 /* ResponseQuantities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseQuantities.swift; sourceTree = "<group>"; };
+		B942E46620D0103A00E474E1 /* ModelProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProduct.swift; sourceTree = "<group>"; };
+		B942E46820D010D800E474E1 /* ModelQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelQuantity.swift; sourceTree = "<group>"; };
 		B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingItemsViewController.swift; sourceTree = "<group>"; };
 		B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentTableViewController.swift; sourceTree = "<group>"; };
 		B95A8A2B20B422F300F76A15 /* ItemsToShipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsToShipViewController.swift; sourceTree = "<group>"; };
@@ -286,7 +294,7 @@
 		B9CAC8D820AF1154008F1650 /* UIViewXRadialGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewXRadialGradient.swift; sourceTree = "<group>"; };
 		B9CAC8D920AF1154008F1650 /* UIViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewX.swift; sourceTree = "<group>"; };
 		B9D45A0220CA528000E4E0E8 /* ResponseAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAsset.swift; sourceTree = "<group>"; };
-		B9D45A0420CA53F900E4E0E8 /* ResponseProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseProduct.swift; sourceTree = "<group>"; };
+		B9D45A0420CA53F900E4E0E8 /* ResponseProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseProducts.swift; sourceTree = "<group>"; };
 		B9D45A0620CA55E200E4E0E8 /* ResponseSalesPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseSalesPerson.swift; sourceTree = "<group>"; };
 		B9D45A0820CA566C00E4E0E8 /* ResponseVendor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseVendor.swift; sourceTree = "<group>"; };
 		B9D45A0A20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsePaymentsReceived.swift; sourceTree = "<group>"; };
@@ -436,6 +444,8 @@
 				182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */,
 				B942E45B20CFC11400E474E1 /* ModelInvoiceItems.swift */,
 				B942E45D20CFD26C00E474E1 /* ModelAddres.swift */,
+				B942E46620D0103A00E474E1 /* ModelProduct.swift */,
+				B942E46820D010D800E474E1 /* ModelQuantity.swift */,
 			);
 			path = RealmModels;
 			sourceTree = "<group>";
@@ -461,6 +471,7 @@
 		18EE27AE20C95FEB002A329B /* ResponseModel */ = {
 			isa = PBXGroup;
 			children = (
+				B942E46120D009C400E474E1 /* ResponseProductModel */,
 				B942E46020CFDCCB00E474E1 /* ResponseInventoryModel */,
 				18EE27AF20C96003002A329B /* ResponseBulkRequest.swift */,
 				B942E45F20CFDA0700E474E1 /* ResponseInvoiceModels */,
@@ -470,7 +481,6 @@
 				18EE27BB20C962BA002A329B /* ResponsePurchaseOrder.swift */,
 				B9AA85E720C97E0F00751BF2 /* ResponseCart.swift */,
 				B9D45A0220CA528000E4E0E8 /* ResponseAsset.swift */,
-				B9D45A0420CA53F900E4E0E8 /* ResponseProduct.swift */,
 				B9D45A0620CA55E200E4E0E8 /* ResponseSalesPerson.swift */,
 				B9D45A0820CA566C00E4E0E8 /* ResponseVendor.swift */,
 				B9D45A0A20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift */,
@@ -725,6 +735,16 @@
 				18EE27B920C962AB002A329B /* ResponseInventory.swift */,
 			);
 			path = ResponseInventoryModel;
+			sourceTree = "<group>";
+		};
+		B942E46120D009C400E474E1 /* ResponseProductModel */ = {
+			isa = PBXGroup;
+			children = (
+				B9D45A0420CA53F900E4E0E8 /* ResponseProducts.swift */,
+				B942E46220D00A4000E474E1 /* ResponseProduct.swift */,
+				B942E46420D00B5300E474E1 /* ResponseQuantities.swift */,
+			);
+			path = ResponseProductModel;
 			sourceTree = "<group>";
 		};
 		B95A8A2520B416A500F76A15 /* Shipping_Manifest */ = {
@@ -1262,11 +1282,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B942E46920D010D800E474E1 /* ModelQuantity.swift in Sources */,
 				B9E5268320B2DFC800127E43 /* AddItemTableViewCell.swift in Sources */,
 				B985566720B438AD00A56497 /* ReachabilityManager.swift in Sources */,
 				1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */,
 				B95A8A2920B4220F00F76A15 /* AddPaymentTableViewController.swift in Sources */,
 				189F82D220C507DF0054986E /* AQLog.swift in Sources */,
+				B942E46520D00B5300E474E1 /* ResponseQuantities.swift in Sources */,
 				B95A8A3220B4247900F76A15 /* SignatureViewController.swift in Sources */,
 				B9E5267E20B2DAAA00127E43 /* Completed_POStaticDetailsTableViewController.swift in Sources */,
 				1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */,
@@ -1287,7 +1309,7 @@
 				189F82C320C501B70054986E /* ModelInvoice.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
 				B92755F920C1256B008F0499 /* DBManager.swift in Sources */,
-				B9D45A0520CA53F900E4E0E8 /* ResponseProduct.swift in Sources */,
+				B9D45A0520CA53F900E4E0E8 /* ResponseProducts.swift in Sources */,
 				182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */,
 				B985566920B43B2900A56497 /* YPDrawSignatureView.swift in Sources */,
 				B9CAC8E020AF1155008F1650 /* UILabelX.swift in Sources */,
@@ -1308,8 +1330,10 @@
 				B92A65AA20AF2E3F00CDA4CC /* InvoicesViewController.swift in Sources */,
 				182B920420C7E0860041915B /* StoreImage.swift in Sources */,
 				18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */,
+				B942E46320D00A4000E474E1 /* ResponseProduct.swift in Sources */,
 				B9E5265820B2BB7800127E43 /* InventoryTableViewCell.swift in Sources */,
 				182B921420C8397B0041915B /* ModelPurchaseOrder.swift in Sources */,
+				B942E46720D0103A00E474E1 /* ModelProduct.swift in Sources */,
 				18EE27B820C96262002A329B /* ResponseArrayPurchaseOrder.swift in Sources */,
 				B9E5266820B2C39300127E43 /* ReceiveShipmentTableViewCell.swift in Sources */,
 				B9E5265420B2B93600127E43 /* CreateTransferViewController.swift in Sources */,

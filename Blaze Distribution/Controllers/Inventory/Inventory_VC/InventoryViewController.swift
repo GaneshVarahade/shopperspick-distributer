@@ -34,19 +34,11 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
                                        selector: #selector(syncComplete(_:)),
                                        eventType: EventBusEventType.SYNCDATA)
         SKActivityIndicator.show()
-//        let requestBulk = RequestBulkAPI()
-//        WebServicesAPI.sharedInstance().BulkAPI(request: requestBulk) { (result:ResponseBulkRequest?,error:PlatformError?) in
-//            if error != nil{
-//                print(error?.message! ?? "Error")
-//                return
-//            }
-//            self.saveDataInvoice(jsonData: result?.invoice)
-//            self.saveDataInventory(jsonData: result?.inventoryTransfers)
-//        }
-
+        
+        SyncService.sharedInstance().syncData()
         
     }
-    
+   
     override func viewDidDisappear(_ animated: Bool) {
         EventBus.sharedBus().unsubscribe(self, eventType: EventBusEventType.SYNCDATA)
     }
@@ -174,6 +166,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             for value in values{
                 let tempInventory = ModelInventory()
                 tempInventory.id = value.id
+                tempInventory.created = value.created!
                 tempInventory.transferNo = value.transferNo
                 tempInventory.fromInventoryName = value.fromInventoryName
                 tempInventory.fromShopName = value.fromShopName
@@ -189,6 +182,17 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         SKActivityIndicator.dismiss()
         print("---Inventory Data Save---")
         getData()
+    }
+    func saveDataProduct(jsonData:ResponseProducts){
+        
+        if let products = jsonData.values{
+         
+            for prod in products{
+             
+                
+                
+            }
+        }
     }
     func getData(){
         
@@ -215,15 +219,17 @@ extension InventoryViewController{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
+        let cell = inventoryTableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
         let temp   = inventoryData[indexPath.row]
-        cell.nameLabel.text    =  "ASA"//temp.toInventoryName
+        cell.nameLabel.text    =  temp.toInventoryName
         cell.requestLabel.text =  temp.transferNo
+        
         if segmentControl.selectedSegmentIndex == 0 {
             cell.dateLabel.isHidden = false
-            cell.dateLabel.text     = temp.fromShopId
+            cell.dateLabel.text     = String(temp.created)
         }
         else {
+            
             cell.dateLabel.isHidden = true
         }
         return cell
