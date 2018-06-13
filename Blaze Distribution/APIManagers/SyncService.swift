@@ -251,7 +251,7 @@ public final class SyncService {
                 let tempInventory = ModelInventoryTransfers()
                 tempInventory.id = value.id
                 tempInventory.transferNo = value.transferNo
-                tempInventory.created = value.created ?? 0
+                tempInventory.modified = value.modified ?? 0
                 tempInventory.fromInventoryName = value.fromInventoryName
                 tempInventory.fromShopName = value.fromShopName
                 tempInventory.toInventoryName = value.toInventoryName
