@@ -41,7 +41,6 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewWillAppear(animated)
         self.title = "Invoices"
     }
- 
     func getData(){
         valueDataObj =  RealmManager().readList(type: ModelInvoice.self)
         invoiceTableView.reloadData()
@@ -63,12 +62,12 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK:- Segment Value Change
     @IBAction func invoiceSegmentValueChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            dueDateTitle.text = "DUE DATE"
+            dueDateTitle.text       = "DUE DATE"
             scanInvoiceBtn.isHidden = false
             invoiceTableView.reloadData()
         }
         else {
-            dueDateTitle.text = "COMPLETED"
+            dueDateTitle.text       = "COMPLETED"
             scanInvoiceBtn.isHidden = true
             invoiceTableView.reloadData()
         }
@@ -96,8 +95,8 @@ extension InvoicesViewController{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! InvoicesTableViewCell
-        let temp = valueDataObj[indexPath.row]
+        let cell                  = tableView.dequeueReusableCell(withIdentifier: "cell") as! InvoicesTableViewCell
+        let temp                  = valueDataObj[indexPath.row]
         cell.invoicesNoLabel.text = temp.invoiceNumber
         cell.dueDateLabel.text   =  temp.dueDate?.description
         cell.createdByLabel.text =  temp.salesPerson
