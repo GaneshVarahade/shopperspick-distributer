@@ -22,12 +22,6 @@ class BasketViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tempDataDict = [["name":"Product 1","id":"123245","units":"5 Units"],["name":"Product 1","id":"123245","units":"5 Units"],["name":"Product 1","id":"123245","units":"5 Units"],["name":"Product 1","id":"123245","units":"5 Units"],["name":"Product 1","id":"123245","units":"5 Units"]]
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
     // MARK:- UITableviewDatasource/Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tempDataDict.count

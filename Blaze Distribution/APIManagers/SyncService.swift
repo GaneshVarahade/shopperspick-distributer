@@ -85,9 +85,9 @@ public final class SyncService {
                 return
             }
             
-            print(result?.invoice?.values?.count)
-            print(result?.purchaseOrder?.values?[0].poNumber)
-            print(result?.purchaseOrder?.values?[0].poProductRequestList?[0].productName)
+          //  print(result?.invoice?.values?.count)
+           // print(result?.purchaseOrder?.values?[0].poNumber)
+          //  print(result?.purchaseOrder?.values?[0].poProductRequestList?[0].productName)
             
             if let arrayPurchaseOrders = result?.purchaseOrder?.values {
                     self.savePurchaseOrder(arrayPurchaseOrders)
@@ -253,5 +253,17 @@ public final class SyncService {
             print("Inventory is nil....")
         }
         print("---Inventory Data Save---")
+    }
+    
+    func saveDataProduct(jsonData:ResponseProducts){
+        
+        if let products = jsonData.values{
+            
+            for prod in products{
+                
+                
+                
+            }
+        }
     }
 }

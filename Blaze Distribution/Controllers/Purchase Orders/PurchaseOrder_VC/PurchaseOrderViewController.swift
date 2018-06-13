@@ -51,16 +51,11 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     @IBAction func segmentedAction(_ sender: UISegmentedControl) {
-        
-        
-     //   print(sender.selectedSegmentIndex)
         if sender.selectedSegmentIndex == 1{
             completed = true
         }else{
             completed = false
         }
-        
-        
     }
     // MARK:- UIButton events
     
@@ -127,14 +122,4 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
         self.view.endEditing(true)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
