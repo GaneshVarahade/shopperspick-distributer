@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1812B33F20CAB31800B4DC26 /* ModelInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventory.swift */; };
+		1812B33F20CAB31800B4DC26 /* ModelInventoryTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */; };
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
 		1827FC0620D11AB300DEA5E8 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */; };
 		1828E6C320C6D0F300EB74B4 /* Tables.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1828E6C220C6D0F300EB74B4 /* Tables.txt */; };
@@ -103,6 +103,8 @@
 		B985566B20B43B6000A56497 /* QuantityBatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B985566A20B43B6000A56497 /* QuantityBatchTableViewCell.swift */; };
 		B985566D20B43B8700A56497 /* ShippingManifestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B985566C20B43B8700A56497 /* ShippingManifestTableViewCell.swift */; };
 		B985566F20B440E500A56497 /* WebServicesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B985566E20B440E500A56497 /* WebServicesAPI.swift */; };
+		B98E12DC20D14E630067B5B0 /* ModelInventories.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E12DB20D14E630067B5B0 /* ModelInventories.swift */; };
+		B98E12DE20D150470067B5B0 /* ModelInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E12DD20D150470067B5B0 /* ModelInventory.swift */; };
 		B9AA85DF20C9092A00751BF2 /* ResponseLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA85DE20C9092A00751BF2 /* ResponseLogin.swift */; };
 		B9AA85E220C925B800751BF2 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AA85E120C925B800751BF2 /* LoginModel.swift */; };
 		B9AA85E420C95E3100751BF2 /* InvoiceTables.txt in Resources */ = {isa = PBXBuildFile; fileRef = B9AA85E320C95E3100751BF2 /* InvoiceTables.txt */; };
@@ -172,7 +174,7 @@
 /* Begin PBXFileReference section */
 		0258B61748E9715829B0B522 /* Pods-Blaze DistributionTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.stage.xcconfig"; sourceTree = "<group>"; };
 		0938C2F5672F799D7AB60923 /* Pods-Blaze Distribution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.dev.xcconfig"; sourceTree = "<group>"; };
-		1812B33E20CAB31800B4DC26 /* ModelInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventory.swift; sourceTree = "<group>"; };
+		1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventoryTransfers.swift; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
 		1824C0BE20CA796400F7E1B4 /* bulkrequest.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = bulkrequest.rtf; path = "/Volumes/Development/Projects/iOSWorkspace/blaze-distribution-ios/Blaze Distribution/TextFilesForReference/bulkrequest.rtf"; sourceTree = "<absolute>"; };
 		1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
@@ -284,6 +286,8 @@
 		B985566A20B43B6000A56497 /* QuantityBatchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuantityBatchTableViewCell.swift; sourceTree = "<group>"; };
 		B985566C20B43B8700A56497 /* ShippingManifestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingManifestTableViewCell.swift; sourceTree = "<group>"; };
 		B985566E20B440E500A56497 /* WebServicesAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServicesAPI.swift; sourceTree = "<group>"; };
+		B98E12DB20D14E630067B5B0 /* ModelInventories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventories.swift; sourceTree = "<group>"; };
+		B98E12DD20D150470067B5B0 /* ModelInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventory.swift; sourceTree = "<group>"; };
 		B9AA85DE20C9092A00751BF2 /* ResponseLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseLogin.swift; sourceTree = "<group>"; };
 		B9AA85E120C925B800751BF2 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		B9AA85E320C95E3100751BF2 /* InvoiceTables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = InvoiceTables.txt; sourceTree = "<group>"; };
@@ -446,12 +450,14 @@
 				182B921720C839C00041915B /* ModelAssets.swift */,
 				182B921920C83A140041915B /* ModelPaymentInfo.swift */,
 				182B921B20C83A360041915B /* ModelCartProduct.swift */,
-				1812B33E20CAB31800B4DC26 /* ModelInventory.swift */,
+				1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */,
 				182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */,
 				B942E45B20CFC11400E474E1 /* ModelInvoiceItems.swift */,
 				B942E45D20CFD26C00E474E1 /* ModelAddres.swift */,
 				B942E46620D0103A00E474E1 /* ModelProduct.swift */,
 				B942E46820D010D800E474E1 /* ModelQuantity.swift */,
+				B98E12DB20D14E630067B5B0 /* ModelInventories.swift */,
+				B98E12DD20D150470067B5B0 /* ModelInventory.swift */,
 			);
 			path = RealmModels;
 			sourceTree = "<group>";
@@ -1361,6 +1367,7 @@
 				B9CAC8DA20AF1155008F1650 /* UIVisualEffectViewX.swift in Sources */,
 				B9CAC8DD20AF1155008F1650 /* UIButtonX.swift in Sources */,
 				182B921620C839A30041915B /* ModelSignature.swift in Sources */,
+				B98E12DE20D150470067B5B0 /* ModelInventory.swift in Sources */,
 				B9D45A1420CA74CB00E4E0E8 /* ResponseForgorPassword.swift in Sources */,
 				B942E45820CFA48000E474E1 /* ResponseRemaingProduct.swift in Sources */,
 				B985566F20B440E500A56497 /* WebServicesAPI.swift in Sources */,
@@ -1382,13 +1389,14 @@
 				B9E5266420B2C35A00127E43 /* LookUpTableViewCell.swift in Sources */,
 				189F82DD20C50EB40054986E /* PlatformError.swift in Sources */,
 				B9CAC8E220AF1155008F1650 /* UIViewXRadialGradient.swift in Sources */,
-				1812B33F20CAB31800B4DC26 /* ModelInventory.swift in Sources */,
+				1812B33F20CAB31800B4DC26 /* ModelInventoryTransfers.swift in Sources */,
 				189F82BC20C501B70054986E /* RealmManager.swift in Sources */,
 				189F82D720C5096F0054986E /* UtilityUserDefaults.swift in Sources */,
 				189F82C120C501B70054986E /* BaseResponseProtocol.swift in Sources */,
 				182B920720C7E5330041915B /* SyncService.swift in Sources */,
 				B942801A20CE708400F2FA0F /* ReponseCartProduct.swift in Sources */,
 				182B920C20C838C00041915B /* ModelTransfer.swift in Sources */,
+				B98E12DC20D14E630067B5B0 /* ModelInventories.swift in Sources */,
 				B9AA85E820C97E0F00751BF2 /* ResponseCart.swift in Sources */,
 				B985566B20B43B6000A56497 /* QuantityBatchTableViewCell.swift in Sources */,
 				B985566520B4379F00A56497 /* Constants.swift in Sources */,

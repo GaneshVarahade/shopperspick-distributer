@@ -16,9 +16,8 @@ public class ModelQuantity:ModelBase{
     }
     public override func copy(with zone: NSZone? = nil) -> Any {
         let modelQuantity      = ModelQuantity()
-        
-        modelQuantity.inventoryId        = self.inventoryId
-        modelQuantity.quantity        = self.quantity
+        modelQuantity.inventoryId = self.inventoryId
+        modelQuantity.quantity    = self.quantity
         modelQuantity.id          = self.id
         return modelQuantity
     }

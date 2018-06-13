@@ -100,6 +100,10 @@ public final class SyncService {
                 if let arrayProducts = result?.product?.values{
                     self.saveDataProduct(jsonData: arrayProducts)
                 }
+                if let arrayInventory = result?.inventories{
+                    
+                    self.saveInventory(jsonData: arrayInventory)
+                }
             
                 self.finishSync()
             }
@@ -173,7 +177,7 @@ public final class SyncService {
                     }
                 }else{
                     
-                    print("Remaing nil..")
+                  //  print("Remaing nil..")
                 }
                 ///Mapping Items
                 if let items = valu.items{
@@ -188,7 +192,7 @@ public final class SyncService {
                     }
                     
                 }else{
-                    print("Items nil")
+                  //  print("Items nil")
                 }
                 //Mapping Payment Info
                 if let  paymentRec = valu.paymentsReceived{
@@ -203,7 +207,7 @@ public final class SyncService {
                     }
                 }else{
                     
-                    print("Payment info nil")
+                  //  print("Payment info nil")
                 }
                 ///Mapping Shipping Manifests
                 if valu.shippingManifests != nil, valu.shippingManifests!.count > 0 {
@@ -231,12 +235,12 @@ public final class SyncService {
                         model.shippingManifests.append(shipMen)
                     }
                 }else{
-                    print("From json shipingMenifest: Nil")
+                  //  print("From json shipingMenifest: Nil")
                 }
                 RealmManager().write(table: model)
             }
         }
-        print("---Invoice Data Save---")
+       // print("---Invoice Data Save---")
         
     }
     func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
@@ -245,9 +249,9 @@ public final class SyncService {
             for value in values{
                 
                 //Avoid adding Inventory which are Pending
-                guard value.status?.localizedCaseInsensitiveContains(TransferStatus.PENDING.rawValue) ?? false else {
-                    continue
-                }
+//                guard value.status?.localizedCaseInsensitiveContains(TransferStatus.PENDING.rawValue) ?? false else {
+//                    continue
+//                }
                 let tempInventory = ModelInventoryTransfers()
                 tempInventory.id = value.id
                 tempInventory.transferNo = value.transferNo
@@ -293,4 +297,38 @@ public final class SyncService {
             print("---Products nil---")
         }
     }
+    func saveInventory(jsonData:[ResponseInventories]){
+        
+        let shops:[ShopsModel] = RealmManager().readList(type: ShopsModel.self)
+        
+        print(jsonData.count,"COUNT",shops.count)
+        
+        for inventories in jsonData{
+           let model = ModelInventories()
+            print(inventories.shopId ?? "-Empty-")
+            
+            
+            for shop in shops{
+                if shop.id == inventories.shopId{
+                       model.shopName = shop.name
+                        model.shopId   = inventories.shopId
+                       for ivt in inventories.inventory!{
+                    
+                                let invModel = ModelInventory()
+                                invModel.id = ivt.id
+                                invModel.name = ivt.name
+                                invModel.shopId = ivt.shopId
+                                model.inventory.append(invModel)
+                    
+                        }
+        
+                }
+            }
+             RealmManager().write(table: model)
+             print("---ResponseInventories Save---")
+        }
+    }
 }
+
+
+

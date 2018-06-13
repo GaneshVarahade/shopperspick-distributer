@@ -12,14 +12,14 @@ import RealmSwift
 
 public class LoginModel:ModelBase {
 
-    @objc public var accessToken: String?             = ""
-    @objc public var assetAccessToken: String?          = ""
-    @objc public var employee:EmployeeModel?            = EmployeeModel()
-    @objc public var assignedShop:AssignedShopModel?    = AssignedShopModel()
-    @objc public var assignedTerminal:AssignedTerminalModel? = AssignedTerminalModel()
-    @objc public var appType:String?
-    @objc public var appTarget:String?
-    @objc public var sessionId:String?
+    @objc public dynamic var accessToken: String?             = ""
+    @objc public dynamic var assetAccessToken: String?          = ""
+    @objc public dynamic var employee:EmployeeModel?            = EmployeeModel()
+    @objc public dynamic var assignedShop:AssignedShopModel?    = AssignedShopModel()
+    @objc public dynamic var assignedTerminal:AssignedTerminalModel? = AssignedTerminalModel()
+    @objc public dynamic var appType:String?
+    @objc public dynamic var appTarget:String?
+    @objc public dynamic var sessionId:String?
     var   shops = List<ShopsModel>()
     open override class func primaryKey() -> String? {
         return "id"
@@ -44,11 +44,11 @@ public class LoginModel:ModelBase {
 }
 
 public class EmployeeModel:ModelBase{
-    @objc public var firstName: String? = ""
-    @objc public var lastName: String?  = ""
-    @objc public var pin: String?       = ""
-    @objc public var roleId:String?     = ""
-    open override class func primaryKey() -> String? {
+    @objc public dynamic var firstName: String? = ""
+    @objc public dynamic var lastName: String?  = ""
+    @objc public dynamic var pin: String?       = ""
+    @objc public dynamic var roleId:String?     = ""
+    open override dynamic class func primaryKey() -> String? {
         return "id"
     }
     
@@ -64,11 +64,11 @@ public class EmployeeModel:ModelBase{
 }
 
 public class AssignedShopModel:ModelBase{
-    @objc public var shopType: String?    = ""
-    @objc public var name: String         = ""
-    @objc public var phoneNumber: String? = ""
-    @objc public var emailAdress:String?  = ""
-    @objc public var address:AddressModel?
+    @objc public dynamic var shopType: String?    = ""
+    @objc public dynamic var name: String         = ""
+    @objc public dynamic var phoneNumber: String? = ""
+    @objc public dynamic var emailAdress:String?  = ""
+    @objc public dynamic var address:AddressModel?
     open override class func primaryKey() -> String? {
         return "id"
     }
@@ -86,10 +86,10 @@ public class AssignedShopModel:ModelBase{
 }
 
 public class AssignedTerminalModel:ModelBase{
-    @objc public var shopId: String?              = ""
-    @objc public var active: Bool                 = false
-    @objc public var assignedInventoryId: String? = ""
-    @objc public var currentEmployeeId:String?    = ""
+    @objc public dynamic var shopId: String?              = ""
+    @objc public dynamic var active: Bool                 = false
+    @objc public dynamic var assignedInventoryId: String? = ""
+    @objc public dynamic var currentEmployeeId:String?    = ""
     open override class func primaryKey() -> String? {
         return "id"
     }
@@ -105,9 +105,9 @@ public class AssignedTerminalModel:ModelBase{
 }
 
 public class AddressModel:ModelBase{
-    @objc public var address: String? = ""
-    @objc public var city: String     = ""
-    @objc public var state: String?   = ""
+    @objc public dynamic var address: String? = ""
+    @objc public dynamic var city: String     = ""
+    @objc public dynamic var state: String?   = ""
     open override class func primaryKey() -> String? {
         return "id"
     }
@@ -123,8 +123,8 @@ public class AddressModel:ModelBase{
     }
 }
 public class ShopsModel:ModelBase{
-    @objc public var name:String? = ""
-    @objc public var shopType:String? = ""
+    @objc public dynamic var name:String? = ""
+    @objc public dynamic var shopType:String? = ""
     open override class func primaryKey() -> String? {
         return "id"
     }

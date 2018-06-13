@@ -19,4 +19,7 @@ public class ResponseBulkRequest: BaseResponseModel  {
     public var inventoryTransfers: ResponseArrayInventory?
     public var product:ResponseProducts?
     public var purchaseOrder: ResponseArrayPurchaseOrder?
+    public var inventories:[ResponseInventories]?
+    
+    
 }

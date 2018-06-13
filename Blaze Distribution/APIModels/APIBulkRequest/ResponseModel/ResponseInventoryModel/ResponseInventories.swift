@@ -14,6 +14,6 @@ public class ResponseInventories:BaseResponseModel{
     public var deleted: Bool?
     public var updated: Bool?
     public var companyId: String?
-    public var 
-    
+    public var shopId:String?
+    public var inventory:[ResponseInventory]?
 }
