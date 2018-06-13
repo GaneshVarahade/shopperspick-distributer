@@ -47,24 +47,33 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         print(UIDevice.current.identifierForVendor!.uuidString)
         WebServicesAPI.sharedInstance().loginAPI(request: reqLogin, onComplition: {(result:ResponseLogin?, error:PlatformError?) in
-            SKActivityIndicator.dismiss()
+          //  SKActivityIndicator.dismiss()
             if error != nil {
                 print(error?.details ?? "Error")
                 return
             }
             self.saveData(jsonData: result)
             UtilityUserDefaults.sharedInstance().saveToken(strToken: (result?.accessToken)!)
+           
+            SKActivityIndicator.show()
             SyncService.sharedInstance().syncData()
-            self.performSegue(withIdentifier: "goHome", sender: self)
+            EventBus.sharedBus().subscribe(self, selector: #selector(self.goHome), eventType: EventBusEventType.SYNCDATA)
+          
         })
     }
+
+    @objc func goHome(){
+        
+          self.performSegue(withIdentifier: "goHome", sender: self)
+    }
+    
     // MARK: - Helper Methods
     func setup(){
         if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
             statusbar.backgroundColor = UIColor(red:0.97, green:0.69, blue:0.06, alpha:1.0)
         }
     }
-    // MARK: - Mapping Response to Model Classes
+    // MARK: - Mapping Login Response to Model Classes 
     func saveData(jsonData:ResponseLogin?){
         
             if let data = jsonData{

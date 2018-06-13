@@ -17,13 +17,16 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var createBtn: UIButton!
     @IBOutlet weak var inventoryTableView: UITableView!
-
-    var inventoryData : [ModelInventory] = []
+   
+    var data : [Any]                     = []
+    var inventoryData : [ModelInventoryTransfers] = []
+    var productData : [ModelProduct]     = []
+    var productFlag:Bool                 = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
-
     override func viewWillAppear(_ animated: Bool) {
         self.title = "Inventory"
     }
@@ -31,44 +34,43 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        getData()
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-      
-    }
-    
-    @objc func syncComplete(_ notification:NSNotification) {
-        SKActivityIndicator.dismiss()
+        self.getData()
     }
     // MARK:- UISegmentController Valu Changed
     
     @IBAction func segmentChanged(_ sender: Any) {
         
         if segmentControl.selectedSegmentIndex == 0 {
-            nameLabel.isHidden = false
+            data.removeAll()
+            nameLabel.isHidden    = false
             requestLabel.isHidden = false
-            dateLabel.isHidden = false
-            requestLabel.text = "REQUEST #"
-            createBtn.isHidden = false
+            dateLabel.isHidden    = false
+            requestLabel.text     = "REQUEST#"
+            createBtn.isHidden    = false
+            productFlag           = false
+            data                  = inventoryData
             inventoryTableView.reloadData()
         }
         else {
+            data.removeAll()
+            productFlag        = true
             dateLabel.isHidden = true
-            requestLabel.text = "QUANTITY"
+            requestLabel.text  = "QUANTITY"
             createBtn.isHidden = true
+            data               = productData
             inventoryTableView.reloadData()
         }
     }
     func getData(){
         
         SKActivityIndicator.show()
-        inventoryData =  RealmManager().readList(type: ModelInventory.self)
+        inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
+        data          = inventoryData
+        productData   = RealmManager().readList(type: ModelProduct.self)
         inventoryTableView.reloadData()
         SKActivityIndicator.dismiss()
         print("----DataRead----- \(inventoryData.count)")
     }
-    
-   
      // MARK: - UIButton Events
     @IBAction func createTransferBtnPressed(_ sender: Any) {
       
@@ -80,24 +82,26 @@ extension InventoryViewController{
     // MARk:- UITableview DataSource/ Delegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return inventoryData.count
+        return data.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = inventoryTableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
-        let temp = inventoryData[indexPath.row]
-        cell.nameLabel.text    =  temp.toInventoryName
-        cell.requestLabel.text =  temp.transferNo
         
-        if segmentControl.selectedSegmentIndex == 0 {
-            cell.dateLabel.isHidden = false
-            cell.dateLabel.text     = String(temp.created)
-        }
-            
-        else {
-            
+        
+        if productFlag{
+            let temp                = data[indexPath.row] as! ModelProduct
+            cell.nameLabel.text     = temp.name
+            cell.requestLabel.text  = String(format: "%.1f", temp.quantity)
             cell.dateLabel.isHidden = true
+        }else{
+            let tempi   = data[indexPath.row] as! ModelInventoryTransfers
+            cell.nameLabel.text     = tempi.toInventoryName
+            cell.requestLabel.text  = tempi.transferNo
+            cell.dateLabel.isHidden = false
+            cell.dateLabel.text     = String(tempi.created)
         }
+        
         return cell
     }
     

@@ -17,6 +17,6 @@ public class ResponseBulkRequest: BaseResponseModel  {
     public var companyId: String?
     public var invoice: ResponseArrayInvoice?
     public var inventoryTransfers: ResponseArrayInventory?
-    public var product:ResponseProduct?    
+    public var product:ResponseProducts?
     public var purchaseOrder: ResponseArrayPurchaseOrder?
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ModelInventory: ModelBase {
+public class ModelInventoryTransfers: ModelBase {
     
     @objc public dynamic var transferNo:String?        = ""
     @objc public dynamic var fromShopId:String?        = ""
@@ -23,17 +23,17 @@ public class ModelInventory: ModelBase {
     }
     
     public override func copy(with zone: NSZone? = nil) -> Any {
-        let modelInventory      = ModelInventory()
+        let modelInventoryTransfers      = ModelInventoryTransfers()
        
-        modelInventory.transferNo        = self.transferNo
-        modelInventory.fromShopId        = self.fromShopId
-        modelInventory.toShopId          = self.toShopId
-        modelInventory.fromShopName      = self.fromShopName
-        modelInventory.toShopName        = self.toShopName
-        modelInventory.fromInventoryName = self.fromInventoryName
-        modelInventory.toInventoryName   = self.toInventoryName
-        modelInventory.id = self.id
+        modelInventoryTransfers.transferNo        = self.transferNo
+        modelInventoryTransfers.fromShopId        = self.fromShopId
+        modelInventoryTransfers.toShopId          = self.toShopId
+        modelInventoryTransfers.fromShopName      = self.fromShopName
+        modelInventoryTransfers.toShopName        = self.toShopName
+        modelInventoryTransfers.fromInventoryName = self.fromInventoryName
+        modelInventoryTransfers.toInventoryName   = self.toInventoryName
+        modelInventoryTransfers.id = self.id
         
-        return modelInventory
+        return modelInventoryTransfers
     }
 }

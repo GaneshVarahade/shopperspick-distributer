@@ -28,8 +28,6 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         SKActivityIndicator.show()
-        let invoiceReq = RequestInvoices()
-        invoiceReq.shopId = "56cf846ee38179985229e59e"
         getData()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -37,7 +35,6 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         self.title = "Invoices"
        
     }
-    
     func getData(){
         
         SKActivityIndicator.show()
@@ -61,12 +58,12 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK:- Segment Value Change
     @IBAction func invoiceSegmentValueChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            dueDateTitle.text = "DUE DATE"
+            dueDateTitle.text       = "DUE DATE"
             scanInvoiceBtn.isHidden = false
             invoiceTableView.reloadData()
         }
         else {
-            dueDateTitle.text = "COMPLETED"
+            dueDateTitle.text       = "COMPLETED"
             scanInvoiceBtn.isHidden = true
             invoiceTableView.reloadData()
         }
@@ -94,12 +91,12 @@ extension InvoicesViewController{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! InvoicesTableViewCell
-        let temp = valueDataObj[indexPath.row]
+        let cell                  = tableView.dequeueReusableCell(withIdentifier: "cell") as! InvoicesTableViewCell
+        let temp                  = valueDataObj[indexPath.row]
         cell.invoicesNoLabel.text = temp.invoiceNumber
-        cell.dueDateLabel.text   =  temp.dueDate?.description
-        cell.createdByLabel.text =  temp.company
-        
+        cell.dueDateLabel.text    = temp.dueDate?.description
+        cell.createdByLabel.text  = temp.company
+
         return cell
     }
     

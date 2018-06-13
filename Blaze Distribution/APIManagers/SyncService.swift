@@ -84,13 +84,8 @@ public final class SyncService {
                 print(error?.message! ?? "Error")
                 return
             }
-            
-          //  print(result?.invoice?.values?.count)
-           // print(result?.purchaseOrder?.values?[0].poNumber)
-          //  print(result?.purchaseOrder?.values?[0].poProductRequestList?[0].productName)
-            
             if let arrayPurchaseOrders = result?.purchaseOrder?.values {
-                    self.savePurchaseOrder(arrayPurchaseOrders)
+                self.savePurchaseOrder(arrayPurchaseOrders)
             }
             
             if let arrayInvoices = result?.invoice?.values {
@@ -99,6 +94,9 @@ public final class SyncService {
             
             if let arayTransfers = result?.inventoryTransfers?.values {
                 self.saveDataInventory(jsonData: arayTransfers)
+            }
+            if let arrayProducts = result?.product?.values{
+                self.saveDataProduct(jsonData: arrayProducts)
             }
             
             EventBus.sharedBus().publishMain(EventBusEventType.SYNCDATA)
@@ -116,7 +114,6 @@ public final class SyncService {
         for respPurchaseOrder in arrayPurchase {
             
             let modelPurcahseOrder:ModelPurchaseOrder = ModelPurchaseOrder()
-            
             modelPurcahseOrder.purchaseOrderNumber = respPurchaseOrder.poNumber
             modelPurcahseOrder.isMetRc = respPurchaseOrder.metrc ?? false
             modelPurcahseOrder.received = respPurchaseOrder.receivedDate ?? 0
@@ -130,7 +127,6 @@ public final class SyncService {
                     modelPOProduct.name = productReq.productName
                     modelPOProduct.quantity = productReq.requestQuantity ?? 0
                     modelPOProduct.batchId = productReq.batchId
-                    
                     modelPurcahseOrder.productInShipment.append(modelPOProduct)
                 }
             }
@@ -234,11 +230,11 @@ public final class SyncService {
         print("---Invoice Data Save---")
         
     }
-    func saveDataInventory(jsonData: [ResponseInventory]?){
+    func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
         if let values = jsonData{
             
             for value in values{
-                let tempInventory = ModelInventory()
+                let tempInventory = ModelInventoryTransfers()
                 tempInventory.id = value.id
                 tempInventory.transferNo = value.transferNo
                 tempInventory.fromInventoryName = value.fromInventoryName
@@ -255,15 +251,30 @@ public final class SyncService {
         print("---Inventory Data Save---")
     }
     
-    func saveDataProduct(jsonData:ResponseProducts){
+    func saveDataProduct(jsonData:[ResponseProduct]?){
         
-        if let products = jsonData.values{
+        if let products = jsonData{
             
             for prod in products{
+               
+               var qnty = 0.0
+               let temp  = ModelProduct()
+                   temp.id   = prod.id
+                   temp.name = prod.name
+                   if let tempQuantity = prod.quantities{
+                    
+                      for qut in tempQuantity{
+                        qnty = qnty + qut.quantity!
+                      }
+                    temp.quantity = qnty
+                    }else{
+                      print("----Quantity nil----")
+                    }
                 
-                
-                
+                    RealmManager().write(table: temp)
             }
+        }else{
+            print("---Products nil---")
         }
     }
 }
