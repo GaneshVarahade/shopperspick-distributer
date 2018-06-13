@@ -31,23 +31,9 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
 
         SKActivityIndicator.show()
         let invoiceReq = RequestInvoices()
-        
         invoiceReq.shopId = "56cf846ee38179985229e59e"
         
-        let requestBulk = RequestBulkAPI()
-        
         SyncService.sharedInstance().syncData()
-//       WebServicesAPI.sharedInstance().BulkAPI(request: requestBulk) { (result:ResponseBulkRequest?,error:PlatformError?) in
-//
-//            if error != nil{
-//                print(error?.message! ?? "Error")
-//                return
-//            }
-//
-//            self.saveData(jsonData: result?.invoice)
-//
-//        }
-       
         getData()
     }
     override func viewWillAppear(_ animated: Bool) {
