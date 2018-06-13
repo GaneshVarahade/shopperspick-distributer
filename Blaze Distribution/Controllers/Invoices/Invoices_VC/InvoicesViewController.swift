@@ -47,6 +47,16 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         print("----DataRead----- \(valueDataObj.count)")
     }
     
+    private func getOpenInvoices() {
+        valueDataObj = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceStatus != \(InvoiceStatus.COMPLETED)")
+        invoiceTableView.reloadData()
+    }
+    
+    private func getCompleteInvoices() {
+        valueDataObj = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceStatus = \(InvoiceStatus.COMPLETED)")
+        invoiceTableView.reloadData()
+    }
+    
     // MARK:- Utilities
     func setSearchBarUI() {
         invoicesSearchBar.layer.borderWidth = 1;
@@ -62,11 +72,13 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK:- Segment Value Change
     @IBAction func invoiceSegmentValueChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
+            //getOpenInvoices()
             dueDateTitle.text       = "DUE DATE"
             scanInvoiceBtn.isHidden = false
             invoiceTableView.reloadData()
         }
         else {
+            //getCompleteInvoices()
             dueDateTitle.text       = "COMPLETED"
             scanInvoiceBtn.isHidden = true
             invoiceTableView.reloadData()

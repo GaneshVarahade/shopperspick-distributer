@@ -8,6 +8,14 @@
 
 import Foundation
 
+public enum InvoiceStatus:String {
+    
+    case IN_PROGRESS
+    case DRAFT
+    case SENT
+    case CANCELLED
+    case COMPLETED
+}
 public class ResponseInvoice :BaseResponseModel{
     public var id: String?
     public var created: Int?
@@ -22,6 +30,7 @@ public class ResponseInvoice :BaseResponseModel{
     public var balanceDue:Double?
     public var companyContact:String?
     public var total:Double?
+    public var invoiceStatus:String?
     public var items:[ResponseInvoiceItems]?
     public var paymentsReceived:[ResponsePaymentsReceived]?
     public var shippingManifests: [ResponseShippingManifests]?

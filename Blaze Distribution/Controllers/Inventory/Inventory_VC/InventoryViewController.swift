@@ -95,6 +95,7 @@ extension InventoryViewController{
         let cell = inventoryTableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
         
         
+        
         if productFlag{
             let temp                = data[indexPath.row] as! ModelProduct
             cell.nameLabel.text     = temp.name
@@ -104,8 +105,9 @@ extension InventoryViewController{
             let tempi   = data[indexPath.row] as! ModelInventoryTransfers
             cell.nameLabel.text     = tempi.toInventoryName
             cell.requestLabel.text  = tempi.transferNo
+            cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(tempi.modified)/1000,
+                                                               format: DateFormatterUtil.mmddyyyy)
             cell.dateLabel.isHidden = false
-            cell.dateLabel.text     = String(tempi.created)
         }
         
         return cell

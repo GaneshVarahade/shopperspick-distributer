@@ -14,7 +14,6 @@ public class DateFormatterUtil {
     public static let yyyyMMddHHmm:String = "yyyy-MM-dd HH:mm"
     public static let mmddyyyy:String = "MM/dd/yyyy"
     public static func format(dateTime: Double, format:String) -> String{
-        print(dateTime)
         let date = Date(timeIntervalSince1970: dateTime)
         let nsDateFormatter = DateFormatter()
         

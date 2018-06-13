@@ -255,6 +255,7 @@ public final class SyncService {
                 let tempInventory = ModelInventoryTransfers()
                 tempInventory.id = value.id
                 tempInventory.transferNo = value.transferNo
+                tempInventory.modified = value.modified ?? 0
                 tempInventory.fromInventoryName = value.fromInventoryName
                 tempInventory.fromShopName = value.fromShopName
                 tempInventory.toInventoryName = value.toInventoryName
@@ -263,6 +264,7 @@ public final class SyncService {
                 tempInventory.toInventoryName = value.toInventoryName
                 tempInventory.status = value.status
                 
+                print(tempInventory.created)
                 RealmManager().write(table: tempInventory)
             }
         }else{
