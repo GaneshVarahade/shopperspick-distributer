@@ -27,7 +27,7 @@ public class ModelInventoryTransfers: ModelBase {
         let modelInventoryTransfers      = ModelInventoryTransfers()
        
         modelInventoryTransfers.transferNo        = self.transferNo
-        modelInventoryTransfers.created           = self.created
+        modelInventoryTransfers.modified           = self.modified
         modelInventoryTransfers.fromShopId        = self.fromShopId
         modelInventoryTransfers.toShopId          = self.toShopId
         modelInventoryTransfers.fromShopName      = self.fromShopName
