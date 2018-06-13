@@ -2,7 +2,7 @@ import UIKit
 
 class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    private var arrayModelPurchaseOrders : [ModelPurchaseOrder]!
+    private var arrayModelPurchaseOrders : [ModelPurchaseOrder] = []
     var completed:Bool = false
     @IBOutlet weak var poSearchBar: UISearchBar!
     @IBOutlet weak var poSegmentController: UISegmentedControl!
@@ -11,11 +11,24 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        setSearchBarUI()
         arrayModelPurchaseOrders = getPurchaseOrders()
+        setSearchBarUI()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
+    }
+    
+    @objc func syncFinished(_ notification: Notification){
+        //Refresh data
+        arrayModelPurchaseOrders = getPurchaseOrders()
+    }
+    
     func getPurchaseOrders() -> [ModelPurchaseOrder]{
         return RealmManager().readList(type: ModelPurchaseOrder.self)
     }
@@ -43,8 +56,6 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     @IBAction func segmentedAction(_ sender: UISegmentedControl) {
-        
-     //   print(sender.selectedSegmentIndex)
         if sender.selectedSegmentIndex == 1{
             completed = true
         }else{

@@ -12,15 +12,16 @@ import RealmSwift
 public class ModelProduct:ModelBase{
     
     @objc public var name:String? = ""
-    var quantity = List<ModelQuantity>()
+    @objc public var quantity:Double = 0.0
     open override class func primaryKey() -> String? {
         return "id"
     }
     public override func copy(with zone: NSZone? = nil) -> Any {
-        let modelQuantity      = ModelQuantity()
+        let modelProduct      = ModelProduct()
+        modelProduct.name        = self.name
+        modelProduct.quantity    = self.quantity
+        modelProduct.id          = self.id
+        return modelProduct
         
-        //modelQuantity.inventoryId        = self.inventoryId
-        //modelQuantity.quantity        = self.quantity
-        modelQuantity.id          = self.id
-        return modelQuantity
-    }}
+    }
+}

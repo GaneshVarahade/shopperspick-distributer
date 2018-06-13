@@ -8,6 +8,10 @@
 
 import Foundation
 
+public enum TransferStatus:String {
+    case PENDING = "PENDING"
+}
+
 public class ResponseInventory: BaseResponseModel {
     public var id: String?
     public var created: Int?
@@ -22,4 +26,5 @@ public class ResponseInventory: BaseResponseModel {
     public var toShopName:String?
     public var fromInventoryName:String?
     public var toInventoryName:String?
+    public var status:String?
 }

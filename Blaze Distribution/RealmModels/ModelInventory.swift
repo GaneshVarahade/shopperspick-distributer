@@ -17,6 +17,7 @@ public class ModelInventory: ModelBase {
     @objc public dynamic var toShopName:String?        = ""
     @objc public dynamic var fromInventoryName:String? = ""
     @objc public dynamic var toInventoryName:String?   = ""
+    @objc public dynamic var status:String?   = ""
     
     open override class func primaryKey() -> String? {
         return "id"
@@ -32,6 +33,7 @@ public class ModelInventory: ModelBase {
         modelInventory.toShopName        = self.toShopName
         modelInventory.fromInventoryName = self.fromInventoryName
         modelInventory.toInventoryName   = self.toInventoryName
+        modelInventory.status            = self.status
         modelInventory.id = self.id
         
         return modelInventory

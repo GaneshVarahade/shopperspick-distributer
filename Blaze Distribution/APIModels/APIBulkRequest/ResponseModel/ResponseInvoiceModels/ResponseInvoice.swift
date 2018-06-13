@@ -18,6 +18,7 @@ public class ResponseInvoice :BaseResponseModel{
     public var invoiceNumber: String?
     public var dueDate:Int?
     public var company:ResponseVendor?
+    public var salesPerson:String?
     public var balanceDue:Double?
     public var companyContact:String?
     public var total:Double?

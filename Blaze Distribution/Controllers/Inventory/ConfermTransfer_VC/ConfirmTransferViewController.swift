@@ -25,12 +25,6 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
         
         tempDataDict = [["name":"Product 1","amount":"5 Units","total":"55 Units"],["name":"Product 1","amount":"5 Units","total":"55 Units"],["name":"Product 1","amount":"5 Units","total":"55 Units"],["name":"Product 1","amount":"5 Units","total":"55 Units"],["name":"Product 1","amount":"5 Units","total":"55 Units"]]
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     // MARK:- UITableViewDelegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tempDataDict.count

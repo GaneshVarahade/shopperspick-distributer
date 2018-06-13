@@ -21,6 +21,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     var inventoryData : [ModelInventory] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -29,18 +30,16 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        EventBus.sharedBus().subscribe(self,
-                                       selector: #selector(syncComplete(_:)),
-                                       eventType: EventBusEventType.SYNCDATA)
-        SKActivityIndicator.show()
-        
-        SyncService.sharedInstance().syncData()
-        
+        getData()
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
     }
-   
     override func viewDidDisappear(_ animated: Bool) {
-        EventBus.sharedBus().unsubscribe(self, eventType: EventBusEventType.SYNCDATA)
+        EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
+    }
+    
+    @objc func syncFinished(_ notification: Notification){
+        //Refresh data
+        getData()
     }
     
     @objc func syncComplete(_ notification:NSNotification) {
@@ -65,141 +64,9 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             inventoryTableView.reloadData()
         }
     }
-    
-    func saveDataInvoice(jsonData:ResponseArrayInvoice?){
-        
-        if let values = jsonData?.values{
-            
-            for valu in values{
-                
-                let model: ModelInvoice = ModelInvoice()
-                model.id                = valu.id
-                model.companyId         = valu.companyId
-                model.invoiceNumber     = valu.invoiceNumber
-                model.dueDate           = valu.dueDate?.description
-                model.balanceDue        = valu.balanceDue!
-                model.company           = valu.company?.name
-                model.balanceDue        = valu.balanceDue!
-                model.contact           = valu.companyContact
-                model.total             = valu.total!
-                
-                if let remaingProducts = valu.remainingProductInformations{
-                    for remProd  in remaingProducts{
-                        let temp               = ModelRemainingProduct()
-                        temp.productId         = remProd.productId
-                        temp.productName       = remProd.productName
-                        temp.requestQuantity   = remProd.requestQuantity!
-                        temp.remainingQuantity = remProd.remainingQuantity!
-                        model.remainingProducts.append(temp)
-                    }
-                }else{
-                    
-                    print("Remaing nil..")
-                }
-                ///Mapping Items
-                if let items = valu.items{
-                    for item in items{
-                        let itemTemp = ModelInvoiceItems()
-                        itemTemp.productId = item.productId
-                        itemTemp.productName = item.productName
-                        itemTemp.batchId    = item.batchId
-                        itemTemp.quantity = item.quantity
-                        model.items.append(itemTemp)
-                        
-                    }
-                    
-                }else{
-                    print("Items nil")
-                }
-                //Mapping Payment Info
-                if let  paymentRec = valu.paymentsReceived{
-                    
-                    for payment in paymentRec{
-                        let paymentTemp             = ModelPaymentInfo()
-                        paymentTemp.id              = payment.id
-                        paymentTemp.paymentDate     = payment.paidDate!
-                        paymentTemp.referenceNumber = payment.referenceNo ?? ""
-                        paymentTemp.amount          = payment.amountPaid!
-                        model.paymentInfo.append(paymentTemp)
-                    }
-                }else{
-                    
-                    print("Payment info nil")
-                }
-                ///Mapping Shipping Manifests
-                if valu.shippingManifests != nil, valu.shippingManifests!.count > 0 {
-                    
-                    for ship in valu.shippingManifests! {
-                        let shipMen                 = ModelShipingMenifest()
-                        shipMen.id                  = ship.id
-                        shipMen.companyId           = ship.companyId
-                        shipMen.driverName          = ship.driverName
-                        shipMen.driverLicenseNumber = ship.driverLicenceNumber
-                        shipMen.vehicleMake         = ship.vehicleMake
-                        shipMen.vehicleModel        = ship.vehicleModel
-                        shipMen.vehicleLicensePlate = ship.vehicleLicensePlate
-                        shipMen.signaturePhoto      = ship.signaturePhoto
-                        shipMen.receiverCompany     = ship.receiverCompany?.name
-                        shipMen.receiverType        = ship.receiverCompany?.vendorType
-                        shipMen.receiverContact     = ship.receiverCompany?.phone
-                        shipMen.receiverLicense     = ship.receiverCompany?.licenseNumber
-                        if let add = ship.receiverAddress?.address{
-                            shipMen.receiverAddress?.id      = add.id
-                            shipMen.receiverAddress?.city    = add.city
-                            shipMen.receiverAddress?.address = add.address
-                            shipMen.receiverAddress?.state   = add.state
-                        }
-                        model.shippingManifests.append(shipMen)
-                    }
-                }else{
-                    print("From json shipingMenifest: Nil")
-                }
-                RealmManager().write(table: model)
-            }
-        }
-        print("---Invoice Data Save---")
-        
-    }
-    func saveDataInventory(jsonData:ResponseArrayInventory?){
-        if let values = jsonData?.values{
-            
-            for value in values{
-                let tempInventory = ModelInventory()
-                tempInventory.id = value.id
-                tempInventory.created = value.created!
-                tempInventory.transferNo = value.transferNo
-                tempInventory.fromInventoryName = value.fromInventoryName
-                tempInventory.fromShopName = value.fromShopName
-                tempInventory.toInventoryName = value.toInventoryName
-                tempInventory.toShopId = value.toShopId
-                tempInventory.toShopName = value.toShopName
-                tempInventory.toInventoryName = value.toInventoryName
-                RealmManager().write(table: tempInventory)
-            }
-        }else{
-            print("Inventory is nil....")
-        }
-        SKActivityIndicator.dismiss()
-        print("---Inventory Data Save---")
-        getData()
-    }
-    func saveDataProduct(jsonData:ResponseProducts){
-        
-        if let products = jsonData.values{
-         
-            for prod in products{
-             
-                
-                
-            }
-        }
-    }
     func getData(){
-        
-        SKActivityIndicator.show()
         inventoryData =  RealmManager().readList(type: ModelInventory.self)
         inventoryTableView.reloadData()
-        SKActivityIndicator.dismiss()
         print("----DataRead----- \(inventoryData.count)")
     }
     
@@ -220,7 +87,7 @@ extension InventoryViewController{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = inventoryTableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
-        let temp   = inventoryData[indexPath.row]
+        let temp = inventoryData[indexPath.row]
         cell.nameLabel.text    =  temp.toInventoryName
         cell.requestLabel.text =  temp.transferNo
         
@@ -228,6 +95,7 @@ extension InventoryViewController{
             cell.dateLabel.isHidden = false
             cell.dateLabel.text     = String(temp.created)
         }
+            
         else {
             
             cell.dateLabel.isHidden = true

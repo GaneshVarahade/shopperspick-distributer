@@ -47,31 +47,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         print(UIDevice.current.identifierForVendor!.uuidString)
         WebServicesAPI.sharedInstance().loginAPI(request: reqLogin, onComplition: {(result:ResponseLogin?, error:PlatformError?) in
-            
             SKActivityIndicator.dismiss()
             if error != nil {
-                
                 print(error?.details ?? "Error")
                 return
             }
-            
-           
             self.saveData(jsonData: result)
-            //AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: result?.accessToken ?? "Access nil")
             UtilityUserDefaults.sharedInstance().saveToken(strToken: (result?.accessToken)!)
-            
+            SyncService.sharedInstance().syncData()
             self.performSegue(withIdentifier: "goHome", sender: self)
         })
- 
     }
-    
     // MARK: - Helper Methods
     func setup(){
         if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
             statusbar.backgroundColor = UIColor(red:0.97, green:0.69, blue:0.06, alpha:1.0)
         }
     }
-    
     // MARK: - Mapping Response to Model Classes
     func saveData(jsonData:ResponseLogin?){
         
