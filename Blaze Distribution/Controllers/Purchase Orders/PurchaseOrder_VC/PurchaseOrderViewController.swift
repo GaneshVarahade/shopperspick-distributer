@@ -11,7 +11,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        arrayModelPurchaseOrders = getPurchaseOrders()
+        getPurchaseOrdersReceiving()
         setSearchBarUI()
     }
 
@@ -26,11 +26,16 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
-        arrayModelPurchaseOrders = getPurchaseOrders()
+        getPurchaseOrdersReceiving()
     }
     
-    func getPurchaseOrders() -> [ModelPurchaseOrder]{
-        return RealmManager().readList(type: ModelPurchaseOrder.self)
+    func getPurchaseOrdersReceiving(){
+        arrayModelPurchaseOrders = RealmManager().readPredicate(type: ModelPurchaseOrder.self,
+                                       predicate: "status = '\(PurchaseOrderStatus.WaitingShipment.rawValue)'")
+    }
+    func getPurchaseOrdersCompleted(){
+        arrayModelPurchaseOrders = RealmManager().readPredicate(type: ModelPurchaseOrder.self,
+                                                                predicate: "status = '\(PurchaseOrderStatus.Closed.rawValue)'")
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,10 +77,12 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     @IBAction func poSegmentControllerValueChanged(_ sender: Any) {
         if poSegmentController.selectedSegmentIndex == 0 {
             lookUpBtn.isHidden = false
+            getPurchaseOrdersReceiving()
             poTableView.reloadData()
         }
         else {
             lookUpBtn.isHidden = true
+            getPurchaseOrdersCompleted()
             poTableView.reloadData()
         }
     }
@@ -85,6 +92,9 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
         self.view.endEditing(true)
     } 
 
+    private func loadCompleted(){
+        
+    }
 }
 
 extension PurchaseOrderViewController {
