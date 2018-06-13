@@ -27,22 +27,26 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        SKActivityIndicator.show()
+        getData()
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
+    }
+    @objc func syncFinished(_ notification: Notification){
+        //Refresh data
         getData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "Invoices"
-       
     }
     func getData(){
-        
-        SKActivityIndicator.show()
         valueDataObj =  RealmManager().readList(type: ModelInvoice.self)
         invoiceTableView.reloadData()
-        SKActivityIndicator.dismiss()
         print("----DataRead----- \(valueDataObj.count)")
     }
+    
     // MARK:- Utilities
     func setSearchBarUI() {
         invoicesSearchBar.layer.borderWidth = 1;
@@ -94,9 +98,9 @@ extension InvoicesViewController{
         let cell                  = tableView.dequeueReusableCell(withIdentifier: "cell") as! InvoicesTableViewCell
         let temp                  = valueDataObj[indexPath.row]
         cell.invoicesNoLabel.text = temp.invoiceNumber
-        cell.dueDateLabel.text    = temp.dueDate?.description
-        cell.createdByLabel.text  = temp.company
-
+        cell.dueDateLabel.text   =  temp.dueDate?.description
+        cell.createdByLabel.text =  temp.salesPerson
+        
         return cell
     }
     

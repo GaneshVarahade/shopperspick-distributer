@@ -58,6 +58,7 @@ Invoice
 - invoicenumber                         = Invoice.invoiceNumber
 - duedate                               = Invoice.dueDate
 - company                               = Invoice.Vendor.name
+- createdBy                             = Invoice.salesPerson
 - contact                               = Invoice.companyContact
 - total                                 = Invoice.total
 - balanceDue                            = Invoice.balanceDue

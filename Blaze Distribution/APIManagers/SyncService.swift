@@ -10,7 +10,6 @@ import Foundation
 
 public final class SyncService {
     
-    private var queue : DispatchQueue = DispatchQueue(label: "com.blaze.distribution.Blaze-Distribution")
     private static var syncService: SyncService!
     
     private init(){}
@@ -28,11 +27,8 @@ public final class SyncService {
     
     public func syncData() {
         
-        ///Synchronized block for multithreaded environment
-        queue.sync {
-            
             /// If Data is already syncing, then return from here
-            guard !isUpdating else{
+            guard !self.isUpdating else{
                 return
             }
             
@@ -40,20 +36,20 @@ public final class SyncService {
             guard ReachabilityManager.shared.networkStatus() else {
                 return
             }
-            isUpdating = true
-        }
-        
-        if isSignatureAvailable() {
+            self.isUpdating = true
             
-            syncSignature()
-            
-        }else if isPostBulkAvailable() {
-            
-            syncPostBulkData()
-            
-        }else{
-            syncGetBulkData()
-        }
+            if self.isSignatureAvailable() {
+                
+                self.syncSignature()
+                
+            }else if self.isPostBulkAvailable() {
+                
+                self.syncPostBulkData()
+                
+            }else{
+                self.syncGetBulkData()
+            }
+       
         
     }
     
@@ -69,12 +65,14 @@ public final class SyncService {
     
     private func syncSignature() {
         
-        ///After API complete call resync
+        ///After API complete call resync, so syncdata can run recursively
+        resync()
     }
  
     private func syncPostBulkData(){
         
-        ///After API complete call resync
+        ///After API complete call resync, so syncdata can run recursively
+        resync()
     }
     
     private func syncGetBulkData() {
@@ -82,31 +80,40 @@ public final class SyncService {
         WebServicesAPI.sharedInstance().BulkAPI(request: RequestBulkAPI()) { (result:ResponseBulkRequest?,error:PlatformError?) in
             if error != nil{
                 print(error?.message! ?? "Error")
+                self.finishSync()
                 return
             }
-            if let arrayPurchaseOrders = result?.purchaseOrder?.values {
-                self.savePurchaseOrder(arrayPurchaseOrders)
-            }
             
-            if let arrayInvoices = result?.invoice?.values {
-                self.saveDataInvoice(jsonData: arrayInvoices)
-            }
+            DispatchQueue.global(qos: .userInitiated).async {
+                if let arrayPurchaseOrders = result?.purchaseOrder?.values {
+                    self.savePurchaseOrder(arrayPurchaseOrders)
+                }
+                
+                if let arrayInvoices = result?.invoice?.values {
+                    self.saveDataInvoice(jsonData: arrayInvoices)
+                }
+                
+                if let arayTransfers = result?.inventoryTransfers?.values {
+                    self.saveDataInventory(jsonData: arayTransfers)
+                }
             
-            if let arayTransfers = result?.inventoryTransfers?.values {
-                self.saveDataInventory(jsonData: arayTransfers)
-            }
-            if let arrayProducts = result?.product?.values{
-                self.saveDataProduct(jsonData: arrayProducts)
-            }
+                if let arrayProducts = result?.product?.values{
+                    self.saveDataProduct(jsonData: arrayProducts)
+                }
             
-            EventBus.sharedBus().publishMain(EventBusEventType.SYNCDATA)
+                self.finishSync()
+            }
         }
     }
     
      private func resync() {
         isUpdating = false
         syncData()
-        
+    }
+    
+    private func finishSync(){
+        EventBus.sharedBus().publishMain(EventBusEventType.SYNCDATA)
+        isUpdating = false
     }
     
     private func savePurchaseOrder(_ arrayPurchase: [ResponsePurchaseOrder]){
@@ -142,11 +149,13 @@ public final class SyncService {
             
             for valu in values{
                 
+                
                 let model: ModelInvoice = ModelInvoice()
                 model.id                = valu.id
                 model.companyId         = valu.companyId
                 model.invoiceNumber     = valu.invoiceNumber
-                model.dueDate           = valu.dueDate?.description
+                model.dueDate           = DateFormatterUtil.format(dateTime: (Double(valu.dueDate ?? 0)/1000),
+                                                                   format: DateFormatterUtil.mmddyyyy)
                 model.balanceDue        = valu.balanceDue!
                 model.company           = valu.company?.name
                 model.balanceDue        = valu.balanceDue!
@@ -234,6 +243,11 @@ public final class SyncService {
         if let values = jsonData{
             
             for value in values{
+                
+                //Avoid adding Inventory which are Pending
+                guard value.status?.localizedCaseInsensitiveContains(TransferStatus.PENDING.rawValue) ?? false else {
+                    continue
+                }
                 let tempInventory = ModelInventoryTransfers()
                 tempInventory.id = value.id
                 tempInventory.transferNo = value.transferNo
@@ -243,6 +257,8 @@ public final class SyncService {
                 tempInventory.toShopId = value.toShopId
                 tempInventory.toShopName = value.toShopName
                 tempInventory.toInventoryName = value.toInventoryName
+                tempInventory.status = value.status
+                
                 RealmManager().write(table: tempInventory)
             }
         }else{

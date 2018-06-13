@@ -33,9 +33,18 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.getData()
+        getData()
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
+    }
+    
+    @objc func syncFinished(_ notification: Notification){
+        //Refresh data
+        getData()
+    }
+    
     // MARK:- UISegmentController Valu Changed
     
     @IBAction func segmentChanged(_ sender: Any) {
@@ -62,13 +71,10 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     func getData(){
-        
-        SKActivityIndicator.show()
         inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
         data          = inventoryData
         productData   = RealmManager().readList(type: ModelProduct.self)
         inventoryTableView.reloadData()
-        SKActivityIndicator.dismiss()
         print("----DataRead----- \(inventoryData.count)")
     }
      // MARK: - UIButton Events

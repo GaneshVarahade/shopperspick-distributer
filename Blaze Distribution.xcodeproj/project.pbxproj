@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1812B33F20CAB31800B4DC26 /* ModelInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventory.swift */; };
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
+		1827FC0620D11AB300DEA5E8 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */; };
 		1828E6C320C6D0F300EB74B4 /* Tables.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1828E6C220C6D0F300EB74B4 /* Tables.txt */; };
 		182B920420C7E0860041915B /* StoreImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920220C7E0850041915B /* StoreImage.swift */; };
 		182B920520C7E0860041915B /* HexGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920320C7E0850041915B /* HexGenerator.swift */; };
@@ -174,6 +175,7 @@
 		1812B33E20CAB31800B4DC26 /* ModelInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventory.swift; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
 		1824C0BE20CA796400F7E1B4 /* bulkrequest.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = bulkrequest.rtf; path = "/Volumes/Development/Projects/iOSWorkspace/blaze-distribution-ios/Blaze Distribution/TextFilesForReference/bulkrequest.rtf"; sourceTree = "<absolute>"; };
+		1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		1828E6C220C6D0F300EB74B4 /* Tables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tables.txt; sourceTree = "<group>"; };
 		182B920220C7E0850041915B /* StoreImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreImage.swift; sourceTree = "<group>"; };
 		182B920320C7E0850041915B /* HexGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexGenerator.swift; sourceTree = "<group>"; };
@@ -606,6 +608,7 @@
 				189F82D620C5096F0054986E /* UtilityUserDefaults.swift */,
 				1815A01B20C91C23000B0328 /* VersionUtils.swift */,
 				182F83AE20D007F3007A1019 /* EventBus.swift */,
+				1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1338,6 +1341,7 @@
 				182B920420C7E0860041915B /* StoreImage.swift in Sources */,
 				18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */,
 				B942E46320D00A4000E474E1 /* ResponseProduct.swift in Sources */,
+				1827FC0620D11AB300DEA5E8 /* DateFormatter.swift in Sources */,
 				B9E5265820B2BB7800127E43 /* InventoryTableViewCell.swift in Sources */,
 				182B921420C8397B0041915B /* ModelPurchaseOrder.swift in Sources */,
 				B942E46720D0103A00E474E1 /* ModelProduct.swift in Sources */,

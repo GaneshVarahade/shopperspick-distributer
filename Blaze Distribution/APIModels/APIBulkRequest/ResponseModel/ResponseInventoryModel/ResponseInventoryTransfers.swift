@@ -22,4 +22,5 @@ public class ResponseInventoryTransfers: BaseResponseModel {
     public var toShopName:String?
     public var fromInventoryName:String?
     public var toInventoryName:String?
+    public var status:String?
 }

@@ -96,31 +96,32 @@ class WebServicesAPI: NSObject {
     }
     private func printRequest(_ requestUrl:URLRequest?,_ data: Any?){
         
-        let str = "Request is Nil"
-        
-        guard data != nil else {
-            AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str) \n Response: in Nil")
-            return
-        }
-        
-        do{
-            let jsonData = try JSONSerialization.data(withJSONObject: data, options: JSONSerialization.WritingOptions.prettyPrinted)
+        DispatchQueue.global(qos: .background).async {
+            let str = "Request is Nil"
             
-            //Convert back to string.
-            if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
-                
-                print(JSONString)
-                AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "URL: \(requestUrl?.description ?? str)")
-                AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str) \n Response: \(JSONString)")
-                
-            }else{
-                AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "NonJson Response: \(jsonData)")
+            guard data != nil else {
+                AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str) \n Response: in Nil")
+                return
             }
             
-        }catch {
-            print("In RestWrapper.makeRequest \(error.localizedDescription)")
+            do{
+                let jsonData = try JSONSerialization.data(withJSONObject: data, options: JSONSerialization.WritingOptions.prettyPrinted)
+                
+                //Convert back to string.
+                if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
+                    
+                    print(JSONString)
+                    AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "URL: \(requestUrl?.description ?? str)")
+                    AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str) \n Response: \(JSONString)")
+                    
+                }else{
+                    AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "NonJson Response: \(jsonData)")
+                }
+                
+            }catch {
+                print("In RestWrapper.makeRequest \(error.localizedDescription)")
+            }
         }
-        
     }
 }
     
