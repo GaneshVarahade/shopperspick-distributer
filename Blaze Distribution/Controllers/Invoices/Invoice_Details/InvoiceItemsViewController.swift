@@ -7,41 +7,17 @@
 //
 
 import UIKit
-
-protocol InvoiceItemsDelegate {
-    func getDataForInvoiceItems(dataDict: [[String:Any]])
-}
-
+import RealmSwift
 class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var invoiceItemsDelegate:InvoiceItemsDelegate?
-    var invoiceItemList = [[String:Any]]()
-
+  
+    var invoiceItemList = List<ModelInvoiceItems>()
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        NotificationCenter.default.addObserver(self, selector: #selector(self.getProductDetails(notification:)), name: NSNotification.Name(rawValue: "PO_DETAILS"), object: nil)
+        //print(invoiceItemList)
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK:- Selector Methods
-    
-    @objc func getProductDetails(notification: NSNotification) {
-        invoiceItemList = (notification.userInfo!["data"] as! [String : Any])["products"] as! [[String:Any]]
-    }
-    
-    func getDataForInvoiceItems(dataDict: [[String:Any]]) {
-        print(dataDict)
-        invoiceItemList = dataDict
-    
-        //print(displayDetailsDict)
-    }
-
     
     // MARK: - UITableView Delegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,9 +27,9 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemsCell") as! InvoiceItemsTableViewCell
         
-        cell.productNameBtn.setTitle("  \((invoiceItemList[indexPath.row])["product_name"] as? String ?? "No value")" , for: .normal)
-        cell.batchNoLabel.text = (invoiceItemList[indexPath.row])["batch_no"] as? String
-        cell.noUnits.text = (invoiceItemList[indexPath.row])["quantity"] as? String
+        cell.productNameBtn.setTitle(invoiceItemList[indexPath.row].productName, for: UIControlState.normal)
+        cell.batchNoLabel.text = invoiceItemList[indexPath.row].batchId ?? "000"
+        cell.noUnits.text = String(invoiceItemList[indexPath.row].quantity)
         
         return cell
     }
@@ -64,15 +40,5 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
         }
         return 60
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

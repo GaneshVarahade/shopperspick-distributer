@@ -161,7 +161,7 @@ public final class SyncService {
                 model.dueDate           = DateFormatterUtil.format(dateTime: (Double(valu.dueDate ?? 0)/1000),
                                                                    format: DateFormatterUtil.mmddyyyy)
                 model.balanceDue        = valu.balanceDue!
-                model.company           = valu.company?.name
+                model.company           = valu.vendor?.name
                 model.balanceDue        = valu.balanceDue!
                 model.contact           = valu.companyContact
                 model.total             = valu.total!
@@ -226,6 +226,8 @@ public final class SyncService {
                         shipMen.receiverType        = ship.receiverCompany?.vendorType
                         shipMen.receiverContact     = ship.receiverCompany?.phone
                         shipMen.receiverLicense     = ship.receiverCompany?.licenseNumber
+                        shipMen.invoiceStatus       = ship.invoiceStatus
+                        shipMen.shippingManifestNo  = ship.shippingManifestNo
                         if let add = ship.receiverAddress?.address{
                             shipMen.receiverAddress?.id      = add.id
                             shipMen.receiverAddress?.city    = add.city

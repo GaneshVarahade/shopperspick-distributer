@@ -29,8 +29,13 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     override func viewWillAppear(_ animated: Bool) {
         self.title = "Inventory"
+        getData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        data.removeAll()
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getData()
@@ -72,11 +77,19 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     func getData(){
         inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
-        data          = inventoryData
+       
         productData   = RealmManager().readList(type: ModelProduct.self)
+        
+        if productFlag{
+            data  = productData
+        }else{
+            data  = inventoryData
+        }
         inventoryTableView.reloadData()
         print("----DataRead----- \(inventoryData.count)")
     }
+    
+    
      // MARK: - UIButton Events
     @IBAction func createTransferBtnPressed(_ sender: Any) {
       
@@ -97,10 +110,12 @@ extension InventoryViewController{
         
         
         if productFlag{
+            
             let temp                = data[indexPath.row] as! ModelProduct
             cell.nameLabel.text     = temp.name
             cell.requestLabel.text  = String(format: "%.1f", temp.quantity)
             cell.dateLabel.isHidden = true
+            
         }else{
             let tempi   = data[indexPath.row] as! ModelInventoryTransfers
             cell.nameLabel.text     = tempi.toInventoryName

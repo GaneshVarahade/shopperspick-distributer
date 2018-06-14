@@ -21,7 +21,7 @@ public class ResponseShippingManifests:BaseResponseModel{
     public var receiverLicense:ResponseReceiverCustomerCompany?
     public var receiverAddress:ResponseReceiverCustomerCompany?
     
-    
+    public var invoiceStatus:String?
     public var shippingManifestNo: String?
     public var deliveryDate:Int?
     public var driverName:String?

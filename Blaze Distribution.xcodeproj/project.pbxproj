@@ -59,6 +59,8 @@
 		18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27BB20C962BA002A329B /* ResponsePurchaseOrder.swift */; };
 		2FD731EB83170AF88FAF96D0 /* Pods_Blaze_DistributionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22B1597E869879AC4DD12C3 /* Pods_Blaze_DistributionTests.framework */; };
 		B910833420CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910833320CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift */; };
+		B91809D620D2792C001C336B /* InvoicePaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91809D520D2792C001C336B /* InvoicePaymentsViewController.swift */; };
+		B91809D820D27960001C336B /* InvoicePaymentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91809D720D27960001C336B /* InvoicePaymentsTableViewCell.swift */; };
 		B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C3720AEC8FB0021356C /* AppDelegate.swift */; };
 		B9266C3D20AEC8FB0021356C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9266C3B20AEC8FB0021356C /* Main.storyboard */; };
 		B9266C4220AEC8FE0021356C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9266C4120AEC8FE0021356C /* Assets.xcassets */; };
@@ -236,6 +238,8 @@
 		A00FD6ED4D5D54B839B4CE82 /* Pods-Blaze Distribution.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.release.xcconfig"; sourceTree = "<group>"; };
 		A8CF122677EC62CFD1812DB8 /* Pods-Blaze DistributionUITests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionUITests.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionUITests/Pods-Blaze DistributionUITests.dev.xcconfig"; sourceTree = "<group>"; };
 		B910833320CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseReceiverCustomerCompany.swift; sourceTree = "<group>"; };
+		B91809D520D2792C001C336B /* InvoicePaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoicePaymentsViewController.swift; sourceTree = "<group>"; };
+		B91809D720D27960001C336B /* InvoicePaymentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoicePaymentsTableViewCell.swift; sourceTree = "<group>"; };
 		B9266C3420AEC8FB0021356C /* Blaze Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blaze Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9266C3720AEC8FB0021356C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9266C3C20AEC8FB0021356C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -671,6 +675,7 @@
 				B985566C20B43B8700A56497 /* ShippingManifestTableViewCell.swift */,
 				B9E5268020B2DF9200127E43 /* PurchaseOrderTableViewCell.swift */,
 				B9E5268220B2DFC800127E43 /* AddItemTableViewCell.swift */,
+				B91809D720D27960001C336B /* InvoicePaymentsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1028,6 +1033,7 @@
 				B92A65AF20AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift */,
 				B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */,
 				B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */,
+				B91809D520D2792C001C336B /* InvoicePaymentsViewController.swift */,
 			);
 			path = Invoice_Details;
 			sourceTree = "<group>";
@@ -1321,6 +1327,7 @@
 				B942E45C20CFC11400E474E1 /* ModelInvoiceItems.swift in Sources */,
 				B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */,
 				B92A65B420AF459C00CDA4CC /* InvoiceItemsViewController.swift in Sources */,
+				B91809D820D27960001C336B /* InvoicePaymentsTableViewCell.swift in Sources */,
 				182F83AF20D007F3007A1019 /* EventBus.swift in Sources */,
 				189F82C320C501B70054986E /* ModelInvoice.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
@@ -1386,6 +1393,7 @@
 				18EE27B220C960F0002A329B /* ResponseArrayInvoice.swift in Sources */,
 				189F82C420C501B70054986E /* ModelShipingMenifest.swift in Sources */,
 				18EE27B620C9623A002A329B /* ResponseArrayInventory.swift in Sources */,
+				B91809D620D2792C001C336B /* InvoicePaymentsViewController.swift in Sources */,
 				B9E5266420B2C35A00127E43 /* LookUpTableViewCell.swift in Sources */,
 				189F82DD20C50EB40054986E /* PlatformError.swift in Sources */,
 				B9CAC8E220AF1155008F1650 /* UIViewXRadialGradient.swift in Sources */,
