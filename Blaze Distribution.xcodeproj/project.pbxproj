@@ -26,6 +26,7 @@
 		182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921B20C83A360041915B /* ModelCartProduct.swift */; };
 		182F83AB20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */; };
 		182F83AF20D007F3007A1019 /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AE20D007F3007A1019 /* EventBus.swift */; };
+		1832492D20D2B11E008A71A4 /* InvoiceItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832492C20D2B11E008A71A4 /* InvoiceItemsViewController.swift */; };
 		1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7B20B213010076BECD /* TextHelpers.swift */; };
 		1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7C20B213010076BECD /* SwiftExtentions.swift */; };
 		1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */; };
@@ -75,7 +76,7 @@
 		B92A65AE20AF3CE900CDA4CC /* ScanInvoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65AD20AF3CE900CDA4CC /* ScanInvoiceViewController.swift */; };
 		B92A65B020AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65AF20AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift */; };
 		B92A65B220AF424500CDA4CC /* FixedInvoiceDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65B120AF424400CDA4CC /* FixedInvoiceDetailsTableViewController.swift */; };
-		B92A65B420AF459C00CDA4CC /* InvoiceItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65B320AF459B00CDA4CC /* InvoiceItemsViewController.swift */; };
+		B92A65B420AF459C00CDA4CC /* PurchaseOrderItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65B320AF459B00CDA4CC /* PurchaseOrderItemsViewController.swift */; };
 		B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65B520AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift */; };
 		B939C5C620D12FAC00552DEF /* ResponseInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939C5C520D12FAC00552DEF /* ResponseInventory.swift */; };
 		B939C5C820D1330A00552DEF /* ResponseInventories.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939C5C720D1330A00552DEF /* ResponseInventories.swift */; };
@@ -192,6 +193,7 @@
 		182B921B20C83A360041915B /* ModelCartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCartProduct.swift; sourceTree = "<group>"; };
 		182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProduct.swift; sourceTree = "<group>"; };
 		182F83AE20D007F3007A1019 /* EventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
+		1832492C20D2B11E008A71A4 /* InvoiceItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceItemsViewController.swift; sourceTree = "<group>"; };
 		1846DB7B20B213010076BECD /* TextHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelpers.swift; sourceTree = "<group>"; };
 		1846DB7C20B213010076BECD /* SwiftExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtentions.swift; sourceTree = "<group>"; };
 		1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVar.swift; sourceTree = "<group>"; };
@@ -256,7 +258,7 @@
 		B92A65AD20AF3CE900CDA4CC /* ScanInvoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanInvoiceViewController.swift; sourceTree = "<group>"; };
 		B92A65AF20AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceDetailsTableViewController.swift; sourceTree = "<group>"; };
 		B92A65B120AF424400CDA4CC /* FixedInvoiceDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedInvoiceDetailsTableViewController.swift; sourceTree = "<group>"; };
-		B92A65B320AF459B00CDA4CC /* InvoiceItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceItemsViewController.swift; sourceTree = "<group>"; };
+		B92A65B320AF459B00CDA4CC /* PurchaseOrderItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseOrderItemsViewController.swift; sourceTree = "<group>"; };
 		B92A65B520AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceItemsTableViewCell.swift; sourceTree = "<group>"; };
 		B939C5C520D12FAC00552DEF /* ResponseInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInventory.swift; sourceTree = "<group>"; };
 		B939C5C720D1330A00552DEF /* ResponseInventories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInventories.swift; sourceTree = "<group>"; };
@@ -828,6 +830,7 @@
 		B985565C20B42B1C00A56497 /* PurchaseOrder_VC */ = {
 			isa = PBXGroup;
 			children = (
+				B92A65B320AF459B00CDA4CC /* PurchaseOrderItemsViewController.swift */,
 				B9E5268620B2E39B00127E43 /* PurchaseOrderViewController.swift */,
 			);
 			path = PurchaseOrder_VC;
@@ -1018,10 +1021,10 @@
 			isa = PBXGroup;
 			children = (
 				B92A65B120AF424400CDA4CC /* FixedInvoiceDetailsTableViewController.swift */,
-				B92A65B320AF459B00CDA4CC /* InvoiceItemsViewController.swift */,
 				B92A65AF20AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift */,
 				B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */,
 				B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */,
+				1832492C20D2B11E008A71A4 /* InvoiceItemsViewController.swift */,
 			);
 			path = Invoice_Details;
 			sourceTree = "<group>";
@@ -1314,7 +1317,7 @@
 				182B921220C8394E0041915B /* ModelPurchaseOrderProductReceived.swift in Sources */,
 				B942E45C20CFC11400E474E1 /* ModelInvoiceItems.swift in Sources */,
 				B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */,
-				B92A65B420AF459C00CDA4CC /* InvoiceItemsViewController.swift in Sources */,
+				B92A65B420AF459C00CDA4CC /* PurchaseOrderItemsViewController.swift in Sources */,
 				182F83AF20D007F3007A1019 /* EventBus.swift in Sources */,
 				189F82C320C501B70054986E /* ModelInvoice.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
@@ -1329,6 +1332,7 @@
 				B9E5267F20B2DAAA00127E43 /* Completed_InvoiceItemsViewController.swift in Sources */,
 				B942801820CE5DF500F2FA0F /* RequestBulkAPI.swift in Sources */,
 				B9E5265A20B2C0D000127E43 /* ScanLookUpViewController.swift in Sources */,
+				1832492D20D2B11E008A71A4 /* InvoiceItemsViewController.swift in Sources */,
 				B9E5269020B3063C00127E43 /* LoginViewController.swift in Sources */,
 				B9CAC8DB20AF1155008F1650 /* UITextFieldX.swift in Sources */,
 				B9266C7520AEDC940021356C /* ForgotPasswordViewController.swift in Sources */,

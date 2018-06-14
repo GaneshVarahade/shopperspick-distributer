@@ -8,14 +8,10 @@
 
 import UIKit
 
-protocol InvoiceItemsDelegate {
-    func getDataForInvoiceItems(dataDict: [[String:Any]])
-}
+class PurchaseOrderItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    var invoiceItemsDelegate:InvoiceItemsDelegate?
-    
+    var model: ModelPurchaseOrder!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         AQLog.debug()
@@ -27,21 +23,25 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
     
     
     @objc func getDataForPOObject(notification: Notification) {
-        //model = notification.userInfo!["data"] as! ModelPurchaseOrder
-        
+        model = notification.userInfo!["data"] as! ModelPurchaseOrder
+         
         
     }
-    
+
     
     // MARK: - UITableView Delegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return model.productInShipment.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemsCell") as! InvoiceItemsTableViewCell
         
+        let modelProduct = model.productInShipment[indexPath.row]
         
+        cell.productNameBtn.setTitle(modelProduct.name, for: .normal)
+        cell.batchNoLabel.text = modelProduct.batchId
+        cell.noUnits.text = "\(modelProduct.quantity)"
         
         return cell
     }
@@ -53,5 +53,5 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
         return 60
     }
     
-    
+
 }
