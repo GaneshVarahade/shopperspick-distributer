@@ -1135,7 +1135,7 @@
                                 <rect key="frame" x="0.0" y="571.5" width="375" height="46.5"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <state key="normal" title="Lookup Purchase Order">
+                                <state key="normal" title="Scan Purchase Order">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <variation key="heightClass=regular-widthClass=regular">
