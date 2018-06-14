@@ -8,11 +8,12 @@
 
 import Foundation
 public class ResponseInventories:BaseResponseModel{
-    
     public var id: String?
     public var created: Int?
     public var modified: Int?
     public var deleted: Bool?
     public var updated: Bool?
     public var companyId: String?
+    public var shopId:String?
+    public var inventory:[ResponseInventory]?
 }

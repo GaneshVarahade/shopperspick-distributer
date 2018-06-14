@@ -9,10 +9,10 @@
 import Foundation
 public class ModelInvoiceItems: ModelBase{
     
-    @objc public var  productId:String? = ""
-    @objc public var  batchId:String? = ""
-    @objc public var  productName:String? = ""
-    @objc public var  quantity:Double = 0.0
+    @objc public dynamic var  productId:String? = ""
+    @objc public dynamic var  batchId:String? = ""
+    @objc public dynamic var  productName:String? = ""
+    @objc public dynamic var  quantity:Double = 0.0
     open override class func primaryKey() -> String? {
         return "productId"
     }

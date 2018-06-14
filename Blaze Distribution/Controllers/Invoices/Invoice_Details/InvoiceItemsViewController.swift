@@ -7,14 +7,9 @@
 //
 
 import UIKit
-
-protocol InvoiceItemsDelegate {
-    func getDataForInvoiceItems(dataDict: [[String:Any]])
-}
-
+import RealmSwift
 class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    var invoiceItemsDelegate:InvoiceItemsDelegate?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +25,7 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
         //model = notification.userInfo!["data"] as! ModelPurchaseOrder
         
         
-    }
-    
+    } 
     
     // MARK: - UITableView Delegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,8 +34,6 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemsCell") as! InvoiceItemsTableViewCell
-        
-        
         
         return cell
     }
@@ -52,6 +44,4 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
         }
         return 60
     }
-    
-    
 }

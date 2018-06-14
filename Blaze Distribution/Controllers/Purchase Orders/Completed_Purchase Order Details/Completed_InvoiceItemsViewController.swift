@@ -10,7 +10,7 @@ import UIKit
 
 
 class Completed_InvoiceItemsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
-    var invoiceItemsDelegate:InvoiceItemsDelegate?
+  //  var invoiceItemsDelegate:InvoiceItemsDelegate?
     var invoiceItem = [[String:Any]]()
     
     override func viewDidLoad() {

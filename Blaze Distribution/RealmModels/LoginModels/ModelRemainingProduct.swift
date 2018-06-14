@@ -9,10 +9,10 @@
 import Foundation
 import RealmSwift
 public class ModelRemainingProduct: ModelBase{
-    @objc public var productId:String? = ""
-    @objc public var productName:String? = ""
-    @objc public var remainingQuantity:Double = 0.0
-    @objc public var requestQuantity:Double = 0.0
+    @objc public dynamic var productId:String? = ""
+    @objc public dynamic var productName:String? = ""
+    @objc public dynamic var remainingQuantity:Double = 0.0
+    @objc public dynamic var requestQuantity:Double = 0.0
     open override class func primaryKey() -> String? {
         return "productId"
     }

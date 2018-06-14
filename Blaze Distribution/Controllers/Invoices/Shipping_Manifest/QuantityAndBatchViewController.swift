@@ -17,7 +17,7 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
     
     var batchPickerView : UIPickerView!
     
-    var invoiceItemsDelegate:InvoiceItemsDelegate?
+   // var invoiceItemsDelegate:InvoiceItemsDelegate?
     
     @IBOutlet weak var itemsTableView: UITableView!
     
@@ -102,7 +102,7 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
         for viewController in (self.navigationController?.viewControllers)! {
 
             if viewController is ShippingManifestViewController {
-                invoiceItemsDelegate?.getDataForInvoiceItems(dataDict: tempDataDict)
+                //invoiceItemsDelegate?.getDataForInvoiceItems(dataDict: tempDataDict)
                 self.navigationController?.popToViewController(viewController, animated: true)
             }
         }
