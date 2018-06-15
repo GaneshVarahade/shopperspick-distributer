@@ -7,10 +7,11 @@
 //
 
 import UIKit
-import RealmSwift
-class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
- 
-    var invoiceItemList = List<ModelInvoiceItems>()
+
+class PurchaseOrderItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    var model: ModelPurchaseOrder!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         AQLog.debug()
@@ -22,23 +23,26 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
     
     
     @objc func getDataForPOObject(notification: Notification) {
-        //model = notification.userInfo!["data"] as! ModelPurchaseOrder
-        
+        model = notification.userInfo!["data"] as! ModelPurchaseOrder
+         
         
     }
+
     
     // MARK: - UITableView Delegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return model.productInShipment.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemsCell") as! InvoiceItemsTableViewCell
-
-        cell.productNameBtn.setTitle(invoiceItemList[indexPath.row].productName, for: UIControlState.normal)
-        cell.batchNoLabel.text = invoiceItemList[indexPath.row].batchId ?? "000"
-        cell.noUnits.text = String(invoiceItemList[indexPath.row].quantity)
-
+        
+        let modelProduct = model.productInShipment[indexPath.row]
+        
+        cell.productNameBtn.setTitle(modelProduct.name, for: .normal)
+        cell.batchNoLabel.text = modelProduct.batchId
+        cell.noUnits.text = "\(modelProduct.quantity)"
+        
         return cell
     }
     
@@ -48,4 +52,6 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
         }
         return 60
     }
+    
+
 }

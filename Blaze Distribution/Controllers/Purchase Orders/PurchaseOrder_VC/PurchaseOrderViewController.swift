@@ -95,6 +95,15 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     private func loadCompleted(){
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+            if let destinationVC = segue.destination as? PurchaseOrderDetailsTableViewController,
+                let indexPath = poTableView.indexPathForSelectedRow {
+                
+                destinationVC.modelPurcahseOrder = arrayModelPurchaseOrders[indexPath.row]
+            }
+    }
 }
 
 extension PurchaseOrderViewController {
@@ -134,13 +143,7 @@ extension PurchaseOrderViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
-        if completed{
-            performSegue(withIdentifier: "goDetails", sender: self)
-        }else{
-            
-            return
-        }
+        performSegue(withIdentifier: "goPurchaseOrderDetail", sender: self)
         
     }
     

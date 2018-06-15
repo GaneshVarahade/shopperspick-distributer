@@ -64,15 +64,8 @@ class LookupPOsViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PurchaseOrderDetailsTableViewController") as! PurchaseOrderDetailsTableViewController
-        obj.poNo = ((tempDataList[indexPath.row])["po_no"] as? String)!
-        if (tempDataList[indexPath.row])["metric"] as? String == "YES" {
-            obj.isMetric = true
-               showAdd = false
-        }
-        else {
-            obj.isMetric = false
-                 showAdd = true
-        }
+        
+         
         self.navigationController?.pushViewController(obj, animated: true)
     }
     

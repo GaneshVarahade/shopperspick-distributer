@@ -12,11 +12,13 @@ import RealmSwift
 
 public class ModelPurchaseOrder:ModelBase{
     @objc public dynamic var purchaseOrderNumber:String? = ""
-    @objc public dynamic var isMetRc:Bool             = false
+    @objc public dynamic var isMetRc:Bool                = false
     @objc public dynamic var metrcId:String?             = ""
     @objc public dynamic var status:String?              = ""
     @objc public dynamic var origin:String?              = ""
-    @objc public dynamic var received:Int64            = 0
+    @objc public dynamic var received:Int64              = 0
+    @objc public dynamic var completedDate:Int64         = 0
+    
     var productInShipment = List<ModelPurchaseOrderProduct>()
     var productReceived   = List<ModelPurchaseOrderProductReceived>()
     public override func copy(with zone:NSZone? = nil) -> Any {
@@ -28,6 +30,7 @@ public class ModelPurchaseOrder:ModelBase{
         modelPurchaseOrder.status              = self.status
         modelPurchaseOrder.origin              = self.origin
         modelPurchaseOrder.received            = self.received
+        modelPurchaseOrder.completedDate       = self.completedDate
         
         for prodInShip in self.productInShipment{
             modelPurchaseOrder.productInShipment.append(prodInShip.copy() as! ModelPurchaseOrderProduct)

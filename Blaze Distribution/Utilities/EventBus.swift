@@ -2,6 +2,7 @@ import Foundation
 
 public enum EventBusEventType : String {
     case SYNCDATA = "SYNCDATA"
+    case SENDATA_PURCHASEORDER = "SENDATA_PURCHASEORDER"
    
 }
 

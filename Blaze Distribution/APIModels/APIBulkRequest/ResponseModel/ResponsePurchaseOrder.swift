@@ -56,6 +56,8 @@ public class ResponsePurchaseOrder: BaseResponseModel {
     public var origin: Bool?
 
     public var receivedDate: Int64?
+    
+    public var completedDate: Int64?
 
     public var poProductRequestList:[ResponsePurchaseOrderProduct]?
 }

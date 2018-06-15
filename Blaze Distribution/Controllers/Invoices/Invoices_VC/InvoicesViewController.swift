@@ -127,14 +127,13 @@ extension InvoicesViewController{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        performSegue(withIdentifier: "goDetails", sender: self)
+        performSegue(withIdentifier: "goInvoiceDetail", sender: self)
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "goDetails" {
+        if segue.identifier == "goInvoiceDetail" {
         
             let nextVC = segue.destination as! InvoiceDetailsTableViewController
             let indexPath = invoiceTableView.indexPathForSelectedRow

@@ -128,6 +128,7 @@ public final class SyncService {
             modelPurcahseOrder.purchaseOrderNumber = respPurchaseOrder.poNumber
             modelPurcahseOrder.isMetRc = respPurchaseOrder.metrc ?? false
             modelPurcahseOrder.received = respPurchaseOrder.receivedDate ?? 0
+            modelPurcahseOrder.completedDate = respPurchaseOrder.completedDate ?? 0
             modelPurcahseOrder.status = respPurchaseOrder.purchaseOrderStatus
             
             if let listProdReq = respPurchaseOrder.poProductRequestList {

@@ -7,14 +7,17 @@
 //
 
 import UIKit
-var showAdd:Bool!
 class Receive_ShipmentViewController: UIViewController {
 
     @IBOutlet weak var listTableView: UITableView!
     @IBOutlet weak var productsView: UIView!
+    
+    var modelPurchaseOrder: ModelPurchaseOrder!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = "Received Products"
         //productsView.dropShadow()
     }
 
@@ -30,7 +33,7 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return modelPurchaseOrder.productReceived.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -38,15 +41,11 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
         let cell =  listTableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath) as! ReceiveShipmentTableViewCell
         
         
-        if showAdd {
-            
-            if indexPath.row == 2{
-                
-                let cell =  listTableView.dequeueReusableCell(withIdentifier: "idCellAdd", for: indexPath) as! AddItemTableViewCell
-                return cell
-            }
-            
+        if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
+                        let cell =  listTableView.dequeueReusableCell(withIdentifier: "idCellAdd", for: indexPath) as! AddItemTableViewCell
+                        return cell
         }
+        
         
         return cell
         
