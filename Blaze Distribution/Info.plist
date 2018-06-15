@@ -15,13 +15,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.0.2.Debug</string>
+	<string>0.0.2.Dev</string>
 	<key>CFBundleVersion</key>
-<<<<<<< HEAD
-	<string>76</string>
-=======
-	<string>72</string>
->>>>>>> 4d3954c0bd694f2811a63b41810a7a088f698e05
+	<string>79</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
