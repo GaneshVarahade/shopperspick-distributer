@@ -1595,7 +1595,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shipping Manifest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGl-AY-DEZ">
-                                                            <rect key="frame" x="16" y="10" width="150" height="21"/>
+                                                            <rect key="frame" x="16" y="9" width="150" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="HhH-Sg-lSS">
                                                                     <variation key="heightClass=regular-widthClass=regular" constant="200"/>
@@ -2024,7 +2024,7 @@
         <!--Invoice Items View Controller-->
         <scene sceneID="gQr-YN-9eZ">
             <objects>
-                <viewController storyboardIdentifier="InvoiceItemsViewController" id="2R5-6m-B0G" customClass="InvoiceItemsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InvoiceItemsViewController" id="2R5-6m-B0G" customClass="InvoiceItemsViewController" customModule="Blaze_Distribution" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="viM-Mq-mVd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="137"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4163,13 +4163,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="vu3-iZ-Rc8">
-                                                    <rect key="frame" x="16" y="0.0" width="271" height="49.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="278" height="49.5"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqh-rT-7KD">
-                                                            <rect key="frame" x="0.0" y="0.0" width="135.5" height="49.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="139" height="49.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wGG-NW-zUA">
-                                                                    <rect key="frame" x="8" y="16" width="127.5" height="18"/>
+                                                                    <rect key="frame" x="8" y="16" width="131" height="18"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -4186,10 +4186,10 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOq-tQ-qi8">
-                                                            <rect key="frame" x="135.5" y="0.0" width="135.5" height="49.5"/>
+                                                            <rect key="frame" x="139" y="0.0" width="139" height="49.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3Y-mY-MIw">
-                                                                    <rect key="frame" x="0.0" y="16" width="135.5" height="18"/>
+                                                                    <rect key="frame" x="0.0" y="16" width="139" height="18"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>

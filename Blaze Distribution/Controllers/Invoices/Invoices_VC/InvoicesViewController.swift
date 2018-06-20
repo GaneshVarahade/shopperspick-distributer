@@ -127,7 +127,7 @@ extension InvoicesViewController{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //performSegue(withIdentifier: "goInvoiceDetail", sender: self)
+        performSegue(withIdentifier: "goInvoiceDetail", sender: self)
         
     }
     

@@ -11,25 +11,15 @@ import RealmSwift
 class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
  
     var invoiceItemList = List<ModelInvoiceItems>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         AQLog.debug()
-        
-        EventBus.sharedBus().subscribe(self,
-                                       selector: #selector(self.getDataForPOObject(notification:)),
-                                       eventType: EventBusEventType.SENDATA_PURCHASEORDER)
-    }
-    
-    
-    @objc func getDataForPOObject(notification: Notification) {
-        //model = notification.userInfo!["data"] as! ModelPurchaseOrder
-        
-        
     }
     
     // MARK: - UITableView Delegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return invoiceItemList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
