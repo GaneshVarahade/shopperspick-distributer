@@ -10,8 +10,8 @@ import UIKit
 
 class ShippingManifestTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var shippingId: UILabel!
-    @IBOutlet weak var shippingStatusLabel: UILabel!
+    @IBOutlet weak var shippingIdButton: UIButton!
+    @IBOutlet weak var shippingStatusButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

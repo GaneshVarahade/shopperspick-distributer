@@ -11,6 +11,7 @@ import UIKit
 class ShippingManifestViewController: UIViewController{
 
     var invoiceDetailsDict: ModelInvoice?
+    var isAddManifest = Bool()
     
     @IBOutlet weak var shippingSegmentControler: UISegmentedControl!
     @IBOutlet weak var itemsToShipContainerView: UIView!
@@ -62,7 +63,12 @@ class ShippingManifestViewController: UIViewController{
         // Pass the selected object to the new view controller.
         if segue.identifier == "manifestDetailsSegue" {
             let vc:ManifestInfoTableViewController = segue.destination as! ManifestInfoTableViewController
+            vc.isAddManifest = isAddManifest
             vc.invoiceDetailsDict = self.invoiceDetailsDict
+        }
+        else if segue.identifier == "invoiceItemsSegue" {
+            let vc:ItemsToShipViewController = segue.destination as! ItemsToShipViewController
+            vc.isAddManifest = isAddManifest
         }
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDetailsDelegate,AddPaymentDelegate,InvoicePaymentsDetailsDelegate {
+class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDetailsDelegate,AddPaymentDelegate,InvoicePaymentsDetailsDelegate, ShippingItemsDelegate {
 
     var tempData: ModelInvoice?
     var fixedDetailsTableVC: FixedInvoiceDetailsTableViewController?
@@ -49,8 +49,8 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         
     }
     
-    func getDataForShippingItems(dataDict: [[String : Any]]) {
-        
+    func getDataForShippingItems(dataDict: ModelShipingMenifest) {
+        self.performSegue(withIdentifier: "addManifestInfoSegue", sender: false)
     }
     
     func getDataForPaymentItems(dataDict: [[String : Any]]) {
@@ -100,6 +100,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         }
         else if segue.identifier == "shippingItemsSegue" {
             shippingItemsVC = segue.destination as? ShippingItemsViewController
+            shippingItemsVC?.shippingItemsDelegate = self
             if let data = tempData{
             shippingItemsVC?.shippingData = (data.shippingManifests)
             }else{
@@ -114,9 +115,16 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         else if segue.identifier == "addManifestInfoSegue" {
             let obj = segue.destination as! ShippingManifestViewController
             obj.invoiceDetailsDict = tempData
+            if let sender = sender as? Bool {
+                obj.isAddManifest = sender
+            }
+            else {
+                obj.isAddManifest = true
+            }
         }
     }
 }
+
 
 extension InvoiceDetailsTableViewController{
     

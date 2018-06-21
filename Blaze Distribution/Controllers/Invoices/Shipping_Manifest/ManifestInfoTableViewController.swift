@@ -9,8 +9,9 @@
 import UIKit
 
 class ManifestInfoTableViewController: UITableViewController, signatureDelegate {
-    
+
     var invoiceDetailsDict: ModelInvoice?
+    var isAddManifest = Bool()
     
     @IBOutlet weak var signatureBtn: UIButton!
     @IBOutlet weak var manifestNoTextField: UITextField!
@@ -43,7 +44,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
 //        receiverInfoView.dropShadow()
 //        driverInfoView.dropShadow()
 //        signatureView.dropShadow()
-        //self.setUI(manifestInfo: (self.invoiceDetailsDict?.shippingManifests[0])!)
+        //self.setUI(manifestInfo: (self.invoiceDetailsDict)
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,23 +52,22 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
         // Dispose of any resources that can be recreated.
     }
 
-    
     // MARK: - UI Update
     func setUI(manifestInfo: ModelShipingMenifest) {
         
-        self.manifestNoLabel.text = manifestInfo.shippingManifestNo
-        self.deliveryDateLabel.text = "\(manifestInfo.deliveryDate)"
-        self.deliveryTimeLabel.text = ""
-        self.companyNameLabel.text = manifestInfo.receiverCompany
-        self.typeLabel.text = manifestInfo.receiverType
-        self.contactLabel.text = manifestInfo.receiverContact
-        self.licenceNoLabel.text = "\(manifestInfo.receiverAddress?.address ?? "")"
-        self.driverNameLabel.text = manifestInfo.driverName
-        self.driverLicenceLabel.text = manifestInfo.driverLicenseNumber
-        self.driverMakeLabel.text = manifestInfo.vehicleMake
-        self.driverModelLabel.text = manifestInfo.vehicleModel
-        self.driverColorLabel.text = ""
-        self.driverLicencePlateLabel.text = manifestInfo.driverLicenPlate
+//        self.manifestNoLabel.text = manifestInfo.shippingManifestNo
+//        self.deliveryDateLabel.text = "\(manifestInfo.deliveryDate)"
+//        self.deliveryTimeLabel.text = ""
+//        self.companyNameLabel.text = manifestInfo.receiverCompany
+//        self.typeLabel.text = manifestInfo.receiverType
+//        self.contactLabel.text = manifestInfo.receiverContact
+//        self.licenceNoLabel.text = "\(manifestInfo.receiverAddress?.address ?? "")"
+//        self.driverNameLabel.text = manifestInfo.driverName
+//        self.driverLicenceLabel.text = manifestInfo.driverLicenseNumber
+//        self.driverMakeLabel.text = manifestInfo.vehicleMake
+//        self.driverModelLabel.text = manifestInfo.vehicleModel
+//        self.driverColorLabel.text = ""
+//        self.driverLicencePlateLabel.text = manifestInfo.driverLicenPlate
     }
     
     // MARK: - Table view data source

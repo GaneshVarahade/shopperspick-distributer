@@ -10,7 +10,7 @@ import UIKit
 import  RealmSwift
 
 protocol ShippingItemsDelegate {
-    func getDataForShippingItems(dataDict: [[String:Any]])
+    func getDataForShippingItems(dataDict: ModelShipingMenifest)
 }
 
 class ShippingItemsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -33,15 +33,27 @@ extension ShippingItemsViewController{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "shippingCell") as! ShippingManifestTableViewCell
-        cell.shippingId.text = (shippingData[indexPath.row]).shippingManifestNo
-        cell.shippingStatusLabel.text = (shippingData[indexPath.row]).invoiceStatus
+        cell.shippingIdButton.setTitle((shippingData[indexPath.row]).shippingManifestNo, for: .normal)
+        cell.shippingStatusButton.setTitle((shippingData[indexPath.row]).invoiceStatus, for: .normal)
+        
+        cell.shippingStatusButton.tag = indexPath.row
+        cell.shippingIdButton.tag = indexPath.row
+        cell.shippingIdButton.addTarget(self, action: #selector(self.showManifestDetails(sender:)), for: .touchUpInside)
+        cell.shippingStatusButton.addTarget(self, action: #selector(self.showManifestDetails(sender:)), for: .touchUpInside)
         return cell
     }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if deviceIdiom == .pad {
             return 70
         }
         return 50
+    }
+    
+    // MARk: - UIButton Events
+    
+    @objc func showManifestDetails(sender: UIButton) {
+        shippingItemsDelegate?.getDataForShippingItems(dataDict: shippingData[sender.tag])
     }
 }
