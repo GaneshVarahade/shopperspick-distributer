@@ -54,7 +54,7 @@ class FixedInvoiceDetailsTableViewController: UITableViewController {
         //print(data)
         invoiceNoLabel.text = data.invoiceNumber
         contactLabel.text   = data.contact
-        companyLabel.text   = data.company
+        companyLabel.text   = data.vendorCompany
         totalLabel.text     = String(data.total)
         balanceLabel.text   = String(data.balanceDue)
         dueDateLabel.text   = data.dueDate

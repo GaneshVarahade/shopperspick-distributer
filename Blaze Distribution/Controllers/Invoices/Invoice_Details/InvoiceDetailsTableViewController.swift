@@ -8,7 +8,8 @@
 
 import UIKit
 
-class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDetailsDelegate {
+class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDetailsDelegate,AddPaymentDelegate,InvoicePaymentsDetailsDelegate {
+
     var tempData: ModelInvoice?
     var fixedDetailsTableVC: FixedInvoiceDetailsTableViewController?
     var invoiceItemsVC: InvoiceItemsViewController?
@@ -29,7 +30,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let invoiceData = tempData{
+        if let invoiceData = tempData {
             self.title = invoiceData.invoiceNumber
             self.duePaymentLabel.text = "$\(invoiceData.balanceDue) \(NSLocalizedString("dueof", comment: "")) $\(invoiceData.total)"
             fixedDetailsTableVC?.getDataForFixedInvoices(data:invoiceData)
@@ -90,6 +91,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         }
         else if segue.identifier == "paymentItemsSegue" {
             paymentItemsVC = segue.destination as? InvoicePaymentsViewController
+            paymentItemsVC?.paymentInvoiceDelegate = self
             if let data = tempData{
             paymentItemsVC?.paymentList = (data.paymentInfo)
             }else{
@@ -103,6 +105,15 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
             }else{
                 return
             }
+        }
+        else if segue.identifier == "addPaymentSegue" {
+            let obj = segue.destination as! AddPaymentTableViewController
+            obj.paymentDelegate = self
+            obj.invoiceObj = tempData
+        }
+        else if segue.identifier == "manifestInfoSegue" {
+            let obj = segue.destination as! ShippingManifestViewController
+            obj.invoiceDetailsDict = tempData
         }
     }
 }
@@ -205,8 +216,22 @@ extension InvoiceDetailsTableViewController{
         }
     }
     
+    // MARK: Custom Delegate
     func getDataForFixedInvoices(dataDict: ModelInvoice) {
         print(dataDict)
     }
+    
+    func getDataForInvoicePayments(dataDict: ModelInvoice) {
+        
+    }
+    
+    func getDataFromAddPayment(dataDict: ModelInvoice) {
+        tempData = dataDict
+        paymentItemsVC?.getDataForInvoicePayments(dataDict: tempData!)
+        self.tableView.reloadData()
+        //performSegue(withIdentifier: "paymentItemsSegue", sender: nil)
+        //self.tableView.reloadRows(at: [IndexPath(row: 5, section: 0)], with: .none)
+    }
+    
     
 }

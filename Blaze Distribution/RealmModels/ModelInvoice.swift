@@ -12,20 +12,21 @@ import RealmSwift
 
 public class ModelInvoice:ModelBase {
 
-  
- 
     @objc public dynamic var invoiceNumber: String?  = ""
     @objc public dynamic var dueDate:String?         = ""
-    @objc public dynamic var company:String?         = ""
+    @objc public dynamic var vendorCompany:String?         = ""
     @objc public dynamic var salesPerson:String?         = ""
     @objc public dynamic var contact:String?         = ""
     @objc public dynamic var invoiceStatus:String?
     @objc public dynamic var total:Double           = 0.0
     @objc public dynamic var balanceDue:Double      = 0.0
     
+    
+    @objc public dynamic var vendorLicenseNumber:String?
+    @objc public dynamic var vendorCompanyType:String?
+    @objc public dynamic var vendorPhone:String?
     @objc public dynamic var vendorAddress:String?
     @objc public dynamic var vendorCity:String?
-    
     @objc public dynamic var vendorState:String?
     @objc public dynamic var vendorZipcode:String?
     @objc public dynamic var vendorCountry:String?
@@ -44,12 +45,21 @@ public class ModelInvoice:ModelBase {
         modelInvoice.companyId         = self.companyId
         modelInvoice.invoiceNumber     = self.invoiceNumber
         modelInvoice.dueDate           = self.dueDate
-        modelInvoice.company           = self.company
-        modelInvoice.salesPerson           = self.salesPerson
+        modelInvoice.vendorCompany     = self.vendorCompany
+        modelInvoice.salesPerson       = self.salesPerson
         modelInvoice.contact           = self.contact
         modelInvoice.invoiceStatus     = self.invoiceStatus
         modelInvoice.total             = self.total
         modelInvoice.balanceDue        = self.balanceDue
+        
+        modelInvoice.vendorLicenseNumber = self.vendorLicenseNumber
+        modelInvoice.vendorCompanyType = self.vendorCompanyType
+        modelInvoice.vendorPhone = self.vendorPhone
+        modelInvoice.vendorAddress = self.vendorAddress
+        modelInvoice.vendorCity = self.vendorCity
+        modelInvoice.vendorState = self.vendorState
+        modelInvoice.vendorZipcode = self.vendorZipcode
+        modelInvoice.vendorCountry = self.vendorCountry
         
         for pay in self.paymentInfo{
             modelInvoice.paymentInfo.append(pay.copy() as! ModelPaymentInfo)

@@ -162,10 +162,21 @@ public final class SyncService {
                 model.dueDate           = DateFormatterUtil.format(dateTime: (Double(valu.dueDate ?? 0)/1000),
                                                                    format: DateFormatterUtil.mmddyyyy)
                 model.balanceDue        = valu.balanceDue!
-                model.company           = valu.vendor?.name
+                model.vendorCompany           = valu.vendor?.name
                 model.balanceDue        = valu.balanceDue!
                 model.contact           = valu.companyContact
                 model.total             = valu.total!
+                
+                model.vendorLicenseNumber = valu.vendor?.licenseNumber
+                model.vendorCompanyType = valu.vendor?.companyType
+                model.vendorPhone = valu.vendor?.phone
+                model.vendorAddress = valu.vendor?.address?.address
+                model.vendorCity = valu.vendor?.address?.city
+                model.vendorState = valu.vendor?.address?.state
+                model.vendorZipcode = valu.vendor?.address?.zipCode
+                model.vendorCountry = valu.vendor?.address?.country
+                
+                
                 
                 if let remaingProducts = valu.remainingProductInformations{
                     for remProd  in remaingProducts{
