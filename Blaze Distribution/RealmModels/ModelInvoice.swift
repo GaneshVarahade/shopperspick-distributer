@@ -22,6 +22,14 @@ public class ModelInvoice:ModelBase {
     @objc public dynamic var invoiceStatus:String?
     @objc public dynamic var total:Double           = 0.0
     @objc public dynamic var balanceDue:Double      = 0.0
+    
+    @objc public dynamic var vendorAddress:String?
+    @objc public dynamic var vendorCity:String?
+    
+    @objc public dynamic var vendorState:String?
+    @objc public dynamic var vendorZipcode:String?
+    @objc public dynamic var vendorCountry:String?
+    
     var remainingProducts = List<ModelRemainingProduct>()
     var items = List<ModelInvoiceItems>()
     var paymentInfo = List<ModelPaymentInfo>()

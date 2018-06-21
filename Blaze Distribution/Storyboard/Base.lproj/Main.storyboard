@@ -1475,7 +1475,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Payments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1O-Nq-CDe">
-                                                            <rect key="frame" x="16" y="9.5" width="75" height="21"/>
+                                                            <rect key="frame" x="16" y="10" width="75" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="EhM-XN-sko"/>
                                                                 <constraint firstAttribute="width" constant="75" id="aSQ-Ie-IWi">
@@ -1595,7 +1595,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shipping Manifest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGl-AY-DEZ">
-                                                            <rect key="frame" x="16" y="9.5" width="150" height="21"/>
+                                                            <rect key="frame" x="16" y="10" width="150" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="HhH-Sg-lSS">
                                                                     <variation key="heightClass=regular-widthClass=regular" constant="200"/>

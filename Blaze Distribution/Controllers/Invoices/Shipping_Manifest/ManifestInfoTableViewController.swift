@@ -10,7 +10,7 @@ import UIKit
 
 class ManifestInfoTableViewController: UITableViewController, signatureDelegate {
     
-
+    
     @IBOutlet weak var signatureBtn: UIButton!
     @IBOutlet weak var manifestInfoView: UIView!
     @IBOutlet weak var receiverInfoView: UIView!
