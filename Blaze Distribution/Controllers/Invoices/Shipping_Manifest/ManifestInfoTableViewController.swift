@@ -10,12 +10,24 @@ import UIKit
 
 class ManifestInfoTableViewController: UITableViewController, signatureDelegate {
     
-
+    var invoiceDetailsDict: ModelInvoice?
+    
     @IBOutlet weak var signatureBtn: UIButton!
-    @IBOutlet weak var manifestInfoView: UIView!
-    @IBOutlet weak var receiverInfoView: UIView!
-    @IBOutlet weak var driverInfoView: UIView!
-    @IBOutlet weak var signatureView: UIView!
+    @IBOutlet weak var manifestNoLabel: UILabel!
+    @IBOutlet weak var deliveryDateLabel: UILabel!
+    @IBOutlet weak var deliveryTimeLabel: UILabel!
+    @IBOutlet weak var companyNameLabel: UILabel!
+    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var contactLabel: UILabel!
+    @IBOutlet weak var licenceNoLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var driverNameLabel: UILabel!
+    @IBOutlet weak var driverLicenceLabel: UILabel!
+    @IBOutlet weak var driverMakeLabel: UILabel!
+    @IBOutlet weak var driverModelLabel: UILabel!
+    @IBOutlet weak var driverColorLabel: UILabel!
+    @IBOutlet weak var driverLicencePlateLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +42,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
 //        receiverInfoView.dropShadow()
 //        driverInfoView.dropShadow()
 //        signatureView.dropShadow()
+        //self.setUI(manifestInfo: (self.invoiceDetailsDict?.shippingManifests[0])!)
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,6 +50,25 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
         // Dispose of any resources that can be recreated.
     }
 
+    
+    // MARK: - UI Update
+    func setUI(manifestInfo: ModelShipingMenifest) {
+        
+        self.manifestNoLabel.text = manifestInfo.shippingManifestNo
+        self.deliveryDateLabel.text = "\(manifestInfo.deliveryDate)"
+        self.deliveryTimeLabel.text = ""
+        self.companyNameLabel.text = manifestInfo.receiverCompany
+        self.typeLabel.text = manifestInfo.receiverType
+        self.contactLabel.text = manifestInfo.receiverContact
+        self.licenceNoLabel.text = "\(manifestInfo.receiverAddress?.address ?? "")"
+        self.driverNameLabel.text = manifestInfo.driverName
+        self.driverLicenceLabel.text = manifestInfo.driverLicenseNumber
+        self.driverMakeLabel.text = manifestInfo.vehicleMake
+        self.driverModelLabel.text = manifestInfo.vehicleModel
+        self.driverColorLabel.text = ""
+        self.driverLicencePlateLabel.text = manifestInfo.driverLicenPlate
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

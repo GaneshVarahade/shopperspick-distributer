@@ -10,9 +10,12 @@ import UIKit
 
 class ShippingManifestViewController: UIViewController{
 
+    var invoiceDetailsDict: ModelInvoice?
+    
     @IBOutlet weak var shippingSegmentControler: UISegmentedControl!
     @IBOutlet weak var itemsToShipContainerView: UIView!
     @IBOutlet weak var manifestInfoContainerView: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +60,9 @@ class ShippingManifestViewController: UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-//        if segue.identifier == "invoiceItemsSegue" {
-//            let vc:ItemsToShipViewController = segue.destination as! ItemsToShipViewController
-//            vc.itemsDelegate = self
-//        }
+        if segue.identifier == "manifestDetailsSegue" {
+            let vc:ManifestInfoTableViewController = segue.destination as! ManifestInfoTableViewController
+            vc.invoiceDetailsDict = self.invoiceDetailsDict
+        }
     }
 }

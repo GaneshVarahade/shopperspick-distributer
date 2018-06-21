@@ -8,15 +8,28 @@
 
 import UIKit
 
-class AddPaymentTableViewController: UITableViewController, UITextViewDelegate {
+protocol AddPaymentDelegate {
+    func getDataFromAddPayment(dataDict:ModelInvoice)
+}
 
+class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate {
+
+    var invoiceObj: ModelInvoice?
+    var paymentDelegate:AddPaymentDelegate?
+    
     @IBOutlet weak var paymentTypeView: UIView!
     @IBOutlet weak var paymentDateView: UIView!
-    @IBOutlet weak var referenceNoTextView: UITextField!
-    @IBOutlet weak var paymentTextView: UITextField!
+    @IBOutlet weak var referenceNoTextField: UITextField!
+    @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var notesView: UIView!
+    @IBOutlet weak var debitCheckMarkImage: UIImageView!
     
     @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var debitCardTextField: UITextField!
+    @IBOutlet weak var achDateTextField: UITextField!
+    @IBOutlet weak var paymentDateTextField: UITextField!
+    
+    let datePicker = UIDatePicker()
     
     
     override func viewDidLoad() {
@@ -35,8 +48,14 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate {
 //        amountView.dropShadow()
 //        notesView.dropShadow()
         
+        debitCheckMarkImage.isHidden = true
+        
         notesTextView.text = "Enter your notes here..."
         notesTextView.textColor = UIColor.lightGray
+        
+        achDateTextField.inputView = datePicker
+        paymentDateTextField.inputView = datePicker
+        datePicker.datePickerMode = .date
     }
 
     override func didReceiveMemoryWarning() {
@@ -169,6 +188,48 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate {
         }
     }
     
+    
+    // MARK: - UITextField Delegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        if textField == achDateTextField {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd/MM/yyyy"
+            textField.text = formatter.string(from: datePicker.date)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == achDateTextField || textField == paymentDateTextField{
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd/MM/yyyy"
+            textField.text = formatter.string(from: datePicker.date)
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == debitCardTextField {
+            let maxLength = 12
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString =
+                currentString.replacingCharacters(in: range, with: string) as NSString
+            
+            if newString.length >= maxLength { debitCheckMarkImage.isHidden = false } else {
+                debitCheckMarkImage.isHidden = true
+            }
+            return newString.length <= maxLength
+        }
+        else if textField == amountTextField {
+            let cs = NSCharacterSet(charactersIn: "0123456789.").inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            
+            return (string == filtered)
+        }
+        return true
+    }
+    
     // MARK:- Touch events
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -222,6 +283,51 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate {
     // MARK: - UIButton Events
     
     @IBAction func submitBtnPressed(_ sender: Any) {
+        
+        guard let debitCardNo = debitCardTextField.text, debitCardNo != "" else {
+            self.showToast("Please enter debit card no")
+            return
+        }
+        
+        guard let achDate = achDateTextField.text, achDate != "" else {
+            self.showToast("Please select ACH date")
+            return
+        }
+        
+        guard let paymentDate = paymentDateTextField.text, paymentDate != "" else {
+            self.showToast("Please select payment date")
+            return
+        }
+        
+        guard let referenceNo = referenceNoTextField.text, referenceNo != "" else {
+            self.showToast("Please enter reference no")
+            return
+        }
+        
+        guard let amount = amountTextField.text, amount != "" else {
+            self.showToast("Please enter amount")
+            return
+        }
+        
+        guard let notes = notesTextView.text, notes != "Enter your notes here...", notes != "" else {
+            self.showToast("Please enter notes")
+            return
+        }
+        
+        let modelPaymanetInfo:ModelPaymentInfo = ModelPaymentInfo()
+        modelPaymanetInfo.id = HexGenerator.sharedInstance().generate()
+        modelPaymanetInfo.debitCardNo = Int(debitCardNo)!
+        modelPaymanetInfo.achDate = achDate
+        modelPaymanetInfo.paymentDate = 0
+        modelPaymanetInfo.referenceNumber = referenceNo
+        modelPaymanetInfo.amount = Double(amount)!
+        modelPaymanetInfo.notes = notes
+        modelPaymanetInfo.updated = true
+        
+        invoiceObj?.paymentInfo.append(modelPaymanetInfo)
+        RealmManager().write(table: invoiceObj!)
+        print("----PaymentInfo Data Save----")
+        paymentDelegate?.getDataFromAddPayment(dataDict: invoiceObj!)
         self.navigationController?.popViewController(animated: true)
     }
     

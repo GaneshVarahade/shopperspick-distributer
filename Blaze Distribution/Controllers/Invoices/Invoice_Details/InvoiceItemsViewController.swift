@@ -11,7 +11,8 @@ import RealmSwift
 class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
  
     var invoiceItemList = List<ModelInvoiceItems>()
-    
+    @IBOutlet weak var invoiceItemsTableView: UITableView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         AQLog.debug()
