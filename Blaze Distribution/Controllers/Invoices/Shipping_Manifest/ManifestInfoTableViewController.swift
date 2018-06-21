@@ -13,21 +13,22 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
     var invoiceDetailsDict: ModelInvoice?
     
     @IBOutlet weak var signatureBtn: UIButton!
-    @IBOutlet weak var manifestNoLabel: UILabel!
-    @IBOutlet weak var deliveryDateLabel: UILabel!
-    @IBOutlet weak var deliveryTimeLabel: UILabel!
-    @IBOutlet weak var companyNameLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
-    @IBOutlet weak var contactLabel: UILabel!
-    @IBOutlet weak var licenceNoLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var driverNameLabel: UILabel!
-    @IBOutlet weak var driverLicenceLabel: UILabel!
-    @IBOutlet weak var driverMakeLabel: UILabel!
-    @IBOutlet weak var driverModelLabel: UILabel!
-    @IBOutlet weak var driverColorLabel: UILabel!
-    @IBOutlet weak var driverLicencePlateLabel: UILabel!
+    @IBOutlet weak var manifestNoTextField: UITextField!
+    @IBOutlet weak var deliveryDateTextField: UITextField!
+    @IBOutlet weak var deliveryTimeTextField: UITextField!
+    @IBOutlet weak var companyNameTextField: UITextField!
+    @IBOutlet weak var typeTextField: UITextField!
+    @IBOutlet weak var contactTextField: UITextField!
+    @IBOutlet weak var licenceNoTextField: UITextField!
+    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var driverNameTextField: UITextField!
+    @IBOutlet weak var driverLicenceTextField: UITextField!
+    @IBOutlet weak var driverMakeTextField: UITextField!
+    @IBOutlet weak var driverModelTextField: UITextField!
+    @IBOutlet weak var driverColorTextField: UITextField!
+    @IBOutlet weak var driverLicencePlateTextField: UITextField!
     
+    @IBOutlet weak var addSignatureBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()

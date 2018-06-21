@@ -17,6 +17,7 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var confirmAllBtn: UIButton!
     @IBOutlet weak var invoiceItemsTableView: UITableView!
+    @IBOutlet weak var addItemBtn: UIButton!
     
     var tempDataDict = [[String:Any]]()
     var itemsDelegate:changeInShippingDelegate?

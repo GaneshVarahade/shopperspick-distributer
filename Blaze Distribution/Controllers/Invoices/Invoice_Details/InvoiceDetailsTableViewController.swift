@@ -111,7 +111,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
             obj.paymentDelegate = self
             obj.invoiceObj = tempData
         }
-        else if segue.identifier == "manifestInfoSegue" {
+        else if segue.identifier == "addManifestInfoSegue" {
             let obj = segue.destination as! ShippingManifestViewController
             obj.invoiceDetailsDict = tempData
         }
