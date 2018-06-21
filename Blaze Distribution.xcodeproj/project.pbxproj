@@ -38,6 +38,7 @@
 		1846DBA720B21B5B0076BECD /* environment-debug.json in Resources */ = {isa = PBXBuildFile; fileRef = 1846DB9F20B21B5B0076BECD /* environment-debug.json */; };
 		1846DBA820B21B5B0076BECD /* DistributionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DBA020B21B5B0076BECD /* DistributionConfig.swift */; };
 		1846DBA920B21B5B0076BECD /* environment-prod.json in Resources */ = {isa = PBXBuildFile; fileRef = 1846DBA120B21B5B0076BECD /* environment-prod.json */; };
+		186E434A20DBF34100421708 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 186E434C20DBF34100421708 /* Localizable.strings */; };
 		18984BF220C94CA500381603 /* LoginResponse in Resources */ = {isa = PBXBuildFile; fileRef = 18984BF120C94CA500381603 /* LoginResponse */; };
 		189F82BC20C501B70054986E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B020C501B70054986E /* RealmManager.swift */; };
 		189F82C120C501B70054986E /* BaseResponseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B720C501B70054986E /* BaseResponseProtocol.swift */; };
@@ -210,6 +211,7 @@
 		1846DBA020B21B5B0076BECD /* DistributionConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionConfig.swift; sourceTree = "<group>"; };
 		1846DBA120B21B5B0076BECD /* environment-prod.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "environment-prod.json"; sourceTree = "<group>"; };
 		1856C76199F812D749E0AA01 /* Pods-Blaze DistributionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.release.xcconfig"; sourceTree = "<group>"; };
+		186E434B20DBF34100421708 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		18984BF120C94CA500381603 /* LoginResponse */ = {isa = PBXFileReference; lastKnownFileType = text; path = LoginResponse; sourceTree = "<group>"; };
 		189F82B020C501B70054986E /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		189F82B720C501B70054986E /* BaseResponseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponseProtocol.swift; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 				B9266C6A20AED0160021356C /* Utilities */,
 				B9266C6B20AED0280021356C /* Venders */,
 				B9266C6F20AED0750021356C /* Views */,
+				186E434C20DBF34100421708 /* Localizable.strings */,
 			);
 			path = "Blaze Distribution";
 			sourceTree = "<group>";
@@ -1164,6 +1167,7 @@
 				B9266C3D20AEC8FB0021356C /* Main.storyboard in Resources */,
 				1846DBA920B21B5B0076BECD /* environment-prod.json in Resources */,
 				1846DBA520B21B5B0076BECD /* environment-override.json in Resources */,
+				186E434A20DBF34100421708 /* Localizable.strings in Resources */,
 				1846DBA720B21B5B0076BECD /* environment-debug.json in Resources */,
 				189F82C820C502AA0054986E /* GetAllInvoices.txt in Resources */,
 			);
@@ -1469,6 +1473,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		186E434C20DBF34100421708 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				186E434B20DBF34100421708 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		B9266C3B20AEC8FB0021356C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

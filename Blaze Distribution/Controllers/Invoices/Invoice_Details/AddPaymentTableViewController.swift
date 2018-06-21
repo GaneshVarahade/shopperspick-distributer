@@ -12,8 +12,8 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate {
 
     @IBOutlet weak var paymentTypeView: UIView!
     @IBOutlet weak var paymentDateView: UIView!
-    @IBOutlet weak var referenceNoView: UIView!
-    @IBOutlet weak var amountView: UIView!
+    @IBOutlet weak var referenceNoTextView: UITextField!
+    @IBOutlet weak var paymentTextView: UITextField!
     @IBOutlet weak var notesView: UIView!
     
     @IBOutlet weak var notesTextView: UITextView!
