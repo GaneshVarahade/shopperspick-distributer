@@ -25,22 +25,27 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         self.tabBarController?.selectedIndex = 1
         setSearchBarUI()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getData()
         EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
     }
+    
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
         getData()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "Invoices"
     }
+    
     func getData(){
         valueDataObj =  RealmManager().readList(type: ModelInvoice.self)
         invoiceTableView.reloadData()
