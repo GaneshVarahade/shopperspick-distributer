@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol changeInShippingDelegate {
-    func changeUI()
-}
 
-class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol ShippingMenifestSelectedItemsDelegate {
+    func changeModelInvoice(model:ModelInvoice)
+}
+class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,ShippingMenifestSelectedItemsDelegate {
 
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var confirmAllBtn: UIButton!
@@ -20,16 +20,18 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var addItemBtn: UIButton!
     
     var isAddManifest = Bool()
+    var modelInvoice: ModelInvoice!
+    
     var tempDataDict = [[String:Any]]()
-    var itemsDelegate:changeInShippingDelegate?
+    var confirmShippingDelegate: ShippingMenifestConfirmDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        //topView.dropShadow()
         
-        if tempDataDict.count > 0 {
+        invoiceItemsTableView.delegate = self
+        invoiceItemsTableView.dataSource = self
+        
+        if modelInvoice.selectedItems.count > 0 {
             confirmAllBtn.isEnabled = true
             confirmAllBtn.backgroundColor = UIColor.orange
         }
@@ -37,20 +39,23 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
             confirmAllBtn.isEnabled = false
             confirmAllBtn.backgroundColor = UIColor.lightGray
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(self.getItemsForInvoice(notification:)), name: Notification.Name("INVOICE_ITEMS"), object: nil)
+        
+        if !isAddManifest {
+            addItemBtn.isHidden = true
+        }
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        print("\(modelInvoice.invoiceNumber)")
+        invoiceItemsTableView.reloadData()
+        getItemsForInvoice()
     }
     
     // MARK: - Selector method
-    @objc func getItemsForInvoice(notification: Notification){
-        //Take Action on Notification
-        print(notification.userInfo!["items"]!)
-        tempDataDict = notification.userInfo!["items"]! as! [[String : Any]]
-        if tempDataDict.count > 0 {
+     func getItemsForInvoice(){
+        
+        if modelInvoice.selectedItems.count > 0 {
             self.invoiceItemsTableView.reloadData()
             confirmAllBtn.isEnabled = true
             confirmAllBtn.backgroundColor = UIColor.orange
@@ -64,15 +69,17 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - UITableviewDelegate/Datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tempDataDict.count
+        return modelInvoice.selectedItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemsCell") as! InvoiceItemsTableViewCell
         
-        cell.productNameBtn.setTitle(" \((tempDataDict[indexPath.row])["product_name"] as? String ?? "No value")" , for: .normal)
-        cell.batchNoLabel.text = (tempDataDict[indexPath.row])["batch_no"] as? String
-        cell.noUnits.text = (tempDataDict[indexPath.row])["quantity"] as? String
+        let product = modelInvoice.selectedItems[indexPath.row]
+        
+        cell.productNameBtn.setTitle(product.productName, for: .normal)
+        cell.batchNoLabel.text = ""
+        cell.noUnits.text = "\(product.requestQuantity)"
         
         return cell
     }
@@ -84,25 +91,23 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
         return 60
     }
 
-    // MARK: - UIButton Events
-    @IBAction func addItemBtnPressed(_ sender: Any) {
-        let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddProductViewController")
-        self.navigationController?.pushViewController(obj, animated: true)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "addProductViewSegue" {
+            let addproductController = segue.destination as? AddProductViewController
+            addproductController?.modelInvoice = modelInvoice
+            addproductController?.shippingMenifDelegate = self
+        }
     }
     
     @IBAction func confirmBtnPressed(_ sender: Any) {
-
-        itemsDelegate?.changeUI()
+        confirmShippingDelegate?.confirmShippingMenifest(modelInvoice: modelInvoice)
+        self.navigationController?.popViewController(animated: true)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func changeModelInvoice(model: ModelInvoice) {
+        self.modelInvoice = model
+        
+        print("\(modelInvoice.selectedItems.count)")
     }
-    */
-
 }

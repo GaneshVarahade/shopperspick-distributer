@@ -15,17 +15,17 @@ public class ModelShipingMenifest:ModelBase {
     @objc public dynamic var shippingManifestNo:String?  = ""
     @objc public dynamic var deliveryDate : Int          = 0
     @objc public dynamic var driverName:String?          = ""
-    @objc public dynamic var driverLicenseNumber:String? = ""
-    @objc public dynamic var vehicleMake:String?         = ""
-    @objc public dynamic var vehicleModel:String?        = ""
-    @objc public dynamic var vehicleLicensePlate:String? = ""
-    @objc public dynamic var driverLicenPlate:String?    = ""
+    @objc public dynamic var driverLicenseNumber:String?
+    @objc public dynamic var vehicleMake:String?
+    @objc public dynamic var vehicleModel:String?        
+    @objc public dynamic var vehicleLicensePlate:String? 
+    @objc public dynamic var driverLicenPlate:String?
     @objc public dynamic var signaturePhoto:String?      = ""
     @objc public dynamic var receiverCompany:String?     = ""
     @objc public dynamic var receiverType:String?        = ""
-    @objc public dynamic var receiverContact:String?     = ""
-    @objc public dynamic var receiverLicense:String?     = ""
-    @objc public dynamic var invoiceStatus:String?       = ""
+    @objc public dynamic var receiverContact:String?     
+    @objc public dynamic var receiverLicense:String?  
+    @objc public dynamic var invoiceStatus:String?
     
     var receiverAddress:ModelAddres?
 

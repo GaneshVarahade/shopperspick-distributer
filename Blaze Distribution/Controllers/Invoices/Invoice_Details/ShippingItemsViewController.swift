@@ -17,10 +17,17 @@ class ShippingItemsViewController: UIViewController, UITableViewDataSource, UITa
 
     var shippingItemsDelegate:ShippingItemsDelegate?
     var shippingData = List<ModelShipingMenifest>()
+    
+    @IBOutlet weak var shipingTable: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
        // print(shippingData)
+    }
+    
+    func shippingList(shippingData: List<ModelShipingMenifest>){
+        self.shippingData = shippingData
+        shipingTable.reloadData()
     }
 }
 
@@ -34,7 +41,7 @@ extension ShippingItemsViewController{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "shippingCell") as! ShippingManifestTableViewCell
         cell.shippingIdButton.setTitle((shippingData[indexPath.row]).shippingManifestNo, for: .normal)
-        cell.shippingStatusButton.setTitle((shippingData[indexPath.row]).invoiceStatus, for: .normal)
+        cell.shippingStatusButton.setTitle((shippingData[indexPath.row]).invoiceStatus ?? "Shipped", for: .normal)
         
         cell.shippingStatusButton.tag = indexPath.row
         cell.shippingIdButton.tag = indexPath.row

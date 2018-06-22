@@ -13,6 +13,8 @@ public class ModelRemainingProduct: ModelBase{
     @objc public dynamic var productName:String? = ""
     @objc public dynamic var remainingQuantity:Double = 0.0
     @objc public dynamic var requestQuantity:Double = 0.0
+    @objc public dynamic var isSelected:Bool = false
+    
     open override class func primaryKey() -> String? {
         return "productId"
     }

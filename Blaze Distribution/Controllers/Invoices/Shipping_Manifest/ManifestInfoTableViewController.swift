@@ -10,8 +10,8 @@ import UIKit
 
 class ManifestInfoTableViewController: UITableViewController, signatureDelegate {
 
-    var invoiceDetailsDict: ModelInvoice?
     var isAddManifest = Bool()
+    var modelShippingMen: ModelShipingMenifest?
     
     @IBOutlet weak var signatureBtn: UIButton!
     @IBOutlet weak var manifestNoTextField: UITextField!
@@ -33,43 +33,77 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-//        manifestInfoView.dropShadow()
-//        receiverInfoView.dropShadow()
-//        driverInfoView.dropShadow()
-//        signatureView.dropShadow()
-        //self.setUI(manifestInfo: (self.invoiceDetailsDict)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    override func viewDidAppear(_ animated: Bool) {
+        if !isAddManifest {
+            disableAllFields()
+            signatureBtn.isHidden = true
+        }
 
-    // MARK: - UI Update
-    func setUI(manifestInfo: ModelShipingMenifest) {
-        
-//        self.manifestNoLabel.text = manifestInfo.shippingManifestNo
-//        self.deliveryDateLabel.text = "\(manifestInfo.deliveryDate)"
-//        self.deliveryTimeLabel.text = ""
-//        self.companyNameLabel.text = manifestInfo.receiverCompany
-//        self.typeLabel.text = manifestInfo.receiverType
-//        self.contactLabel.text = manifestInfo.receiverContact
-//        self.licenceNoLabel.text = "\(manifestInfo.receiverAddress?.address ?? "")"
-//        self.driverNameLabel.text = manifestInfo.driverName
-//        self.driverLicenceLabel.text = manifestInfo.driverLicenseNumber
-//        self.driverMakeLabel.text = manifestInfo.vehicleMake
-//        self.driverModelLabel.text = manifestInfo.vehicleModel
-//        self.driverColorLabel.text = ""
-//        self.driverLicencePlateLabel.text = manifestInfo.driverLicenPlate
+        setUI(manifestInfo: modelShippingMen)
     }
     
+
+//    private func seuptReceiver(_ invoice: ModelInvoice?){
+//
+//        guard  let modelInvoice = invoice else {
+//            return
+//        }
+//
+//        companyNameTextField.text = modelInvoice.vendorCompany ?? "-/-"
+//        typeTextField.text = modelInvoice.vendorCompanyType ?? "-/-"
+//        contactTextField.text = modelInvoice.vendorPhone ?? "-/-"
+//        licenceNoTextField.text = modelInvoice.vendorLicenseNumber ?? "-/-"
+//        addressTextField.text = "\(modelInvoice.vendorCity ?? "-"), \(modelInvoice.vendorCountry ?? "-")"
+//
+//    }
+    // MARK: - UI Update
+    func setUI(manifestInfo: ModelShipingMenifest?) {
+        
+        guard let manifestInfo = manifestInfo else {
+            return
+        }
+        
+        manifestNoTextField.text = manifestInfo.shippingManifestNo
+        companyNameTextField.text = manifestInfo.receiverCompany
+        typeTextField.text = manifestInfo.receiverType
+        contactTextField.text = manifestInfo.receiverContact ?? "-/-"
+        licenceNoTextField.text = manifestInfo.receiverLicense ?? "-/-"
+        addressTextField.text = "\(manifestInfo.receiverAddress?.city ?? "-"), \(manifestInfo.receiverAddress?.country ?? "-")"
+
+        if !isAddManifest {
+            deliveryDateTextField.text = "\(manifestInfo.deliveryDate)"
+            deliveryTimeTextField.text = "-/-"
+            driverNameTextField.text = manifestInfo.driverName
+            driverLicenceTextField.text = manifestInfo.driverLicenseNumber ?? "-/-"
+            driverMakeTextField.text = manifestInfo.vehicleMake ?? "-/-"
+            driverModelTextField.text = manifestInfo.vehicleModel ?? "-/-"
+            driverColorTextField.text = "-/-"
+            driverLicencePlateTextField.text = manifestInfo.driverLicenPlate ?? "-/-"
+        }
+        
+    }
+    
+    private func disableAllFields(){
+        
+        signatureBtn.isEnabled = false
+        manifestNoTextField.isUserInteractionEnabled = false
+        deliveryDateTextField.isUserInteractionEnabled = false
+        deliveryTimeTextField.isUserInteractionEnabled = false
+        companyNameTextField.isUserInteractionEnabled = false
+        typeTextField.isUserInteractionEnabled = false
+        contactTextField.isUserInteractionEnabled = false
+        licenceNoTextField.isUserInteractionEnabled = false
+        addressTextField.isUserInteractionEnabled = false
+        driverNameTextField.isUserInteractionEnabled = false
+        driverLicenceTextField.isUserInteractionEnabled = false
+        driverMakeTextField.isUserInteractionEnabled = false
+        driverModelTextField.isUserInteractionEnabled = false
+        driverColorTextField.isUserInteractionEnabled = false
+        driverLicencePlateTextField.isUserInteractionEnabled = false
+        
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -212,80 +246,14 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
             }
         }
     }
-    
-    // MARK:- UIButton events
-    
-    @IBAction func addSignatureBtnPressed(_ sender: Any) {
-        let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignatureViewController") as! SignatureViewController
-        obj.signDelegate = self
-        self.navigationController?.pushViewController(obj, animated: true)
-    }
-    
-    
-    @IBAction func signBtnPressed(_ sender: Any) {
-        let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignatureViewController") as! SignatureViewController
-        obj.signDelegate = self
-        self.navigationController?.pushViewController(obj, animated: true)
-    }
+     
     
     // MARK:- Sign Delegate
     func getSignatureImg(signImg: UIImage) {
         self.signatureBtn.setImage(signImg, for: .normal)
     }
-    
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        // Configure the cell...
-
-        return cell
+    func getShippingMenifest() -> ModelShipingMenifest {
+        return modelShippingMen!
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

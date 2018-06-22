@@ -14,6 +14,7 @@ class InvoiceItemsTableViewCell: UITableViewCell {
     @IBOutlet weak var batchNoLabel: UILabel!
     @IBOutlet weak var noUnits: UILabel!
     
+    @IBOutlet weak var cellTapView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

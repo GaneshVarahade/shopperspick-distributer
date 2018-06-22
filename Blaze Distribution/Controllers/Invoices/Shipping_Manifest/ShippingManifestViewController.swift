@@ -8,10 +8,18 @@
 
 import UIKit
 
-class ShippingManifestViewController: UIViewController{
+protocol ShippingMenifestConfirmDelegate {
+    func confirmShippingMenifest(modelInvoice: ModelInvoice)
+}
+class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmDelegate{
 
     var invoiceDetailsDict: ModelInvoice?
     var isAddManifest = Bool()
+    var modelShippingMen: ModelShipingMenifest?
+    var shippiingMenifestConfirm: ShippingMenifestConfirmDelegate?
+    
+    var manifestDetailController:ManifestInfoTableViewController?
+    var itemsToShipController:ItemsToShipViewController?
     
     @IBOutlet weak var shippingSegmentControler: UISegmentedControl!
     @IBOutlet weak var itemsToShipContainerView: UIView!
@@ -20,20 +28,18 @@ class ShippingManifestViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
         shippingSegmentControler.selectedSegmentIndex = 1
         manifestInfoContainerView.isHidden = true
         itemsToShipContainerView.isHidden = false
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    // MARK: - SegmentControl value changed
     
     @IBAction func segmentValueChanged(_ sender: Any) {
         if shippingSegmentControler.selectedSegmentIndex == 0 {
@@ -47,28 +53,49 @@ class ShippingManifestViewController: UIViewController{
         }
     }
     
-    // MARK:- ItemsToShip Delegate
-    
     func changeUI() {
         shippingSegmentControler.selectedSegmentIndex = 0
         manifestInfoContainerView.isHidden = false
         itemsToShipContainerView.isHidden = true
     }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
         if segue.identifier == "manifestDetailsSegue" {
-            let vc:ManifestInfoTableViewController = segue.destination as! ManifestInfoTableViewController
-            vc.isAddManifest = isAddManifest
-            vc.invoiceDetailsDict = self.invoiceDetailsDict
+            
+            let modelAddress = ModelAddres()
+            modelAddress.address = invoiceDetailsDict?.vendorAddress
+            modelAddress.city = invoiceDetailsDict?.vendorCity
+            modelAddress.country = invoiceDetailsDict?.vendorCountry
+            modelAddress.state = invoiceDetailsDict?.vendorState
+            modelAddress.zipCode = invoiceDetailsDict?.vendorZipcode
+            
+            modelShippingMen?.receiverCompany = invoiceDetailsDict?.vendorCompany ?? "-/-"
+            modelShippingMen?.receiverType = invoiceDetailsDict?.vendorCompanyType ?? "-/-"
+            modelShippingMen?.receiverContact = invoiceDetailsDict?.vendorPhone ?? "-/-"
+            modelShippingMen?.receiverLicense = invoiceDetailsDict?.vendorLicenseNumber ?? "-/-"
+            modelShippingMen?.receiverAddress = modelAddress
+            
+            manifestDetailController = segue.destination as! ManifestInfoTableViewController
+            manifestDetailController?.isAddManifest = isAddManifest
+            manifestDetailController?.modelShippingMen = self.modelShippingMen
+            print("\(manifestDetailController?.modelShippingMen?.shippingManifestNo) == \(self.modelShippingMen?.shippingManifestNo)")
+        }else if segue.identifier == "invoiceItemsSegue" {
+            
+            itemsToShipController = segue.destination as! ItemsToShipViewController
+            itemsToShipController?.isAddManifest = isAddManifest
+            itemsToShipController?.modelInvoice = invoiceDetailsDict
+            
         }
-        else if segue.identifier == "invoiceItemsSegue" {
-            let vc:ItemsToShipViewController = segue.destination as! ItemsToShipViewController
-            vc.isAddManifest = isAddManifest
+    }
+    
+    func confirmShippingMenifest(modelInvoice: ModelInvoice) {
+        
+        let shiipingMenifest = manifestDetailController?.getShippingMenifest()
+        if isAddManifest {
+            shiipingMenifest?.updated = true
+            modelInvoice.shippingManifests.append(shiipingMenifest!)
         }
+        shippiingMenifestConfirm?.confirmShippingMenifest(modelInvoice: modelInvoice)
     }
 }

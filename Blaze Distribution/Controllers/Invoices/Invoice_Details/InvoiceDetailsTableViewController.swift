@@ -8,9 +8,17 @@
 
 import UIKit
 
-class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDetailsDelegate,AddPaymentDelegate,InvoicePaymentsDetailsDelegate, ShippingItemsDelegate {
+class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDetailsDelegate,AddPaymentDelegate,InvoicePaymentsDetailsDelegate, ShippingItemsDelegate,ShippingMenifestConfirmDelegate {
+    
+    func confirmShippingMenifest(modelInvoice: ModelInvoice) {
+        self.tempData = modelInvoice
+        
+        print("\(tempData?.shippingManifests.count)")
+    }
+    
 
     var tempData: ModelInvoice?
+    
     var fixedDetailsTableVC: FixedInvoiceDetailsTableViewController?
     var invoiceItemsVC: InvoiceItemsViewController?
     var paymentItemsVC: InvoicePaymentsViewController?
@@ -21,6 +29,8 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
     @IBOutlet weak var itemsInInvoiceView: UIView!
     @IBOutlet weak var paymentsTitleView: UIView!
     @IBOutlet weak var shippingManifestView: UIView!
+    @IBOutlet weak var completeInvoicButton: UIButton!
+    
     var itemsList :[ModelInvoiceItems] = []
     
     override func viewDidLoad() {
@@ -34,7 +44,10 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
             self.title = invoiceData.invoiceNumber
             self.duePaymentLabel.text = "$\(invoiceData.balanceDue) \(NSLocalizedString("dueof", comment: "")) $\(invoiceData.total)"
             fixedDetailsTableVC?.getDataForFixedInvoices(data:invoiceData)
-           // print(invoiceData)
+            
+            if invoiceData.invoiceStatus == InvoiceStatus.COMPLETED.rawValue {
+                completeInvoicButton.isHidden = true
+            }
             
         }else{
             
@@ -44,13 +57,16 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         
     }
  
+    override func viewWillAppear(_ animated: Bool) {
+        getDataFromShippingList(dataDict: tempData)
+    }
     // MARK:- Container VC Delegates
     func getDataForFixedInvoices(dataDict: [String : Any]) {
         
     }
     
     func getDataForShippingItems(dataDict: ModelShipingMenifest) {
-        self.performSegue(withIdentifier: "addManifestInfoSegue", sender: false)
+        self.performSegue(withIdentifier: "addManifestInfoSegue", sender: dataDict)
     }
     
     func getDataForPaymentItems(dataDict: [[String : Any]]) {
@@ -64,15 +80,22 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
     // MARK:- UIButton Events
     
     @IBAction func addPaymentBtnPressed(_ sender: Any) {
-        //let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddPaymentTableViewController")
-        //self.navigationController?.pushViewController(obj, animated: true)
+        
     }
     
     @IBAction func addShippingManifestBtnPressed(_ sender: Any) {
-        //let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ShippingManifestViewController")
-        //self.navigationController?.pushViewController(obj, animated: true)
+        
     }
     
+    @IBAction func onCompleteInvoicePressed(sender: Any){
+        
+        guard let tempData = tempData else {
+            return
+        }
+        tempData.updated = true
+        RealmManager().write(table: tempData)
+        self.navigationController?.popViewController(animated: true)
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -115,11 +138,16 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         else if segue.identifier == "addManifestInfoSegue" {
             let obj = segue.destination as! ShippingManifestViewController
             obj.invoiceDetailsDict = tempData
-            if let sender = sender as? Bool {
-                obj.isAddManifest = sender
+            
+            if let sender = sender as? ModelShipingMenifest {
+                obj.isAddManifest = false
+                obj.modelShippingMen = sender
             }
             else {
+                
                 obj.isAddManifest = true
+                obj.modelShippingMen = ModelShipingMenifest()
+                obj.modelShippingMen?.shippingManifestNo = HexGenerator.sharedInstance().generate()
             }
         }
     }
@@ -237,9 +265,15 @@ extension InvoiceDetailsTableViewController{
         tempData = dataDict
         paymentItemsVC?.getDataForInvoicePayments(dataDict: tempData!)
         self.tableView.reloadData()
-        //performSegue(withIdentifier: "paymentItemsSegue", sender: nil)
-        //self.tableView.reloadRows(at: [IndexPath(row: 5, section: 0)], with: .none)
+
     }
-    
+    func getDataFromShippingList(dataDict: ModelInvoice?){
+        
+        guard let dataDict = dataDict else{
+            return
+        }
+        shippingItemsVC?.shippingList(shippingData: dataDict.shippingManifests)
+        self.tableView.reloadData()
+    }
     
 }
