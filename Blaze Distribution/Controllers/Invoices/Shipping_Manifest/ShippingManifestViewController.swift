@@ -85,6 +85,7 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmD
             itemsToShipController = segue.destination as! ItemsToShipViewController
             itemsToShipController?.isAddManifest = isAddManifest
             itemsToShipController?.modelInvoice = invoiceDetailsDict
+            itemsToShipController?.confirmShippingDelegate = self
             
         }
     }

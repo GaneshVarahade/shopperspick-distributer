@@ -138,6 +138,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         else if segue.identifier == "addManifestInfoSegue" {
             let obj = segue.destination as! ShippingManifestViewController
             obj.invoiceDetailsDict = tempData
+            obj.shippiingMenifestConfirm = self
             
             if let sender = sender as? ModelShipingMenifest {
                 obj.isAddManifest = false
