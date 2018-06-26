@@ -7,12 +7,20 @@
 //
 
 import UIKit
+                                
 
-class ManifestInfoTableViewController: UITableViewController, signatureDelegate {
+                                
+class ManifestInfoTableViewController: UITableViewController, signatureDelegate, UITextFieldDelegate {
 
+    // MARK: - Property
     var isAddManifest = Bool()
     var modelShippingMen: ModelShipingMenifest?
+    let datePicker = UIDatePicker()
+    let timePicker = UIDatePicker()
     
+    
+    // MARK: - Outlets
+    @IBOutlet weak var signatureImgView: UIImageView!
     @IBOutlet weak var signatureBtn: UIButton!
     @IBOutlet weak var manifestNoTextField: UITextField!
     @IBOutlet weak var deliveryDateTextField: UITextField!
@@ -31,20 +39,45 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
     
     @IBOutlet weak var addSignatureBtn: UIButton!
     
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
         if !isAddManifest {
             disableAllFields()
-            signatureBtn.isHidden = true
+            //signatureBtn.isHidden = true
+            addSignatureBtn.isHidden = true
         }
 
         setUI(manifestInfo: modelShippingMen)
+        
+        let colorView = UIView()
+        colorView.backgroundColor = UIColor.clear
+        UITableViewCell.appearance().selectedBackgroundView = colorView
     }
     
-
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        if isAddManifest {
+            //modelShippingMen?.deliveryDate = Int(Date().timeIntervalSince1970)
+            modelShippingMen?.receiverCompany = companyNameTextField.text
+            modelShippingMen?.receiverType = typeTextField.text
+            modelShippingMen?.receiverContact = contactTextField.text
+            modelShippingMen?.receiverLicense = licenceNoTextField.text
+            let addressObj = ModelAddres()
+            addressObj.address = addressTextField.text
+            modelShippingMen?.receiverAddress = addressObj
+            modelShippingMen?.driverName = driverNameTextField.text
+            modelShippingMen?.driverLicenseNumber = driverLicenceTextField.text
+            modelShippingMen?.vehicleMake = driverMakeTextField.text
+            modelShippingMen?.vehicleModel = driverModelTextField.text
+            modelShippingMen?.vehicleColor = driverColorTextField.text
+            modelShippingMen?.driverLicenPlate = driverLicencePlateTextField.text
+        }
+    }
 //    private func seuptReceiver(_ invoice: ModelInvoice?){
 //
 //        guard  let modelInvoice = invoice else {
@@ -58,11 +91,23 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
 //        addressTextField.text = "\(modelInvoice.vendorCity ?? "-"), \(modelInvoice.vendorCountry ?? "-")"
 //
 //    }
+    
     // MARK: - UI Update
     func setUI(manifestInfo: ModelShipingMenifest?) {
         
+        deliveryDateTextField.inputView = datePicker
+        datePicker.datePickerMode = .date
+        
+        deliveryTimeTextField.inputView = timePicker
+        timePicker.datePickerMode = .time
+        
         guard let manifestInfo = manifestInfo else {
             return
+        }
+        
+        if let signImg = StoreImage.getSavedImage(name: manifestInfo.shippingManifestNo!) {
+            //signatureBtn.setImage(signImg, for: .normal)
+            signatureImgView.image = signImg
         }
         
         manifestNoTextField.text = manifestInfo.shippingManifestNo
@@ -73,8 +118,12 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
         addressTextField.text = "\(manifestInfo.receiverAddress?.city ?? "-"), \(manifestInfo.receiverAddress?.country ?? "-")"
 
         if !isAddManifest {
-            deliveryDateTextField.text = "\(manifestInfo.deliveryDate)"
-            deliveryTimeTextField.text = "-/-"
+            deliveryDateTextField.text = DateFormatterUtil.format(dateTime: Double(manifestInfo.deliveryDate), format: DateFormatterUtil.mmddyyyy)
+            
+            deliveryTimeTextField.text = DateFormatterUtil.format(dateTime: Double(manifestInfo.deliveryTime), format: DateFormatterUtil.hhmma)
+            
+            //"\(manifestInfo.deliveryDate)"
+            //deliveryTimeTextField.text = "-/-"
             driverNameTextField.text = manifestInfo.driverName
             driverLicenceTextField.text = manifestInfo.driverLicenseNumber ?? "-/-"
             driverMakeTextField.text = manifestInfo.vehicleMake ?? "-/-"
@@ -87,7 +136,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
     
     private func disableAllFields(){
         
-        signatureBtn.isEnabled = false
+        //signatureBtn.isEnabled = false
         manifestNoTextField.isUserInteractionEnabled = false
         deliveryDateTextField.isUserInteractionEnabled = false
         deliveryTimeTextField.isUserInteractionEnabled = false
@@ -102,8 +151,25 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
         driverModelTextField.isUserInteractionEnabled = false
         driverColorTextField.isUserInteractionEnabled = false
         driverLicencePlateTextField.isUserInteractionEnabled = false
-        
     }
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == deliveryDateTextField {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd/yyyy"
+            modelShippingMen?.deliveryDate = Int(datePicker.date.timeIntervalSince1970)
+            textField.text = formatter.string(from: datePicker.date)
+        }
+        else if textField == deliveryTimeTextField {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "hh:mm a"
+            modelShippingMen?.deliveryTime = Int(timePicker.date.timeIntervalSince1970)
+            textField.text = formatter.string(from: timePicker.date)
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -115,7 +181,19 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
         // #warning Incomplete implementation, return the number of rows
         return 19
     }
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 19 {
+            self.performSegue(withIdentifier: "addSignatureSegue", sender: nil)
+        }
+    }
+    
+//    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//
+//        cell.backgroundColor = UIColor.clear
+//
+//    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
@@ -250,10 +328,23 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate 
     
     // MARK:- Sign Delegate
     func getSignatureImg(signImg: UIImage) {
-        self.signatureBtn.setImage(signImg, for: .normal)
+        //self.signatureBtn.setImage(signImg, for: .normal)
+        //self.signatureBtn.setBackgroundImage(signImg, for: .normal)
+        signatureImgView.image = signImg
     }
 
     func getShippingMenifest() -> ModelShipingMenifest {
         return modelShippingMen!
+    }
+    
+    // MARK: - UINavigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "addSignatureSegue" {
+            let obj = segue.destination as! SignatureViewController
+            obj.modelShippingMen = self.modelShippingMen
+            obj.isAddManifest = self.isAddManifest
+        }
     }
 }
