@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class AddProductViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -14,7 +16,10 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var topView: UIView!
     
     
-    var modelInvoice: ModelInvoice!
+    //var modelInvoice: ModelInvoice!
+    var shippingManifest : ModelShipingMenifest?
+    var remainingItemList = List<ModelRemainingProduct>()
+    
     var shippingMenifDelegate: ShippingMenifestSelectedItemsDelegate!
     
     override func viewDidLoad() {
@@ -22,19 +27,19 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
 
         self.title = "Add Product"
         
-        print("\(modelInvoice.remainingProducts.count)")
+        //print("\(modelInvoice.remainingProducts.count)")
         invoiceItemsTableView.delegate =  self
         invoiceItemsTableView.dataSource = self
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return modelInvoice.remainingProducts.count
+        return remainingItemList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemsCell") as! InvoiceItemsTableViewCell
         
-        let product = modelInvoice.remainingProducts[indexPath.row]
+        let product = remainingItemList[indexPath.row]
         cell.productNameBtn.tag = indexPath.row
         cell.productNameBtn.setTitle("\(product.productName!)", for: .normal)
         cell.batchNoLabel.text = product.productId
@@ -65,15 +70,16 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if segue.identifier == "addProductQuantityShippmentSegue" {
             
-            let listRemaining = modelInvoice.remainingProducts
-            modelInvoice.selectedItems.removeAll()
+            let listRemaining = remainingItemList
+            shippingManifest?.selectedItems.removeAll()
             for prod in listRemaining {
                 if prod.isSelected {
-                    modelInvoice.selectedItems.append(prod.copy() as! ModelRemainingProduct)
+                    shippingManifest?.selectedItems.append(prod.copy() as! ModelRemainingProduct)
                 }
             }
             let addQuantity = segue.destination as? QuantityAndBatchViewController
-            addQuantity?.modelInvoice = modelInvoice
+            addQuantity?.shippingManifest = shippingManifest
+            addQuantity?.remainingItemList = self.remainingItemList
             addQuantity?.shippingMenifDelegate = shippingMenifDelegate
         }
     }
@@ -82,7 +88,7 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
         let senderView = sender.view as? UIView
         print(senderView?.tag)
         
-        let product = modelInvoice.remainingProducts[(senderView?.tag)!]
+        let product = remainingItemList[(senderView?.tag)!]
         product.isSelected = !product.isSelected
         
         let cell:InvoiceItemsTableViewCell = invoiceItemsTableView.cellForRow(at: IndexPath.init(row: (senderView?.tag)!, section: 0)) as! InvoiceItemsTableViewCell

@@ -8,6 +8,8 @@
 
 import UIKit
 import KSToastView
+import RealmSwift
+import Realm
 
 class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
@@ -17,7 +19,10 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
     
     var batchPickerView : UIPickerView!
     
-    var modelInvoice: ModelInvoice!
+    //var modelInvoice: ModelInvoice!
+    var shippingManifest : ModelShipingMenifest?
+    var remainingItemList = List<ModelRemainingProduct>()
+    
     var shippingMenifDelegate: ShippingMenifestSelectedItemsDelegate!
     var boolContinuePressed = false
     
@@ -40,7 +45,7 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
     
     override func viewWillDisappear(_ animated: Bool) {
         if self.isMovingFromParentViewController, !boolContinuePressed {
-            modelInvoice.selectedItems.removeAll()
+            shippingManifest?.selectedItems.removeAll()
         }
     }
     
@@ -48,17 +53,19 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
     // MARK:- UITableview Delegate/DataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return modelInvoice.selectedItems.count
+        return shippingManifest!.selectedItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! QuantityBatchTableViewCell
-        let product = modelInvoice.selectedItems[indexPath.row]
+        let product = shippingManifest?.selectedItems[indexPath.row]
         
-        cell.productLabel.text = product.productName
-        cell.quantityTextField.text = "\(product.remainingQuantity)"
-        cell.batchTextField.text = product.productId
+        cell.productLabel.text = product?.productName
+        if let remainingQuantity = product?.remainingQuantity {
+            cell.quantityTextField.text = "\(remainingQuantity)"
+        }
+        cell.batchTextField.text = product?.productId
         cell.batchTextField.tag = indexPath.row
         cell.quantityTextField.tag = indexPath.row
         
@@ -88,27 +95,27 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
     
     @IBAction func continueBtnPressed(_ sender: Any) {
 
-        for product in modelInvoice.selectedItems {
+        for product in (shippingManifest?.selectedItems)! {
   
-            let index = modelInvoice.selectedItems.map({ $0.productId }).index(of: product.productId)!
+            let index = shippingManifest?.selectedItems.map({ $0.productId }).index(of: product.productId)!
 
-            let cell:QuantityBatchTableViewCell = itemsTableView.cellForRow(at: IndexPath.init(row: index, section: 0)) as! QuantityBatchTableViewCell
+            let cell:QuantityBatchTableViewCell = itemsTableView.cellForRow(at: IndexPath.init(row: index!, section: 0)) as! QuantityBatchTableViewCell
              let requestQuantity = Double(cell.quantityTextField.text!)!
             
-            let remainingProd = modelInvoice.remainingProducts[index]
+            let remainingProd = remainingItemList[index!]
             print("\(product.requestQuantity) > \(remainingProd.remainingQuantity)")
             
             if requestQuantity > remainingProd.remainingQuantity {
 
                 KSToastView.ks_showToast("Requested quantity is Greater than remaining quantity for Product \(product.productName!)")
-                modelInvoice.selectedItems.removeAll()
+                shippingManifest?.selectedItems.removeAll()
                 return
             }
             product.requestQuantity = requestQuantity
         }
         
         boolContinuePressed = true
-        shippingMenifDelegate.changeModelInvoice(model: modelInvoice)
+        shippingMenifDelegate.changeModelInvoice(shippingManifest: shippingManifest!)
         popBack(2)
         
     }

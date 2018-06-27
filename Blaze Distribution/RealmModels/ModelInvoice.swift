@@ -33,7 +33,7 @@ public class ModelInvoice:ModelBase {
     
     var remainingProducts = List<ModelRemainingProduct>()
     var items = List<ModelInvoiceItems>()
-    var selectedItems = List<ModelRemainingProduct>()
+    //var selectedItems = List<ModelRemainingProduct>()
     
     var paymentInfo = List<ModelPaymentInfo>()
     var shippingManifests = List<ModelShipingMenifest>()
@@ -76,9 +76,9 @@ public class ModelInvoice:ModelBase {
             modelInvoice.items.append(item.copy() as! ModelInvoiceItems)
         }
         
-        for item in self.selectedItems {
-            modelInvoice.selectedItems.append(item.copy() as! ModelRemainingProduct)
-        }
+//        for item in self.selectedItems {
+//            modelInvoice.selectedItems.append(item.copy() as! ModelRemainingProduct)
+//        }
 
         return modelInvoice
     }

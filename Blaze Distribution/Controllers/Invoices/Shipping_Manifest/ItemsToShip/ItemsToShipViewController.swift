@@ -7,10 +7,11 @@
 //
 
 import UIKit
-
+import Realm
+import RealmSwift
 
 protocol ShippingMenifestSelectedItemsDelegate {
-    func changeModelInvoice(model:ModelInvoice)
+    func changeModelInvoice(shippingManifest:ModelShipingMenifest)
 }
 class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,ShippingMenifestSelectedItemsDelegate {
 
@@ -21,9 +22,11 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
     
     var isAddManifest = Bool()
     var modelInvoice: ModelInvoice!
+    var modelShippingMenifest: ModelShipingMenifest!
+    var remainingItemsList = List<ModelRemainingProduct>()
     
     var tempDataDict = [[String:Any]]()
-    var confirmShippingDelegate: ShippingMenifestConfirmDelegate?
+    var confirmShippingDelegate: ShippingMenifestConfirmSelectedProductsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,31 +34,36 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
         invoiceItemsTableView.delegate = self
         invoiceItemsTableView.dataSource = self
         
-        if modelInvoice.selectedItems.count > 0 {
-            confirmAllBtn.isEnabled = true
-            confirmAllBtn.backgroundColor = UIColor.orange
-        }
-        else {
-            confirmAllBtn.isEnabled = false
-            confirmAllBtn.backgroundColor = UIColor.lightGray
-        }
+//        if modelShippingMenifest.selectedItems.count > 0 {
+//            confirmAllBtn.isEnabled = true
+//            confirmAllBtn.backgroundColor = UIColor.orange
+//
+//        }
+//        else {
+//            confirmAllBtn.isEnabled = false
+//            confirmAllBtn.backgroundColor = UIColor.lightGray
+//        }
         
-        if !isAddManifest {
-            addItemBtn.isHidden = true
-        }
         
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        print("\(modelInvoice.invoiceNumber)")
+        //print("\(modelInvoice.invoiceNumber)")
         invoiceItemsTableView.reloadData()
-        getItemsForInvoice()
+        if !isAddManifest {
+            addItemBtn.isHidden = true
+            confirmAllBtn.isEnabled = false
+            confirmAllBtn.backgroundColor = UIColor.lightGray
+        }
+        else {
+            getItemsForInvoice()
+        }
     }
     
     // MARK: - Selector method
      func getItemsForInvoice(){
         
-        if modelInvoice.selectedItems.count > 0 {
+        if modelShippingMenifest.selectedItems.count > 0 {
             self.invoiceItemsTableView.reloadData()
             confirmAllBtn.isEnabled = true
             confirmAllBtn.backgroundColor = UIColor.orange
@@ -69,13 +77,13 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - UITableviewDelegate/Datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return modelInvoice.selectedItems.count
+        return modelShippingMenifest!.selectedItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemsCell") as! InvoiceItemsTableViewCell
         
-        let product = modelInvoice.selectedItems[indexPath.row]
+        let product = modelShippingMenifest.selectedItems[indexPath.row]
         
         cell.productNameBtn.setTitle(product.productName, for: .normal)
         cell.batchNoLabel.text = ""
@@ -95,19 +103,21 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
         
         if segue.identifier == "addProductViewSegue" {
             let addproductController = segue.destination as? AddProductViewController
-            addproductController?.modelInvoice = modelInvoice
+            addproductController?.shippingManifest = self.modelShippingMenifest
+            addproductController?.remainingItemList = self.remainingItemsList
             addproductController?.shippingMenifDelegate = self
         }
     }
     
     @IBAction func confirmBtnPressed(_ sender: Any) {
-        confirmShippingDelegate?.confirmShippingMenifest(modelInvoice: modelInvoice)
+        confirmShippingDelegate?.confirmSelectedProducts(modelSelectedProducts: self.modelShippingMenifest.selectedItems)
         self.navigationController?.popViewController(animated: true)
     }
     
-    func changeModelInvoice(model: ModelInvoice) {
-        self.modelInvoice = model
+    
+    func changeModelInvoice(shippingManifest:ModelShipingMenifest) {
+        self.modelShippingMenifest = shippingManifest
         
-        print("\(modelInvoice.selectedItems.count)")
+        //print("\(modelInvoice.shippingManifests.selectedItems.count)")
     }
 }

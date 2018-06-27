@@ -8,13 +8,22 @@
 
 import UIKit
 
+protocol ShippingMenifestConfirmDelegate {
+    func confirmShippingMenifest(modelShipping: ModelShipingMenifest)
+}
+
 class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDetailsDelegate,AddPaymentDelegate,InvoicePaymentsDetailsDelegate, ShippingItemsDelegate,ShippingMenifestConfirmDelegate {
     
-    func confirmShippingMenifest(modelInvoice: ModelInvoice) {
-        self.tempData = modelInvoice
+    func confirmShippingMenifest(modelShipping: ModelShipingMenifest){
         
-        print("\(tempData?.shippingManifests.count)")
+        tempData?.shippingManifests.append(modelShipping)
     }
+    
+//    func confirmShippingMenifest(modelInvoice: ModelInvoice) {
+//        self.tempData = modelInvoice
+//
+//        print("\(tempData?.shippingManifests.count)")
+//    }
     
 
     var tempData: ModelInvoice?
@@ -53,13 +62,12 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
             
             return
         }
-        
-        
     }
  
     override func viewWillAppear(_ animated: Bool) {
         getDataFromShippingList(dataDict: tempData)
     }
+    
     // MARK:- Container VC Delegates
     func getDataForFixedInvoices(dataDict: [String : Any]) {
         

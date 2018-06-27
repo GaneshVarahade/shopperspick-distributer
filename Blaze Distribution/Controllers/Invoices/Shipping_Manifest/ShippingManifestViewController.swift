@@ -7,11 +7,17 @@
 //
 
 import UIKit
+import RealmSwift
 
-protocol ShippingMenifestConfirmDelegate {
-    func confirmShippingMenifest(modelInvoice: ModelInvoice)
+protocol ShippingMenifestConfirmSelectedProductsDelegate {
+    func confirmSelectedProducts(modelSelectedProducts: List<ModelRemainingProduct>)
 }
-class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmDelegate{
+
+//protocol validationProtocol {
+//    func doValidateFields()
+//}
+
+class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmSelectedProductsDelegate {
 
     var invoiceDetailsDict: ModelInvoice?
     var isAddManifest = Bool()
@@ -20,6 +26,8 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmD
     
     var manifestDetailController:ManifestInfoTableViewController?
     var itemsToShipController:ItemsToShipViewController?
+   
+   // var validateDelegate: validationProtocol?
     
     @IBOutlet weak var shippingSegmentControler: UISegmentedControl!
     @IBOutlet weak var itemsToShipContainerView: UIView!
@@ -32,7 +40,6 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmD
         shippingSegmentControler.selectedSegmentIndex = 1
         manifestInfoContainerView.isHidden = true
         itemsToShipContainerView.isHidden = false
-        
         
     }
 
@@ -79,24 +86,29 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmD
             manifestDetailController = segue.destination as! ManifestInfoTableViewController
             manifestDetailController?.isAddManifest = isAddManifest
             manifestDetailController?.modelShippingMen = self.modelShippingMen
-            print("\(manifestDetailController?.modelShippingMen?.shippingManifestNo) == \(self.modelShippingMen?.shippingManifestNo)")
+            
         }else if segue.identifier == "invoiceItemsSegue" {
             
             itemsToShipController = segue.destination as! ItemsToShipViewController
             itemsToShipController?.isAddManifest = isAddManifest
-            itemsToShipController?.modelInvoice = invoiceDetailsDict
+            itemsToShipController?.modelShippingMenifest = self.modelShippingMen
+            itemsToShipController?.remainingItemsList = (invoiceDetailsDict?.remainingProducts)!
             itemsToShipController?.confirmShippingDelegate = self
             
         }
     }
     
-    func confirmShippingMenifest(modelInvoice: ModelInvoice) {
+    func confirmSelectedProducts(modelSelectedProducts: List<ModelRemainingProduct>) {
         
         let shiipingMenifest = manifestDetailController?.getShippingMenifest()
         if isAddManifest {
+            
+            
+            
             shiipingMenifest?.updated = true
-            modelInvoice.shippingManifests.append(shiipingMenifest!)
+            shiipingMenifest?.selectedItems = modelSelectedProducts
         }
-        shippiingMenifestConfirm?.confirmShippingMenifest(modelInvoice: modelInvoice)
+        shippiingMenifestConfirm?.confirmShippingMenifest(modelShipping: shiipingMenifest!)
+        //shippiingMenifestConfirm?.confirmShippingMenifest()
     }
 }
