@@ -64,7 +64,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
+        self.view.endEditing(true)
 //        if isAddManifest {
 //            //modelShippingMen?.deliveryDate = Int(Date().timeIntervalSince1970)
 //            modelShippingMen?.receiverCompany = companyNameTextField.text
@@ -120,7 +120,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         typeTextField.text = manifestInfo.receiverType
         contactTextField.text = manifestInfo.receiverContact ?? "-/-"
         licenceNoTextField.text = manifestInfo.receiverLicense ?? "-/-"
-        addressTextField.text = "\(manifestInfo.receiverAddress?.city ?? "-"), \(manifestInfo.receiverAddress?.country ?? "-")"
+        addressTextField.text = "\(manifestInfo.receiverAddress?.address ?? "-"), \(manifestInfo.receiverAddress?.city ?? "-"), \(manifestInfo.receiverAddress?.country ?? "-")"
 
         if !isAddManifest {
             deliveryDateTextField.text = DateFormatterUtil.format(dateTime: Double(manifestInfo.deliveryDate), format: DateFormatterUtil.mmddyyyy)
@@ -318,6 +318,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             if isAddManifest {
                 let addressObj = ModelAddres()
                 addressObj.address = addressTextField.text
+                modelShippingMen?.receiverAddress?.address = addressTextField.text
             }
         }
         else if textField == driverNameTextField {

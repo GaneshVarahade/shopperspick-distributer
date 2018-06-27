@@ -98,6 +98,7 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         self.view.endEditing(true)
     }
     
+    //MARK:- SearchBar Delegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
         filtered.removeAll()
         getData()
@@ -114,14 +115,23 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
             
         }
         //print(filtered)
-        if filtered.isEmpty == false {
-            valueDataObj=filtered
+        if !(invoicesSearchBar.text?.count==0)
+        {            valueDataObj=filtered
+        }else{
+            invoicesSearchBar.endEditing(true)
         }
         //print(valueDataObj)
         invoiceTableView.reloadData()
         
     }
     
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+        invoicesSearchBar.endEditing(true)
+    }
+    
+    public func searchBarTextDidEndEditing(_ searchBar: UISearchBar){
+        invoicesSearchBar.endEditing(true)
+    }
 }
 
 extension InvoicesViewController{

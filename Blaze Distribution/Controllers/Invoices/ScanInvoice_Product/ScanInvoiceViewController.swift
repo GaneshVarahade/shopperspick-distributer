@@ -50,11 +50,8 @@ class ScanInvoiceViewController: UIViewController,QRCodeReaderViewControllerDele
         
         // Or by using the closure pattern
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            print(result!)
-            let invoiceNumber = "INV-003765"
-            self.modelInvoice = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceNumber = '\(invoiceNumber)'")
+            print(result)
         }
-        
         // Presents the readerVC as modal form sheet
         readerVC.modalPresentationStyle = .formSheet
         present(readerVC, animated: true, completion: nil)
@@ -64,7 +61,8 @@ class ScanInvoiceViewController: UIViewController,QRCodeReaderViewControllerDele
     
     func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
         reader.stopScanning()
-        
+        let invoiceNumber = "INV-003765"
+        self.modelInvoice = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceNumber = '\(invoiceNumber)'")
         dismiss(animated: true, completion: nil)
     }
     
@@ -98,8 +96,10 @@ class ScanInvoiceViewController: UIViewController,QRCodeReaderViewControllerDele
         // Pass the selected object to the new view controller.
         if segue.identifier == "goInvoiceDetail" {
             let obj = segue.destination as! InvoiceDetailsTableViewController
-            if (modelInvoice?.count)! > 0 {
-                obj.tempData = modelInvoice?.first
+            if let modelInvoiceList = modelInvoice {
+                if modelInvoiceList.count > 0 {
+                    obj.tempData = modelInvoice?.first
+                }
             }
         }
     }

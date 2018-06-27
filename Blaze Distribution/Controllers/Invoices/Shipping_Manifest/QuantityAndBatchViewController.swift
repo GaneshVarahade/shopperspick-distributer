@@ -108,7 +108,7 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
             if requestQuantity > remainingProd.remainingQuantity {
 
                 KSToastView.ks_showToast("Requested quantity is Greater than remaining quantity for Product \(product.productName!)")
-                shippingManifest?.selectedItems.removeAll()
+                //shippingManifest?.selectedItems.removeAll()
                 return
             }
             product.requestQuantity = requestQuantity
@@ -116,8 +116,7 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
         
         boolContinuePressed = true
         shippingMenifDelegate.changeModelInvoice(shippingManifest: shippingManifest!)
-        popBack(2)
-        
+        popBack(2)        
     }
     
     func popBack(_ nb: Int) {

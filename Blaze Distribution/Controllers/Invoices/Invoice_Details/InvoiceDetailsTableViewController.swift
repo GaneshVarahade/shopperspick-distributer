@@ -16,8 +16,17 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
     
     func confirmShippingMenifest(modelShipping: ModelShipingMenifest){
         
+        for obj in modelShipping.selectedItems {
+            
+            for product in (tempData?.remainingProducts)! {
+                if obj.productId == product.productId {
+                    product.remainingQuantity -= obj.requestQuantity
+                }
+            }
+        }
         tempData?.shippingManifests.append(modelShipping)
     }
+    
     
 //    func confirmShippingMenifest(modelInvoice: ModelInvoice) {
 //        self.tempData = modelInvoice
@@ -104,6 +113,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         RealmManager().write(table: tempData)
         self.navigationController?.popViewController(animated: true)
     }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

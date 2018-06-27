@@ -91,7 +91,6 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
             itemsToShipController?.modelShippingMenifest = self.modelShippingMen
             itemsToShipController?.remainingItemsList = (invoiceDetailsDict?.remainingProducts)!
             itemsToShipController?.confirmShippingDelegate = self
-            
         }
     }
     
