@@ -25,6 +25,7 @@ target 'Blaze Distribution' do
       
       pod 'RealmSwift'
       
+      pod 'QRCodeReader.swift'
       
      
 

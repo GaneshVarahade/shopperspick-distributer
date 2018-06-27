@@ -562,6 +562,9 @@
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 </variation>
+                                <connections>
+                                    <segue destination="Ijm-A8-yIb" kind="show" identifier="scanProductSegue" id="D2q-bf-TA8"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6GL-Qj-WQb" customClass="UIViewX" customModule="Blaze_Distribution" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -1194,11 +1197,11 @@
             <objects>
                 <viewController storyboardIdentifier="ScanInvoiceViewController" title="Scan Product" id="Ijm-A8-yIb" customClass="ScanInvoiceViewController" customModule="Blaze_Distribution" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7hz-7W-Wx9">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhw-A2-dWB">
-                                <rect key="frame" x="0.0" y="528" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="419.5" width="320" height="35.5"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <state key="normal" title="Proceed">
@@ -1208,7 +1211,7 @@
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                 </variation>
                                 <connections>
-                                    <segue destination="i0o-gH-XcH" kind="show" id="nJc-9V-BDE"/>
+                                    <segue destination="i0o-gH-XcH" kind="show" identifier="goInvoiceDetail" id="nJc-9V-BDE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1458,7 +1461,7 @@
                                         <rect key="frame" x="0.0" y="520" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kCb-gH-4Wh" id="0PJ-ei-nIr">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tvh-ia-0hV" customClass="UIViewX" customModule="Blaze_Distribution" customModuleProvider="target">
@@ -1475,7 +1478,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Payments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1O-Nq-CDe">
-                                                            <rect key="frame" x="16" y="9.5" width="75" height="21"/>
+                                                            <rect key="frame" x="16" y="9" width="75" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="EhM-XN-sko"/>
                                                                 <constraint firstAttribute="width" constant="75" id="aSQ-Ie-IWi">
@@ -1556,7 +1559,7 @@
                                         <rect key="frame" x="0.0" y="570" width="320" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="15j-8o-cDM" id="Xxx-Do-g7g">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CiE-5T-haz">
@@ -1578,7 +1581,7 @@
                                         <rect key="frame" x="0.0" y="710" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="daF-cQ-M3I" id="zmX-RB-B6u">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1DL-rM-NaK" customClass="UIViewX" customModule="Blaze_Distribution" customModuleProvider="target">
@@ -1595,7 +1598,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shipping Manifest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGl-AY-DEZ">
-                                                            <rect key="frame" x="16" y="10" width="150" height="21"/>
+                                                            <rect key="frame" x="16" y="9.5" width="150" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="HhH-Sg-lSS">
                                                                     <variation key="heightClass=regular-widthClass=regular" constant="200"/>
@@ -1664,7 +1667,7 @@
                                         <rect key="frame" x="0.0" y="760" width="320" height="153"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5aN-CP-eS4" id="Qcg-lo-l41">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="153"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="152.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vmF-ip-kKT">
@@ -1686,7 +1689,7 @@
                                         <rect key="frame" x="0.0" y="913" width="320" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AeL-d0-N5s" id="tdb-bZ-hoC">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="45.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLc-m1-uMn">
@@ -2945,7 +2948,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     </variation>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter manifest no." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Daz-gM-Q35">
+                                                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter manifest no." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Daz-gM-Q35">
                                                     <rect key="frame" x="134" y="7" width="170" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Ply-aU-2rV">
@@ -3150,6 +3153,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bJd-zt-wzt" id="74p-PA-GhA"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -3194,6 +3200,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bJd-zt-wzt" id="cmS-TY-z54"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -3238,6 +3247,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bJd-zt-wzt" id="nbH-IC-0QM"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -3282,6 +3294,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bJd-zt-wzt" id="msN-ux-bZ7"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -3326,6 +3341,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bJd-zt-wzt" id="7Vx-aw-tet"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -3422,6 +3440,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bJd-zt-wzt" id="Z0l-aH-ZoD"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -3468,6 +3489,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bJd-zt-wzt" id="bdT-2Z-Kd4"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -3514,6 +3538,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bJd-zt-wzt" id="E9C-OG-xLj"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -3560,6 +3587,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bJd-zt-wzt" id="KPl-gP-VfG"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -3606,6 +3636,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bJd-zt-wzt" id="yja-V6-bcx"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -3653,6 +3686,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bJd-zt-wzt" id="q8r-EZ-kMG"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -7773,6 +7809,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="FCW-pc-cCl"/>
         <segue reference="VwD-pR-FcE"/>
-        <segue reference="Oqy-QF-diX"/>
+        <segue reference="nJc-9V-BDE"/>
     </inferredMetricsTieBreakers>
 </document>

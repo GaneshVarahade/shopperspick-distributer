@@ -13,7 +13,14 @@ import RealmSwift
 protocol ShippingMenifestSelectedItemsDelegate {
     func changeModelInvoice(shippingManifest:ModelShipingMenifest)
 }
+
+protocol validationProtocol {
+    func doValidateFields()
+}
+
+
 class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,ShippingMenifestSelectedItemsDelegate {
+
 
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var confirmAllBtn: UIButton!
@@ -27,6 +34,8 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
     
     var tempDataDict = [[String:Any]]()
     var confirmShippingDelegate: ShippingMenifestConfirmSelectedProductsDelegate?
+    
+    var validateDelegate: validationProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,6 +119,76 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func confirmBtnPressed(_ sender: Any) {
+//        let mirrored_object = Mirror(reflecting: shiipingMenifest!)
+//
+//        for (index, attr) in mirrored_object.children.enumerated() {
+//            if let propertyName = attr.label as String? {
+//                print("Attr \(index): \(propertyName) = \(attr.value)")
+//
+//                guard let attrValue = attr.value as? String, attrValue != "" else {
+//                    shippingSegmentControler.selectedSegmentIndex = 0
+//                    manifestInfoViewController?.validateFields()
+//                    return
+//                }
+//            }
+//        }
+        let signImg = StoreImage.getSavedImage(name: modelShippingMenifest.shippingManifestNo!)
+        
+        if modelShippingMenifest?.deliveryDate == 0 {
+            validateDelegate?.doValidateFields()
+        }
+        else if modelShippingMenifest?.deliveryTime == 0 {
+            validateDelegate?.doValidateFields()
+        }
+        
+        guard let company = modelShippingMenifest.receiverCompany, company != "" else {
+            validateDelegate?.doValidateFields()
+            return
+        }
+        guard let type = modelShippingMenifest?.receiverType, type != "" else {
+            validateDelegate?.doValidateFields()
+            return
+        }
+        guard let contact = modelShippingMenifest?.receiverContact, contact != "" else {
+            validateDelegate?.doValidateFields()
+            return
+        }
+        guard let licence = modelShippingMenifest?.receiverLicense, licence != "" else {
+            validateDelegate?.doValidateFields()
+            return
+        }
+        guard let address = modelShippingMenifest?.receiverAddress?.address, address != "" else {
+            validateDelegate?.doValidateFields()
+            return
+        }
+        guard let driverName = modelShippingMenifest?.driverName, driverName != "" else {
+            validateDelegate?.doValidateFields()
+            return
+        }
+        guard let driverLicence = modelShippingMenifest?.driverLicenseNumber, driverLicence != "" else {
+            validateDelegate?.doValidateFields()
+            return
+        }
+        guard let vehicleMake = modelShippingMenifest?.vehicleMake, vehicleMake != "" else {
+            validateDelegate?.doValidateFields()
+            return
+        }
+        guard let vehicleModel = modelShippingMenifest?.vehicleModel, vehicleModel != "" else {
+            validateDelegate?.doValidateFields()
+            return
+        }
+        guard let vehicleColor = modelShippingMenifest?.vehicleColor, vehicleColor != "" else {
+            validateDelegate?.doValidateFields()
+            return
+        }
+        guard let driverLicenPlate = modelShippingMenifest?.driverLicenPlate, driverLicenPlate != "" else {
+            validateDelegate?.doValidateFields()
+            return
+        }
+        guard let img = signImg else {
+            validateDelegate?.doValidateFields()
+            return
+        }
         confirmShippingDelegate?.confirmSelectedProducts(modelSelectedProducts: self.modelShippingMenifest.selectedItems)
         self.navigationController?.popViewController(animated: true)
     }

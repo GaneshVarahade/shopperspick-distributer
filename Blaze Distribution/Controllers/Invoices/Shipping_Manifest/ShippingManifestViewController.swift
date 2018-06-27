@@ -13,12 +13,10 @@ protocol ShippingMenifestConfirmSelectedProductsDelegate {
     func confirmSelectedProducts(modelSelectedProducts: List<ModelRemainingProduct>)
 }
 
-//protocol validationProtocol {
-//    func doValidateFields()
-//}
 
-class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmSelectedProductsDelegate {
+class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmSelectedProductsDelegate,validationProtocol,validateFieldsProtocol {
 
+    var manifestInfoViewController: ManifestInfoTableViewController?
     var invoiceDetailsDict: ModelInvoice?
     var isAddManifest = Bool()
     var modelShippingMen: ModelShipingMenifest?
@@ -26,13 +24,10 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
     
     var manifestDetailController:ManifestInfoTableViewController?
     var itemsToShipController:ItemsToShipViewController?
-   
-   // var validateDelegate: validationProtocol?
     
     @IBOutlet weak var shippingSegmentControler: UISegmentedControl!
     @IBOutlet weak var itemsToShipContainerView: UIView!
     @IBOutlet weak var manifestInfoContainerView: UIView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,12 +79,14 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
             modelShippingMen?.receiverAddress = modelAddress
             
             manifestDetailController = segue.destination as! ManifestInfoTableViewController
+            manifestDetailController?.validateFieldsDelegate = self
             manifestDetailController?.isAddManifest = isAddManifest
             manifestDetailController?.modelShippingMen = self.modelShippingMen
             
         }else if segue.identifier == "invoiceItemsSegue" {
             
             itemsToShipController = segue.destination as! ItemsToShipViewController
+            itemsToShipController?.validateDelegate = self
             itemsToShipController?.isAddManifest = isAddManifest
             itemsToShipController?.modelShippingMenifest = self.modelShippingMen
             itemsToShipController?.remainingItemsList = (invoiceDetailsDict?.remainingProducts)!
@@ -102,13 +99,22 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
         
         let shiipingMenifest = manifestDetailController?.getShippingMenifest()
         if isAddManifest {
-            
-            
-            
             shiipingMenifest?.updated = true
             shiipingMenifest?.selectedItems = modelSelectedProducts
         }
         shippiingMenifestConfirm?.confirmShippingMenifest(modelShipping: shiipingMenifest!)
         //shippiingMenifestConfirm?.confirmShippingMenifest()
+    }
+    
+    // MARK: - Validate Delegate
+    func doValidateFields() {
+        shippingSegmentControler.selectedSegmentIndex = 0
+        manifestInfoContainerView.isHidden = false
+        itemsToShipContainerView.isHidden = true
+        manifestDetailController?.validateFields()
+    }
+    
+    func validateFields() {
+
     }
 }
