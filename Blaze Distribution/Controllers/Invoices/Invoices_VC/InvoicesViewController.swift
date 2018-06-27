@@ -10,9 +10,9 @@ import UIKit
 import SKActivityIndicatorView
 import RealmSwift
 import Realm
-class InvoicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class InvoicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate {
 
-   
+    var filtered : [ModelInvoice] = []
     var valueDataObj : [ModelInvoice]!
     @IBOutlet weak var invoiceSegmentController: UISegmentedControl!
     @IBOutlet weak var invoicesSearchBar: UISearchBar!
@@ -97,6 +97,31 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+        filtered.removeAll()
+        getData()
+        
+        for dict in valueDataObj {
+            //print(dict)
+            //find range of string 
+            let invName : NSString! = dict.invoiceNumber! as NSString
+            let range = invName.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+            
+            if(range.location != NSNotFound){
+               filtered.append(dict)
+            }
+            
+        }
+        //print(filtered)
+        if filtered.isEmpty == false {
+            valueDataObj=filtered
+        }
+        //print(valueDataObj)
+        invoiceTableView.reloadData()
+        
+    }
+    
 }
 
 extension InvoicesViewController{

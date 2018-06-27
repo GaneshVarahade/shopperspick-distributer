@@ -628,7 +628,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Hh9-8q-cUn">
+                                    <searchBar contentMode="redraw" searchBarStyle="prominent" text="" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Hh9-8q-cUn">
                                         <rect key="frame" x="0.0" y="46" width="320" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="ULL-jF-c6c">
@@ -641,6 +641,9 @@
                                             <string>Title</string>
                                             <string>Title</string>
                                         </scopeButtonTitles>
+                                        <connections>
+                                            <outlet property="delegate" destination="6fZ-mh-Qlc" id="s1g-dt-3lX"/>
+                                        </connections>
                                     </searchBar>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1465,7 +1468,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tvh-ia-0hV" customClass="UIViewX" customModule="Blaze_Distribution" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rok-Eb-ps9">
                                                             <rect key="frame" x="0.0" y="1" width="320" height="1"/>
@@ -1493,7 +1496,7 @@
                                                             </variation>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+$500.00 Due of $3000.00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYb-iz-OuQ">
-                                                            <rect key="frame" x="91" y="2" width="169" height="37"/>
+                                                            <rect key="frame" x="91" y="2" width="169" height="37.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1502,7 +1505,7 @@
                                                             </variation>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55F-VA-KLd">
-                                                            <rect key="frame" x="260" y="2" width="60" height="37"/>
+                                                            <rect key="frame" x="260" y="2" width="60" height="37.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="35Z-4u-V8l">
                                                                     <variation key="heightClass=regular-widthClass=regular" constant="90"/>
@@ -1563,7 +1566,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CiE-5T-haz">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="139"/>
                                                     <connections>
                                                         <segue destination="iOI-fq-qPc" kind="embed" identifier="paymentItemsSegue" id="14g-Bw-fBd"/>
                                                     </connections>
@@ -1585,7 +1588,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1DL-rM-NaK" customClass="UIViewX" customModule="Blaze_Distribution" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vew-cP-KXC">
                                                             <rect key="frame" x="0.0" y="1" width="320" height="1"/>
@@ -1613,7 +1616,7 @@
                                                             </variation>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dKQ-V4-5V1">
-                                                            <rect key="frame" x="260" y="2" width="60" height="38"/>
+                                                            <rect key="frame" x="260" y="2" width="60" height="37.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="coU-Jk-hqB">
                                                                     <variation key="heightClass=regular-widthClass=regular" constant="90"/>
@@ -1671,7 +1674,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vmF-ip-kKT">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="152.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="152"/>
                                                     <connections>
                                                         <segue destination="ABH-sS-pPk" kind="embed" identifier="shippingItemsSegue" id="JmU-kN-P9L"/>
                                                     </connections>
@@ -1693,7 +1696,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLc-m1-uMn">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="45.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                                                     <color key="backgroundColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <state key="normal" title="Complete Invoice">
@@ -4352,7 +4355,7 @@
             <objects>
                 <viewController storyboardIdentifier="ShippingItemsViewController" id="ABH-sS-pPk" customClass="ShippingItemsViewController" customModule="Blaze_Distribution" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="x1k-c1-6a2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="152.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="152"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gkO-EK-lkz">
@@ -7700,7 +7703,7 @@
             <objects>
                 <viewController id="iOI-fq-qPc" customClass="InvoicePaymentsViewController" customModule="Blaze_Distribution" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AYS-wq-FrK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="139"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WHl-SX-geK">
