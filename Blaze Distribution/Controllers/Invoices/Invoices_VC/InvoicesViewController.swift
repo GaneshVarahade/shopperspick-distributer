@@ -23,6 +23,7 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.selectedIndex = 1
+        invoiceTableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         setSearchBarUI()
     }
     
@@ -135,10 +136,8 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
 }
 
 extension InvoicesViewController{
-    
     // MARK: - UITableview Datasource/Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if valueDataObj != nil{
             return valueDataObj.count
         }else{
@@ -172,7 +171,6 @@ extension InvoicesViewController{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "goInvoiceDetail" {
         
             let nextVC = segue.destination as! InvoiceDetailsTableViewController
