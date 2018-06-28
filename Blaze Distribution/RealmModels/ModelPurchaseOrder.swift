@@ -10,6 +10,11 @@ import Foundation
 import Realm
 import RealmSwift
 
+public enum PurchaseOrderStatus:String {
+    case Closed = "Closed"
+    case ReceivingShipment = "ReceivingShipment"
+}
+
 public class ModelPurchaseOrder:ModelBase{
     @objc public dynamic var purchaseOrderNumber:String? = ""
     @objc public dynamic var isMetRc:Bool                = false

@@ -31,7 +31,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     
     func getPurchaseOrdersReceiving(){
         arrayModelPurchaseOrders = RealmManager().readPredicate(type: ModelPurchaseOrder.self,
-                                       predicate: "status = '\(PurchaseOrderStatus.WaitingShipment.rawValue)'")
+                                       predicate: "status = '\(PurchaseOrderStatus.ReceivingShipment.rawValue)'")
     }
     func getPurchaseOrdersCompleted(){
         arrayModelPurchaseOrders = RealmManager().readPredicate(type: ModelPurchaseOrder.self,
