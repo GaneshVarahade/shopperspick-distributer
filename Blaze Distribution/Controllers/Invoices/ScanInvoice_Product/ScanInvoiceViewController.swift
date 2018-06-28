@@ -22,6 +22,7 @@ class ScanInvoiceViewController: UIViewController,QRCodeReaderViewControllerDele
         return QRCodeReaderViewController(builder: builder)
     }()
 
+    @IBOutlet weak var scanResultLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,8 +62,11 @@ class ScanInvoiceViewController: UIViewController,QRCodeReaderViewControllerDele
     
     func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
         reader.stopScanning()
-        let invoiceNumber = "INV-003765"
-        self.modelInvoice = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceNumber = '\(invoiceNumber)'")
+        
+        scanResultLabel.text = "\(result.value)"
+        //let invoiceNumber = "INV-003765"
+        self.modelInvoice = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceNumber = '\(result.value)'")
+        
         dismiss(animated: true, completion: nil)
     }
     
@@ -85,9 +89,14 @@ class ScanInvoiceViewController: UIViewController,QRCodeReaderViewControllerDele
     @IBAction func proceedBtnPressed(_ sender: Any) {
        // let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InvoiceDetailsTableViewController")
        // self.navigationController?.pushViewController(obj, animated: true)
-    }
-    
-    
+        
+        guard modelInvoice != nil, modelInvoice?.count != 0 else {
+            self.showToast("Invoice details not found")
+            return
+        }
+        self.performSegue(withIdentifier: "goInvoiceDetail", sender: nil)
+  }
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
