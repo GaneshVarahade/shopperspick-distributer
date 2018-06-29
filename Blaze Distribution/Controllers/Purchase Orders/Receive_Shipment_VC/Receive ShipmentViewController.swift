@@ -13,6 +13,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var productsView: UIView!
     
     var modelPurchaseOrder: ModelPurchaseOrder!
+    let modelpurchaseOrderProductRecive = ModelPurchaseOrderProductReceived()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,7 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
         //var productInShipMent
         cell.lblProduct?.text = modelPurchaseOrder.productInShipment[indexPath.row].name
         cell.lblExpected?.text = String(format: "%0.1f",modelPurchaseOrder.productInShipment[indexPath.row].quantity)
+        cell.txtRecived.text = String(format: "%0.1f",modelPurchaseOrder.productInShipment[indexPath.row].quantity)
         
         //Check Box
         cell.btnCheck.addTarget(self, action: #selector(checkboxClicked(_ :)), for: .touchUpInside)
@@ -64,16 +66,16 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
         let index : Int = sender.tag
         print(index)
         sender.isSelected = !sender.isSelected
+        fillModelPurchaseOrderProductRecived(Index: index)
+
     }
     
-    //Mark:- Button Acton
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-//        if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
-//            //table add btn clicked
-//            let vc = storyboard?.instantiateViewController(withIdentifier: "PurchaseOrderAddShipment") as! PurchaseOrderAddShipment_VC
-//            navigationController?.pushViewController(vc, animated: true)
-//            
-//        }
-//    }
-    
+    func fillModelPurchaseOrderProductRecived(Index : Int) -> Void {
+        let purchaseOrder = self.modelPurchaseOrder.productInShipment[Index]
+        self.modelpurchaseOrderProductRecive.name = "ccc"
+        //self.modelpurchaseOrderProductRecive.id = purchaseOrder.id
+        print(modelPurchaseOrder.productReceived)
+        print(purchaseOrder)
+        
+    }
 }
