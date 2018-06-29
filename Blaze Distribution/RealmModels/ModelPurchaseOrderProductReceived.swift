@@ -24,4 +24,8 @@ public class ModelPurchaseOrderProductReceived:ModelBase{
         
         return modelProductReceived
     }
+    
+    open override class func primaryKey() -> String? {
+        return "id"
+    }
 }
