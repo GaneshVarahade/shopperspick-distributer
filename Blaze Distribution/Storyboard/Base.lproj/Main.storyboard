@@ -5123,6 +5123,8 @@
                         <outlet property="fromView" destination="Iwi-Qj-vSc" id="E0j-4A-roH"/>
                         <outlet property="labelFromInventory" destination="Tjr-nQ-YLB" id="3YJ-l6-YNH"/>
                         <outlet property="labelFromStore" destination="pSR-dK-Hio" id="wsB-zo-Zlp"/>
+                        <outlet property="labelToInventory" destination="mXV-yc-OC7" id="jQH-Jq-Omt"/>
+                        <outlet property="labelToStore" destination="3IE-W7-fPI" id="vhW-G0-mUV"/>
                         <outlet property="toView" destination="ypx-zK-hHn" id="OQd-Dz-07j"/>
                     </connections>
                 </viewController>
