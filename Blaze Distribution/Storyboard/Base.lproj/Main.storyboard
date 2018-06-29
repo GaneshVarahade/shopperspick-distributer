@@ -1214,23 +1214,43 @@
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                 </variation>
                                 <connections>
-                                    <segue destination="i0o-gH-XcH" kind="show" identifier="goInvoiceDetail" id="nJc-9V-BDE"/>
+                                    <action selector="proceedBtnPressed:" destination="Ijm-A8-yIb" eventType="touchUpInside" id="tTD-XM-UCl"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MNg-GD-DO8">
+                                <rect key="frame" x="16" y="227" width="288" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="4Q1-RS-GAA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="sRY-gF-jbd" firstAttribute="trailing" secondItem="MNg-GD-DO8" secondAttribute="trailing" constant="16" id="5LB-CI-rMf"/>
                             <constraint firstItem="hhw-A2-dWB" firstAttribute="height" secondItem="7hz-7W-Wx9" secondAttribute="height" multiplier="0.07" id="KW1-1o-F6Y"/>
+                            <constraint firstItem="MNg-GD-DO8" firstAttribute="centerY" secondItem="7hz-7W-Wx9" secondAttribute="centerY" id="Uhw-A8-Vxx"/>
                             <constraint firstItem="hhw-A2-dWB" firstAttribute="trailing" secondItem="sRY-gF-jbd" secondAttribute="trailing" id="djo-wF-Igt"/>
+                            <constraint firstItem="MNg-GD-DO8" firstAttribute="leading" secondItem="sRY-gF-jbd" secondAttribute="leading" constant="16" id="h5Q-QD-7fD"/>
                             <constraint firstItem="hhw-A2-dWB" firstAttribute="leading" secondItem="sRY-gF-jbd" secondAttribute="leading" id="hVy-jN-Xjt"/>
                             <constraint firstItem="hhw-A2-dWB" firstAttribute="bottom" secondItem="sRY-gF-jbd" secondAttribute="bottom" id="qS4-x0-ztN"/>
+                            <constraint firstItem="MNg-GD-DO8" firstAttribute="centerX" secondItem="7hz-7W-Wx9" secondAttribute="centerX" id="rDp-at-Ix2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sRY-gF-jbd"/>
                     </view>
+                    <connections>
+                        <outlet property="scanResultLabel" destination="MNg-GD-DO8" id="iCO-xs-758"/>
+                        <segue destination="i0o-gH-XcH" kind="show" identifier="goInvoiceDetail" id="MzW-6Y-FuS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tyd-QN-j0A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5585" y="335"/>
+            <point key="canvasLocation" x="5583.75" y="334.85915492957747"/>
         </scene>
         <!--INV 001-->
         <scene sceneID="kDb-SD-qFU">
@@ -7968,6 +7988,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="FCW-pc-cCl"/>
         <segue reference="VwD-pR-FcE"/>
-        <segue reference="Oqy-QF-diX"/>
+        <segue reference="MzW-6Y-FuS"/>
     </inferredMetricsTieBreakers>
 </document>
