@@ -8,24 +8,36 @@
 
 import UIKit
 
-class CreateTransferViewController: UIViewController {
+class CreateTransferViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     @IBOutlet weak var fromView: UIView!
     @IBOutlet weak var toView: UIView!
     
+    @IBOutlet weak var labelFromStore: UILabel!
+    @IBOutlet weak var labelFromInventory: UILabel!
+    
+    var dummyTextField: UITextField!
+    var pickerView: UIPickerView = UIPickerView()
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         self.title = "Inventory"
-        //fromView.dropShadow()
-        //toView.dropShadow()
         
+        labelFromStore.isUserInteractionEnabled =  true
+        labelFromStore.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onclickFromInventory)))
+        
+        labelFromInventory.isUserInteractionEnabled =  true
+        labelFromInventory.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onclickFromInventory)))
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        dummyTextField = UITextField(frame: CGRect.zero)
+        dummyTextField.inputView = pickerView
+        view.addSubview(dummyTextField)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @objc private func onclickFromInventory() {
+        dummyTextField.becomeFirstResponder()
     }
 
     @IBAction func continueBtnPressed(_ sender: Any) {
@@ -43,4 +55,18 @@ class CreateTransferViewController: UIViewController {
     }
     */
 
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 5
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "Title is tile"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        showToast("\(row)")
+    }
 }
