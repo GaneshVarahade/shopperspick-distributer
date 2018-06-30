@@ -35,3 +35,14 @@ extension UIViewController {
         
     }
 }
+
+extension UINavigationController {
+    
+    func popViewControllers(controllersToPop: Int, animated: Bool) {
+        if viewControllers.count > controllersToPop {
+            popToViewController(viewControllers[viewControllers.count - (controllersToPop + 1)], animated: animated)
+        } else {
+            print("Trying to pop \(controllersToPop) view controllers but navigation controller contains only \(viewControllers.count) controllers in stack")
+        }
+    } 
+}

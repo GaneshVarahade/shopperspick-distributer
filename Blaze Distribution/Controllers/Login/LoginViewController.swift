@@ -15,6 +15,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - IBOutlets
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    
     @IBOutlet weak var labelVersion: UILabel!
     
     override func viewDidLoad() {

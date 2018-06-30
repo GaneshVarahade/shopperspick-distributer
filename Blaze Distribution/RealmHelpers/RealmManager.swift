@@ -12,9 +12,6 @@ import RealmSwift
 
 fileprivate class RealmSingleton {
     
-    private init(){
-        
-    }
     private static var realmSingleton:RealmSingleton!
     
     public static func sharedInstance() -> RealmSingleton{
@@ -22,10 +19,25 @@ fileprivate class RealmSingleton {
         return realmSingleton
     }
     
-    private var realm: Realm = try! Realm()
-    
+    let config = Realm.Configuration(
+        // Set the new schema version. This must be greater than the previously used
+        // version (if you've never set a schema version before, the version is 0).
+        schemaVersion: 1,
+        
+        // Set the block which will be called automatically when opening a Realm with
+        // a schema version lower than the one set above
+        migrationBlock: { migration, oldSchemaVersion in
+            
+        }
+    )
+    private var realm: Realm!
     public func getRealm() -> Realm {
         return realm
+    }
+    
+    private init(){
+        Realm.Configuration.defaultConfiguration = config
+        realm = try! Realm()
     }
 }
 

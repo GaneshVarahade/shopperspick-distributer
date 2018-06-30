@@ -73,6 +73,10 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         modelLogin = RealmManager().readList(type: LoginModel.self).first
         
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
  
     @objc private func onclickFromStore() {
         selectedOption = SelectedOption.fromStore

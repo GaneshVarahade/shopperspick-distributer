@@ -8,10 +8,6 @@
 
 import Foundation
 
-public enum PurchaseOrderStatus:String {
-    case Closed = "Closed"
-    case WaitingShipment = "WaitingShipment"
-}
 public class ResponsePurchaseOrderProduct: BaseResponseModel {
     public var id: String?
     
