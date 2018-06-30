@@ -37,9 +37,12 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     var listToShop: List<ShopsModel>!
     var selectedFromShop: ShopsModel!
     var selectedToShop: ShopsModel!
+    var selectedFromInventory: ModelInventory!
+    var selectedToInventory: ModelInventory!
     
     var selectedOption: SelectedOption = SelectedOption.none
-    
+    let colorSelectedData = UIColor.darkText
+    let colorNonSelectedData = UIColor.lightGray
     
     
     override func viewDidLoad() {
@@ -66,21 +69,11 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         dummyTextField.inputView = pickerView
         dummyTextField.delegate = self
         view.addSubview(dummyTextField)
-        
-        
+         
         modelLogin = RealmManager().readList(type: LoginModel.self).first
         
-        if let modelLogin = modelLogin {
-            showToast("\(modelLogin.shops.count)")
-        }
     }
-
-    @objc private func onclickFromInventory() {
-        selectedOption = SelectedOption.fromInventory
-        dummyTextField.becomeFirstResponder()
-     
-    }
-
+ 
     @objc private func onclickFromStore() {
         selectedOption = SelectedOption.fromStore
         
@@ -92,17 +85,36 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         dummyTextField.becomeFirstResponder()
         
     }
-    
-    @objc private func onclickToInventory() {
-        selectedOption = SelectedOption.fromInventory
+ 
+    @objc private func onclickFromInventory() {
         
-
+        if selectedFromShop == nil {
+            showToast("Please select shop first")
+            return
+        }
+        selectedOption = SelectedOption.fromInventory
         dummyTextField.becomeFirstResponder()
+        
     }
     
     @objc private func onclickToStore() {
+        
+        if selectedFromShop == nil || selectedFromInventory == nil{
+            showToast("Please select From Location First")
+            return
+        }
         selectedOption = SelectedOption.toStore
         listToShop = modelLogin?.shops
+        dummyTextField.becomeFirstResponder()
+    }
+    
+    @objc private func onclickToInventory() {
+        if selectedToShop == nil {
+            showToast("Please select shop first")
+            return
+        }
+        
+        selectedOption = SelectedOption.toInventory
         dummyTextField.becomeFirstResponder()
     }
     
@@ -115,12 +127,14 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         
         if selectedOption == SelectedOption.fromInventory {
             
-            labelFromInventory.text = listFromInventory[pickerView.selectedRow(inComponent: 0)].name
+            selectedFromInventory = listFromInventory[pickerView.selectedRow(inComponent: 0)]
+            loadData()
 
             
         }else if selectedOption == SelectedOption.toInventory {
             
-            labelToInventory.text = listToInventory[pickerView.selectedRow(inComponent: 0)].name
+            selectedToInventory = listToInventory[pickerView.selectedRow(inComponent: 0)]
+            loadData()
             
         }else if selectedOption == SelectedOption.fromStore {
             
@@ -128,7 +142,6 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             
             
                 selectedFromShop = shop
-                labelFromStore.text = shop.name
                 print("\(listFromShop[pickerView.selectedRow(inComponent: 0)].name ?? "No Data")")
                 let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
             
@@ -137,13 +150,18 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
                 }else{
                     listFromInventory = List<ModelInventory>()
                 }
+            // When from store change, reset all values
+            selectedFromInventory = nil
+            selectedToShop = nil
+            selectedToInventory = nil
+            
+            loadData()
  
         }else if selectedOption == SelectedOption.toStore {
             let shop = listToShop[pickerView.selectedRow(inComponent: 0)]
             
             
                 selectedToShop = shop
-                labelToStore.text = shop.name
                 print("\(listToShop[pickerView.selectedRow(inComponent: 0)].name ?? "No Data")")
                 let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
             
@@ -153,8 +171,48 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
                     listToInventory = List<ModelInventory>()
                 }
             
+            //Reset Inventory
+            selectedToInventory = nil
+            
+            loadData()
         }
         
+    }
+    
+    private func loadData(){
+        
+        if let selectedFromShop = selectedFromShop {
+            labelFromStore.text = selectedFromShop.name ?? "No name"
+            labelFromStore.textColor = colorSelectedData
+        }else{
+            labelFromStore.text = "select"
+            labelFromStore.textColor = colorNonSelectedData
+            
+        }
+        
+        if let selectedFromInventory = selectedFromInventory {
+            labelFromInventory.text = selectedFromInventory.name ?? "No name"
+            labelFromInventory.textColor = colorSelectedData
+        }else{
+            labelFromInventory.text = "select"
+            labelFromInventory.textColor = colorNonSelectedData
+        }
+        
+        if let selectedToShop = selectedToShop {
+            labelToStore.text = selectedToShop.name ?? "No name"
+            labelToStore.textColor = colorSelectedData
+        }else{
+            labelToStore.text = "select"
+            labelToStore.textColor = colorNonSelectedData
+        }
+        
+        if let selectedToInventory = selectedToInventory {
+            labelToInventory.text = selectedToInventory.name ?? "No name"
+            labelToInventory.textColor = colorSelectedData
+        }else{
+            labelToInventory.text = "select"
+            labelToInventory.textColor = colorNonSelectedData
+        }
     }
     /*
     // MARK: - Navigation
