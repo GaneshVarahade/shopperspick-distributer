@@ -65,10 +65,8 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
             case .default:
                 print("default")
                 if tag == 1{
-                    
                     self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
-                    
- //                   self.navigationController?.popControllers(self,popNumberOfControllers: 2, animate: true)
+                    //self.navigationController?.popControllers(self,popNumberOfControllers: 2, animate: true)
 //                    var viewControllers = self.navigationController?.viewControllers
 //                    viewControllers?.removeLast(2) // views to pop
 //                    self.navigationController?.setViewControllers(viewControllers!, animated: true)
