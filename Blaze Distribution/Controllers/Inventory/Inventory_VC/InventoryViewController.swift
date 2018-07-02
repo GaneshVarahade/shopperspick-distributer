@@ -77,9 +77,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     func getData(){
         inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
-       
         productData   = RealmManager().readList(type: ModelProduct.self)
-        
         if productFlag{
             data  = productData
         }else{

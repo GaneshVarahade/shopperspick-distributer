@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18051EE520EA3C0A005BF274 /* LookUpProductEnterQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18051EE420EA3C09005BF274 /* LookUpProductEnterQuantity.swift */; };
 		1808A84120D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808A84020D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift */; };
 		1812B33F20CAB31800B4DC26 /* ModelInventoryTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */; };
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
@@ -179,6 +180,7 @@
 /* Begin PBXFileReference section */
 		0258B61748E9715829B0B522 /* Pods-Blaze DistributionTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.stage.xcconfig"; sourceTree = "<group>"; };
 		0938C2F5672F799D7AB60923 /* Pods-Blaze Distribution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.dev.xcconfig"; sourceTree = "<group>"; };
+		18051EE420EA3C09005BF274 /* LookUpProductEnterQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpProductEnterQuantity.swift; sourceTree = "<group>"; };
 		1808A84020D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseOrderItemsViewController.swift; sourceTree = "<group>"; };
 		1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventoryTransfers.swift; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
@@ -831,6 +833,7 @@
 			isa = PBXGroup;
 			children = (
 				B9E5265B20B2C1ED00127E43 /* LookUpProductViewController.swift */,
+				18051EE420EA3C09005BF274 /* LookUpProductEnterQuantity.swift */,
 			);
 			path = LookupProduct_VC;
 			sourceTree = "<group>";
@@ -1453,6 +1456,7 @@
 				B9266C7320AED9BA0021356C /* SplashScreenVCViewController.swift in Sources */,
 				B92A65AA20AF2E3F00CDA4CC /* InvoicesViewController.swift in Sources */,
 				182B920420C7E0860041915B /* StoreImage.swift in Sources */,
+				18051EE520EA3C0A005BF274 /* LookUpProductEnterQuantity.swift in Sources */,
 				18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */,
 				B942E46320D00A4000E474E1 /* ResponseProduct.swift in Sources */,
 				1827FC0620D11AB300DEA5E8 /* DateFormatter.swift in Sources */,
