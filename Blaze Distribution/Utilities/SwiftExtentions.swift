@@ -44,5 +44,5 @@ extension UINavigationController {
         } else {
             print("Trying to pop \(controllersToPop) view controllers but navigation controller contains only \(viewControllers.count) controllers in stack")
         }
-    } 
+    }
 }
