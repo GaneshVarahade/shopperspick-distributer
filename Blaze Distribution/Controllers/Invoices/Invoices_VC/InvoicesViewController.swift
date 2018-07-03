@@ -170,6 +170,22 @@ extension InvoicesViewController{
         
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 60))
+        let label = UILabel(frame: CGRect(x: 10, y: 20, width: tableView.frame.size.width - 10, height: 60))
+        label.text = "Sorry! No Records found."
+        label.textColor = UIColor.lightGray
+        label.textAlignment = NSTextAlignment.center
+        view.backgroundColor = UIColor.clear
+        view.addSubview(label)
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return valueDataObj?.count==0 ? 60.0 : 0.0
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goInvoiceDetail" {
         
