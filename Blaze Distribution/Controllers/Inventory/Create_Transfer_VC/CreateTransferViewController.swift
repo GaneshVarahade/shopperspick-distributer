@@ -39,11 +39,6 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     var modelFromLocation: ModelLocation!
     var modelToLocation: ModelLocation!
     
-    var selectedFromShop: ShopsModel!
-    var selectedToShop: ShopsModel!
-    var selectedFromInventory: ModelInventory!
-    var selectedToInventory: ModelInventory!
-    
     var selectedOption: SelectedOption = SelectedOption.none
     let colorSelectedData = UIColor.darkText
     let colorNonSelectedData = UIColor.lightGray
@@ -101,7 +96,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
  
     @objc private func onclickFromInventory() {
         
-        if selectedFromShop == nil {
+        if modelFromLocation.shop == nil {
             showToast("Please select shop first")
             return
         }
@@ -112,7 +107,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func onclickToStore() {
         
-        if selectedFromShop == nil || selectedFromInventory == nil{
+        if modelFromLocation.shop == nil || modelFromLocation.inventory == nil{
             showToast("Please select From Location First")
             return
         }
@@ -122,7 +117,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func onclickToInventory() {
-        if selectedToShop == nil {
+        if modelToLocation.shop == nil {
             showToast("Please select shop first")
             return
         }
@@ -132,23 +127,20 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func continueBtnPressed(_ sender: Any) {
-        
-        
-       // let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScanLookUpViewController")
-       // self.navigationController?.pushViewController(obj, animated: true)
+      
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         if selectedOption == SelectedOption.fromInventory {
             
-            selectedFromInventory = listFromInventory[pickerView.selectedRow(inComponent: 0)]
+            modelFromLocation.inventory = listFromInventory[pickerView.selectedRow(inComponent: 0)]
             loadData()
 
             
         }else if selectedOption == SelectedOption.toInventory {
             
-            selectedToInventory = listToInventory[pickerView.selectedRow(inComponent: 0)]
+            modelToLocation.inventory = listToInventory[pickerView.selectedRow(inComponent: 0)]
             loadData()
             
         }else if selectedOption == SelectedOption.fromStore {
@@ -156,7 +148,8 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             let shop = listFromShop[pickerView.selectedRow(inComponent: 0)]
             
             
-                selectedFromShop = shop
+                //selectedFromShop = shop
+                modelFromLocation.shop = shop
                 print("\(listFromShop[pickerView.selectedRow(inComponent: 0)].name ?? "No Data")")
                 let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
             
@@ -166,9 +159,9 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
                     listFromInventory = List<ModelInventory>()
                 }
             // When from store change, reset all values
-            selectedFromInventory = nil
-            selectedToShop = nil
-            selectedToInventory = nil
+            modelFromLocation.inventory = nil
+            modelToLocation.shop = nil
+            modelToLocation.inventory = nil
             
             loadData()
  
@@ -176,7 +169,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             let shop = listToShop[pickerView.selectedRow(inComponent: 0)]
             
             
-                selectedToShop = shop
+                modelToLocation.shop = shop
                 print("\(listToShop[pickerView.selectedRow(inComponent: 0)].name ?? "No Data")")
                 let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
             
@@ -187,7 +180,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
                 }
             
             //Reset Inventory
-            selectedToInventory = nil
+            modelToLocation.inventory = nil
             
             loadData()
         }
@@ -196,7 +189,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     
     private func loadData(){
         
-        if let selectedFromShop = selectedFromShop {
+        if let selectedFromShop = modelFromLocation.shop {
             labelFromStore.text = selectedFromShop.name ?? "No name"
             labelFromStore.textColor = colorSelectedData
         }else{
@@ -205,7 +198,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             
         }
         
-        if let selectedFromInventory = selectedFromInventory {
+        if let selectedFromInventory = modelFromLocation.inventory {
             labelFromInventory.text = selectedFromInventory.name ?? "No name"
             labelFromInventory.textColor = colorSelectedData
         }else{
@@ -213,7 +206,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             labelFromInventory.textColor = colorNonSelectedData
         }
         
-        if let selectedToShop = selectedToShop {
+        if let selectedToShop = modelToLocation.shop {
             labelToStore.text = selectedToShop.name ?? "No name"
             labelToStore.textColor = colorSelectedData
         }else{
@@ -221,7 +214,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             labelToStore.textColor = colorNonSelectedData
         }
         
-        if let selectedToInventory = selectedToInventory {
+        if let selectedToInventory = modelToLocation.inventory {
             labelToInventory.text = selectedToInventory.name ?? "No name"
             labelToInventory.textColor = colorSelectedData
         }else{
@@ -229,18 +222,25 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             labelToInventory.textColor = colorNonSelectedData
         }
     }
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if modelFromLocation.shop == nil || modelToLocation.shop == nil || modelFromLocation.inventory == nil || modelToLocation.inventory == nil{
+            showToast("Please all options to proceed")
+            return false
+        }else{
+            self.modelCreateTransfer.fromLocation = modelFromLocation
+            self.modelCreateTransfer.toLocation = modelToLocation
+            return true
+        }
     }
-    */
- 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as? ScanLookUpViewController
+        destinationVC?.modelCreateTransfer = self.modelCreateTransfer
 }
-
+}
 extension CreateTransferViewController: UIPickerViewDataSource, UIPickerViewDelegate {
  
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {

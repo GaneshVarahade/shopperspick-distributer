@@ -13,7 +13,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var lookUpTableView: UITableView!
-    
+    var modelCreateTransfer: ModelCreateTransfer!
     var predicateArray = [String]()
     var tempDataList = [String:AnyObject]()
     var filterDict = [String:[ModelProduct]]()
@@ -42,8 +42,9 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         //let button = UIButton(type: .system)
         customBarbutton.setBackgroundImage(UIImage(named: "Basket"), for: (UIControlState.normal))
         customBarbutton.setTitle("12", for: UIControlState.normal)
-        customBarbutton.setTitleColor(UIColor.red, for: UIControlState.normal)
+        customBarbutton.setTitleColor(UIColor.white, for: UIControlState.normal)
         customBarbutton.sizeToFit()
+        customBarbutton.contentVerticalAlignment = UIControlContentVerticalAlignment.bottom
         customBarbutton.addTarget(self, action: #selector(basketBtnPressed), for: UIControlEvents.touchUpInside)
         let rightBarButton = UIBarButtonItem(customView: customBarbutton)
         self.navigationItem.rightBarButtonItem = rightBarButton
@@ -53,7 +54,8 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewWillAppear(true)
         getData()
         //Update cart count
-        customBarbutton.setTitle(String(format: "%d",cartData.count), for: UIControlState.normal)
+        print(modelCreateTransfer.slectedProducts.count)
+        customBarbutton.setTitle(String(format: "%d",modelCreateTransfer.slectedProducts.count), for: UIControlState.normal)
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,14 +73,15 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         let selectedModelProduct :[ModelProduct] = [filterDict[sectionNameList[section!]]![indexPath]]
 //        let vc = self.storyboard?.instantiateViewController(withIdentifier: "LookUpProductEnterQuantitySegue") as! LookUpProductEnterQuantity
         let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LookUpProductEnterQuantitySegue") as! LookUpProductEnterQuantity
-        obj.selecetdProduct = selectedModelProduct
+        obj.modelProudct = selectedModelProduct[0]
+        obj.modelCreateTransfer = self.modelCreateTransfer
+        obj.isFromScanView = false
         self.navigationController?.pushViewController(obj, animated: true)
-        
     }
     func getData(){
         productData   = RealmManager().readList(type: ModelProduct.self)
-        cartData = RealmManager().readList(type:ModelCartProduct.self)
-        print(cartData)
+//        cartData = RealmManager().readList(type:ModelCartProduct.self)
+//        print(cartData)
         
         //filterArray()
         for val in predicateArray{
@@ -137,7 +140,8 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK: - Selector methods
     @objc func basketBtnPressed() {
-        let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BasketViewController")
+        let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BasketViewController") as! BasketViewController
+        obj.modelCreateTrasfer = self.modelCreateTransfer
         self.navigationController?.pushViewController(obj, animated: true)
     }
     
@@ -188,8 +192,9 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK: - UIButton Events
     @IBAction func continueBtnPressed(_ sender: Any) {
-        //let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ConfirmTransferViewController")
-        //self.navigationController?.pushViewController(obj, animated: true)
+        let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BasketViewController") as! BasketViewController
+        obj.modelCreateTrasfer = self.modelCreateTransfer
+        self.navigationController?.pushViewController(obj, animated: true)
     }
     @IBAction func findSearchBtnClicked(_ sender: Any) {
         if searchBar.text != "" {

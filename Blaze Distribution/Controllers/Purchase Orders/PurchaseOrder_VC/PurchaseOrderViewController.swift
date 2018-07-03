@@ -62,13 +62,13 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if !isBackFromScanView {
+        //if !isBackFromScanView {
             initializePurchaseOrderType()
             poTableView.reloadData()
             poSearchBar.resignFirstResponder()
-        }else{
-            isBackFromScanView = false
-        }
+//        }else{
+//            isBackFromScanView = false
+//        }
         poSearchBar.text=""
         self.title = "Purchase Orders"
         
@@ -128,10 +128,14 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if let destinationVC = segue.destination as? PurchaseOrderDetailsTableViewController,
+        if let destinationVC = segue.destination as? PurchaseOrderDetailsTableViewController,
                 let indexPath = poTableView.indexPathForSelectedRow {
                 destinationVC.modelPurcahseOrder = arrayModelPurchaseOrders[indexPath.row]
             }
+        if let destinationVC = segue.destination as? PurchaseOrderDetailsTableViewController,
+            poTableView.indexPathForSelectedRow == nil {
+            destinationVC.modelPurcahseOrder = arrayModelPurchaseOrders[0]
+        }
     }
     
     //MARK: - UISearchBar Delegate
@@ -169,15 +173,16 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
             let poNumber : String! = dict.purchaseOrderNumber
             if poNumber.lowercased() == ScannedText.lowercased(){
                 arrayFilteredModelPurchaseOrders.append(dict)
+                performSegue(withIdentifier: "goPurchaseOrderDetail", sender: self)
             }
         }
-//        if arrayFilteredModelPurchaseOrders.count == 0{
-//            //initializePurchaseOrderType()
-//            //poTableView.reloadData()
-//          showAlert(alertTitle: "Message", alertMessage: "Sorry! No record found", tag: 0)
-//        }
-        arrayModelPurchaseOrders = arrayFilteredModelPurchaseOrders
-        poTableView.reloadData()
+        if arrayFilteredModelPurchaseOrders.count == 0 {
+            showToast("Sorry! No records found")
+        }else{
+            arrayModelPurchaseOrders = arrayFilteredModelPurchaseOrders
+            poTableView.reloadData()
+        }
+       
         
     }
     //MARK : - UIAlertView

@@ -7,35 +7,56 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-
+    @IBOutlet weak var lblFromStore: UILabel!
+    @IBOutlet weak var lblToStore: UILabel!
+    @IBOutlet weak var lblFromInvetory: UILabel!
+    @IBOutlet weak var lblToInvetory: UILabel!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var transferTableView: UITableView!
-    
+    var modelCreateTransfer: ModelCreateTransfer!
+    var selectedCartProduct: List<ModelCartProduct>!
     var tempDataDict = [[String:Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.transferTableView.estimatedRowHeight = 60
+        self.transferTableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setUpInitialValue()
+    }
+    //MARK:- Helper
+    func setUpInitialValue() -> Void {
+        //Get selected card product
+        if self.modelCreateTransfer.slectedProducts.count > 0 {
+            selectedCartProduct = self.modelCreateTransfer.slectedProducts
+            print(selectedCartProduct!)
+        }
         
-        //topView.dropShadow()
+        transferTableView.reloadData()
         
-        tempDataDict = [["name":"Product 1","amount":"5 Units","total":"55 Units"],["name":"Product 1","amount":"5 Units","total":"55 Units"],["name":"Product 1","amount":"5 Units","total":"55 Units"],["name":"Product 1","amount":"5 Units","total":"55 Units"],["name":"Product 1","amount":"5 Units","total":"55 Units"]]
+        //set value of transfer
+        self.lblFromStore.text = self.modelCreateTransfer.fromLocation?.shop?.name
+        self.lblToStore.text = self.modelCreateTransfer.toLocation?.shop?.name
+        self.lblFromInvetory.text = self.modelCreateTransfer.fromLocation?.inventory?.name
+        self.lblToInvetory.text = self.modelCreateTransfer.toLocation?.inventory?.name
     }
     // MARK:- UITableViewDelegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tempDataDict.count
+        return self.selectedCartProduct?.count ?? 0
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! ConfirmTransferTableViewCell
-        cell.productNameBtn.setTitle("  \((tempDataDict[indexPath.row])["name"] as? String ?? "No value")", for: .normal)
-        cell.transferAmountLbl.text = (tempDataDict[indexPath.row])["amount"] as? String
-        cell.expectedTotalLabel.text = (tempDataDict[indexPath.row])["total"] as? String
+        cell.lblProductName.text = self.selectedCartProduct[indexPath.row].name
+        cell.lblProductQuantity.text = String(format: "%.1f", self.selectedCartProduct[indexPath.row].quantity)
         return cell
     }
     

@@ -17,7 +17,7 @@ public class ModelCreateTransfer:ModelBase{
     @objc public dynamic var date:String?    = ""
     @objc public dynamic var fromLocation:ModelLocation?
     @objc public dynamic var toLocation:ModelLocation?
-    var slectedProducts = List<ModelCartProduct>()
+    public var slectedProducts = List<ModelCartProduct>()
     
     public override func copy(with zone:NSZone? = nil) -> Any {
         
@@ -28,7 +28,7 @@ public class ModelCreateTransfer:ModelBase{
         modelTransfer.fromLocation = self.fromLocation
         modelTransfer.toLocation   = self.toLocation
         for prod in self.slectedProducts{
-            modelTransfer.slectedProducts.append(prod.copy() as! ModelProduct)
+            modelTransfer.slectedProducts.append(prod.copy() as! ModelCartProduct)
         }
         return modelTransfer
     }
