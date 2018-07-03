@@ -11,24 +11,25 @@ import Realm
 import RealmSwift
 
 
-public class ModelTransfer:ModelBase{
+public class ModelCreateTransfer:ModelBase{
     @objc public dynamic var name:String?    = ""
     @objc public dynamic var request:String? = ""
     @objc public dynamic var date:String?    = ""
     @objc public dynamic var fromLocation:ModelLocation?
     @objc public dynamic var toLocation:ModelLocation?
-   // var product = List<ModelProduct>()
+    var slectedProducts = List<ModelCartProduct>()
+    
     public override func copy(with zone:NSZone? = nil) -> Any {
         
-        let modelTransfer          = ModelTransfer()
+        let modelTransfer          = ModelCreateTransfer()
         modelTransfer.name         = self.name
         modelTransfer.request      = self.request
         modelTransfer.date         = self.date
         modelTransfer.fromLocation = self.fromLocation
         modelTransfer.toLocation   = self.toLocation
-//        for prod in self.product{
-//            modelTransfer.product.append(prod.copy() as! ModelProduct)
-//        }
+        for prod in self.slectedProducts{
+            modelTransfer.slectedProducts.append(prod.copy() as! ModelProduct)
+        }
         return modelTransfer
     }
 }

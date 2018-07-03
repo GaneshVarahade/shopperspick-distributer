@@ -17,7 +17,7 @@
 		182B920520C7E0860041915B /* HexGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920320C7E0850041915B /* HexGenerator.swift */; };
 		182B920720C7E5330041915B /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920620C7E5330041915B /* SyncService.swift */; };
 		182B920920C803A10041915B /* idealbulkrequestjson.txt in Resources */ = {isa = PBXBuildFile; fileRef = 182B920820C803A10041915B /* idealbulkrequestjson.txt */; };
-		182B920C20C838C00041915B /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920B20C838C00041915B /* ModelTransfer.swift */; };
+		182B920C20C838C00041915B /* ModelCreateTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920B20C838C00041915B /* ModelCreateTransfer.swift */; };
 		182B920E20C838FE0041915B /* ModelProductTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920D20C838FE0041915B /* ModelProductTransfer.swift */; };
 		182B921020C839290041915B /* ModelLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920F20C839290041915B /* ModelLocation.swift */; };
 		182B921220C8394E0041915B /* ModelPurchaseOrderProductReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921120C8394E0041915B /* ModelPurchaseOrderProductReceived.swift */; };
@@ -191,7 +191,7 @@
 		182B920320C7E0850041915B /* HexGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexGenerator.swift; sourceTree = "<group>"; };
 		182B920620C7E5330041915B /* SyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
 		182B920820C803A10041915B /* idealbulkrequestjson.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = idealbulkrequestjson.txt; sourceTree = "<group>"; };
-		182B920B20C838C00041915B /* ModelTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTransfer.swift; sourceTree = "<group>"; };
+		182B920B20C838C00041915B /* ModelCreateTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCreateTransfer.swift; sourceTree = "<group>"; };
 		182B920D20C838FE0041915B /* ModelProductTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProductTransfer.swift; sourceTree = "<group>"; };
 		182B920F20C839290041915B /* ModelLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLocation.swift; sourceTree = "<group>"; };
 		182B921120C8394E0041915B /* ModelPurchaseOrderProductReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProductReceived.swift; sourceTree = "<group>"; };
@@ -453,7 +453,7 @@
 				189F82B920C501B70054986E /* ModelBase.swift */,
 				189F82BA20C501B70054986E /* ModelInvoice.swift */,
 				189F82BB20C501B70054986E /* ModelShipingMenifest.swift */,
-				182B920B20C838C00041915B /* ModelTransfer.swift */,
+				182B920B20C838C00041915B /* ModelCreateTransfer.swift */,
 				182B920D20C838FE0041915B /* ModelProductTransfer.swift */,
 				182B920F20C839290041915B /* ModelLocation.swift */,
 				182B921120C8394E0041915B /* ModelPurchaseOrderProductReceived.swift */,
@@ -1509,7 +1509,7 @@
 				189F82C120C501B70054986E /* BaseResponseProtocol.swift in Sources */,
 				182B920720C7E5330041915B /* SyncService.swift in Sources */,
 				B942801A20CE708400F2FA0F /* ReponseCartProduct.swift in Sources */,
-				182B920C20C838C00041915B /* ModelTransfer.swift in Sources */,
+				182B920C20C838C00041915B /* ModelCreateTransfer.swift in Sources */,
 				B98E12DC20D14E630067B5B0 /* ModelInventories.swift in Sources */,
 				B9AA85E820C97E0F00751BF2 /* ResponseCart.swift in Sources */,
 				B985566B20B43B6000A56497 /* QuantityBatchTableViewCell.swift in Sources */,

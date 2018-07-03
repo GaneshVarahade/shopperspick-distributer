@@ -35,6 +35,10 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     var listToInventory: List<ModelInventory>!
     var listFromShop: List<ShopsModel>!
     var listToShop: List<ShopsModel>!
+    
+    var modelFromLocation: ModelLocation!
+    var modelToLocation: ModelLocation!
+    
     var selectedFromShop: ShopsModel!
     var selectedToShop: ShopsModel!
     var selectedFromInventory: ModelInventory!
@@ -44,10 +48,15 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     let colorSelectedData = UIColor.darkText
     let colorNonSelectedData = UIColor.lightGray
     
+    var modelCreateTransfer: ModelCreateTransfer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        modelCreateTransfer = ModelCreateTransfer()
+        modelFromLocation = ModelLocation()
+        modelToLocation = ModelLocation()
+        
         self.title = "Inventory"
         
         labelFromStore.isUserInteractionEnabled =  true
@@ -123,6 +132,8 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func continueBtnPressed(_ sender: Any) {
+        
+        
        // let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScanLookUpViewController")
        // self.navigationController?.pushViewController(obj, animated: true)
     }

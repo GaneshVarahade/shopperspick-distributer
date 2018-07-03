@@ -12,8 +12,8 @@ import RealmSwift
 
 public class ModelLocation:ModelBase{
     
-    @objc public dynamic var shop:String?       = ""
-    @objc public dynamic var inventory:String?  = ""
+    @objc public dynamic var shop:ShopsModel?
+    @objc public dynamic var inventory:ModelInventory?
     public override func copy(with zone:NSZone? = nil) -> Any {
         let modelLocation       = ModelLocation()
         modelLocation.shop      = self.shop
