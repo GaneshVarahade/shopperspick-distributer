@@ -50,6 +50,13 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
 
         self.title = "Inventory"
         
+        //add target to text field
+        // navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
+
+        
+        
+        //addTarget(self, action: #selector(textFieldDidChange(_ :)), for: UIControlEvents.editingChanged)
+        
         labelFromStore.isUserInteractionEnabled =  true
         labelFromStore.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onclickFromStore)))
         
@@ -69,6 +76,65 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         dummyTextField.inputView = pickerView
         dummyTextField.delegate = self
         view.addSubview(dummyTextField)
+        
+        dummyTextField?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(doneButtonTapped))
+    }
+    
+    @objc func doneButtonTapped() {
+        
+        if selectedOption == SelectedOption.fromInventory {
+            
+            modelFromLocation.inventory = listFromInventory[pickerView.selectedRow(inComponent: 0)]
+            loadData()
+            
+            
+        }else if selectedOption == SelectedOption.toInventory {
+            
+            modelToLocation.inventory = listToInventory[pickerView.selectedRow(inComponent: 0)]
+            loadData()
+            
+        }else if selectedOption == SelectedOption.fromStore {
+            
+            let shop = listFromShop[pickerView.selectedRow(inComponent: 0)]
+            
+            
+            //selectedFromShop = shop
+            modelFromLocation.shop = shop
+            print("\(listFromShop[pickerView.selectedRow(inComponent: 0)].name ?? "No Data")")
+            let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
+            
+            if let modelInventories = modelInventories {
+                listFromInventory =  modelInventories.inventory
+            }else{
+                listFromInventory = List<ModelInventory>()
+            }
+            // When from store change, reset all values
+            modelFromLocation.inventory = nil
+            modelToLocation.shop = nil
+            modelToLocation.inventory = nil
+            
+            loadData()
+            
+        }else if selectedOption == SelectedOption.toStore {
+            let shop = listToShop[pickerView.selectedRow(inComponent: 0)]
+            
+            
+            modelToLocation.shop = shop
+            print("\(listToShop[pickerView.selectedRow(inComponent: 0)].name ?? "No Data")")
+            let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
+            
+            if let modelInventories = modelInventories {
+                listToInventory =  modelInventories.inventory
+            }else{
+                listToInventory = List<ModelInventory>()
+            }
+            
+            //Reset Inventory
+            modelToLocation.inventory = nil
+            
+            loadData()
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -134,6 +200,8 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         
+        /*
+        
         if selectedOption == SelectedOption.fromInventory {
             
             modelFromLocation.inventory = listFromInventory[pickerView.selectedRow(inComponent: 0)]
@@ -186,6 +254,8 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             
             loadData()
         }
+         
+         */
         
     }
     
@@ -269,6 +339,7 @@ extension CreateTransferViewController: UIPickerViewDataSource, UIPickerViewDele
         }
         
         return 0
+ 
     }
     
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {

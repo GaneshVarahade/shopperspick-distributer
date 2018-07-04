@@ -77,6 +77,8 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     func getData(){
         inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
+        inventoryData.reverse()
+        
         productData   = RealmManager().readList(type: ModelProduct.self)
         if productFlag{
             data  = productData
@@ -120,7 +122,7 @@ extension InventoryViewController{
             cell.requestLabel.text  = tempi.transferNo
             cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(tempi.modified)/1000,
                                                                format: DateFormatterUtil.mmddyyyy)
-            cell.dateLabel.isHidden = false
+           cell.dateLabel.isHidden = false
         }
         
         return cell

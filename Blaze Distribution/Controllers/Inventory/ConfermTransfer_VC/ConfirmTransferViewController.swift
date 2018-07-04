@@ -75,10 +75,32 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
         if modelCreateTransfer.slectedProducts.count == 0 {
             showToast("Sorry! No product in cart to submit")
         }else{
-            modelCreateTransfer.updated=true
-            RealmManager().write(table: modelCreateTransfer)
-            print( RealmManager().readList(type: ModelCreateTransfer.self))
+            //get currunt date
+            let someDate = Date()
+            let timeInterval = someDate.timeIntervalSince1970
+            let curruntDate = Int(timeInterval) * 1000
+            
+            //
+            let transferNo : Int = RealmManager().readList(type: ModelInventoryTransfers.self).count + 1
+            
+            
+            let modelOpenTransfer: ModelInventoryTransfers = ModelInventoryTransfers()
+            // Asign all data
+            modelOpenTransfer.id = HexGenerator.sharedInstance().generate()
+            modelOpenTransfer.status = InvetryTransferStatus.Pending.rawValue
+            modelOpenTransfer.fromShopName = self.modelCreateTransfer.fromLocation?.shop?.name
+            modelOpenTransfer.toShopName = self.modelCreateTransfer.toLocation?.shop?.name
+            modelOpenTransfer.fromInventoryName = self.modelCreateTransfer.fromLocation?.inventory?.name
+            modelOpenTransfer.toInventoryName = self.modelCreateTransfer.toLocation?.inventory?.name
+            modelOpenTransfer.modified = curruntDate
+            modelOpenTransfer.transferNo = String(transferNo)
+            modelOpenTransfer.updated = true
+            modelOpenTransfer.slectedProducts = modelCreateTransfer.slectedProducts
+            
+            RealmManager().write(table: modelOpenTransfer)
+            print( RealmManager().readList(type: ModelInventoryTransfers.self).count)
             showAlert(alertTitle: "Message", alertMessage:"Svaed Sucessfuly!", tag: 1)
+            modelCreateTransfer = nil
         }
     }
     
@@ -91,12 +113,13 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
                 print("default")
                 if tag == 1{
                     //self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
-                    for controller in self.navigationController!.viewControllers as Array {
-                        if controller.isKind(of: CreateTransferViewController.self) {
-                            self.navigationController!.popToViewController(controller, animated: true)
-                            break
-                        }
-                    }
+//                    for controller in self.navigationController!.viewControllers as Array {
+//                        if controller.isKind(of: CreateTransferViewController.self) {
+//                            self.navigationController!.popToViewController(controller, animated: true)
+//                            break
+//                        }
+//                    }
+                    self.navigationController?.popToRootViewController(animated: true)
                 }
                 
             case .cancel:

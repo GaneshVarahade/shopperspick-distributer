@@ -6973,7 +6973,7 @@
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="qk4-4J-kFy" id="x9n-7B-q6t"/>
                                                     </connections>
@@ -8218,7 +8218,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                 <connections>
                                     <outlet property="delegate" destination="B8J-sH-8ey" id="wzi-FF-3He"/>
                                 </connections>

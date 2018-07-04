@@ -7,6 +7,14 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
+
+public enum InvetryTransferStatus:String {
+    case Pending = "PENDING"
+    case Declined = "DECLINED"
+    case Accepted = "ACCEPTED"
+}
 
 public class ModelInventoryTransfers: ModelBase {
     
@@ -18,6 +26,7 @@ public class ModelInventoryTransfers: ModelBase {
     @objc public dynamic var fromInventoryName:String? = ""
     @objc public dynamic var toInventoryName:String?   = ""
     @objc public dynamic var status:String?   = ""
+    public var slectedProducts = List<ModelCartProduct>()
     
     open override class func primaryKey() -> String? {
         return "id"
@@ -36,6 +45,10 @@ public class ModelInventoryTransfers: ModelBase {
         modelInventoryTransfers.toInventoryName   = self.toInventoryName
         modelInventoryTransfers.status            = self.status
         modelInventoryTransfers.id                = self.id
+        
+        for prod in self.slectedProducts{
+            modelInventoryTransfers.slectedProducts.append(prod.copy() as! ModelCartProduct)
+        }
         
         return modelInventoryTransfers
     }
