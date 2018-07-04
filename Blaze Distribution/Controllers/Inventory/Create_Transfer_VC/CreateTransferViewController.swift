@@ -48,10 +48,6 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        modelCreateTransfer = ModelCreateTransfer()
-        modelFromLocation = ModelLocation()
-        modelToLocation = ModelLocation()
-        
         self.title = "Inventory"
         
         labelFromStore.isUserInteractionEnabled =  true
@@ -73,9 +69,15 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         dummyTextField.inputView = pickerView
         dummyTextField.delegate = self
         view.addSubview(dummyTextField)
-         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        modelCreateTransfer = ModelCreateTransfer()
+        modelFromLocation = ModelLocation()
+        modelToLocation = ModelLocation()
         modelLogin = RealmManager().readList(type: LoginModel.self).first
-        
+        loadData()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

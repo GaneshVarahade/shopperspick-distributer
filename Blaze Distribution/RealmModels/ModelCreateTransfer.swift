@@ -19,6 +19,10 @@ public class ModelCreateTransfer:ModelBase{
     @objc public dynamic var toLocation:ModelLocation?
     public var slectedProducts = List<ModelCartProduct>()
     
+    open override class func primaryKey() -> String? {
+        return "id"
+    }
+    
     public override func copy(with zone:NSZone? = nil) -> Any {
         
         let modelTransfer          = ModelCreateTransfer()

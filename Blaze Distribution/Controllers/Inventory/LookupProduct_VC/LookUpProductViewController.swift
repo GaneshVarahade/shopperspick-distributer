@@ -196,6 +196,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         obj.modelCreateTrasfer = self.modelCreateTransfer
         self.navigationController?.pushViewController(obj, animated: true)
     }
+    
     @IBAction func findSearchBtnClicked(_ sender: Any) {
         if searchBar.text != "" {
             for key in sectionNameList{

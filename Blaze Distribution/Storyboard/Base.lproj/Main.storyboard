@@ -5256,18 +5256,27 @@
                                             <segue destination="YNJ-b3-75M" kind="show" id="iej-0R-wT5"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TransferIllustration" translatesAutoresizingMaskIntoConstraints="NO" id="bDJ-R9-5Tn">
+                                        <rect key="frame" x="80" y="28" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="120" id="DZ6-QC-fGX"/>
+                                            <constraint firstAttribute="width" constant="120" id="ePV-Xq-Qt4"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="dzN-Zz-1VD" firstAttribute="top" secondItem="vdW-n7-ayP" secondAttribute="bottom" constant="40" id="1Lp-r1-FSD">
                                         <variation key="heightClass=regular-widthClass=regular" constant="80"/>
                                     </constraint>
+                                    <constraint firstItem="vdW-n7-ayP" firstAttribute="top" secondItem="bDJ-R9-5Tn" secondAttribute="bottom" constant="10" id="Bwc-6L-flr"/>
                                     <constraint firstItem="vdW-n7-ayP" firstAttribute="width" secondItem="rSU-DA-enw" secondAttribute="width" multiplier="0.8" id="I6U-nI-5XN"/>
                                     <constraint firstItem="8Wa-n9-1ft" firstAttribute="centerX" secondItem="rSU-DA-enw" secondAttribute="centerX" id="PRN-3u-usg"/>
                                     <constraint firstItem="8Wa-n9-1ft" firstAttribute="width" secondItem="rSU-DA-enw" secondAttribute="width" multiplier="0.8" id="PgK-4N-HfS"/>
                                     <constraint firstItem="vdW-n7-ayP" firstAttribute="centerY" secondItem="rSU-DA-enw" secondAttribute="centerY" id="QMj-tm-cPM"/>
                                     <constraint firstItem="vdW-n7-ayP" firstAttribute="centerX" secondItem="rSU-DA-enw" secondAttribute="centerX" id="Whp-nY-Kr1"/>
                                     <constraint firstItem="dzN-Zz-1VD" firstAttribute="centerX" secondItem="rSU-DA-enw" secondAttribute="centerX" id="aof-tW-47K"/>
+                                    <constraint firstItem="bDJ-R9-5Tn" firstAttribute="centerX" secondItem="rSU-DA-enw" secondAttribute="centerX" id="f8w-cH-nZC"/>
                                     <constraint firstItem="8Wa-n9-1ft" firstAttribute="top" secondItem="dzN-Zz-1VD" secondAttribute="bottom" constant="15" id="raA-OI-cm9">
                                         <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                     </constraint>
@@ -5287,7 +5296,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xDn-85-KYV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6379" y="1774"/>
+            <point key="canvasLocation" x="6378.75" y="1773.5915492957747"/>
         </scene>
         <!--Look Up Product View Controller-->
         <scene sceneID="crI-Wr-ilY">
@@ -5520,7 +5529,6 @@
                                 </variation>
                                 <connections>
                                     <action selector="continueBtnPressed:" destination="YNJ-b3-75M" eventType="touchUpInside" id="vcb-j5-5hv"/>
-                                    <segue destination="Q2o-y6-Pj6" kind="show" id="QHB-3T-xPE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -5660,7 +5668,7 @@
                                 </variation>
                                 <connections>
                                     <action selector="continueBtnPressed:" destination="14o-ag-RMv" eventType="touchUpInside" id="AuP-iU-ANn"/>
-                                    <segue destination="Q2o-y6-Pj6" kind="show" id="FCW-pc-cCl"/>
+                                    <segue destination="Q2o-y6-Pj6" kind="show" identifier="ConfirmTransferViewController" id="FCW-pc-cCl"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lTB-Ct-jO4" customClass="UIViewX" customModule="Blaze_Distribution" customModuleProvider="target">
@@ -5706,7 +5714,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8JL-Xy-guZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8452.5" y="1774.6478873239437"/>
+            <point key="canvasLocation" x="8460" y="1894"/>
         </scene>
         <!--Confirm Transfer View Controller-->
         <scene sceneID="ZKC-So-7YQ">
@@ -5801,6 +5809,9 @@
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                 </variation>
+                                <connections>
+                                    <action selector="btnSubmitTransferClicked:" destination="Q2o-y6-Pj6" eventType="touchUpInside" id="1gO-y8-EWP"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHq-X8-mJS" customClass="UIViewX" customModule="Blaze_Distribution" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="320" height="130"/>
@@ -5996,7 +6007,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6mi-2H-bP4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9195" y="1774.6478873239437"/>
+            <point key="canvasLocation" x="9180" y="1893"/>
         </scene>
         <!--LookupP Os View Controller-->
         <scene sceneID="VQs-kp-Flz">
@@ -6442,7 +6453,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nG7-g4-nfb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6393" y="2578"/>
+            <point key="canvasLocation" x="6323" y="2625"/>
         </scene>
         <!--Static Details Table View Controller-->
         <scene sceneID="T1t-V0-nqn">
@@ -8207,7 +8218,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
                                     <outlet property="delegate" destination="B8J-sH-8ey" id="wzi-FF-3He"/>
                                 </connections>
@@ -8258,7 +8269,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y5T-2N-ko8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7751" y="1774"/>
+            <point key="canvasLocation" x="7764" y="1893"/>
         </scene>
     </scenes>
     <resources>
@@ -8269,12 +8280,12 @@
         <image name="LoginBG" width="414" height="442"/>
         <image name="POsOrange" width="29" height="30"/>
         <image name="SelectedMark" width="13" height="10"/>
+        <image name="TransferIllustration" width="280" height="280"/>
         <image name="checkbox_unselected" width="18" height="18"/>
         <image name="indicator" width="42" height="42"/>
         <image name="okGreen" width="22" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FCW-pc-cCl"/>
         <segue reference="VwD-pR-FcE"/>
         <segue reference="Oqy-QF-diX"/>
     </inferredMetricsTieBreakers>

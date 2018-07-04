@@ -11,19 +11,16 @@ import RealmSwift
 class BasketViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
      var modelCreateTrasfer : ModelCreateTransfer!
      var selectedCartProd: List<ModelCartProduct>!
-    
-    var tempDataDict = [[String:Any]]()
-    
-    override func viewDidLoad() {
+     var tempDataDict = [[String:Any]]()
+     override func viewDidLoad() {
         super.viewDidLoad()
         //Assine selected cart product
         if self.modelCreateTrasfer.slectedProducts.count > 0 {
              self.selectedCartProd = modelCreateTrasfer.slectedProducts
+             print(self.selectedCartProd)
         }
-        print(self.selectedCartProd)
         // Do any additional setup after loading the view.
         self.title = "Transfer Basket"
-//        tempDataDict = [["name":"Product 1","id":"123245","units":"5 Units"],["name":"Product 1","id":"123245","units":"5 Units"],["name":"Product 1","id":"123245","units":"5 Units"],["name":"Product 1","id":"123245","units":"5 Units"],["name":"Product 1","id":"123245","units":"5 Units"]]
     }
 
     // MARK:- UITableviewDatasource/Delegate
@@ -65,10 +62,8 @@ class BasketViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     // MARK: - UIButton Events
-    
     @IBAction func continueBtnPressed(_ sender: Any) {
-        //let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ConfirmTransferViewController")
-        //self.navigationController?.pushViewController(obj, animated: true)
+        //performSegue(withIdentifier: "ConfirmTransferViewController", sender: self)
     }
     
     

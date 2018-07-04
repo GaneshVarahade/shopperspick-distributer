@@ -39,11 +39,33 @@ class LookUpProductEnterQuantity: UIViewController,UITextFieldDelegate{
         //Adda tap gesture to view
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onclickFromStore)))
         
+        //Add target to textField to catch text field change event
+        self.txtQuantity.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
     //MARK: - Helper
     @objc private func onclickFromStore() {
     self.view.endEditing(true)
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if self.txtQuantity.text?.isEmpty == false{
+            //text should not be 0
+            if (self.txtQuantity.text! as NSString).doubleValue == 0{
+                self.txtQuantity.layer.borderWidth = 0.7
+                self.txtQuantity.layer.borderColor = (UIColor .red).cgColor
+            }else if (self.txtQuantity.text! as NSString).doubleValue > Double(modelProudct.quantity){
+                self.txtQuantity.layer.borderWidth = 0.7
+                self.txtQuantity.layer.borderColor = (UIColor .red).cgColor
+            }else {
+                self.txtQuantity.layer.borderWidth = 0.7
+                self.txtQuantity.layer.borderColor = (UIColor .clear).cgColor
+            }
+            
+        }else{
+            self.txtQuantity.layer.borderWidth = 0.7
+            self.txtQuantity.layer.borderColor = (UIColor .red).cgColor
+        }
     }
 
     
@@ -84,30 +106,26 @@ class LookUpProductEnterQuantity: UIViewController,UITextFieldDelegate{
     //MARK: - Button Action
     @IBAction func btnAddToBasketClicked(_ sender: Any) {
         //save data into cart
+        let modelCartProduct = ModelCartProduct()
         if txtQuantity.text?.isEmpty == true {
             showToast("Please enter product quantity to proceed further")
+        }
+        
+        else if (txtQuantity.text! as NSString).doubleValue > Double(modelProudct.quantity){
+            showToast("Please enter valid product quantity")
+        }
+        else if (txtQuantity.text! as NSString).doubleValue == 0{
+           showToast("Please make sure that, quantity should not be 0")
         }else{
-            let modelCartProduct = ModelCartProduct()
             modelCartProduct.name = modelProudct.name
             modelCartProduct.batchId = modelProudct.id
             let quantity = Double(txtQuantity.text!)
             modelCartProduct.quantity = quantity!
             modelCreateTransfer.slectedProducts.append(modelCartProduct)
             showToast("Added in Cart")
-            
             //set cart count
             customBarbutton.setTitle(String(modelCreateTransfer.slectedProducts.count), for: UIControlState.normal)
             self.navigationController?.popViewController(animated: true)
-//            if isFromScanView == false {
-//                self.navigationController?.popViewController(animated: true)
-//            }
-       
-//            let modelpurchaseOrderProductRecive = ModelPurchaseOrderProductReceived()
-//            modelpurchaseOrderProductRecive.name = dict.name
-//            modelpurchaseOrderProductRecive.id = dict.id
-//            modelpurchaseOrderProductRecive.expected = dict.quantity
-//            modelpurchaseOrderProductRecive.received = dict.expected
-//            modelPurchaseOrder.productReceived.append(modelpurchaseOrderProductRecive)
         }
     }
     /*

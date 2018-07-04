@@ -32,20 +32,22 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
     }
     //MARK:- Helper
     func setUpInitialValue() -> Void {
-        //Get selected card product
-        if self.modelCreateTransfer.slectedProducts.count > 0 {
-            selectedCartProduct = self.modelCreateTransfer.slectedProducts
-            print(selectedCartProduct!)
+    
+      guard self.modelCreateTransfer != nil else {
+          return
         }
-        
-        transferTableView.reloadData()
-        
         //set value of transfer
         self.lblFromStore.text = self.modelCreateTransfer.fromLocation?.shop?.name
         self.lblToStore.text = self.modelCreateTransfer.toLocation?.shop?.name
         self.lblFromInvetory.text = self.modelCreateTransfer.fromLocation?.inventory?.name
         self.lblToInvetory.text = self.modelCreateTransfer.toLocation?.inventory?.name
+       
+        //Get selected card product
+        selectedCartProduct = self.modelCreateTransfer.slectedProducts
+        print(selectedCartProduct!)
+        transferTableView.reloadData()
     }
+    
     // MARK:- UITableViewDelegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.selectedCartProduct?.count ?? 0
@@ -67,6 +69,44 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
         else {
             return 70
         }
+    }
+    
+    @IBAction func btnSubmitTransferClicked(_ sender: Any) {
+        if modelCreateTransfer.slectedProducts.count == 0 {
+            showToast("Sorry! No product in cart to submit")
+        }else{
+            modelCreateTransfer.updated=true
+            RealmManager().write(table: modelCreateTransfer)
+            print( RealmManager().readList(type: ModelCreateTransfer.self))
+            showAlert(alertTitle: "Message", alertMessage:"Svaed Sucessfuly!", tag: 1)
+        }
+    }
+    
+    //Mark:- Alert View
+    func showAlert(alertTitle:NSString,alertMessage:NSString,tag:Int) -> Void {
+        let alert = UIAlertController(title: alertTitle as String, message: alertMessage as String, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                if tag == 1{
+                    //self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
+                    for controller in self.navigationController!.viewControllers as Array {
+                        if controller.isKind(of: CreateTransferViewController.self) {
+                            self.navigationController!.popToViewController(controller, animated: true)
+                            break
+                        }
+                    }
+                }
+                
+            case .cancel:
+                print("cancel")
+ 
+            case .destructive:
+                print("destructive")
+ 
+            }}))
+        self.present(alert, animated: true, completion: nil)
     }
     
     /*
