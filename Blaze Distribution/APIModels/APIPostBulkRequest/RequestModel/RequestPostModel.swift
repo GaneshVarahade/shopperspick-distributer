@@ -10,5 +10,5 @@ import Foundation
 
 public class RequestPostModel: BaseRequest {
     
-   // var arrayInvoices: []
+    public var purchaseOrders = [RequestPurchaseOrder]()
 }

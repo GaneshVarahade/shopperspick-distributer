@@ -36,6 +36,7 @@ public class ModelPurchaseOrder:ModelBase{
         modelPurchaseOrder.origin              = self.origin
         modelPurchaseOrder.received            = self.received
         modelPurchaseOrder.completedDate       = self.completedDate
+        modelPurchaseOrder.updated              = self.updated
         
         for prodInShip in self.productInShipment{
             modelPurchaseOrder.productInShipment.append(prodInShip.copy() as! ModelPurchaseOrderProduct)

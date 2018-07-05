@@ -60,7 +60,14 @@ public final class SyncService {
     
     private func isPostBulkAvailable() -> Bool {
         
-        return false
+        let realmManager = RealmManager()
+        AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: "\(realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true").count)")
+        AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: "\(realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true").count)")
+        AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: "\(realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true").count)")
+        
+        return (realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true").count > 0 ||
+            realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true").count > 0 ||
+            realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true").count > 0)
     }
     
     private func syncSignature() {
@@ -72,7 +79,39 @@ public final class SyncService {
     private func syncPostBulkData(){
         
         ///After API complete call resync, so syncdata can run recursively
-        resync()
+        let realmManager: RealmManager = RealmManager()
+        let modelPurchaseOrders = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true")
+        
+        let requestModel = RequestPostModel()
+        for model in modelPurchaseOrders {
+            let requestPurchase: RequestPurchaseOrder = RequestPurchaseOrder()
+            requestPurchase.purchaseOrderNumber = model.purchaseOrderNumber
+            requestPurchase.isMetRc = model.isMetRc
+            requestPurchase.metrcId = model.metrcId
+            requestPurchase.status = model.status
+            requestPurchase.origin = model.origin
+            requestPurchase.received = model.received
+            requestPurchase.completedDate = model.completedDate
+ 
+            for productReceived in model.productReceived {
+                let requestPurchaseOrderReceived: RequestPurchaseOrderProductReceived = RequestPurchaseOrderProductReceived()
+                
+                requestPurchaseOrderReceived.name = productReceived.name
+                requestPurchaseOrderReceived.expected = productReceived.expected
+                requestPurchaseOrderReceived.received = productReceived.received
+                
+                requestPurchase.productReceived.append(requestPurchaseOrderReceived)
+            }
+            
+            requestModel.purchaseOrders.append(requestPurchase)
+        }
+        
+        WebServicesAPI.sharedInstance().BulkPostAPI(request: requestModel) {
+            (result:ResponseBulkRequest?,error:PlatformError?) in
+            
+            //self.resync()
+        }
+        
     }
     
     private func syncGetBulkData() {
@@ -148,7 +187,7 @@ public final class SyncService {
         }
     }
     
-    func saveDataInvoice(jsonData: [ResponseInvoice]?){
+    fileprivate func saveDataInvoice(jsonData: [ResponseInvoice]?){
         
         if let values = jsonData{
             
@@ -257,7 +296,7 @@ public final class SyncService {
        // print("---Invoice Data Save---")
         
     }
-    func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
+    fileprivate func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
         if let values = jsonData{
             
             for value in values{
@@ -287,7 +326,7 @@ public final class SyncService {
         print("---Inventory Data Save---")
     }
     
-    func saveDataProduct(jsonData:[ResponseProduct]?){
+    fileprivate func saveDataProduct(jsonData:[ResponseProduct]?){
         
         if let products = jsonData{
             
@@ -313,7 +352,7 @@ public final class SyncService {
             print("---Products nil---")
         }
     }
-    func saveInventory(jsonData:[ResponseInventories]){
+    fileprivate func saveInventory(jsonData:[ResponseInventories]){
         
         let shops:[ShopsModel] = RealmManager().readList(type: ShopsModel.self)
         

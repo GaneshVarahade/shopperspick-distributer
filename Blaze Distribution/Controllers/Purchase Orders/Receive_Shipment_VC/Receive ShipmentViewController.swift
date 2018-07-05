@@ -47,8 +47,14 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
                 modelPurchaseOrder.status = PurchaseOrderStatus.Closed.rawValue
                 modelPurchaseOrder.updated = true
                 RealmManager().write(table: modelPurchaseOrder)
+//                print(RealmManager().readList(type: ModelPurchaseOrder.self))
+//                print(RealmManager().read(type: ModelPurchaseOrder.self, primaryKey:modelPurchaseOrder.purchaseOrderNumber!))
+                
+                
                 showAlert(alertTitle: "Done", alertMessage: "Saved Succesfully!",tag: 1)
                 print(modelPurchaseOrder.productReceived)
+                
+                SyncService.sharedInstance().syncData()
             }else{
            showAlert(alertTitle: "Warning", alertMessage: "Recived product quantity should not be empty, and is always less than or equel to Expected product quantity ",tag: 0)
             }
@@ -66,10 +72,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
                 print("default")
                 if tag == 1{
                     self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
-                    //self.navigationController?.popControllers(self,popNumberOfControllers: 2, animate: true)
-//                    var viewControllers = self.navigationController?.viewControllers
-//                    viewControllers?.removeLast(2) // views to pop
-//                    self.navigationController?.setViewControllers(viewControllers!, animated: true)
+                    
                 }
                 
             case .cancel:

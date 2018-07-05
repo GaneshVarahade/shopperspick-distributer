@@ -21,6 +21,7 @@ public class ModelPurchaseOrderProductReceived:ModelBase{
         modelProductReceived.name     = self.name
         modelProductReceived.expected = self.expected
         modelProductReceived.received = self.received
+        modelProductReceived.updated = self.updated
         
         return modelProductReceived
     }

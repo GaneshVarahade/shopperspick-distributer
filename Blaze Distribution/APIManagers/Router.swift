@@ -28,10 +28,10 @@ enum Router : URLRequestConvertible {
     
     // authentications
     case sessionLogin(request: RequestLogin)
-    //Invoice
-    case sessionInvoice(request: [String:String])
     //BulkAPI
     case bulkGet()
+    //BulkPostAPI
+    case bulkPost(request: RequestPostModel)
     //Forgot Password
     case forgotPassword(request: RequestForgotPassword)
     
@@ -56,6 +56,31 @@ enum Router : URLRequestConvertible {
             request.setValue(sessionData, forHTTPHeaderField: "Authorization")
         }
         
+        //===========
+        // This block is to print the request
+        print("json: \(requestJson)")
+        if let body = requestJson {
+            do {
+                
+
+//                let jsonData = try JSONSerialization.data(withJSONObject: body, options: JSONSerialization.WritingOptions.prettyPrinted)
+                // here "jsonData" is the dictionary encoded in JSON data
+                
+                //Convert back to string.
+                if let jsonRequest = String(data: body, encoding: String.Encoding.utf8) {
+                    
+                    AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "======================================================= \n Request URL: \(request.urlRequest!) \n Request Body: \n \(jsonRequest)")
+                }else{
+                    AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "NonJson Request: \(body)")
+                }
+                
+            } catch let error as NSError {
+                print(error)
+            }
+            
+        }
+        
+        //============
         return try Alamofire.URLEncoding.default.encode(request, with: params)
     }
     
@@ -67,16 +92,16 @@ enum Router : URLRequestConvertible {
         // SESSIONS
         case .sessionLogin(let request):
             return (Method.POST,"/api/v1/session/terminal/init",encode(request),nil)
-        case .sessionInvoice(let request):
-            return (Method.GET,"/api/v1/warehouse/mgmt/invoice",nil,request)
         case .bulkGet():
             return (Method.GET,"/api/v1/warehouse/mgmt/dataSync",nil,nil)
+        case .bulkPost(let request):
+            return (Method.POST,"/api/v1/warehouse/mgmt/dataSync",encode(request),nil)
         case.forgotPassword(let request):
             return (Method.POST,"/api/v1/mgmt/password/reset",encode(request),nil)
         }
        
     }
-    private func encode <T: BaseRequest>(_ requestObj: T) -> Data?{
+    func encode <T: BaseRequest>(_ requestObj: T) -> Data?{
         return try? JSONEncoder().encode(requestObj)
     }
 }

@@ -12,6 +12,8 @@
 		1812B33F20CAB31800B4DC26 /* ModelInventoryTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */; };
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
 		181C388620EDFF1D00A567B3 /* RequestPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C388520EDFF1D00A567B3 /* RequestPostModel.swift */; };
+		1824279F20EE1652009BBF08 /* RequestPurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1824279E20EE1652009BBF08 /* RequestPurchaseOrder.swift */; };
+		182427A120EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */; };
 		1827FC0620D11AB300DEA5E8 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */; };
 		1828E6C320C6D0F300EB74B4 /* Tables.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1828E6C220C6D0F300EB74B4 /* Tables.txt */; };
 		182B920420C7E0860041915B /* StoreImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920220C7E0850041915B /* StoreImage.swift */; };
@@ -186,6 +188,8 @@
 		1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventoryTransfers.swift; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
 		181C388520EDFF1D00A567B3 /* RequestPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPostModel.swift; sourceTree = "<group>"; };
+		1824279E20EE1652009BBF08 /* RequestPurchaseOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPurchaseOrder.swift; sourceTree = "<group>"; };
+		182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPurchaseOrderProductReceived.swift; sourceTree = "<group>"; };
 		1824C0BE20CA796400F7E1B4 /* bulkrequest.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = bulkrequest.rtf; path = "/Volumes/Development/Projects/iOSWorkspace/blaze-distribution-ios/Blaze Distribution/TextFilesForReference/bulkrequest.rtf"; sourceTree = "<absolute>"; };
 		1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		1828E6C220C6D0F300EB74B4 /* Tables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tables.txt; sourceTree = "<group>"; };
@@ -402,6 +406,8 @@
 			isa = PBXGroup;
 			children = (
 				181C388520EDFF1D00A567B3 /* RequestPostModel.swift */,
+				1824279E20EE1652009BBF08 /* RequestPurchaseOrder.swift */,
+				182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */,
 			);
 			path = RequestModel;
 			sourceTree = "<group>";
@@ -1477,6 +1483,7 @@
 				B92A65AA20AF2E3F00CDA4CC /* InvoicesViewController.swift in Sources */,
 				182B920420C7E0860041915B /* StoreImage.swift in Sources */,
 				18051EE520EA3C0A005BF274 /* LookUpProductEnterQuantity.swift in Sources */,
+				182427A120EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift in Sources */,
 				18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */,
 				B942E46320D00A4000E474E1 /* ResponseProduct.swift in Sources */,
 				1827FC0620D11AB300DEA5E8 /* DateFormatter.swift in Sources */,
@@ -1550,6 +1557,7 @@
 				B9AA85E620C973B200751BF2 /* ResponseShippingManifests.swift in Sources */,
 				1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */,
 				B9E5266C20B2CF0E00127E43 /* PurchaseOrderDetailsTableViewController.swift in Sources */,
+				1824279F20EE1652009BBF08 /* RequestPurchaseOrder.swift in Sources */,
 				B92A65B020AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift in Sources */,
 				B9D45A0320CA528000E4E0E8 /* ResponseAsset.swift in Sources */,
 				189F82D520C5084D0054986E /* RequestLogin.swift in Sources */,

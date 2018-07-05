@@ -27,6 +27,9 @@ class WebServicesAPI: NSObject {
         return webServiceAPI
     }
     fileprivate func makeRequest<T:BaseResponseModel>(_ request:URLRequestConvertible, callback:@escaping (_ result:T?,_ error:PlatformError?)-> Void ){
+        
+        self.printRequest(request.urlRequest, nil)
+        
         Alamofire.request(request)
             .responseJSON { (response:DataResponse<Any>) in
                 let data = response.result.value
@@ -94,6 +97,12 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.bulkGet(), callback: onComplition)
         
     }
+    
+    func BulkPostAPI(request:RequestPostModel,onComplition:@escaping (_ result:ResponseBulkRequest?, _ error:PlatformError?)-> ()){
+        makeRequest(Router.bulkPost(request: request), callback: onComplition)
+        
+    }
+    
     private func printRequest(_ requestUrl:URLRequest?,_ data: Any?){
         
         DispatchQueue.global(qos: .background).async {
