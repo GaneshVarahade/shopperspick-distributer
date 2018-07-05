@@ -77,7 +77,7 @@ public final class SyncService {
     
     private func syncGetBulkData() {
         
-        WebServicesAPI.sharedInstance().BulkAPI(request: RequestBulkAPI()) { (result:ResponseBulkRequest?,error:PlatformError?) in
+        WebServicesAPI.sharedInstance().BulkAPI(request: RequestGetBulkAPI()) { (result:ResponseBulkRequest?,error:PlatformError?) in
             if error != nil{
                 print(error?.message! ?? "Error")
                 self.finishSync()

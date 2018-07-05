@@ -325,6 +325,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         modelPaymanetInfo.updated = true
         
         invoiceObj?.paymentInfo.append(modelPaymanetInfo)
+        invoiceObj?.updated = true
         RealmManager().write(table: invoiceObj!)
         print("----PaymentInfo Data Save----")
         paymentDelegate?.getDataFromAddPayment(dataDict: invoiceObj!)

@@ -7,6 +7,9 @@
 //
 
 import Foundation
-public class RequestBulkAPI:BaseRequest{
+import Realm
+import RealmSwift
+public class RequestGetBulkAPI:BaseRequest{
+   
     
 }

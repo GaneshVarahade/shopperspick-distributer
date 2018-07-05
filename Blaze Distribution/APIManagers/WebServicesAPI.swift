@@ -90,7 +90,7 @@ class WebServicesAPI: NSObject {
         
         makeRequest(Router.forgotPassword(request: request), callback: onComplition)
     }
-    func BulkAPI(request:RequestBulkAPI,onComplition:@escaping (_ result:ResponseBulkRequest?, _ error:PlatformError?)-> ()){
+    func BulkAPI(request:RequestGetBulkAPI,onComplition:@escaping (_ result:ResponseBulkRequest?, _ error:PlatformError?)-> ()){
         makeRequest(Router.bulkGet(), callback: onComplition)
         
     }

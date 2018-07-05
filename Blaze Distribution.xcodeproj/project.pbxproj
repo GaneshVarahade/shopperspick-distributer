@@ -11,6 +11,7 @@
 		1808A84120D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808A84020D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift */; };
 		1812B33F20CAB31800B4DC26 /* ModelInventoryTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */; };
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
+		181C388620EDFF1D00A567B3 /* RequestPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C388520EDFF1D00A567B3 /* RequestPostModel.swift */; };
 		1827FC0620D11AB300DEA5E8 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */; };
 		1828E6C320C6D0F300EB74B4 /* Tables.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1828E6C220C6D0F300EB74B4 /* Tables.txt */; };
 		182B920420C7E0860041915B /* StoreImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920220C7E0850041915B /* StoreImage.swift */; };
@@ -85,7 +86,7 @@
 		B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65B520AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift */; };
 		B939C5C620D12FAC00552DEF /* ResponseInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939C5C520D12FAC00552DEF /* ResponseInventory.swift */; };
 		B939C5C820D1330A00552DEF /* ResponseInventories.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939C5C720D1330A00552DEF /* ResponseInventories.swift */; };
-		B942801820CE5DF500F2FA0F /* RequestBulkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942801720CE5DF500F2FA0F /* RequestBulkAPI.swift */; };
+		B942801820CE5DF500F2FA0F /* RequestGetBulkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942801720CE5DF500F2FA0F /* RequestGetBulkAPI.swift */; };
 		B942801A20CE708400F2FA0F /* ReponseCartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942801920CE708400F2FA0F /* ReponseCartProduct.swift */; };
 		B942E45620CFA19300E474E1 /* ModelRemainingProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45520CFA19300E474E1 /* ModelRemainingProduct.swift */; };
 		B942E45820CFA48000E474E1 /* ResponseRemaingProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E45720CFA48000E474E1 /* ResponseRemaingProduct.swift */; };
@@ -184,6 +185,7 @@
 		1808A84020D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseOrderItemsViewController.swift; sourceTree = "<group>"; };
 		1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventoryTransfers.swift; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
+		181C388520EDFF1D00A567B3 /* RequestPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPostModel.swift; sourceTree = "<group>"; };
 		1824C0BE20CA796400F7E1B4 /* bulkrequest.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = bulkrequest.rtf; path = "/Volumes/Development/Projects/iOSWorkspace/blaze-distribution-ios/Blaze Distribution/TextFilesForReference/bulkrequest.rtf"; sourceTree = "<absolute>"; };
 		1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		1828E6C220C6D0F300EB74B4 /* Tables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tables.txt; sourceTree = "<group>"; };
@@ -274,7 +276,7 @@
 		B92A65B520AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceItemsTableViewCell.swift; sourceTree = "<group>"; };
 		B939C5C520D12FAC00552DEF /* ResponseInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInventory.swift; sourceTree = "<group>"; };
 		B939C5C720D1330A00552DEF /* ResponseInventories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInventories.swift; sourceTree = "<group>"; };
-		B942801720CE5DF500F2FA0F /* RequestBulkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBulkAPI.swift; sourceTree = "<group>"; };
+		B942801720CE5DF500F2FA0F /* RequestGetBulkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestGetBulkAPI.swift; sourceTree = "<group>"; };
 		B942801920CE708400F2FA0F /* ReponseCartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponseCartProduct.swift; sourceTree = "<group>"; };
 		B942E45520CFA19300E474E1 /* ModelRemainingProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRemainingProduct.swift; sourceTree = "<group>"; };
 		B942E45720CFA48000E474E1 /* ResponseRemaingProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseRemaingProduct.swift; sourceTree = "<group>"; };
@@ -388,6 +390,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		181C388320EDFEEC00A567B3 /* APIPostBulkRequest */ = {
+			isa = PBXGroup;
+			children = (
+				181C388420EDFEFF00A567B3 /* RequestModel */,
+			);
+			path = APIPostBulkRequest;
+			sourceTree = "<group>";
+		};
+		181C388420EDFEFF00A567B3 /* RequestModel */ = {
+			isa = PBXGroup;
+			children = (
+				181C388520EDFF1D00A567B3 /* RequestPostModel.swift */,
+			);
+			path = RequestModel;
+			sourceTree = "<group>";
+		};
 		182B920A20C807DE0041915B /* TextFilesForReference */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,8 +446,9 @@
 		189F82B320C501B70054986E /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				181C388320EDFEEC00A567B3 /* APIPostBulkRequest */,
 				B9D45A0E20CA734600E4E0E8 /* APIForgotPassword */,
-				18EE27AD20C95FDC002A329B /* APIBulkRequest */,
+				18EE27AD20C95FDC002A329B /* APIGetBulkRequest */,
 				B92B26D820C7C1F5004DE575 /* PlatformError */,
 				189F82D320C508390054986E /* APILogin */,
 				189F82B420C501B70054986E /* APIGetAllInvoices */,
@@ -483,13 +502,13 @@
 			path = APILogin;
 			sourceTree = "<group>";
 		};
-		18EE27AD20C95FDC002A329B /* APIBulkRequest */ = {
+		18EE27AD20C95FDC002A329B /* APIGetBulkRequest */ = {
 			isa = PBXGroup;
 			children = (
 				B942801620CE5CBD00F2FA0F /* RequestModel */,
 				18EE27AE20C95FEB002A329B /* ResponseModel */,
 			);
-			path = APIBulkRequest;
+			path = APIGetBulkRequest;
 			sourceTree = "<group>";
 		};
 		18EE27AE20C95FEB002A329B /* ResponseModel */ = {
@@ -745,7 +764,7 @@
 		B942801620CE5CBD00F2FA0F /* RequestModel */ = {
 			isa = PBXGroup;
 			children = (
-				B942801720CE5DF500F2FA0F /* RequestBulkAPI.swift */,
+				B942801720CE5DF500F2FA0F /* RequestGetBulkAPI.swift */,
 			);
 			path = RequestModel;
 			sourceTree = "<group>";
@@ -1416,6 +1435,7 @@
 				B939C5C820D1330A00552DEF /* ResponseInventories.swift in Sources */,
 				B95A8A3220B4247900F76A15 /* SignatureViewController.swift in Sources */,
 				B9E5267E20B2DAAA00127E43 /* Completed_POStaticDetailsTableViewController.swift in Sources */,
+				181C388620EDFF1D00A567B3 /* RequestPostModel.swift in Sources */,
 				1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */,
 				B92822EC20C556D300BC32A1 /* RequestInvoices.swift in Sources */,
 				18F3F61720E52977002B37C3 /* PurchaseOrderAddShipment_VC.swift in Sources */,
@@ -1443,7 +1463,7 @@
 				B985566D20B43B8700A56497 /* ShippingManifestTableViewCell.swift in Sources */,
 				182B921820C839C00041915B /* ModelAssets.swift in Sources */,
 				B9E5267F20B2DAAA00127E43 /* Completed_InvoiceItemsViewController.swift in Sources */,
-				B942801820CE5DF500F2FA0F /* RequestBulkAPI.swift in Sources */,
+				B942801820CE5DF500F2FA0F /* RequestGetBulkAPI.swift in Sources */,
 				B9E5265A20B2C0D000127E43 /* ScanLookUpViewController.swift in Sources */,
 				1832492D20D2B11E008A71A4 /* InvoiceItemsViewController.swift in Sources */,
 				B9E5269020B3063C00127E43 /* LoginViewController.swift in Sources */,
