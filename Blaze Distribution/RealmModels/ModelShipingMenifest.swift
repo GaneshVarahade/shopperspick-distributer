@@ -33,7 +33,6 @@ public class ModelShipingMenifest:ModelBase {
 
     
     @objc public var asset:ModelAssets?
-    var itemsToShip = List<ModelCartProduct>()
     var selectedItems = List<ModelRemainingProduct>()
     
     open override class func primaryKey() -> String? {
@@ -63,18 +62,18 @@ public class ModelShipingMenifest:ModelBase {
         modelShipingMenifest.receiverAddress     = self.receiverAddress
         modelShipingMenifest.asset               = self.asset
         modelShipingMenifest.invoiceStatus       = self.invoiceStatus
-        
+        modelShipingMenifest.updated            = self.updated
         for item in self.selectedItems {
             
             modelShipingMenifest.selectedItems.append(item.copy() as! ModelRemainingProduct)
             
         }
         
-        for itos in self.itemsToShip {
-            
-            modelShipingMenifest.itemsToShip.append(itos.copy() as! ModelCartProduct)
-            
-        }
+//        for itos in self.itemsToShip {
+//
+//            modelShipingMenifest.itemsToShip.append(itos.copy() as! ModelCartProduct)
+//
+//        }
         
         
         return modelShipingMenifest

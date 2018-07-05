@@ -86,6 +86,13 @@ public class RealmManager <T: ModelBase>{
         return array
     }
     
+    public func deleteAll<T: ModelBase>(type: T.Type){
+        
+        try! getRealm().write {
+            getRealm().delete(getRealm().objects(type))
+        }
+        
+    }
     private func getRealm() -> Realm {
         return RealmSingleton.sharedInstance().getRealm()
     }

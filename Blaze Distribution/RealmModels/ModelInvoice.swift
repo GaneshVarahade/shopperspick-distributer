@@ -62,6 +62,7 @@ public class ModelInvoice:ModelBase {
         modelInvoice.vendorState = self.vendorState
         modelInvoice.vendorZipcode = self.vendorZipcode
         modelInvoice.vendorCountry = self.vendorCountry
+        modelInvoice.updated = self.updated
         
         for pay in self.paymentInfo{
             modelInvoice.paymentInfo.append(pay.copy() as! ModelPaymentInfo)

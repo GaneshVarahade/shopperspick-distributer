@@ -14,6 +14,12 @@
 		181C388620EDFF1D00A567B3 /* RequestPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C388520EDFF1D00A567B3 /* RequestPostModel.swift */; };
 		1824279F20EE1652009BBF08 /* RequestPurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1824279E20EE1652009BBF08 /* RequestPurchaseOrder.swift */; };
 		182427A120EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */; };
+		182427A820EE3E49009BBF08 /* RequestInventry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427A720EE3E49009BBF08 /* RequestInventry.swift */; };
+		182427AA20EE3F9A009BBF08 /* RequestCartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427A920EE3F9A009BBF08 /* RequestCartProduct.swift */; };
+		182427AC20EE4EA3009BBF08 /* RequestInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427AB20EE4EA3009BBF08 /* RequestInvoice.swift */; };
+		182427AE20EE57B7009BBF08 /* RequestModelInvoicePaymentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427AD20EE57B7009BBF08 /* RequestModelInvoicePaymentInfo.swift */; };
+		182427B020EE5F8F009BBF08 /* RequestModelShipingMainfest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427AF20EE5F8F009BBF08 /* RequestModelShipingMainfest.swift */; };
+		182427B220EE6809009BBF08 /* RequestShippingMainfestSelectedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427B120EE6809009BBF08 /* RequestShippingMainfestSelectedItem.swift */; };
 		1827FC0620D11AB300DEA5E8 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */; };
 		1828E6C320C6D0F300EB74B4 /* Tables.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1828E6C220C6D0F300EB74B4 /* Tables.txt */; };
 		182B920420C7E0860041915B /* StoreImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B920220C7E0850041915B /* StoreImage.swift */; };
@@ -190,6 +196,12 @@
 		181C388520EDFF1D00A567B3 /* RequestPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPostModel.swift; sourceTree = "<group>"; };
 		1824279E20EE1652009BBF08 /* RequestPurchaseOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPurchaseOrder.swift; sourceTree = "<group>"; };
 		182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPurchaseOrderProductReceived.swift; sourceTree = "<group>"; };
+		182427A720EE3E49009BBF08 /* RequestInventry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInventry.swift; sourceTree = "<group>"; };
+		182427A920EE3F9A009BBF08 /* RequestCartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCartProduct.swift; sourceTree = "<group>"; };
+		182427AB20EE4EA3009BBF08 /* RequestInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInvoice.swift; sourceTree = "<group>"; };
+		182427AD20EE57B7009BBF08 /* RequestModelInvoicePaymentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModelInvoicePaymentInfo.swift; sourceTree = "<group>"; };
+		182427AF20EE5F8F009BBF08 /* RequestModelShipingMainfest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModelShipingMainfest.swift; sourceTree = "<group>"; };
+		182427B120EE6809009BBF08 /* RequestShippingMainfestSelectedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestShippingMainfestSelectedItem.swift; sourceTree = "<group>"; };
 		1824C0BE20CA796400F7E1B4 /* bulkrequest.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = bulkrequest.rtf; path = "/Volumes/Development/Projects/iOSWorkspace/blaze-distribution-ios/Blaze Distribution/TextFilesForReference/bulkrequest.rtf"; sourceTree = "<absolute>"; };
 		1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		1828E6C220C6D0F300EB74B4 /* Tables.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tables.txt; sourceTree = "<group>"; };
@@ -397,6 +409,9 @@
 		181C388320EDFEEC00A567B3 /* APIPostBulkRequest */ = {
 			isa = PBXGroup;
 			children = (
+				182427A420EE3DBA009BBF08 /* PurchaseOrder */,
+				182427A320EE3D9B009BBF08 /* Inventry */,
+				182427A220EE3D8B009BBF08 /* Invoice */,
 				181C388420EDFEFF00A567B3 /* RequestModel */,
 			);
 			path = APIPostBulkRequest;
@@ -410,6 +425,35 @@
 				182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */,
 			);
 			path = RequestModel;
+			sourceTree = "<group>";
+		};
+		182427A220EE3D8B009BBF08 /* Invoice */ = {
+			isa = PBXGroup;
+			children = (
+				182427AB20EE4EA3009BBF08 /* RequestInvoice.swift */,
+				182427AD20EE57B7009BBF08 /* RequestModelInvoicePaymentInfo.swift */,
+				182427AF20EE5F8F009BBF08 /* RequestModelShipingMainfest.swift */,
+				182427B120EE6809009BBF08 /* RequestShippingMainfestSelectedItem.swift */,
+			);
+			name = Invoice;
+			path = Inventry;
+			sourceTree = "<group>";
+		};
+		182427A320EE3D9B009BBF08 /* Inventry */ = {
+			isa = PBXGroup;
+			children = (
+				182427A720EE3E49009BBF08 /* RequestInventry.swift */,
+				182427A920EE3F9A009BBF08 /* RequestCartProduct.swift */,
+			);
+			name = Inventry;
+			path = Invoice;
+			sourceTree = "<group>";
+		};
+		182427A420EE3DBA009BBF08 /* PurchaseOrder */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PurchaseOrder;
 			sourceTree = "<group>";
 		};
 		182B920A20C807DE0041915B /* TextFilesForReference */ = {
@@ -1448,6 +1492,7 @@
 				189F82CE20C5054E0054986E /* Router.swift in Sources */,
 				182B921020C839290041915B /* ModelLocation.swift in Sources */,
 				189F82DB20C50C090054986E /* BaseRequest.swift in Sources */,
+				182427AE20EE57B7009BBF08 /* RequestModelInvoicePaymentInfo.swift in Sources */,
 				B9AA85E220C925B800751BF2 /* LoginModel.swift in Sources */,
 				B92A65AC20AF303500CDA4CC /* InvoicesTableViewCell.swift in Sources */,
 				B9D45A1120CA741600E4E0E8 /* RequestForgotPassword.swift in Sources */,
@@ -1508,9 +1553,11 @@
 				B9CAC8DD20AF1155008F1650 /* UIButtonX.swift in Sources */,
 				182B921620C839A30041915B /* ModelSignature.swift in Sources */,
 				B98E12DE20D150470067B5B0 /* ModelInventory.swift in Sources */,
+				182427AC20EE4EA3009BBF08 /* RequestInvoice.swift in Sources */,
 				B9D45A1420CA74CB00E4E0E8 /* ResponseForgorPassword.swift in Sources */,
 				B942E45820CFA48000E474E1 /* ResponseRemaingProduct.swift in Sources */,
 				B985566F20B440E500A56497 /* WebServicesAPI.swift in Sources */,
+				182427B220EE6809009BBF08 /* RequestShippingMainfestSelectedItem.swift in Sources */,
 				B9D45A0B20CA576C00E4E0E8 /* ResponsePaymentsReceived.swift in Sources */,
 				B942E45A20CFBE3800E474E1 /* ResponseInvoiceItems.swift in Sources */,
 				18EE27B020C96003002A329B /* ResponseBulkRequest.swift in Sources */,
@@ -1540,6 +1587,7 @@
 				B98E12DC20D14E630067B5B0 /* ModelInventories.swift in Sources */,
 				B9AA85E820C97E0F00751BF2 /* ResponseCart.swift in Sources */,
 				B985566B20B43B6000A56497 /* QuantityBatchTableViewCell.swift in Sources */,
+				182427AA20EE3F9A009BBF08 /* RequestCartProduct.swift in Sources */,
 				B985566520B4379F00A56497 /* Constants.swift in Sources */,
 				B9CAC8DE20AF1155008F1650 /* UIImageViewX.swift in Sources */,
 				B9E5266320B2C35A00127E43 /* BasketTableViewCell.swift in Sources */,
@@ -1549,12 +1597,14 @@
 				B9CAC8DC20AF1155008F1650 /* UISliderX.swift in Sources */,
 				B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */,
 				B9D45A0920CA566C00E4E0E8 /* ResponseVendor.swift in Sources */,
+				182427B020EE5F8F009BBF08 /* RequestModelShipingMainfest.swift in Sources */,
 				18EE27BA20C962AB002A329B /* ResponseInventoryTransfers.swift in Sources */,
 				1846DBA820B21B5B0076BECD /* DistributionConfig.swift in Sources */,
 				B9E5268120B2DF9200127E43 /* PurchaseOrderTableViewCell.swift in Sources */,
 				B95A8A2E20B4238B00F76A15 /* ManifestInfoTableViewController.swift in Sources */,
 				B92A65AE20AF3CE900CDA4CC /* ScanInvoiceViewController.swift in Sources */,
 				B9AA85E620C973B200751BF2 /* ResponseShippingManifests.swift in Sources */,
+				182427A820EE3E49009BBF08 /* RequestInventry.swift in Sources */,
 				1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */,
 				B9E5266C20B2CF0E00127E43 /* PurchaseOrderDetailsTableViewController.swift in Sources */,
 				1824279F20EE1652009BBF08 /* RequestPurchaseOrder.swift in Sources */,

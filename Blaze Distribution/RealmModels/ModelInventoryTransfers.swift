@@ -45,6 +45,7 @@ public class ModelInventoryTransfers: ModelBase {
         modelInventoryTransfers.toInventoryName   = self.toInventoryName
         modelInventoryTransfers.status            = self.status
         modelInventoryTransfers.id                = self.id
+        modelInventoryTransfers.updated                = self.updated
         
         for prod in self.slectedProducts{
             modelInventoryTransfers.slectedProducts.append(prod.copy() as! ModelCartProduct)

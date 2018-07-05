@@ -98,7 +98,11 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             modelOpenTransfer.slectedProducts = modelCreateTransfer.slectedProducts
             
             RealmManager().write(table: modelOpenTransfer)
-            print( RealmManager().readList(type: ModelInventoryTransfers.self).count)
+            
+            print(RealmManager().read(type:ModelInventoryTransfers.self, primaryKey:modelOpenTransfer.id!))
+            
+            SyncService.sharedInstance().syncData()
+            //print( RealmManager().readList(type: ModelInventoryTransfers.self).count)
             showAlert(alertTitle: "Message", alertMessage:"Svaed Sucessfuly!", tag: 1)
             modelCreateTransfer = nil
         }

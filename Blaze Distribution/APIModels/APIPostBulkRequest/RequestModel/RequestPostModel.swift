@@ -11,4 +11,6 @@ import Foundation
 public class RequestPostModel: BaseRequest {
     
     public var purchaseOrders = [RequestPurchaseOrder]()
+    public var inventryTrasfer = [RequestInventry]()
+    public var invoice = [RequestInvoice]()
 }

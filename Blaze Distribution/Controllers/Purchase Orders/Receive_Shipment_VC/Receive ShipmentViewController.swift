@@ -49,12 +49,10 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
                 RealmManager().write(table: modelPurchaseOrder)
 //                print(RealmManager().readList(type: ModelPurchaseOrder.self))
 //                print(RealmManager().read(type: ModelPurchaseOrder.self, primaryKey:modelPurchaseOrder.purchaseOrderNumber!))
-                
+                SyncService.sharedInstance().syncData()
                 
                 showAlert(alertTitle: "Done", alertMessage: "Saved Succesfully!",tag: 1)
                 print(modelPurchaseOrder.productReceived)
-                
-                SyncService.sharedInstance().syncData()
             }else{
            showAlert(alertTitle: "Warning", alertMessage: "Recived product quantity should not be empty, and is always less than or equel to Expected product quantity ",tag: 0)
             }
