@@ -59,7 +59,6 @@ class ScanInvoiceViewController: UIViewController,QRCodeReaderViewControllerDele
     }
     
     // MARK: - QRCodeReaderViewController Delegate Methods
-    
     func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
         reader.stopScanning()
         

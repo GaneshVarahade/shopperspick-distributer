@@ -10,10 +10,21 @@ import UIKit
 import SKActivityIndicatorView
 import RealmSwift
 import Realm
-class InvoicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate {
+import QRCodeReader
+import AVFoundation
+class InvoicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate,QRCodeReaderViewControllerDelegate {
+    
+    lazy var readerVC: QRCodeReaderViewController = {
+        let builder = QRCodeReaderViewControllerBuilder {
+            $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
+        }
+        
+        return QRCodeReaderViewController(builder: builder)
+    }()
 
     var filtered : [ModelInvoice] = []
     var valueDataObj : [ModelInvoice]!
+    var modelInvoice: [ModelInvoice]?
     @IBOutlet weak var invoiceSegmentController: UISegmentedControl!
     @IBOutlet weak var invoicesSearchBar: UISearchBar!
     @IBOutlet weak var invoiceTableView: UITableView!
@@ -92,8 +103,8 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     // MARK:- UIButton Events
     @IBAction func scanInvoiceBtnPressed(_ sender: Any) {
-
-    }
+       startScanning()
+    } 
     // MARK:- UITouch events
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -195,4 +206,59 @@ extension InvoicesViewController{
                 nextVC.tempData = invoiceObject
         }
     }
+    
+    //MARK : -  QRCOde reder deleaget
+    func startScanning() {
+        readerVC.delegate = self
+        
+        // Or by using the closure pattern
+        readerVC.completionBlock = { (result: QRCodeReaderResult?) in
+            print(result)
+        }
+        // Presents the readerVC as modal form sheet
+        readerVC.modalPresentationStyle = .formSheet
+        present(readerVC, animated: true, completion: nil)
+    }
+    
+    // MARK: - QRCodeReaderViewController Delegate Methods
+    func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
+        reader.stopScanning()
+        
+        //scanResultLabel.text = "\(result.value)"
+        //let invoiceNumber = "INV-003765"
+        self.modelInvoice = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceNumber = '\(result.value)'")
+        afterScan()
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    //This is an optional delegate method, that allows you to be notified when the user switches the cameraName
+    //By pressing on the switch camera button
+    func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
+        if newCaptureDevice.device.localizedName != "" {
+            print("Switching capturing to: \(newCaptureDevice.device.localizedName)")
+        }
+    }
+    
+    func readerDidCancel(_ reader: QRCodeReaderViewController) {
+        reader.stopScanning()
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func afterScan(){
+        if let modelInvoiceList = modelInvoice {
+            if modelInvoiceList.count > 0 {
+                let obj = self.storyboard?.instantiateViewController(withIdentifier: "InvoiceDetailsTableViewController") as! InvoiceDetailsTableViewController
+                obj.tempData = modelInvoice?.first
+                self.navigationController?.pushViewController(obj, animated: true)
+                
+            }else{
+                showToast("Sorry! no record found")
+            }
+        }else{
+            showToast("Sorry! no record found")
+        }
+    }
+    
 }
