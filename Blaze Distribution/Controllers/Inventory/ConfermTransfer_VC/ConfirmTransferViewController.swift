@@ -22,6 +22,7 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Confirm Transfer"
         if deviceIdiom == .pad{
             self.transferTableView.estimatedRowHeight = 80
         }else {
