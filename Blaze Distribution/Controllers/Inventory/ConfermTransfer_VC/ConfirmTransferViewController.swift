@@ -48,7 +48,6 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
        
         //Get selected card product
         selectedCartProduct = self.modelCreateTransfer.slectedProducts
-        print(selectedCartProduct!)
         transferTableView.reloadData()
     }
     
@@ -102,52 +101,13 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             modelOpenTransfer.slectedProducts = modelCreateTransfer.slectedProducts
             
             RealmManager().write(table: modelOpenTransfer)
-            
-//            print(RealmManager().read(type:ModelInventoryTransfers.self, primaryKey:modelOpenTransfer.id!))
-            
             SyncService.sharedInstance().syncData()
-            //print( RealmManager().readList(type: ModelInventoryTransfers.self).count)
-            showAlert(alertTitle: "Message", alertMessage:"Svaed Sucessfuly!", tag: 1)
+            
+            showAlert(title: "Message", message: "Saved Successfully!", closure: {
+                self.navigationController?.popToRootViewController(animated: true)
+            })
             modelCreateTransfer = nil
         }
     }
-    
-    //Mark:- Alert View
-    func showAlert(alertTitle:NSString,alertMessage:NSString,tag:Int) -> Void {
-        let alert = UIAlertController(title: alertTitle as String, message: alertMessage as String, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            switch action.style{
-            case .default:
-                print("default")
-                if tag == 1{
-                    //self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
-//                    for controller in self.navigationController!.viewControllers as Array {
-//                        if controller.isKind(of: CreateTransferViewController.self) {
-//                            self.navigationController!.popToViewController(controller, animated: true)
-//                            break
-//                        }
-//                    }
-                    self.navigationController?.popToRootViewController(animated: true)
-                }
-                
-            case .cancel:
-                print("cancel")
- 
-            case .destructive:
-                print("destructive")
- 
-            }}))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

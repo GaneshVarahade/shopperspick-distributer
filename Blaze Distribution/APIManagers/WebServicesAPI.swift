@@ -1,11 +1,3 @@
-//
-//  WebServicesAPI.swift
-//  GreenForceDelivery
-//
-//  Created by Fidel iOS on 08/02/18.
-//  Copyright © 2018 Fidel iOS. All rights reserved.
-//
-
 import UIKit
 import Alamofire
 import Foundation
@@ -26,9 +18,9 @@ class WebServicesAPI: NSObject {
         }
         return webServiceAPI
     }
-    fileprivate func makeRequest<T:BaseResponseModel>(_ request:URLRequestConvertible, callback:@escaping (_ result:T?,_ error:PlatformError?)-> Void ){
+    fileprivate func makeRequest<T:BaseResponseModel>(_ request:Router, callback:@escaping (_ result:T?,_ error:PlatformError?)-> Void ){
         
-        self.printRequest(request.urlRequest, nil)
+        self.printRequest(urlData: request.getRouterInfo(), nil)
         
         Alamofire.request(request)
             .responseJSON { (response:DataResponse<Any>) in
@@ -36,7 +28,7 @@ class WebServicesAPI: NSObject {
                 
                 if let res = response.response {
                     
-                    self.printRequest(request.urlRequest, data)
+                    self.printRequest(urlData: request.getRouterInfo(), data)
                     
                     do {
                         let headers = res.allHeaderFields
@@ -85,10 +77,6 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.sessionLogin(request: request), callback: onComplition)
     }
     
-//    func InvoiceAPI(request:RequestInvoices,onComplition:@escaping (_ result:ResponseGetAllInvoices?, _ error:PlatformError?)-> ()){
-//        
-//        makeRequest(Router.sessionInvoice(request: ["shopId":request.shopId]), callback: onComplition)
-//    }
     func ForgorPasswordAPI(request:RequestForgotPassword,onComplition:@escaping (_ result:ResponseForgotPassword?, _ error:PlatformError?)-> ()){
         
         makeRequest(Router.forgotPassword(request: request), callback: onComplition)
@@ -103,34 +91,66 @@ class WebServicesAPI: NSObject {
         
     }
     
-    private func printRequest(_ requestUrl:URLRequest?,_ data: Any?){
+    private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){
+ 
+        var str: String = ""
+        str.append("\n\n\n\n")
+        str.append("=================================================================")
+        let URL = Foundation.URL(string: Router.baseURLString)!
+        let request = URLRequest(url: URL.appendingPathComponent(urlData!.1))
         
-        DispatchQueue.global(qos: .background).async {
-            let str = "Request is Nil"
-            
-            guard data != nil else {
-                AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str) \n Response: in Nil")
-                return
+        
+        str.append("\n")
+        str.append("--------------------------REQUEST--------------------------")
+        str.append("\n")
+        str.append("\(urlData?.0.rawValue) -- ")
+        str.append("\(request.urlRequest!)")
+        str.append("\n")
+ 
+        
+        if let body = urlData?.2 {
+            //Convert back to string.
+            if let jsonRequest = String(data: body, encoding: String.Encoding.utf8) {
+                str.append("\(jsonRequest)")
+            }else{
+                str.append("NonJson Request")
             }
-            
+        }
+        
+        
+        //=========== RESPONSE
+        str.append("\n\n")
+        str.append("--------------------------RESPONSE--------------------------")
+        str.append("\n")
+        
+        if let data = data {
             do{
                 let jsonData = try JSONSerialization.data(withJSONObject: data, options: JSONSerialization.WritingOptions.prettyPrinted)
                 
                 //Convert back to string.
                 if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
                     
-                    print(JSONString)
-                    AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "URL: \(requestUrl?.description ?? str)")
-                    AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "URL: \(requestUrl?.description ?? str) \n Response: \(JSONString)")
+                    
+                    str.append("\(JSONString)")
                     
                 }else{
-                    AQLog.debug(tag: AQLog.TAG_RESPONSE_DATA, text: "NonJson Response: \(jsonData)")
+                    
+                    str.append("Error in Json")
+                    
                 }
-                
             }catch {
                 print("In RestWrapper.makeRequest \(error.localizedDescription)")
             }
+        }else {
+            str.append("NonJson Response")
         }
+        
+        str.append("\n")
+        str.append("----------------------------------------------------")
+        str.append("\n")
+        str.append("----------------------------------------------------")
+        print(str)
+
     }
 }
     

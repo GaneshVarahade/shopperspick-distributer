@@ -83,7 +83,6 @@
 		B9266C5B20AEC8FE0021356C /* Blaze_DistributionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C5A20AEC8FE0021356C /* Blaze_DistributionUITests.swift */; };
 		B9266C7320AED9BA0021356C /* SplashScreenVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C7220AED9BA0021356C /* SplashScreenVCViewController.swift */; };
 		B9266C7520AEDC940021356C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9266C7420AEDC940021356C /* ForgotPasswordViewController.swift */; };
-		B92755F920C1256B008F0499 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92755F820C1256B008F0499 /* DBManager.swift */; };
 		B92822EC20C556D300BC32A1 /* RequestInvoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92822EB20C556D300BC32A1 /* RequestInvoices.swift */; };
 		B92A65A820AF209200CDA4CC /* ShippingManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65A720AF209200CDA4CC /* ShippingManifestViewController.swift */; };
 		B92A65AA20AF2E3F00CDA4CC /* InvoicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65A920AF2E3E00CDA4CC /* InvoicesViewController.swift */; };
@@ -281,7 +280,6 @@
 		B9266C5C20AEC8FE0021356C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9266C7220AED9BA0021356C /* SplashScreenVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVCViewController.swift; sourceTree = "<group>"; };
 		B9266C7420AEDC940021356C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
-		B92755F820C1256B008F0499 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		B92822EB20C556D300BC32A1 /* RequestInvoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInvoices.swift; sourceTree = "<group>"; };
 		B92A65A720AF209200CDA4CC /* ShippingManifestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingManifestViewController.swift; sourceTree = "<group>"; };
 		B92A65A920AF2E3E00CDA4CC /* InvoicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoicesViewController.swift; sourceTree = "<group>"; };
@@ -640,16 +638,11 @@
 				B9266C4120AEC8FE0021356C /* Assets.xcassets */,
 				1846DB8920B219CD0076BECD /* Config */,
 				B9266C6E20AED0620021356C /* Controllers */,
-				B92755F720C12501008F0499 /* DataBaseManager */,
 				B9266C4620AEC8FE0021356C /* Info.plist */,
-				B9266C7020AED0800021356C /* Models */,
 				189F82AF20C501B70054986E /* RealmHelpers */,
 				189F82B820C501B70054986E /* RealmModels */,
-				B92822EA20C5563E00BC32A1 /* RequestModels */,
-				B9266C6920AECFFF0021356C /* Resources */,
 				B9266C6C20AED03A0021356C /* Storyboard */,
 				B9266C6A20AED0160021356C /* Utilities */,
-				B9266C6B20AED0280021356C /* Venders */,
 				B9266C6F20AED0750021356C /* Views */,
 				186E434C20DBF34100421708 /* Localizable.strings */,
 			);
@@ -682,13 +675,6 @@
 			path = "App Delegate";
 			sourceTree = "<group>";
 		};
-		B9266C6920AECFFF0021356C /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		B9266C6A20AED0160021356C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -707,13 +693,6 @@
 				1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		B9266C6B20AED0280021356C /* Venders */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Venders;
 			sourceTree = "<group>";
 		};
 		B9266C6C20AED03A0021356C /* Storyboard */ = {
@@ -764,28 +743,6 @@
 				B91809D720D27960001C336B /* InvoicePaymentsTableViewCell.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		B9266C7020AED0800021356C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		B92755F720C12501008F0499 /* DataBaseManager */ = {
-			isa = PBXGroup;
-			children = (
-				B92755F820C1256B008F0499 /* DBManager.swift */,
-			);
-			path = DataBaseManager;
-			sourceTree = "<group>";
-		};
-		B92822EA20C5563E00BC32A1 /* RequestModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RequestModels;
 			sourceTree = "<group>";
 		};
 		B92B26D720C7C197004DE575 /* RequestModels */ = {
@@ -1505,7 +1462,6 @@
 				182F83AF20D007F3007A1019 /* EventBus.swift in Sources */,
 				189F82C320C501B70054986E /* ModelInvoice.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
-				B92755F920C1256B008F0499 /* DBManager.swift in Sources */,
 				B9D45A0520CA53F900E4E0E8 /* ResponseProducts.swift in Sources */,
 				182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */,
 				B985566920B43B2900A56497 /* YPDrawSignatureView.swift in Sources */,

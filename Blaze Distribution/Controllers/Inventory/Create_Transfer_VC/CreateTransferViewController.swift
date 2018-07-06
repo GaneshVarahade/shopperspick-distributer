@@ -100,7 +100,6 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             
             //selectedFromShop = shop
             modelFromLocation.shop = shop
-            print("\(listFromShop[pickerView.selectedRow(inComponent: 0)].name ?? "No Data")")
             let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
             
             if let modelInventories = modelInventories {
@@ -120,7 +119,6 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             
             
             modelToLocation.shop = shop
-            print("\(listToShop[pickerView.selectedRow(inComponent: 0)].name ?? "No Data")")
             let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
             
             if let modelInventories = modelInventories {
