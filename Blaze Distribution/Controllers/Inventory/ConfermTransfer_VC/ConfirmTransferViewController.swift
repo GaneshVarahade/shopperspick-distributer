@@ -22,7 +22,11 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.transferTableView.estimatedRowHeight = 60
+        if deviceIdiom == .pad{
+            self.transferTableView.estimatedRowHeight = 80
+        }else {
+            self.transferTableView.estimatedRowHeight = 60
+        }
         self.transferTableView.rowHeight = UITableViewAutomaticDimension
     }
     
@@ -64,7 +68,7 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if deviceIdiom == .pad {
-            return 50
+            return 80
         }
         else {
             return 70
@@ -99,7 +103,7 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             
             RealmManager().write(table: modelOpenTransfer)
             
-            print(RealmManager().read(type:ModelInventoryTransfers.self, primaryKey:modelOpenTransfer.id!))
+//            print(RealmManager().read(type:ModelInventoryTransfers.self, primaryKey:modelOpenTransfer.id!))
             
             SyncService.sharedInstance().syncData()
             //print( RealmManager().readList(type: ModelInventoryTransfers.self).count)

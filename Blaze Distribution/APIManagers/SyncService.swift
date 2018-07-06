@@ -44,7 +44,7 @@ public final class SyncService {
                 
             }else if self.isPostBulkAvailable() {
                 
-                self.syncPostBulkData()
+               self.syncPostBulkData()
                 
             }else{
                 self.syncGetBulkData()
@@ -64,10 +64,11 @@ public final class SyncService {
         AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: "\(realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true").count)")
         AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: "\(realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true").count)")
         AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: "\(realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true").count)")
-        
-        return (realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true").count > 0 ||
-            realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true").count > 0 ||
-            realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true").count > 0)
+        //Commented Temporaray
+//        return (realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true").count > 0 ||
+//            realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true").count > 0 ||
+//            realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true").count > 0)
+        return false;
     }
     
     private func syncSignature() {
