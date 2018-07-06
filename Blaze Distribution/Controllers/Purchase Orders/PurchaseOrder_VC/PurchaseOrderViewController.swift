@@ -185,22 +185,6 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
        
         
     }
-    //MARK : - UIAlertView
-    func showAlert(alertTitle:NSString,alertMessage:NSString,tag:Int) -> Void {
-        let alert = UIAlertController(title: alertTitle as String, message: alertMessage as String, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            switch action.style{
-            case .default:
-                print("default")
-            case .cancel:
-                print("cancel")
-            case .destructive:
-                print("destructive")
-                
-                
-            }}))
-        self.present(alert, animated: true, completion: nil)
-    }
     
     //MARK: - QRCodeReader Delegate
     func startScanning() {

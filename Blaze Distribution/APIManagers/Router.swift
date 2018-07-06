@@ -1,11 +1,3 @@
-//
-//  DispensaryServerRouter.swift
-//  DispensaryCore
-//
-//  Created by Manh Do on 7/5/15.
-//  Copyright (c) 2015 420connect. All rights reserved.
-//
-
 import Foundation
 import Alamofire
 
@@ -55,32 +47,7 @@ enum Router : URLRequestConvertible {
             let sessionData = "Token \(sessionToken)"
             request.setValue(sessionData, forHTTPHeaderField: "Authorization")
         }
-        
-        //===========
-        // This block is to print the request
-        print("json: \(requestJson)")
-        if let body = requestJson {
-            do {
-                
-
-//                let jsonData = try JSONSerialization.data(withJSONObject: body, options: JSONSerialization.WritingOptions.prettyPrinted)
-                // here "jsonData" is the dictionary encoded in JSON data
-                
-                //Convert back to string.
-                if let jsonRequest = String(data: body, encoding: String.Encoding.utf8) {
-                    
-                    AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "======================================================= \n Request URL: \(request.urlRequest!) \n Request Body: \n \(jsonRequest)")
-                }else{
-                    AQLog.debug(tag: AQLog.TAG_REQUEST_DATA, text: "NonJson Request: \(body)")
-                }
-                
-            } catch let error as NSError {
-                print(error)
-            }
-            
-        }
-        
-        //============
+     
         return try Alamofire.URLEncoding.default.encode(request, with: params)
     }
     

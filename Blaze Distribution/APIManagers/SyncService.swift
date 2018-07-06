@@ -1,11 +1,3 @@
-//
-//  SyncService.swift
-//  Blaze Distribution
-//
-//  Created by Apple on 06/06/18.
-//  Copyright © 2018 Fidel iOS. All rights reserved.
-//
-
 import Foundation
 
 public final class SyncService {
@@ -78,133 +70,152 @@ public final class SyncService {
  
     private func syncPostBulkData(){
         
-        ///After API complete call resync, so syncdata can run recursively
-        let realmManager: RealmManager = RealmManager()
-        let modelPurchaseOrders = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true")
-        let modelInventryTransfer = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true")
-        let modelInvoice = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true")
-        
-        let requestModel = RequestPostModel()
-        
-        //For Model purchase order
-        for model in modelPurchaseOrders {
-            let requestPurchase: RequestPurchaseOrder = RequestPurchaseOrder()
-            requestPurchase.purchaseOrderNumber = model.purchaseOrderNumber
-            requestPurchase.isMetRc = model.isMetRc
-            requestPurchase.metrcId = model.metrcId
-            requestPurchase.status = model.status
-            requestPurchase.origin = model.origin
-            requestPurchase.received = model.received
-            requestPurchase.completedDate = model.completedDate
- 
-            for productReceived in model.productReceived {
-                let requestPurchaseOrderReceived: RequestPurchaseOrderProductReceived = RequestPurchaseOrderProductReceived()
+        DispatchQueue.global(qos: .userInitiated).async {
+          
+            ///After API complete call resync, so syncdata can run recursively
+            let realmManager: RealmManager = RealmManager()
+            let modelPurchaseOrders = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true")
+            let modelInventryTransfer = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true")
+            let modelInvoice = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true")
+            
+            let requestModel = RequestPostModel()
+            
+            //For Model purchase order
+            for model in modelPurchaseOrders {
+                let requestPurchase: RequestPurchaseOrder = RequestPurchaseOrder()
+                requestPurchase.purchaseOrderNumber = model.purchaseOrderNumber
+                requestPurchase.isMetRc = model.isMetRc
+                requestPurchase.metrcId = model.metrcId
+                requestPurchase.status = model.status
+                requestPurchase.origin = model.origin
+                requestPurchase.received = model.received
+                requestPurchase.completedDate = model.completedDate
                 
-                requestPurchaseOrderReceived.name = productReceived.name
-                requestPurchaseOrderReceived.expected = productReceived.expected
-                requestPurchaseOrderReceived.received = productReceived.received
-                
-                requestPurchase.productReceived.append(requestPurchaseOrderReceived)
-            }
-            
-            requestModel.purchaseOrders.append(requestPurchase)
-        }
-        
-        //For Model Inventry Transfer
-        for model in modelInventryTransfer {
-            
-            let requestInventry: RequestInventry = RequestInventry()
-             requestInventry.transferNo = model.transferNo
-             requestInventry.fromShopId = model.fromShopId
-             requestInventry.toShopId = model.toShopId
-             requestInventry.fromShopName = model.fromShopName
-             requestInventry.toShopName = model.toShopName
-             requestInventry.fromInventoryName = model.fromInventoryName
-             requestInventry.toInventoryName = model.toInventoryName
-             requestInventry.status = model.status
-            
-            for productInCart in model.slectedProducts {
-                let requestCartProduct: RequestCartProduct = RequestCartProduct()
-                requestCartProduct.name = productInCart.name
-                requestCartProduct.batchId = productInCart.batchId
-                requestCartProduct.quantity = productInCart.quantity
-                requestInventry.cartProduct.append(requestCartProduct)
-            }
-                requestModel.inventryTrasfer.append(requestInventry)
-        }
-        
-        
-        //For Model Invoice
-        for model in modelInvoice {
-            
-            let requestInvoice: RequestInvoice = RequestInvoice()
-            requestInvoice.invoiceNumber = model.invoiceNumber
-            requestInvoice.dueDate = model.dueDate
-            requestInvoice.vendorCompany = model.vendorCompany
-            
-            //Payment info list
-            for payment in model.paymentInfo {
-                let requestModelInvoicePayment: RequestModelInvoicePaymentInfo = RequestModelInvoicePaymentInfo()
-                requestModelInvoicePayment.debitCardNo = payment.debitCardNo
-                requestModelInvoicePayment.achDate = payment.achDate
-                requestModelInvoicePayment.paymentDate = payment.paymentDate
-                requestModelInvoicePayment.referenceNumber = payment.referenceNumber
-                requestModelInvoicePayment.amount = payment.amount
-                requestModelInvoicePayment.notes = payment.notes
-                requestInvoice.invoicePyamentInfo.append(requestModelInvoicePayment)
-            }
-            
-            //List shipping mainfest
-            for shiping in model.shippingManifests {
-                let requestModelShippingMainfest: RequestModelShipingMainfest = RequestModelShipingMainfest()
-                requestModelShippingMainfest.shippingManifestNo = shiping.shippingManifestNo
-                requestModelShippingMainfest.deliveryDate = shiping.deliveryDate
-                requestModelShippingMainfest.deliveryTime = shiping.deliveryTime
-                requestModelShippingMainfest.driverName = shiping.driverName
-                requestModelShippingMainfest.vehicleMake = shiping.vehicleMake
-                requestModelShippingMainfest.vehicleModel = shiping.vehicleModel
-                requestModelShippingMainfest.vehicleColor = shiping.vehicleColor
-                requestModelShippingMainfest.vehicleLicensePlate = shiping.vehicleLicensePlate
-                requestModelShippingMainfest.driverLicenPlate = shiping.driverLicenPlate
-                requestModelShippingMainfest.signaturePhoto = shiping.signaturePhoto
-                requestModelShippingMainfest.receiverCompany = shiping.receiverCompany
-                requestModelShippingMainfest.receiverType = shiping.receiverType
-                requestModelShippingMainfest.receiverContact = shiping.receiverContact
-                requestModelShippingMainfest.receiverLicense = shiping.receiverLicense
-                requestModelShippingMainfest.invoiceStatus = shiping.invoiceStatus
-                
-                //add shiping selected items
-                //Payment info list
-                for selectedItem in shiping.selectedItems {
-                    let requestSelectedItemsShipping: RequestShippingMainfestSelectedItem = RequestShippingMainfestSelectedItem()
-                    requestSelectedItemsShipping.productId = selectedItem.productId
-                    requestSelectedItemsShipping.productName = selectedItem.productName
-                    requestSelectedItemsShipping.remainingQuantity = selectedItem.remainingQuantity
-                    requestSelectedItemsShipping.requestQuantity = selectedItem.requestQuantity
-                    requestSelectedItemsShipping.isSelected = selectedItem.isSelected
-               
-                requestModelShippingMainfest.shippingSelectedItems.append(requestSelectedItemsShipping)
+                for productReceived in model.productReceived {
+                    let requestPurchaseOrderReceived: RequestPurchaseOrderProductReceived = RequestPurchaseOrderProductReceived()
+                    
+                    requestPurchaseOrderReceived.name = productReceived.name
+                    requestPurchaseOrderReceived.expected = productReceived.expected
+                    requestPurchaseOrderReceived.received = productReceived.received
+                    
+                    requestPurchase.productReceived.append(requestPurchaseOrderReceived)
                 }
                 
-                requestInvoice.modelShipingMainfest.append(requestModelShippingMainfest)
-
+                
+                requestModel.purchaseOrders.append(requestPurchase)
             }
             
-            requestModel.invoice.append(requestInvoice)
-        }
-        
-        WebServicesAPI.sharedInstance().BulkPostAPI(request: requestModel) {
-            (result:ResponseBulkRequest?,error:PlatformError?) in
+            //For Model Inventry Transfer
+            for model in modelInventryTransfer {
+                
+                let requestInventry: RequestInventry = RequestInventry()
+                requestInventry.transferNo = model.transferNo
+                requestInventry.fromShopId = model.fromShopId
+                requestInventry.toShopId = model.toShopId
+                requestInventry.fromShopName = model.fromShopName
+                requestInventry.toShopName = model.toShopName
+                requestInventry.fromInventoryName = model.fromInventoryName
+                requestInventry.toInventoryName = model.toInventoryName
+                requestInventry.status = model.status
+                
+                for productInCart in model.slectedProducts {
+                    let requestCartProduct: RequestCartProduct = RequestCartProduct()
+                    requestCartProduct.name = productInCart.name
+                    requestCartProduct.batchId = productInCart.batchId
+                    requestCartProduct.quantity = productInCart.quantity
+                    requestInventry.cartProduct.append(requestCartProduct)
+                }
+                requestModel.inventryTrasfer.append(requestInventry)
+            }
             
-            //Please delete this line
-            RealmManager().deleteAll(type: ModelInvoice.self)
-            RealmManager().deleteAll(type: ModelInventoryTransfers.self)
-            RealmManager().deleteAll(type: ModelPurchaseOrder.self)
-            RealmManager().deleteAll(type: ModelProduct.self)
             
-            self.resync()
+            //For Model Invoice
+            for model in modelInvoice {
+                
+                let requestInvoice: RequestInvoice = RequestInvoice()
+                requestInvoice.invoiceNumber = model.invoiceNumber
+                requestInvoice.dueDate = model.dueDate
+                requestInvoice.vendorCompany = model.vendorCompany
+                
+                //Payment info list
+                for payment in model.paymentInfo {
+                    let requestModelInvoicePayment: RequestModelInvoicePaymentInfo = RequestModelInvoicePaymentInfo()
+                    requestModelInvoicePayment.debitCardNo = payment.debitCardNo
+                    requestModelInvoicePayment.achDate = payment.achDate
+                    requestModelInvoicePayment.paymentDate = payment.paymentDate
+                    requestModelInvoicePayment.referenceNumber = payment.referenceNumber
+                    requestModelInvoicePayment.amount = payment.amount
+                    requestModelInvoicePayment.notes = payment.notes
+                    requestInvoice.invoicePyamentInfo.append(requestModelInvoicePayment)
+                }
+                
+                //List shipping mainfest
+                for shiping in model.shippingManifests {
+                    let requestModelShippingMainfest: RequestModelShipingMainfest = RequestModelShipingMainfest()
+                    requestModelShippingMainfest.shippingManifestNo = shiping.shippingManifestNo
+                    requestModelShippingMainfest.deliveryDate = shiping.deliveryDate
+                    requestModelShippingMainfest.deliveryTime = shiping.deliveryTime
+                    requestModelShippingMainfest.driverName = shiping.driverName
+                    requestModelShippingMainfest.vehicleMake = shiping.vehicleMake
+                    requestModelShippingMainfest.vehicleModel = shiping.vehicleModel
+                    requestModelShippingMainfest.vehicleColor = shiping.vehicleColor
+                    requestModelShippingMainfest.vehicleLicensePlate = shiping.vehicleLicensePlate
+                    requestModelShippingMainfest.driverLicenPlate = shiping.driverLicenPlate
+                    requestModelShippingMainfest.signaturePhoto = shiping.signaturePhoto
+                    requestModelShippingMainfest.receiverCompany = shiping.receiverCompany
+                    requestModelShippingMainfest.receiverType = shiping.receiverType
+                    requestModelShippingMainfest.receiverContact = shiping.receiverContact
+                    requestModelShippingMainfest.receiverLicense = shiping.receiverLicense
+                    requestModelShippingMainfest.invoiceStatus = shiping.invoiceStatus
+                    
+                    //add shiping selected items
+                    //Payment info list
+                    for selectedItem in shiping.selectedItems {
+                        let requestSelectedItemsShipping: RequestShippingMainfestSelectedItem = RequestShippingMainfestSelectedItem()
+                        requestSelectedItemsShipping.productId = selectedItem.productId
+                        requestSelectedItemsShipping.productName = selectedItem.productName
+                        requestSelectedItemsShipping.remainingQuantity = selectedItem.remainingQuantity
+                        requestSelectedItemsShipping.requestQuantity = selectedItem.requestQuantity
+                        requestSelectedItemsShipping.isSelected = selectedItem.isSelected
+                        
+                        requestModelShippingMainfest.shippingSelectedItems.append(requestSelectedItemsShipping)
+                    }
+                    
+                    requestInvoice.modelShipingMainfest.append(requestModelShippingMainfest)
+                    
+                }
+                
+                requestModel.invoice.append(requestInvoice)
+            }
+            
+            WebServicesAPI.sharedInstance().BulkPostAPI(request: requestModel) {
+                (result:ResponseBulkRequest?,error:PlatformError?) in
+                
+                DispatchQueue.global(qos: .background).async {
+                    
+                    print("======================")
+                    let realmManager = RealmManager()
+                    for model in modelPurchaseOrders {
+                        model.updated = false
+                    }
+                    for model in modelInventryTransfer {
+                        model.updated = false
+                    }
+                    for model in modelInvoice {
+                        model.updated = false
+                    }
+                    
+                    realmManager.write(modelPurchaseOrders)
+                    realmManager.write(modelInventryTransfer)
+                    realmManager.write(modelInvoice)
+                    
+                    DispatchQueue.main.async {
+                        self.resync()
+                    }
+                }
+            }
+            
         }
-        
     }
     
     private func syncGetBulkData() {
@@ -410,7 +421,6 @@ public final class SyncService {
                 tempInventory.toInventoryName = value.toInventoryName
                 tempInventory.status = value.status
                 
-                print(tempInventory.created)
                 RealmManager().write(table: tempInventory)
             }
         }else{
@@ -449,7 +459,6 @@ public final class SyncService {
         
         let shops:[ShopsModel] = RealmManager().readList(type: ShopsModel.self)
         
-        print(jsonData.count,"COUNT",shops.count)
         
         for inventories in jsonData{
            let model = ModelInventories()

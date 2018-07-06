@@ -26,10 +26,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         labelVersion.text   = Versionutils.getAppVersion()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
             statusbar.backgroundColor = nil
@@ -39,7 +35,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - IBActions
     @IBAction func loginBtnPressed(_ sender: Any) {
         SKActivityIndicator.show()
-
+        
         let reqLogin:RequestLogin = RequestLogin()
         reqLogin.email    = txtEmail.text!
         reqLogin.password = txtPassword.text!
@@ -48,15 +44,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         print(UIDevice.current.identifierForVendor!.uuidString)
         WebServicesAPI.sharedInstance().loginAPI(request: reqLogin, onComplition: {(result:ResponseLogin?, error:PlatformError?) in
-          //  SKActivityIndicator.dismiss()
+           
+            SKActivityIndicator.show()
             if error != nil {
-                print(error?.details ?? "Error")
+                self.showAlert(title: "Error", message: error?.details ?? "Error", closure:{})
                 return
             }
             self.saveData(jsonData: result)
             UtilityUserDefaults.sharedInstance().saveToken(strToken: (result?.accessToken)!)
            
-            SKActivityIndicator.show()
             SyncService.sharedInstance().syncData()
             EventBus.sharedBus().subscribe(self, selector: #selector(self.goHome), eventType: EventBusEventType.SYNCDATA)
           

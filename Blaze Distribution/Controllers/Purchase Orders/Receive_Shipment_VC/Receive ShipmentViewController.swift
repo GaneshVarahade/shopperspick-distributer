@@ -26,63 +26,43 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
     
     //Mark : Btn Recive Shipment Clicked
     @IBAction func btnReciveShipmentClicked(_ sender: Any) {
-        if selectedPurchaseOrder.count>0{
-            var isValid : Bool = true
-            for infoDict in selectedPurchaseOrder{
-                if infoDict.validSelection == "No"{
-                    isValid = false
-                }
-            }
-            if isValid == true{
-                for dict in selectedPurchaseOrder {
-                    let modelpurchaseOrderProductRecive = ModelPurchaseOrderProductReceived()
-                    modelpurchaseOrderProductRecive.name = dict.name
-                    modelpurchaseOrderProductRecive.id = dict.id
-                    modelpurchaseOrderProductRecive.expected = dict.quantity
-                    modelpurchaseOrderProductRecive.received = dict.expected
-                    modelPurchaseOrder.productReceived.append(modelpurchaseOrderProductRecive)
-                }
-
-                //Write to database
-                modelPurchaseOrder.status = PurchaseOrderStatus.Closed.rawValue
-                modelPurchaseOrder.updated = true
-                RealmManager().write(table: modelPurchaseOrder)
-//                print(RealmManager().readList(type: ModelPurchaseOrder.self))
-//                print(RealmManager().read(type: ModelPurchaseOrder.self, primaryKey:modelPurchaseOrder.purchaseOrderNumber!))
-                SyncService.sharedInstance().syncData()
-                
-                showAlert(alertTitle: "Done", alertMessage: "Saved Succesfully!",tag: 1)
-                print(modelPurchaseOrder.productReceived)
-            }else{
-           showAlert(alertTitle: "Warning", alertMessage: "Recived product quantity should not be empty, and is always less than or equel to Expected product quantity ",tag: 0)
-            }
-        }else{
-           showAlert(alertTitle: "Warning", alertMessage: "Please select product to save.",tag: 0)
+        
+        guard selectedPurchaseOrder.count>0 else{
+            showAlert(title: NSLocalizedString("Warning", comment: ""), message: "Please select product to save.", closure: {})
+            return
         }
-    }
-    
-    //Mark:- Alert View
-    func showAlert(alertTitle:NSString,alertMessage:NSString,tag:Int) -> Void {
-        let alert = UIAlertController(title: alertTitle as String, message: alertMessage as String, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            switch action.style{
-            case .default:
-                print("default")
-                if tag == 1{
-                    self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
-                    
-                }
-                
-            case .cancel:
-                print("cancel")
-                
-                
-            case .destructive:
-                print("destructive")
-                
-                
-            }}))
-        self.present(alert, animated: true, completion: nil)
+        
+        var isValid : Bool = true
+        for infoDict in selectedPurchaseOrder{
+            if infoDict.validSelection == "No"{
+                isValid = false
+            }
+        }
+        
+        guard isValid else {
+            showAlert(title: NSLocalizedString("Warning", comment: ""), message: "Recived product quantity should not be empty, and is always less than or equel to Expected product quantity ", closure: {})
+            return
+        }
+        for dict in selectedPurchaseOrder {
+            let modelpurchaseOrderProductRecive = ModelPurchaseOrderProductReceived()
+            modelpurchaseOrderProductRecive.name = dict.name
+            modelpurchaseOrderProductRecive.id = dict.id
+            modelpurchaseOrderProductRecive.expected = dict.quantity
+            modelpurchaseOrderProductRecive.received = dict.expected
+            modelPurchaseOrder.productReceived.append(modelpurchaseOrderProductRecive)
+        }
+        
+        //Write to database
+        modelPurchaseOrder.status = PurchaseOrderStatus.Closed.rawValue
+        modelPurchaseOrder.updated = true
+        RealmManager().write(table: modelPurchaseOrder)
+        SyncService.sharedInstance().syncData()
+        
+        showAlert(title: NSLocalizedString("Done", comment: ""), message: NSLocalizedString("Saved Successfully!", comment: ""), closure: {
+            self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
+        })
+        
+        print(modelPurchaseOrder.productReceived)
     }
     //Text Field validation
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
