@@ -20,6 +20,7 @@ public class ResponseBulkRequest: BaseResponseModel  {
     public var product:ResponseProducts?
     public var purchaseOrder: ResponseArrayPurchaseOrder?
     public var inventories:[ResponseInventories]?
+    public var employees: ResponseArrayDriverInfo?
     
     
 }

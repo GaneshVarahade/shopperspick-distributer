@@ -57,10 +57,10 @@ public final class SyncService {
         AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: "\(realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true").count)")
         AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: "\(realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true").count)")
         //Commented Temporaray
-//        return (realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true").count > 0 ||
-//            realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true").count > 0 ||
-//            realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true").count > 0)
-        return false;
+        return (realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true").count > 0 ||
+            realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true").count > 0 ||
+            realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true").count > 0)
+        //return false;
     }
     
     private func syncSignature() {
@@ -118,13 +118,17 @@ public final class SyncService {
                 requestInventry.fromInventoryName = model.fromInventoryName
                 requestInventry.toInventoryName = model.toInventoryName
                 requestInventry.status = model.status
+                requestInventry.fromInventoryId = model.fromInventoryId
+                requestInventry.toInventoryId = model.toInventoryId
+                requestInventry.completeTransfer = model.completeTransfer
+                
                 
                 for productInCart in model.slectedProducts {
                     let requestCartProduct: RequestCartProduct = RequestCartProduct()
                     requestCartProduct.name = productInCart.name
-                    requestCartProduct.batchId = productInCart.batchId
+                    requestCartProduct.productId = productInCart.batchId
                     requestCartProduct.quantity = productInCart.quantity
-                    requestInventry.cartProduct.append(requestCartProduct)
+                    requestInventry.transferLogs.append(requestCartProduct)
                 }
                 requestModel.inventryTrasfer.append(requestInventry)
             }
@@ -137,6 +141,7 @@ public final class SyncService {
                 requestInvoice.invoiceNumber = model.invoiceNumber
                 requestInvoice.dueDate = model.dueDate
                 requestInvoice.vendorCompany = model.vendorCompany
+                requestInvoice.customerId = model.customerId
                 
                 //Payment info list
                 for payment in model.paymentInfo {
@@ -153,9 +158,15 @@ public final class SyncService {
                 //List shipping mainfest
                 for shiping in model.shippingManifests {
                     let requestModelShippingMainfest: RequestModelShipingMainfest = RequestModelShipingMainfest()
+                    
+                    //Shipper Id and Reciver Id
+                     requestModelShippingMainfest.shipperId = model.companyId
+                     requestModelShippingMainfest.receiverId = model.customerId
+                    
                     requestModelShippingMainfest.shippingManifestNo = shiping.shippingManifestNo
                     requestModelShippingMainfest.deliveryDate = shiping.deliveryDate
                     requestModelShippingMainfest.deliveryTime = shiping.deliveryTime
+                    requestModelShippingMainfest.driverId = shiping.driverId
                     requestModelShippingMainfest.driverName = shiping.driverName
                     requestModelShippingMainfest.vehicleMake = shiping.vehicleMake
                     requestModelShippingMainfest.vehicleModel = shiping.vehicleModel
@@ -182,7 +193,7 @@ public final class SyncService {
                         requestModelShippingMainfest.shippingSelectedItems.append(requestSelectedItemsShipping)
                     }
                     
-                    requestInvoice.modelShipingMainfest.append(requestModelShippingMainfest)
+                    requestInvoice.shipingMainfest.append(requestModelShippingMainfest)
                     
                 }
                 
@@ -192,28 +203,28 @@ public final class SyncService {
             WebServicesAPI.sharedInstance().BulkPostAPI(request: requestModel) {
                 (result:ResponseBulkRequest?,error:PlatformError?) in
                 
-                DispatchQueue.global(qos: .background).async {
-                    
-                    print("======================")
-                    let realmManager = RealmManager()
-                    for model in modelPurchaseOrders {
-                        model.updated = false
-                    }
-                    for model in modelInventryTransfer {
-                        model.updated = false
-                    }
-                    for model in modelInvoice {
-                        model.updated = false
-                    }
-                    
-                    realmManager.write(modelPurchaseOrders)
-                    realmManager.write(modelInventryTransfer)
-                    realmManager.write(modelInvoice)
-                    
-                    DispatchQueue.main.async {
-                        self.resync()
-                    }
-                }
+//                DispatchQueue.global(qos: .background).async {
+//
+//                    print("======================")
+//                    let realmManager = RealmManager()
+//                    for model in modelPurchaseOrders {
+//                        model.updated = false
+//                    }
+//                    for model in modelInventryTransfer {
+//                        model.updated = false
+//                    }
+//                    for model in modelInvoice {
+//                        model.updated = false
+//                    }
+//
+//                    realmManager.write(modelPurchaseOrders)
+//                    realmManager.write(modelInventryTransfer)
+//                    realmManager.write(modelInvoice)
+//
+//                    DispatchQueue.main.async {
+//                        self.resync()
+//                    }
+//                }
             }
             
         }
@@ -247,6 +258,12 @@ public final class SyncService {
                 if let arrayInventory = result?.inventories{
                     
                     self.saveInventory(jsonData: arrayInventory)
+                }
+                
+                if let driverInfo = result?.employees?.values {
+                    self.saveDriverData(driverInfo)
+                }else{
+                    self.saveDriverData([])
                 }
             
                 self.finishSync()
@@ -292,6 +309,35 @@ public final class SyncService {
         }
     }
     
+    private func saveDriverData(_ arrayDriver: [ResponceDriverInfo]){
+       
+        for response in arrayDriver{
+            let model: ModelDriverInfo = ModelDriverInfo()
+            model.id = response.id
+            model.driverId = response.driverId
+            model.driverName = response.firstName
+            model.driverLicenseNumber = response.driverLicenceNumber
+            model.vehicleMake = response.vehicleMake
+            model.vehicleModel = response.vehicleModel
+            model.vehicleColor = response.vehicleColor
+            model.vehicleLicensePlate = response.vehicleLicensePlate
+            RealmManager().write(table: model)
+        }
+        
+//        let model: ModelDriverInfo = ModelDriverInfo()
+//        model.driverId = "jkfdafdfbkj"
+//        model.driverName = "Jon Lee"
+//        model.driverLicenseNumber = "785g457t87455g4"
+//        model.vehicleMake = "jhdah"
+//        model.vehicleModel = "truck"
+//        model.vehicleColor = "red"
+//        model.vehicleLicensePlate = "673vhajdwtb"
+//        RealmManager().write(table: model)
+        print(RealmManager().readList(type: ModelDriverInfo.self))
+        
+        //var dummyData = [[""]]
+    }
+    
     fileprivate func saveDataInvoice(jsonData: [ResponseInvoice]?){
         
         if let values = jsonData{
@@ -302,6 +348,7 @@ public final class SyncService {
                 let model: ModelInvoice = ModelInvoice()
                 model.id                = valu.id
                 model.companyId         = valu.companyId
+                model.customerId        = valu.customerId
                 model.invoiceNumber     = valu.invoiceNumber
                 model.dueDate           = DateFormatterUtil.format(dateTime: (Double(valu.dueDate ?? 0)/1000),
                                                                    format: DateFormatterUtil.mmddyyyy)
@@ -392,7 +439,8 @@ public final class SyncService {
                         }
                         model.shippingManifests.append(shipMen)
                     }
-                }else{
+                }
+                else{
                   //  print("From json shipingMenifest: Nil")
                 }
                 RealmManager().write(table: model)
@@ -401,6 +449,7 @@ public final class SyncService {
        // print("---Invoice Data Save---")
         
     }
+    
     fileprivate func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
         if let values = jsonData{
             
@@ -418,6 +467,9 @@ public final class SyncService {
                 tempInventory.fromShopName = value.fromShopName
                 tempInventory.toInventoryName = value.toInventoryName
                 tempInventory.toShopId = value.toShopId
+                tempInventory.fromInventoryId = value.fromInventoryId
+                tempInventory.toInventoryId = value.toInventoryId
+                tempInventory.completeTransfer = value.completeTransfer ?? false
                 tempInventory.toShopName = value.toShopName
                 tempInventory.toInventoryName = value.toInventoryName
                 tempInventory.status = value.status

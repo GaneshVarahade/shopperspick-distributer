@@ -3592,6 +3592,9 @@
                                                 <constraint firstItem="Z8r-OR-zXj" firstAttribute="centerY" secondItem="cle-et-gpw" secondAttribute="centerY" id="kXs-vG-EQ1"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                                        </accessibility>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="663-pw-cQu">
                                         <rect key="frame" x="0.0" y="625" width="320" height="44"/>
@@ -3641,6 +3644,9 @@
                                                 <constraint firstItem="SE8-19-Djy" firstAttribute="centerY" secondItem="YLL-Fw-PT6" secondAttribute="centerY" id="qiM-Y9-tnT"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                                        </accessibility>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="u5U-Uu-7rs">
                                         <rect key="frame" x="0.0" y="669" width="320" height="44"/>
@@ -3690,6 +3696,9 @@
                                                 <constraint firstItem="rXw-59-uSg" firstAttribute="centerY" secondItem="V97-vS-8FN" secondAttribute="centerY" id="kG6-yI-kV3"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                                        </accessibility>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="pg5-e8-Ixb">
                                         <rect key="frame" x="0.0" y="713" width="320" height="44"/>
@@ -3740,6 +3749,9 @@
                                                 <constraint firstAttribute="trailing" secondItem="Z0Q-g1-Qaq" secondAttribute="trailing" constant="16" id="qb6-SW-jVr"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                                        </accessibility>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="DAk-3S-JXK">
                                         <rect key="frame" x="0.0" y="757" width="320" height="44"/>
@@ -3919,7 +3931,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uul-EZ-czv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9881" y="1379"/>
+            <point key="canvasLocation" x="9879.375" y="1377.9929577464789"/>
         </scene>
         <!--Add Product View Controller-->
         <scene sceneID="A6t-e5-rEo">

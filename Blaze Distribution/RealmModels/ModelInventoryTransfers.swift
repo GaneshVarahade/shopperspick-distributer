@@ -21,10 +21,13 @@ public class ModelInventoryTransfers: ModelBase {
     @objc public dynamic var transferNo:String?        = ""
     @objc public dynamic var fromShopId:String?        = ""
     @objc public dynamic var toShopId:String?          = ""
+    @objc public dynamic var fromInventoryId:String?   = ""
+    @objc public dynamic var toInventoryId:String?   = ""
     @objc public dynamic var fromShopName:String?      = ""
     @objc public dynamic var toShopName:String?        = ""
     @objc public dynamic var fromInventoryName:String? = ""
     @objc public dynamic var toInventoryName:String?   = ""
+    @objc public  dynamic var completeTransfer:Bool                = false
     @objc public dynamic var status:String?   = ""
     public var slectedProducts = List<ModelCartProduct>()
     
@@ -46,6 +49,9 @@ public class ModelInventoryTransfers: ModelBase {
         modelInventoryTransfers.status            = self.status
         modelInventoryTransfers.id                = self.id
         modelInventoryTransfers.updated                = self.updated
+        modelInventoryTransfers.fromInventoryId   = self.fromInventoryId
+        modelInventoryTransfers.toInventoryId     = self.toInventoryId
+        modelInventoryTransfers.completeTransfer  = self.completeTransfer
         
         for prod in self.slectedProducts{
             modelInventoryTransfers.slectedProducts.append(prod.copy() as! ModelCartProduct)

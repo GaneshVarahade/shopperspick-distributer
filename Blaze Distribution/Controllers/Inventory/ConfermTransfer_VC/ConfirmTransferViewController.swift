@@ -101,6 +101,13 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             modelOpenTransfer.updated = true
             modelOpenTransfer.slectedProducts = modelCreateTransfer.slectedProducts
             
+            //shop id and name
+            modelOpenTransfer.fromShopId = self.modelCreateTransfer.fromLocation?.shop?.id
+            modelOpenTransfer.toShopId = self.modelCreateTransfer.toLocation?.shop?.id
+            modelOpenTransfer.fromInventoryId = self.modelCreateTransfer.fromLocation?.inventory?.id
+            modelOpenTransfer.toInventoryId = self.modelCreateTransfer.toLocation?.inventory?.id
+            modelOpenTransfer.completeTransfer = true
+            
             RealmManager().write(table: modelOpenTransfer)
             SyncService.sharedInstance().syncData()
             

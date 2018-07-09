@@ -111,6 +111,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         }
         tempData.updated = true
         RealmManager().write(table: tempData)
+        SyncService.sharedInstance().syncData()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -294,5 +295,4 @@ extension InvoiceDetailsTableViewController{
         shippingItemsVC?.shippingList(shippingData: dataDict.shippingManifests)
         self.tableView.reloadData()
     }
-    
 }

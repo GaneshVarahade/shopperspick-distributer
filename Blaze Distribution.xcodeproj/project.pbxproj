@@ -48,6 +48,9 @@
 		1846DBA720B21B5B0076BECD /* environment-debug.json in Resources */ = {isa = PBXBuildFile; fileRef = 1846DB9F20B21B5B0076BECD /* environment-debug.json */; };
 		1846DBA820B21B5B0076BECD /* DistributionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DBA020B21B5B0076BECD /* DistributionConfig.swift */; };
 		1846DBA920B21B5B0076BECD /* environment-prod.json in Resources */ = {isa = PBXBuildFile; fileRef = 1846DBA120B21B5B0076BECD /* environment-prod.json */; };
+		184B43B920F34A8E000EFC55 /* ModelDriverInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B43B820F34A8E000EFC55 /* ModelDriverInfo.swift */; };
+		184B43BD20F37A2B000EFC55 /* ResponceDriverInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B43BC20F37A2B000EFC55 /* ResponceDriverInfo.swift */; };
+		184B43BF20F37F7E000EFC55 /* ResponseArrayDriverInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B43BE20F37F7E000EFC55 /* ResponseArrayDriverInfo.swift */; };
 		186E434A20DBF34100421708 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 186E434C20DBF34100421708 /* Localizable.strings */; };
 		18984BF220C94CA500381603 /* LoginResponse in Resources */ = {isa = PBXBuildFile; fileRef = 18984BF120C94CA500381603 /* LoginResponse */; };
 		189F82BC20C501B70054986E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B020C501B70054986E /* RealmManager.swift */; };
@@ -230,6 +233,9 @@
 		1846DB9F20B21B5B0076BECD /* environment-debug.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "environment-debug.json"; sourceTree = "<group>"; };
 		1846DBA020B21B5B0076BECD /* DistributionConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionConfig.swift; sourceTree = "<group>"; };
 		1846DBA120B21B5B0076BECD /* environment-prod.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "environment-prod.json"; sourceTree = "<group>"; };
+		184B43B820F34A8E000EFC55 /* ModelDriverInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDriverInfo.swift; sourceTree = "<group>"; };
+		184B43BC20F37A2B000EFC55 /* ResponceDriverInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponceDriverInfo.swift; sourceTree = "<group>"; };
+		184B43BE20F37F7E000EFC55 /* ResponseArrayDriverInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseArrayDriverInfo.swift; sourceTree = "<group>"; };
 		1856C76199F812D749E0AA01 /* Pods-Blaze DistributionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.release.xcconfig"; sourceTree = "<group>"; };
 		186E434B20DBF34100421708 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		18984BF120C94CA500381603 /* LoginResponse */ = {isa = PBXFileReference; lastKnownFileType = text; path = LoginResponse; sourceTree = "<group>"; };
@@ -537,6 +543,7 @@
 				B942E46820D010D800E474E1 /* ModelQuantity.swift */,
 				B98E12DB20D14E630067B5B0 /* ModelInventories.swift */,
 				B98E12DD20D150470067B5B0 /* ModelInventory.swift */,
+				184B43B820F34A8E000EFC55 /* ModelDriverInfo.swift */,
 			);
 			path = RealmModels;
 			sourceTree = "<group>";
@@ -779,6 +786,7 @@
 		B942E45F20CFDA0700E474E1 /* ResponseInvoiceModels */ = {
 			isa = PBXGroup;
 			children = (
+				184B43BC20F37A2B000EFC55 /* ResponceDriverInfo.swift */,
 				B9D45A0C20CA57B800E4E0E8 /* ResponseNotes.swift */,
 				B942E45720CFA48000E474E1 /* ResponseRemaingProduct.swift */,
 				B942E45920CFBE3700E474E1 /* ResponseInvoiceItems.swift */,
@@ -786,6 +794,7 @@
 				B9AA85E520C973B200751BF2 /* ResponseShippingManifests.swift */,
 				18EE27B320C96178002A329B /* ResponseInvoice.swift */,
 				18EE27B120C960F0002A329B /* ResponseArrayInvoice.swift */,
+				184B43BE20F37F7E000EFC55 /* ResponseArrayDriverInfo.swift */,
 			);
 			path = ResponseInvoiceModels;
 			sourceTree = "<group>";
@@ -1441,6 +1450,7 @@
 				B942E46520D00B5300E474E1 /* ResponseQuantities.swift in Sources */,
 				B939C5C820D1330A00552DEF /* ResponseInventories.swift in Sources */,
 				B95A8A3220B4247900F76A15 /* SignatureViewController.swift in Sources */,
+				184B43B920F34A8E000EFC55 /* ModelDriverInfo.swift in Sources */,
 				B9E5267E20B2DAAA00127E43 /* Completed_POStaticDetailsTableViewController.swift in Sources */,
 				181C388620EDFF1D00A567B3 /* RequestPostModel.swift in Sources */,
 				1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */,
@@ -1473,6 +1483,7 @@
 				B942801820CE5DF500F2FA0F /* RequestGetBulkAPI.swift in Sources */,
 				B9E5265A20B2C0D000127E43 /* ScanLookUpViewController.swift in Sources */,
 				1832492D20D2B11E008A71A4 /* InvoiceItemsViewController.swift in Sources */,
+				184B43BD20F37A2B000EFC55 /* ResponceDriverInfo.swift in Sources */,
 				B9E5269020B3063C00127E43 /* LoginViewController.swift in Sources */,
 				B9CAC8DB20AF1155008F1650 /* UITextFieldX.swift in Sources */,
 				B9266C7520AEDC940021356C /* ForgotPasswordViewController.swift in Sources */,
@@ -1485,6 +1496,7 @@
 				182B920420C7E0860041915B /* StoreImage.swift in Sources */,
 				18051EE520EA3C0A005BF274 /* LookUpProductEnterQuantity.swift in Sources */,
 				182427A120EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift in Sources */,
+				184B43BF20F37F7E000EFC55 /* ResponseArrayDriverInfo.swift in Sources */,
 				18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */,
 				B942E46320D00A4000E474E1 /* ResponseProduct.swift in Sources */,
 				1827FC0620D11AB300DEA5E8 /* DateFormatter.swift in Sources */,

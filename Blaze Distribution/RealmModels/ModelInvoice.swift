@@ -14,6 +14,7 @@ public class ModelInvoice:ModelBase {
 
     @objc public dynamic var invoiceNumber: String?  = ""
     @objc public dynamic var dueDate:String?         = ""
+    @objc public dynamic var customerId:String?      = ""
     @objc public dynamic var vendorCompany:String?         = ""
     @objc public dynamic var salesPerson:String?         = ""
     @objc public dynamic var contact:String?         = ""
@@ -45,6 +46,7 @@ public class ModelInvoice:ModelBase {
         let modelInvoice               = ModelInvoice()
         modelInvoice.id                = self.id
         modelInvoice.companyId         = self.companyId
+        modelInvoice.customerId        = self.customerId
         modelInvoice.invoiceNumber     = self.invoiceNumber
         modelInvoice.dueDate           = self.dueDate
         modelInvoice.vendorCompany     = self.vendorCompany
@@ -70,6 +72,7 @@ public class ModelInvoice:ModelBase {
         for ship in self.shippingManifests {
             modelInvoice.shippingManifests.append(ship.copy() as! ModelShipingMenifest)
         }
+
         for rem in self.remainingProducts{
             modelInvoice.remainingProducts.append(rem.copy() as! ModelRemainingProduct)
         }

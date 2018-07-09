@@ -12,6 +12,7 @@ public class RequestModelShipingMainfest: BaseRequest {
       public   var shippingManifestNo:String?  = ""
       public   var deliveryDate : Int          = 0
       public   var deliveryTime : Int          = 0
+      public   var driverId:String? = ""
       public   var driverName:String?          = ""
       public   var driverLicenseNumber:String?
       public   var vehicleMake:String?
@@ -25,6 +26,9 @@ public class RequestModelShipingMainfest: BaseRequest {
       public   var receiverContact:String?
       public   var receiverLicense:String?
       public   var invoiceStatus:String?
+    
+      public   var shipperId:String? = ""
+      public   var receiverId:String?          = ""
     
       public   var shippingSelectedItems = [RequestShippingMainfestSelectedItem]()
 }

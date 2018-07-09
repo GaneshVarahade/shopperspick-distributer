@@ -9,7 +9,7 @@
 import Foundation
 public class RequestCartProduct: BaseRequest {
       public   var name:String?     = ""
-      public   var batchId:String?  = ""
+      public   var productId:String?  = ""
       public   var quantity:Double  = 0
 }
 

@@ -23,6 +23,7 @@ public class ResponseInvoice :BaseResponseModel{
     public var deleted: Bool?
     public var updated: Bool?
     public var companyId: String?
+    public var customerId: String?
     public var invoiceNumber: String?
     public var dueDate:Int?
     public var vendor:ResponseVendor?

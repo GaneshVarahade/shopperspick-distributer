@@ -15,6 +15,7 @@ public class ModelShipingMenifest:ModelBase {
     @objc public dynamic var shippingManifestNo:String?  = ""
     @objc public dynamic var deliveryDate : Int          = 0
     @objc public dynamic var deliveryTime : Int          = 0
+    @objc public dynamic var driverId:String?          = ""
     @objc public dynamic var driverName:String?          = ""
     @objc public dynamic var driverLicenseNumber:String?
     @objc public dynamic var vehicleMake:String?
@@ -47,6 +48,7 @@ public class ModelShipingMenifest:ModelBase {
         modelShipingMenifest.shippingManifestNo  = self.shippingManifestNo
         modelShipingMenifest.deliveryDate        = self.deliveryDate
         modelShipingMenifest.deliveryTime        = self.deliveryTime
+        modelShipingMenifest.driverId            = self.driverId
         modelShipingMenifest.driverName          = self.driverName
         modelShipingMenifest.driverLicenseNumber = self.driverLicenseNumber
         modelShipingMenifest.vehicleMake         = self.vehicleMake

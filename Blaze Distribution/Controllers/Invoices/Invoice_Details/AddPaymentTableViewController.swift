@@ -329,8 +329,8 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         RealmManager().write(table: invoiceObj!)
         SyncService.sharedInstance().syncData()
         
-//        print(RealmManager().read(type: ModelInvoice.self, primaryKey:invoiceObj!.id!))
-//        print(RealmManager().readList(type: ModelInvoice.self))
+       print(RealmManager().read(type: ModelInvoice.self, primaryKey:invoiceObj!.id!))
+       print(RealmManager().readList(type: ModelInvoice.self))
         
         print("----PaymentInfo Data Save----")
         paymentDelegate?.getDataFromAddPayment(dataDict: invoiceObj!)

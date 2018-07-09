@@ -7,18 +7,23 @@
 //
 
 import UIKit
+import RealmSwift
+import Realm
                                
 protocol validateFieldsProtocol {
     func validateFields()
 }
                                 
-class ManifestInfoTableViewController: UITableViewController, signatureDelegate, UITextFieldDelegate {
+class ManifestInfoTableViewController: UITableViewController, signatureDelegate, UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
 
     // MARK: - Property
     var isAddManifest = Bool()
     var modelShippingMen: ModelShipingMenifest?
     let datePicker = UIDatePicker()
     let timePicker = UIDatePicker()
+    var driverInfo :[ModelDriverInfo] = []
+    var selectedDriverInfo:ModelDriverInfo?
+    var pickerView: UIPickerView = UIPickerView()
     
     
     // MARK: - Outlets
@@ -46,7 +51,48 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+         self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
+        self.disableDriversTextField()
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        //Read Driver info list from database
+        self.driverInfo = RealmManager().readList(type: ModelDriverInfo.self)
+        print(self.driverInfo)
         
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        //driverNameTextField = UITextField(frame: CGRect.zero)
+        driverNameTextField.inputView = pickerView
+        driverNameTextField.delegate = self
+        driverNameTextField?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(doneButtonTapped))
+    }
+    
+    @objc func doneButtonTapped() {
+        //save selected driver info
+        self.selectedDriverInfo = self.driverInfo[self.pickerView.selectedRow(inComponent: 0)]
+        if let licenNumber = self.selectedDriverInfo{
+            //set value to text field
+            driverNameTextField.text = licenNumber.driverName ?? "Not Available"
+            driverLicenceTextField.text = licenNumber.driverLicenseNumber ?? "Not Available"
+            driverMakeTextField.text = licenNumber.vehicleMake ?? "Not Available"
+            driverModelTextField.text = licenNumber.vehicleModel ?? "Not Available"
+            driverColorTextField.text = licenNumber.vehicleColor ?? "Not Available"
+            driverLicencePlateTextField.text = licenNumber.vehicleLicensePlate ?? "Not Available"
+        
+            modelShippingMen?.driverName = licenNumber.driverName
+            modelShippingMen?.driverLicenseNumber = licenNumber.driverLicenseNumber
+            modelShippingMen?.vehicleMake = licenNumber.vehicleMake
+            modelShippingMen?.vehicleModel = licenNumber.vehicleModel
+            modelShippingMen?.vehicleColor = licenNumber.vehicleColor
+            modelShippingMen?.driverLicenPlate = licenNumber.vehicleLicensePlate
+            modelShippingMen?.driverId = licenNumber.driverId
+        }else{
+            return
+        }
+    
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -61,6 +107,11 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         let colorView = UIView()
         colorView.backgroundColor = UIColor.clear
         UITableViewCell.appearance().selectedBackgroundView = colorView
+    }
+    
+    @IBAction func btnDriverNameClicked(_ sender: Any) {
+//        driverNameTextField.inputView = pickerView
+//        driverNameTextField.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -137,6 +188,13 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             driverLicencePlateTextField.text = manifestInfo.driverLicenPlate ?? "-/-"
         }
         
+    }
+    private func disableDriversTextField(){
+        driverLicenceTextField.isUserInteractionEnabled = false
+        driverMakeTextField.isUserInteractionEnabled = false
+        driverModelTextField.isUserInteractionEnabled = false
+        driverColorTextField.isUserInteractionEnabled = false
+        driverLicencePlateTextField.isUserInteractionEnabled = false
     }
     
     private func disableAllFields(){
@@ -277,8 +335,8 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         }
     }
     
-    // MARK: - UITextFieldDelegate
     
+    // MARK: - UITextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.layer.borderWidth = 0
         textField.borderStyle = .none
@@ -322,38 +380,48 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             }
         }
         else if textField == driverNameTextField {
-            if isAddManifest {
-                modelShippingMen?.driverName = driverNameTextField.text
-            }
+            driverNameTextField.inputView = pickerView
+            driverNameTextField.delegate = self
+
+//            if isAddManifest {
+//                modelShippingMen?.driverName = driverNameTextField.text
+//            }
         }
-        else if textField == driverLicenceTextField {
-            if isAddManifest {
-                modelShippingMen?.driverLicenseNumber = driverLicenceTextField.text
-            }
-        }
-        else if textField == driverMakeTextField {
-            if isAddManifest {
-                modelShippingMen?.vehicleMake = driverMakeTextField.text
-            }
-        }
-        else if textField == driverModelTextField {
-            if isAddManifest {
-                modelShippingMen?.vehicleModel = driverModelTextField.text
-                
-            }
-        }
-        else if textField == driverColorTextField {
-            if isAddManifest {
-                modelShippingMen?.vehicleColor = driverColorTextField.text
-            }
-        }
-        else if textField == driverLicencePlateTextField {
-            if isAddManifest {
-                modelShippingMen?.driverLicenPlate = driverLicencePlateTextField.text
-            }
-        }
+//        else if textField == driverLicenceTextField {
+//            if isAddManifest {
+//                modelShippingMen?.driverLicenseNumber = driverLicenceTextField.text
+//            }
+//        }
+//        else if textField == driverMakeTextField {
+//            if isAddManifest {
+//                modelShippingMen?.vehicleMake = driverMakeTextField.text
+//            }
+//        }
+//        else if textField == driverModelTextField {
+//            if isAddManifest {
+//                modelShippingMen?.vehicleModel = driverModelTextField.text
+//
+//            }
+//        }
+//        else if textField == driverColorTextField {
+//            if isAddManifest {
+//                modelShippingMen?.vehicleColor = driverColorTextField.text
+//            }
+//        }
+//        else if textField == driverLicencePlateTextField {
+//            if isAddManifest {
+//                modelShippingMen?.driverLicenPlate = driverLicencePlateTextField.text
+//            }
+//        }
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == driverNameTextField {
+            return  false
+        }else{
+            return true
+        }
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -532,4 +600,23 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             obj.isAddManifest = self.isAddManifest
         }
     }
+    
+    //MARK - PickerView Delegate
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return driverInfo.count
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return driverInfo[row].driverName ?? ""
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.selectedDriverInfo = driverInfo[row]
+        //print("\(modelLogin?.shops[row].name ?? "No Shop Name")")
+    }
+    
+    
 }

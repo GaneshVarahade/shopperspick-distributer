@@ -12,6 +12,7 @@ import RealmSwift
 public class RequestInvoice: BaseRequest {
       public   var invoiceNumber: String?  = ""
       public   var dueDate:String?         = ""
+      public   var customerId:String?      = ""
       public   var vendorCompany:String?         = ""
       public   var salesPerson:String?         = ""
       public   var contact:String?         = ""
@@ -29,5 +30,5 @@ public class RequestInvoice: BaseRequest {
       public   var vendorCountry:String?
     
       public var invoicePyamentInfo   = [RequestModelInvoicePaymentInfo]()
-      public var modelShipingMainfest = [RequestModelShipingMainfest]()
+      public var shipingMainfest = [RequestModelShipingMainfest]()
 }
