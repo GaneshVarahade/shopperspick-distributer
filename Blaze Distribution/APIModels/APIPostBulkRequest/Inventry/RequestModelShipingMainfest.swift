@@ -27,9 +27,11 @@ public class RequestModelShipingMainfest: BaseRequest {
       public   var receiverLicense:String?
       public   var invoiceStatus:String?
     
-      public   var shipperId:String? = ""
-      public   var receiverId:String?          = ""
+//      public   var shipperId:String? = ""
+//      public   var receiverId:String?          = ""
     
-      public   var shippingSelectedItems = [RequestShippingMainfestSelectedItem]()
+      public var shipperInformation :RequestShipperInformation?
+      public var receiverInformation : RequestReceiverInformation?
+      public var shippingSelectedItems = [RequestShippingMainfestSelectedItem]()
 }
 

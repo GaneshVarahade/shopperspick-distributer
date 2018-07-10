@@ -168,8 +168,8 @@ public final class SyncService {
                     let requestModelShippingMainfest: RequestModelShipingMainfest = RequestModelShipingMainfest()
                     
                     //Shipper Id and Reciver Id
-                     requestModelShippingMainfest.shipperId = model.companyId
-                     requestModelShippingMainfest.receiverId = model.customerId
+//                     requestModelShippingMainfest.shipperId = model.companyId
+//                     requestModelShippingMainfest.receiverId = model.customerId
                     
                     requestModelShippingMainfest.shippingManifestNo = shiping.shippingManifestNo
                     requestModelShippingMainfest.deliveryDate = shiping.deliveryDate
@@ -187,6 +187,15 @@ public final class SyncService {
                     requestModelShippingMainfest.receiverContact = shiping.receiverContact
                     requestModelShippingMainfest.receiverLicense = shiping.receiverLicense
                     requestModelShippingMainfest.invoiceStatus = shiping.invoiceStatus
+                    
+                    //separate Shipping and reciving data
+                    let requestSipperInfo : RequestShipperInformation = RequestShipperInformation()
+                    requestSipperInfo.companyId = model.companyId
+                    requestModelShippingMainfest.shipperInformation = requestSipperInfo
+                    
+                    let requestReciverInfo : RequestReceiverInformation = RequestReceiverInformation()
+                    requestReciverInfo.customerCompanyId = model.customerId
+                    requestModelShippingMainfest.receiverInformation = requestReciverInfo
                     
                     //add shiping selected items
                     //Payment info list

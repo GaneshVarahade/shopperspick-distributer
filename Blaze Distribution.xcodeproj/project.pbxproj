@@ -12,6 +12,8 @@
 		1812B33F20CAB31800B4DC26 /* ModelInventoryTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */; };
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
 		181C388620EDFF1D00A567B3 /* RequestPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C388520EDFF1D00A567B3 /* RequestPostModel.swift */; };
+		181F602C20F4CDBB0071CA04 /* RequestShipperInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F602B20F4CDBB0071CA04 /* RequestShipperInformation.swift */; };
+		181F602E20F4CFC20071CA04 /* RequestReceiverInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F602D20F4CFC20071CA04 /* RequestReceiverInformation.swift */; };
 		1824279F20EE1652009BBF08 /* RequestPurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1824279E20EE1652009BBF08 /* RequestPurchaseOrder.swift */; };
 		182427A120EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */; };
 		182427A820EE3E49009BBF08 /* RequestInventry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427A720EE3E49009BBF08 /* RequestInventry.swift */; };
@@ -196,6 +198,8 @@
 		1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventoryTransfers.swift; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
 		181C388520EDFF1D00A567B3 /* RequestPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPostModel.swift; sourceTree = "<group>"; };
+		181F602B20F4CDBB0071CA04 /* RequestShipperInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestShipperInformation.swift; sourceTree = "<group>"; };
+		181F602D20F4CFC20071CA04 /* RequestReceiverInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReceiverInformation.swift; sourceTree = "<group>"; };
 		1824279E20EE1652009BBF08 /* RequestPurchaseOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPurchaseOrder.swift; sourceTree = "<group>"; };
 		182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPurchaseOrderProductReceived.swift; sourceTree = "<group>"; };
 		182427A720EE3E49009BBF08 /* RequestInventry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInventry.swift; sourceTree = "<group>"; };
@@ -438,6 +442,8 @@
 				182427AD20EE57B7009BBF08 /* RequestModelInvoicePaymentInfo.swift */,
 				182427AF20EE5F8F009BBF08 /* RequestModelShipingMainfest.swift */,
 				182427B120EE6809009BBF08 /* RequestShippingMainfestSelectedItem.swift */,
+				181F602B20F4CDBB0071CA04 /* RequestShipperInformation.swift */,
+				181F602D20F4CFC20071CA04 /* RequestReceiverInformation.swift */,
 			);
 			name = Invoice;
 			path = Inventry;
@@ -1476,6 +1482,7 @@
 				182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */,
 				B985566920B43B2900A56497 /* YPDrawSignatureView.swift in Sources */,
 				B9CAC8E020AF1155008F1650 /* UILabelX.swift in Sources */,
+				181F602C20F4CDBB0071CA04 /* RequestShipperInformation.swift in Sources */,
 				B942E45E20CFD26C00E474E1 /* ModelAddres.swift in Sources */,
 				B985566D20B43B8700A56497 /* ShippingManifestTableViewCell.swift in Sources */,
 				182B921820C839C00041915B /* ModelAssets.swift in Sources */,
@@ -1515,6 +1522,7 @@
 				B9E5267220B2D7DF00127E43 /* Receive ShipmentViewController.swift in Sources */,
 				B92A65B220AF424500CDA4CC /* FixedInvoiceDetailsTableViewController.swift in Sources */,
 				B9E5266020B2C2D100127E43 /* ConfirmTransferViewController.swift in Sources */,
+				181F602E20F4CFC20071CA04 /* RequestReceiverInformation.swift in Sources */,
 				B9E5268720B2E39C00127E43 /* PurchaseOrderViewController.swift in Sources */,
 				182B920E20C838FE0041915B /* ModelProductTransfer.swift in Sources */,
 				B9CAC8DA20AF1155008F1650 /* UIVisualEffectViewX.swift in Sources */,
