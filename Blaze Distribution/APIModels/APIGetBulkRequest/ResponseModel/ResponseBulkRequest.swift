@@ -15,6 +15,7 @@ public class ResponseBulkRequest: BaseResponseModel  {
     public var deleted: Bool?
     public var updated: Bool?
     public var companyId: String?
+    public var signatureAssets : ResponseSignatureAsset?
     public var invoice: ResponseArrayInvoice?
     public var inventoryTransfers: ResponseArrayInventory?
     public var product:ResponseProducts?

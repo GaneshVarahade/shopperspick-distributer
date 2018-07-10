@@ -61,7 +61,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         super.viewWillAppear(true)
         //Read Driver info list from database
         self.driverInfo = RealmManager().readList(type: ModelDriverInfo.self)
-        print(self.driverInfo)
+        print(self.modelShippingMen)
         
         pickerView.delegate = self
         pickerView.dataSource = self

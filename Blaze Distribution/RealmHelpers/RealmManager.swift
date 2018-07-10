@@ -85,6 +85,14 @@ public class RealmManager <T: ModelBase>{
         }
         return array
     }
+
+    public func deletePredicate<T: ModelBase>(type: T.Type, predicate: String){
+        
+        try! getRealm().write {
+            getRealm().delete(getRealm().objects(type).filter(predicate))
+        }
+        
+    }
     
     public func deleteAll<T: ModelBase>(type: T.Type){
         
