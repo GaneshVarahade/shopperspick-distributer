@@ -96,10 +96,10 @@ public final class SyncService {
                     let requestPurchaseOrderReceived: RequestPurchaseOrderProductReceived = RequestPurchaseOrderProductReceived()
                     
                     requestPurchaseOrderReceived.name = productReceived.name
-                    requestPurchaseOrderReceived.expected = productReceived.expected
-                    requestPurchaseOrderReceived.received = productReceived.received
+                    requestPurchaseOrderReceived.requestQuantity = productReceived.expected
+                    requestPurchaseOrderReceived.receivedQuantity = productReceived.received
                     
-                    requestPurchase.productReceived.append(requestPurchaseOrderReceived)
+                    requestPurchase.poProductRequestList.append(requestPurchaseOrderReceived)
                 }
                 
                 
@@ -127,7 +127,7 @@ public final class SyncService {
                     let requestCartProduct: RequestCartProduct = RequestCartProduct()
                     requestCartProduct.name = productInCart.name
                     requestCartProduct.productId = productInCart.batchId
-                    requestCartProduct.quantity = productInCart.quantity
+                    requestCartProduct.transferAmount = productInCart.quantity
                     requestInventry.transferLogs.append(requestCartProduct)
                 }
                 requestModel.inventryTrasfer.append(requestInventry)
@@ -148,11 +148,11 @@ public final class SyncService {
                     let requestModelInvoicePayment: RequestModelInvoicePaymentInfo = RequestModelInvoicePaymentInfo()
                     requestModelInvoicePayment.debitCardNo = payment.debitCardNo
                     requestModelInvoicePayment.achDate = payment.achDate
-                    requestModelInvoicePayment.paymentDate = payment.paymentDate
-                    requestModelInvoicePayment.referenceNumber = payment.referenceNumber
+                    requestModelInvoicePayment.paidDate = payment.paymentDate
+                    requestModelInvoicePayment.referenceNo = payment.referenceNumber
                     requestModelInvoicePayment.amount = payment.amount
                     requestModelInvoicePayment.notes = payment.notes
-                    requestInvoice.invoicePyamentInfo.append(requestModelInvoicePayment)
+                    requestInvoice.addPaymentRequest.append(requestModelInvoicePayment)
                 }
                 
                 //List shipping mainfest
@@ -193,7 +193,7 @@ public final class SyncService {
                         requestModelShippingMainfest.shippingSelectedItems.append(requestSelectedItemsShipping)
                     }
                     
-                    requestInvoice.shipingMainfest.append(requestModelShippingMainfest)
+                    requestInvoice.addShippingManifestRequest.append(requestModelShippingMainfest)
                     
                 }
                 

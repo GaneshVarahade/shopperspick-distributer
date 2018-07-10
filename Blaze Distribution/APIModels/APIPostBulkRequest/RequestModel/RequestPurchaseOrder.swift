@@ -19,5 +19,5 @@ public class RequestPurchaseOrder: BaseRequest {
     public var received:Int64              = 0
     public var completedDate:Int64         = 0
  
-    public var productReceived   = [RequestPurchaseOrderProductReceived]()
+    public var poProductRequestList   = [RequestPurchaseOrderProductReceived]()
 }

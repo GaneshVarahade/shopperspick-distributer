@@ -29,6 +29,6 @@ public class RequestInvoice: BaseRequest {
       public   var vendorZipcode:String?
       public   var vendorCountry:String?
     
-      public var invoicePyamentInfo   = [RequestModelInvoicePaymentInfo]()
-      public var shipingMainfest = [RequestModelShipingMainfest]()
+      public var addPaymentRequest   = [RequestModelInvoicePaymentInfo]()
+      public var addShippingManifestRequest = [RequestModelShipingMainfest]()
 }

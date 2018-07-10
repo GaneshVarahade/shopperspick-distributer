@@ -10,8 +10,8 @@ import Foundation
 public class RequestModelInvoicePaymentInfo: BaseRequest {
       public   var debitCardNo:Int        =   0
       public   var achDate:String         =   ""
-      public   var paymentDate:Int        =   0
-      public   var referenceNumber:String = ""
+      public   var paidDate:Int        =   0
+      public   var referenceNo:String = ""
       public   var amount:Double          = 0.0
       public   var notes:String          = ""
 }

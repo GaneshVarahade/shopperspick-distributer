@@ -11,6 +11,6 @@ import Foundation
 public class RequestPurchaseOrderProductReceived: BaseRequest {
     
     public var name:String?     = ""
-    public var expected:Double = 0
-    public var received:Double = 0
+    public var requestQuantity:Double = 0
+    public var receivedQuantity:Double = 0
 }
