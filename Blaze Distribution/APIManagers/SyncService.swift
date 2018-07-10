@@ -94,7 +94,11 @@ public final class SyncService {
                 if modelShip.shippingManifestNo == requestSignature.shippingMainfestId! {
     
                     let modelAsset = ModelSignatureAsset()
+                    modelAsset.id = result?.id
                     modelAsset.publicURL = result?.publicURL
+                    modelAsset.thumbURL = result?.thumbURL
+                    modelAsset.mediumURL = result?.mediumURL
+                    modelAsset.largeURL = result?.largeURL
                     //Map all asset
                     
                     //Assign Asset to ShippingMenifest
@@ -115,14 +119,14 @@ public final class SyncService {
     }
  
     private func syncPostBulkData(){
-        
-        DispatchQueue.global(qos: .userInitiated).async {
+ 
           
             ///After API complete call resync, so syncdata can run recursively
             let realmManager: RealmManager = RealmManager()
             let modelPurchaseOrders = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true")
             let modelInventryTransfer = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true")
             let modelInvoice = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true")
+ 
             
             let requestModel = RequestPostModel()
             
@@ -219,7 +223,20 @@ public final class SyncService {
                     requestModelShippingMainfest.vehicleColor = shiping.vehicleColor
                     requestModelShippingMainfest.vehicleLicensePlate = shiping.vehicleLicensePlate
                     requestModelShippingMainfest.driverLicenPlate = shiping.driverLicenPlate
-                    requestModelShippingMainfest.signaturePhoto = shiping.signaturePhoto
+                    
+                    let requestAsset = RequestAsset()
+                    requestAsset.name = shiping.signatureAsset?.name
+                    
+                    requestAsset.type = shiping.signatureAsset?.type
+                    requestAsset.publicURL = shiping.signatureAsset?.publicURL
+                    requestAsset.active = shiping.signatureAsset?.active ?? false
+                    requestAsset.secured = shiping.signatureAsset?.secured ?? false
+                    requestAsset.thumbURL = shiping.signatureAsset?.thumbURL
+                    requestAsset.mediumURL = shiping.signatureAsset?.mediumURL
+                    requestAsset.largeURL = shiping.signatureAsset?.largeURL
+                    requestAsset.assetType = shiping.signatureAsset?.assetType
+                    
+                    requestModelShippingMainfest.signaturePhoto = requestAsset
                     requestModelShippingMainfest.receiverCompany = shiping.receiverCompany
                     requestModelShippingMainfest.receiverType = shiping.receiverType
                     requestModelShippingMainfest.receiverContact = shiping.receiverContact
@@ -249,31 +266,36 @@ public final class SyncService {
             WebServicesAPI.sharedInstance().BulkPostAPI(request: requestModel) {
                 (result:ResponseBulkRequest?,error:PlatformError?) in
                 
-                DispatchQueue.global(qos: .background).async {
+                DispatchQueue.global(qos: .userInitiated).async {
 
                     print("======================")
+                    
                     let realmManager = RealmManager()
-                    for model in modelPurchaseOrders {
+                    
+                    let modelPurchaseOrders2 = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true")
+                    let modelInventryTransfer2 = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true")
+                    let modelInvoice2 = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true")
+                    
+                    for model in modelPurchaseOrders2 {
                         model.updated = false
                     }
-                    for model in modelInventryTransfer {
+                    for model in modelInventryTransfer2 {
                         model.updated = false
                     }
-                    for model in modelInvoice {
+                    for model in modelInvoice2 {
                         model.updated = false
                     }
 
-                    realmManager.write(modelPurchaseOrders)
-                    realmManager.write(modelInventryTransfer)
-                    realmManager.write(modelInvoice)
+                    realmManager.write(modelPurchaseOrders2)
+                    realmManager.write(modelInventryTransfer2)
+                    realmManager.write(modelInvoice2)
 
                     DispatchQueue.main.async {
                         self.resync()
+                        return
                     }
                 }
             }
-            
-        }
     }
     
     private func syncGetBulkData() {

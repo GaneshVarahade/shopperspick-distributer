@@ -8,6 +8,20 @@
 
 import Foundation
 import Realm
+
+public class RequestAsset: BaseRequest {
+    
+    public var name:String? = ""
+    public var type:String?  = ""
+    public var publicURL:String?  = ""
+    public var active:Bool = false
+    public var secured:Bool = false
+    public var thumbURL:String? = ""
+    public var mediumURL:String? = ""
+    public var largeURL:String? = ""
+    public var assetType:String? = ""
+    
+}
 public class RequestModelShipingMainfest: BaseRequest {
       public   var shippingManifestNo:String?  = ""
       public   var deliveryDate : Int          = 0
@@ -20,7 +34,7 @@ public class RequestModelShipingMainfest: BaseRequest {
       public   var vehicleColor:String?
       public   var vehicleLicensePlate:String?
       public   var driverLicenPlate:String?
-      public   var signaturePhoto:String?      = ""
+      public   var signaturePhoto:RequestAsset?
       public   var receiverCompany:String?     = ""
       public   var receiverType:String?        = ""
       public   var receiverContact:String?

@@ -15,5 +15,9 @@ public class ResponseAsset:BaseResponseModel{
     public var updated: Bool?
     public var companyId: String?
     public var publicURL:String?
-    public var referenceNumber:String?
+    public var referenceNumber:String?    
+    public var thumbURL:String?
+    public var mediumURL:String?
+    public var largeURL:String?
+
 }
