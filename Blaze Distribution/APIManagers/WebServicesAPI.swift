@@ -72,6 +72,106 @@ class WebServicesAPI: NSObject {
         }
     }
     
+    //========================
+    fileprivate func upload<T:BaseResponseModel>(_ request:Router, storeSign: RequestSignature,handler:@escaping (_ result:T?,_ error:PlatformError?)->()) {
+
+        let urlRequest = try! request.asURLRequest()
+        let (mrequest, data) = urlRequestWithComponents((urlRequest.url?.absoluteString)!,
+                                                            resultSignature: storeSign)
+ 
+
+        Alamofire.upload(data, with: mrequest).responseJSON(completionHandler: {
+            (response:DataResponse<Any>) in
+            
+            let data = response.result.value
+            
+            self.printRequest(urlData: request.getRouterInfo(), data)
+            
+            if let res = response.response {
+                
+                do {
+                    
+                    if (res.statusCode == 200 || res.statusCode == 204) {
+                        
+                        
+                        let res2  = try? JSONDecoder().decode(T.self, from:response.data!)
+                        handler(res2,nil)
+                        
+                    } else if (data != nil) {
+                        let errorRes = try JSONDecoder().decode(PlatformError.self, from:response.data!)
+                        handler(nil, errorRes)
+                        
+                    } else {
+                        let pError = PlatformError()
+                        pError.message = "Network error"
+                        pError.errorCode = res.statusCode
+                        handler(nil, pError)
+                        
+                    }
+                    
+                }catch {
+                    let pError = PlatformError()
+                    pError.message = "Exception while Parsing Json Response"
+                    pError.errorCode = res.statusCode
+                    handler(nil, pError)
+                }
+                
+            } else {
+                let pError = PlatformError()
+                pError.message = "Network error"
+                pError.errorCode = 500
+                handler(nil, pError)
+            }
+        })
+    }
+    //======================================
+    
+    
+    
+    // this function creates the required URLRequestConvertible and NSData we need to use Alamofire.upload
+    fileprivate func urlRequestWithComponents(_ urlString: String, resultSignature: RequestSignature) -> (URLRequest, Data) {
+        
+        // create url request to send
+        var mutableURLRequest = URLRequest(url: URL(string: urlString)!)
+        mutableURLRequest.httpMethod = Method.POST.rawValue
+        let boundaryConstant = "myRandomBoundary12345";
+        let contentType = "multipart/form-data;boundary="+boundaryConstant
+        mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        
+        // create upload data to send
+        var uploadData = Data()
+        
+            let fileName = resultSignature.name!
+            let imageFile = UIImageJPEGRepresentation(StoreImage.getSavedImage(name: fileName)!, 0.9)!
+            
+            AQLog.debug(tag:AQLog.TAG_DATABASE_DATA, text: "fileName: \(fileName) image.count: \(imageFile.count)")
+            
+            // add image
+            uploadData.append("\r\n--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
+            uploadData.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".data(using: String.Encoding.utf8)!)
+            uploadData.append("Content-Type: image/png\r\n\r\n".data(using: String.Encoding.utf8)!)
+            uploadData.append(imageFile)
+            
+            uploadData.append("\r\n--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
+            uploadData.append("Content-Disposition: form-data; name=\"name\"\r\n\r\n\(fileName)".data(using: String.Encoding.utf8)!)
+          
+        
+        uploadData.append("\r\n--\(boundaryConstant)--\r\n".data(using: String.Encoding.utf8)!)
+        
+        
+        // set session
+        if let sessionToken = UtilityUserDefaults.sharedInstance().getToken() {
+            //_ = "Token \(sessionToken)"
+            let sessionData = "Token \(sessionToken)"
+            //AQLog.info("\(AQLog.TAG_SESSONDATA) : \(sessionData)")
+            mutableURLRequest.setValue(sessionData, forHTTPHeaderField: "Authorization")
+        }
+        
+        return (mutableURLRequest, uploadData)
+    }
+    
+
+    //====================================
     func loginAPI(request:RequestLogin,onComplition:@escaping (_ result:ResponseLogin?, _ error:PlatformError?) -> ()){
         
         makeRequest(Router.sessionLogin(request: request), callback: onComplition)
@@ -91,6 +191,9 @@ class WebServicesAPI: NSObject {
         
     }
     
+    func uploadSignature(request: RequestSignature,onComplition:@escaping (_ result:ResponseAsset?, _ error:PlatformError?)-> ()){
+        upload(Router.uploadSignature(request: request), storeSign: request, handler: onComplition)
+    }
     private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){
  
         var str: String = ""

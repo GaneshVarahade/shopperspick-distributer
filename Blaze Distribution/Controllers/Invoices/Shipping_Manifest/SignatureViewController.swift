@@ -81,8 +81,8 @@ class SignatureViewController: UIViewController {
         let objSignature: ModelSignature = ModelSignature()
         objSignature.id = HexGenerator.sharedInstance().generate()
         objSignature.name = imageName
-        objSignature.shippingMainfestId = imageName
-        objSignature.invoiceId = invoiceDetailsDict?.id
+        objSignature.shippingMainfestId = modelShippingMen?.shippingManifestNo
+        objSignature.invoiceId = invoiceDetailsDict?.invoiceNumber
         objSignature.updated = true
         RealmManager().write(table: objSignature)
         

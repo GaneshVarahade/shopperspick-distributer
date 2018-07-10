@@ -8,7 +8,7 @@
 //
 
 import Foundation
-public class ResponseSignature :BaseResponseModel{
+public class ResponseSignatureAsset :BaseResponseModel{
     public var id: String?
     public var created: Int?
     public var modified: Int?

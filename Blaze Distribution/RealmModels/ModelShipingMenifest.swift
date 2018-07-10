@@ -29,12 +29,9 @@ public class ModelShipingMenifest:ModelBase {
     @objc public dynamic var receiverContact:String?     
     @objc public dynamic var receiverLicense:String?  
     @objc public dynamic var invoiceStatus:String?
-    @objc public dynamic var signatureAsset:ModelSignature?
+    @objc public dynamic var signatureAsset:ModelSignatureAsset?
     
     var receiverAddress:ModelAddres?
-
-    
-    @objc public var asset:ModelAssets?
     var selectedItems = List<ModelRemainingProduct>()
     
     open override class func primaryKey() -> String? {
@@ -63,7 +60,6 @@ public class ModelShipingMenifest:ModelBase {
         modelShipingMenifest.receiverContact     = self.receiverContact
         modelShipingMenifest.receiverLicense     = self.receiverLicense
         modelShipingMenifest.receiverAddress     = self.receiverAddress
-        modelShipingMenifest.asset               = self.asset
         modelShipingMenifest.invoiceStatus       = self.invoiceStatus
         modelShipingMenifest.signatureAsset      = self.signatureAsset
         modelShipingMenifest.updated            = self.updated
@@ -73,13 +69,10 @@ public class ModelShipingMenifest:ModelBase {
             
         }
         
-//        for itos in self.itemsToShip {
-//
-//            modelShipingMenifest.itemsToShip.append(itos.copy() as! ModelCartProduct)
-//
-//        }
-        
-        
         return modelShipingMenifest
+    }
+    
+    public override var description: String {
+        return "shippingManifestNo: \(shippingManifestNo), signatureAsset: \(signatureAsset)"
     }
 }

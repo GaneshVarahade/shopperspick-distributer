@@ -38,5 +38,9 @@ public class ModelSignatureAsset:ModelBase{
         modelSignature.assetType     = self.assetType
         return modelSignature
     }
+    
+    public override var description: String {
+        return "name: \(name), largeURL: \(largeURL)"
+    }
 }
 

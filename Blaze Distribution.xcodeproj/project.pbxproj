@@ -13,7 +13,8 @@
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
 		181C388620EDFF1D00A567B3 /* RequestPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C388520EDFF1D00A567B3 /* RequestPostModel.swift */; };
 		181F602620F4C5510071CA04 /* ModelSignatureAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F602520F4C5510071CA04 /* ModelSignatureAsset.swift */; };
-		181F602A20F4C8E40071CA04 /* ResponseSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F602920F4C8E40071CA04 /* ResponseSignature.swift */; };
+		181F602A20F4C8E40071CA04 /* ResponseSignatureAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F602920F4C8E40071CA04 /* ResponseSignatureAsset.swift */; };
+		181F603120F4F1B90071CA04 /* RequestSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F603020F4F1B90071CA04 /* RequestSignature.swift */; };
 		1824279F20EE1652009BBF08 /* RequestPurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1824279E20EE1652009BBF08 /* RequestPurchaseOrder.swift */; };
 		182427A120EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */; };
 		182427A820EE3E49009BBF08 /* RequestInventry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427A720EE3E49009BBF08 /* RequestInventry.swift */; };
@@ -34,7 +35,6 @@
 		182B921220C8394E0041915B /* ModelPurchaseOrderProductReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921120C8394E0041915B /* ModelPurchaseOrderProductReceived.swift */; };
 		182B921420C8397B0041915B /* ModelPurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921320C8397B0041915B /* ModelPurchaseOrder.swift */; };
 		182B921620C839A30041915B /* ModelSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921520C839A30041915B /* ModelSignature.swift */; };
-		182B921820C839C00041915B /* ModelAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921720C839C00041915B /* ModelAssets.swift */; };
 		182B921A20C83A140041915B /* ModelPaymentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921920C83A140041915B /* ModelPaymentInfo.swift */; };
 		182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B921B20C83A360041915B /* ModelCartProduct.swift */; };
 		182F83AB20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */; };
@@ -199,7 +199,8 @@
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
 		181C388520EDFF1D00A567B3 /* RequestPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPostModel.swift; sourceTree = "<group>"; };
 		181F602520F4C5510071CA04 /* ModelSignatureAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSignatureAsset.swift; sourceTree = "<group>"; };
-		181F602920F4C8E40071CA04 /* ResponseSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseSignature.swift; sourceTree = "<group>"; };
+		181F602920F4C8E40071CA04 /* ResponseSignatureAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseSignatureAsset.swift; sourceTree = "<group>"; };
+		181F603020F4F1B90071CA04 /* RequestSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSignature.swift; sourceTree = "<group>"; };
 		1824279E20EE1652009BBF08 /* RequestPurchaseOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPurchaseOrder.swift; sourceTree = "<group>"; };
 		182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPurchaseOrderProductReceived.swift; sourceTree = "<group>"; };
 		182427A720EE3E49009BBF08 /* RequestInventry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInventry.swift; sourceTree = "<group>"; };
@@ -221,7 +222,6 @@
 		182B921120C8394E0041915B /* ModelPurchaseOrderProductReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProductReceived.swift; sourceTree = "<group>"; };
 		182B921320C8397B0041915B /* ModelPurchaseOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrder.swift; sourceTree = "<group>"; };
 		182B921520C839A30041915B /* ModelSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSignature.swift; sourceTree = "<group>"; };
-		182B921720C839C00041915B /* ModelAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAssets.swift; sourceTree = "<group>"; };
 		182B921920C83A140041915B /* ModelPaymentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPaymentInfo.swift; sourceTree = "<group>"; };
 		182B921B20C83A360041915B /* ModelCartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCartProduct.swift; sourceTree = "<group>"; };
 		182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProduct.swift; sourceTree = "<group>"; };
@@ -435,6 +435,14 @@
 			path = RequestModel;
 			sourceTree = "<group>";
 		};
+		181F602F20F4F1A40071CA04 /* APIUploadSignature */ = {
+			isa = PBXGroup;
+			children = (
+				181F603020F4F1B90071CA04 /* RequestSignature.swift */,
+			);
+			path = APIUploadSignature;
+			sourceTree = "<group>";
+		};
 		182427A220EE3D8B009BBF08 /* Invoice */ = {
 			isa = PBXGroup;
 			children = (
@@ -504,6 +512,7 @@
 		189F82B320C501B70054986E /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				181F602F20F4F1A40071CA04 /* APIUploadSignature */,
 				181C388320EDFEEC00A567B3 /* APIPostBulkRequest */,
 				B9D45A0E20CA734600E4E0E8 /* APIForgotPassword */,
 				18EE27AD20C95FDC002A329B /* APIGetBulkRequest */,
@@ -536,7 +545,6 @@
 				182B921120C8394E0041915B /* ModelPurchaseOrderProductReceived.swift */,
 				182B921320C8397B0041915B /* ModelPurchaseOrder.swift */,
 				182B921520C839A30041915B /* ModelSignature.swift */,
-				182B921720C839C00041915B /* ModelAssets.swift */,
 				182B921920C83A140041915B /* ModelPaymentInfo.swift */,
 				182B921B20C83A360041915B /* ModelCartProduct.swift */,
 				1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */,
@@ -800,7 +808,7 @@
 				18EE27B320C96178002A329B /* ResponseInvoice.swift */,
 				18EE27B120C960F0002A329B /* ResponseArrayInvoice.swift */,
 				184B43BE20F37F7E000EFC55 /* ResponseArrayDriverInfo.swift */,
-				181F602920F4C8E40071CA04 /* ResponseSignature.swift */,
+				181F602920F4C8E40071CA04 /* ResponseSignatureAsset.swift */,
 			);
 			path = ResponseInvoiceModels;
 			sourceTree = "<group>";
@@ -1475,6 +1483,7 @@
 				B942E45C20CFC11400E474E1 /* ModelInvoiceItems.swift in Sources */,
 				B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */,
 				B91809D820D27960001C336B /* InvoicePaymentsTableViewCell.swift in Sources */,
+				181F603120F4F1B90071CA04 /* RequestSignature.swift in Sources */,
 				182F83AF20D007F3007A1019 /* EventBus.swift in Sources */,
 				189F82C320C501B70054986E /* ModelInvoice.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,
@@ -1485,7 +1494,6 @@
 				181F602620F4C5510071CA04 /* ModelSignatureAsset.swift in Sources */,
 				B942E45E20CFD26C00E474E1 /* ModelAddres.swift in Sources */,
 				B985566D20B43B8700A56497 /* ShippingManifestTableViewCell.swift in Sources */,
-				182B921820C839C00041915B /* ModelAssets.swift in Sources */,
 				B9E5267F20B2DAAA00127E43 /* Completed_InvoiceItemsViewController.swift in Sources */,
 				B942801820CE5DF500F2FA0F /* RequestGetBulkAPI.swift in Sources */,
 				B9E5265A20B2C0D000127E43 /* ScanLookUpViewController.swift in Sources */,
@@ -1522,7 +1530,7 @@
 				B9E5267220B2D7DF00127E43 /* Receive ShipmentViewController.swift in Sources */,
 				B92A65B220AF424500CDA4CC /* FixedInvoiceDetailsTableViewController.swift in Sources */,
 				B9E5266020B2C2D100127E43 /* ConfirmTransferViewController.swift in Sources */,
-				181F602A20F4C8E40071CA04 /* ResponseSignature.swift in Sources */,
+				181F602A20F4C8E40071CA04 /* ResponseSignatureAsset.swift in Sources */,
 				B9E5268720B2E39C00127E43 /* PurchaseOrderViewController.swift in Sources */,
 				182B920E20C838FE0041915B /* ModelProductTransfer.swift in Sources */,
 				B9CAC8DA20AF1155008F1650 /* UIVisualEffectViewX.swift in Sources */,

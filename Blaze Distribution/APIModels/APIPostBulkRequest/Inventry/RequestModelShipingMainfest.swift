@@ -30,6 +30,6 @@ public class RequestModelShipingMainfest: BaseRequest {
       public   var shipperId:String? = ""
       public   var receiverId:String?          = ""
     
-      public   var shippingSelectedItems = [RequestShippingMainfestSelectedItem]()
+      public   var productMetrcInfo = [RequestShippingMainfestSelectedItem]()
 }
 

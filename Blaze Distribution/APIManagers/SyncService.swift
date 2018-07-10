@@ -1,4 +1,5 @@
 import Foundation
+import RealmSwift
 
 public final class SyncService {
     
@@ -46,8 +47,7 @@ public final class SyncService {
     }
     
     private func isSignatureAvailable() -> Bool {
-        
-        return false
+        return getModelSignature().count > 0
     }
     
     private func isPostBulkAvailable() -> Bool {
@@ -68,13 +68,50 @@ public final class SyncService {
     
     private func syncSignature() {
         //Get image one by one from ModelSignature
-        for objSignature in getModelSignature(){
-         let imageToUpload = StoreImage.getSavedImage(name: objSignature.name!)
-            
-            
+        let arrayModelSignature = getModelSignature()
+        print("arrayModelSignature.count : \(arrayModelSignature.count)")
+        if arrayModelSignature.count <= 0 {
+            self.resync()
         }
-        ///After API complete call resync, so syncdata can run recursively
-        resync()
+        
+        let modelSign = arrayModelSignature[0]
+        let requestSignature = RequestSignature()
+        requestSignature.name = modelSign.name
+        requestSignature.invoiceId = modelSign.invoiceId
+        requestSignature.shippingMainfestId = modelSign.shippingMainfestId
+  
+        WebServicesAPI.sharedInstance().uploadSignature(request: requestSignature) {
+            (result:ResponseAsset?, _ error:PlatformError?) in
+            
+            if result == nil {
+                self.resync()
+                return
+            }
+            
+            let modelInvoice = RealmManager().read(type: ModelInvoice.self, primaryKey: requestSignature.invoiceId!)
+            
+            for modelShip in (modelInvoice?.shippingManifests)!{
+                if modelShip.shippingManifestNo == requestSignature.shippingMainfestId! {
+    
+                    let modelAsset = ModelSignatureAsset()
+                    modelAsset.publicURL = result?.publicURL
+                    //Map all asset
+                    
+                    //Assign Asset to ShippingMenifest
+                    modelShip.signatureAsset = modelAsset
+                    RealmManager().write(table: modelInvoice!)
+                    
+                    RealmManager().deletePredicate(type: ModelSignature.self, predicate: "id = '\(modelSign.id!)'")
+                    break
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.resync()
+            }
+        }
+        
+
     }
  
     private func syncPostBulkData(){
@@ -91,6 +128,7 @@ public final class SyncService {
             
             //For Model purchase order
             for model in modelPurchaseOrders {
+                print("modelPurchaseOrders")
                 let requestPurchase: RequestPurchaseOrder = RequestPurchaseOrder()
                 requestPurchase.purchaseOrderNumber = model.purchaseOrderNumber
                 requestPurchase.isMetRc = model.isMetRc
@@ -116,7 +154,7 @@ public final class SyncService {
             
             //For Model Inventry Transfer
             for model in modelInventryTransfer {
-                
+                print("modelInventryTransfer")
                 let requestInventry: RequestInventry = RequestInventry()
                 requestInventry.transferNo = model.transferNo
                 requestInventry.fromShopId = model.fromShopId
@@ -144,7 +182,7 @@ public final class SyncService {
             
             //For Model Invoice
             for model in modelInvoice {
-                
+                print("modelInvoice")
                 let requestInvoice: RequestInvoice = RequestInvoice()
                 requestInvoice.invoiceNumber = model.invoiceNumber
                 requestInvoice.dueDate = model.dueDate
@@ -198,7 +236,7 @@ public final class SyncService {
                         requestSelectedItemsShipping.requestQuantity = selectedItem.requestQuantity
                         requestSelectedItemsShipping.isSelected = selectedItem.isSelected
                         
-                        requestModelShippingMainfest.shippingSelectedItems.append(requestSelectedItemsShipping)
+                        requestModelShippingMainfest.productMetrcInfo.append(requestSelectedItemsShipping)
                     }
                     
                     requestInvoice.addShippingManifestRequest.append(requestModelShippingMainfest)
