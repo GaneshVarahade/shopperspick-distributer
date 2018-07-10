@@ -82,6 +82,7 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
             manifestDetailController?.validateFieldsDelegate = self
             manifestDetailController?.isAddManifest = isAddManifest
             manifestDetailController?.modelShippingMen = self.modelShippingMen
+            manifestDetailController?.invoiceDetailsDict = self.invoiceDetailsDict
             
         }else if segue.identifier == "invoiceItemsSegue" {
             

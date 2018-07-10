@@ -32,6 +32,7 @@ public class ModelPaymentInfo:ModelBase{
         modelPaymentInfo.referenceNumber = self.referenceNumber
         modelPaymentInfo.amount          = self.amount
         modelPaymentInfo.notes           = self.notes
+        modelPaymentInfo.updated         = self.updated
         return modelPaymentInfo
     }
 }

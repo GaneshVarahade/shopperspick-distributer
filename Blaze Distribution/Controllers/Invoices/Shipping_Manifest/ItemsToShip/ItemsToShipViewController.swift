@@ -31,6 +31,7 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
     var modelInvoice: ModelInvoice!
     var modelShippingMenifest: ModelShipingMenifest!
     var remainingItemsList = List<ModelRemainingProduct>()
+    var invoiceDetailsDict: ModelInvoice?
     
     var tempDataDict = [[String:Any]]()
     var confirmShippingDelegate: ShippingMenifestConfirmSelectedProductsDelegate?
@@ -165,26 +166,26 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
             validateDelegate?.doValidateFields()
             return
         }
-        guard let driverLicence = modelShippingMenifest?.driverLicenseNumber, driverLicence != "" else {
-            validateDelegate?.doValidateFields()
-            return
-        }
-        guard let vehicleMake = modelShippingMenifest?.vehicleMake, vehicleMake != "" else {
-            validateDelegate?.doValidateFields()
-            return
-        }
-        guard let vehicleModel = modelShippingMenifest?.vehicleModel, vehicleModel != "" else {
-            validateDelegate?.doValidateFields()
-            return
-        }
-        guard let vehicleColor = modelShippingMenifest?.vehicleColor, vehicleColor != "" else {
-            validateDelegate?.doValidateFields()
-            return
-        }
-        guard let driverLicenPlate = modelShippingMenifest?.driverLicenPlate, driverLicenPlate != "" else {
-            validateDelegate?.doValidateFields()
-            return
-        }
+//        guard let driverLicence = modelShippingMenifest?.driverLicenseNumber, driverLicence != "" else {
+//            validateDelegate?.doValidateFields()
+//            return
+//        }
+//        guard let vehicleMake = modelShippingMenifest?.vehicleMake, vehicleMake != "" else {
+//            validateDelegate?.doValidateFields()
+//            return
+//        }
+//        guard let vehicleModel = modelShippingMenifest?.vehicleModel, vehicleModel != "" else {
+//            validateDelegate?.doValidateFields()
+//            return
+//        }
+//        guard let vehicleColor = modelShippingMenifest?.vehicleColor, vehicleColor != "" else {
+//            validateDelegate?.doValidateFields()
+//            return
+//        }
+//        guard let driverLicenPlate = modelShippingMenifest?.driverLicenPlate, driverLicenPlate != "" else {
+//            validateDelegate?.doValidateFields()
+//            return
+//        }
         guard let img = signImg else {
             validateDelegate?.doValidateFields()
             return
