@@ -13,7 +13,8 @@ import RealmSwift
 public class ModelDriverInfo:ModelBase{
     
     @objc public dynamic var driverId:String? = "" 
-    @objc public dynamic var driverName:String?          = ""
+    @objc public dynamic var driverName:String?  = ""
+    @objc public dynamic var driverLastName:String?  = ""
     @objc public dynamic var driverLicenseNumber:String?
     @objc public dynamic var vehicleMake:String?
     @objc public dynamic var vehicleModel:String?
@@ -24,10 +25,11 @@ public class ModelDriverInfo:ModelBase{
         return "id"
     }
     public override func copy(with zone: NSZone? = nil) -> Any {
-        let modelDriver      = ModelDriverInfo()
-        modelDriver.id       = self.id
+        let modelDriver          = ModelDriverInfo()
+        modelDriver.id           = self.id
         modelDriver.driverId     = self.driverId
-        modelDriver.driverName  = self.driverName
+        modelDriver.driverName   = self.driverName
+        modelDriver.driverLastName = self.driverLastName
         modelDriver.driverLicenseNumber = self.driverLicenseNumber
         modelDriver.vehicleMake     = self.vehicleMake
         modelDriver.vehicleModel  = self.vehicleModel

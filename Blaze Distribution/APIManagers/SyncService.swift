@@ -62,9 +62,17 @@ public final class SyncService {
             realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true").count > 0)
         //return false;
     }
+    private func getModelSignature() ->[ModelSignature] {
+       return RealmManager().readPredicate(type: ModelSignature.self, predicate: "updated = true")
+    }
     
     private func syncSignature() {
-        
+        //Get image one by one from ModelSignature
+        for objSignature in getModelSignature(){
+         let imageToUpload = StoreImage.getSavedImage(name: objSignature.name!)
+            
+            
+        }
         ///After API complete call resync, so syncdata can run recursively
         resync()
     }
@@ -94,7 +102,7 @@ public final class SyncService {
                 
                 for productReceived in model.productReceived {
                     let requestPurchaseOrderReceived: RequestPurchaseOrderProductReceived = RequestPurchaseOrderProductReceived()
-                    
+                    requestPurchaseOrderReceived.productId = productReceived.id
                     requestPurchaseOrderReceived.name = productReceived.name
                     requestPurchaseOrderReceived.expected = productReceived.expected
                     requestPurchaseOrderReceived.received = productReceived.received
@@ -203,28 +211,28 @@ public final class SyncService {
             WebServicesAPI.sharedInstance().BulkPostAPI(request: requestModel) {
                 (result:ResponseBulkRequest?,error:PlatformError?) in
                 
-//                DispatchQueue.global(qos: .background).async {
-//
-//                    print("======================")
-//                    let realmManager = RealmManager()
-//                    for model in modelPurchaseOrders {
-//                        model.updated = false
-//                    }
-//                    for model in modelInventryTransfer {
-//                        model.updated = false
-//                    }
-//                    for model in modelInvoice {
-//                        model.updated = false
-//                    }
-//
-//                    realmManager.write(modelPurchaseOrders)
-//                    realmManager.write(modelInventryTransfer)
-//                    realmManager.write(modelInvoice)
-//
-//                    DispatchQueue.main.async {
-//                        self.resync()
-//                    }
-//                }
+                DispatchQueue.global(qos: .background).async {
+
+                    print("======================")
+                    let realmManager = RealmManager()
+                    for model in modelPurchaseOrders {
+                        model.updated = false
+                    }
+                    for model in modelInventryTransfer {
+                        model.updated = false
+                    }
+                    for model in modelInvoice {
+                        model.updated = false
+                    }
+
+                    realmManager.write(modelPurchaseOrders)
+                    realmManager.write(modelInventryTransfer)
+                    realmManager.write(modelInvoice)
+
+                    DispatchQueue.main.async {
+                        self.resync()
+                    }
+                }
             }
             
         }
@@ -314,8 +322,9 @@ public final class SyncService {
         for response in arrayDriver{
             let model: ModelDriverInfo = ModelDriverInfo()
             model.id = response.id
-            model.driverId = response.driverId
+            model.driverId = response.id
             model.driverName = response.firstName
+            model.driverLastName = response.lastName
             model.driverLicenseNumber = response.driverLicenceNumber
             model.vehicleMake = response.vehicleMake
             model.vehicleModel = response.vehicleModel

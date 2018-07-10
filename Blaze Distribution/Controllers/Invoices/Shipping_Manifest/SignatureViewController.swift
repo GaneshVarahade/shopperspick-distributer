@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 protocol signatureDelegate {
     func getSignatureImg(signImg: UIImage)
@@ -21,6 +23,7 @@ class SignatureViewController: UIViewController {
     
     var signDelegate:signatureDelegate?
     var modelShippingMen: ModelShipingMenifest?
+    var invoiceDetailsDict: ModelInvoice?
     var isAddManifest = Bool()
     
     override func viewDidLoad() {
@@ -62,6 +65,7 @@ class SignatureViewController: UIViewController {
             //signDelegate?.getSignatureImg(signImg: signatureImage)
             
             if StoreImage.saveImage(image: signatureImage, fileName: (modelShippingMen?.shippingManifestNo)!, 0.5) {
+                saveModelSignature(imageName:(modelShippingMen?.shippingManifestNo)!)
                 self.navigationController?.popViewController(animated: true)
             }
             else {
@@ -73,6 +77,18 @@ class SignatureViewController: UIViewController {
         }
     }
     
+    func saveModelSignature(imageName:String) {
+        let objSignature: ModelSignature = ModelSignature()
+        objSignature.id = HexGenerator.sharedInstance().generate()
+        objSignature.name = imageName
+        objSignature.shippingMainfestId = imageName
+        objSignature.invoiceId = invoiceDetailsDict?.id
+        objSignature.updated = true
+        RealmManager().write(table: objSignature)
+        
+        print(RealmManager().readList(type: ModelSignature.self))
+        
+    }
     @IBAction func clearSignatureBtnPressed(_ sender: Any) {
         signatureView.clear()
     }

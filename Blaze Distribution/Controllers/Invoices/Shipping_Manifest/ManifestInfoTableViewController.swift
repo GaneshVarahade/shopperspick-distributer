@@ -23,6 +23,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     let timePicker = UIDatePicker()
     var driverInfo :[ModelDriverInfo] = []
     var selectedDriverInfo:ModelDriverInfo?
+    var invoiceDetailsDict: ModelInvoice?
     var pickerView: UIPickerView = UIPickerView()
     
     
@@ -75,7 +76,10 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         self.selectedDriverInfo = self.driverInfo[self.pickerView.selectedRow(inComponent: 0)]
         if let licenNumber = self.selectedDriverInfo{
             //set value to text field
-            driverNameTextField.text = licenNumber.driverName ?? "Not Available"
+            let fullName = "\(licenNumber.driverName ?? "Not") \(licenNumber.driverLastName ?? "Available")"
+        
+            driverNameTextField.text = fullName
+            //driverNameTextField.text = licenNumber.driverName ?? "Not Available"
             driverLicenceTextField.text = licenNumber.driverLicenseNumber ?? "Not Available"
             driverMakeTextField.text = licenNumber.vehicleMake ?? "Not Available"
             driverModelTextField.text = licenNumber.vehicleModel ?? "Not Available"
@@ -264,66 +268,66 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             addressTextField.becomeFirstResponder()
             return
         }
-        guard let driverName = modelShippingMen?.driverName, driverName != "" else {
-            driverNameTextField.layer.borderWidth = 1
-            driverNameTextField.layer.borderColor = UIColor.red.cgColor
-            DispatchQueue.main.async {
-                let indexPath = IndexPath(row: 11, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-                self.driverNameTextField.becomeFirstResponder()
-            }
-            return
-        }
-        guard let driverLicence = modelShippingMen?.driverLicenseNumber, driverLicence != "" else {
-            driverLicenceTextField.layer.borderWidth = 1
-            driverLicenceTextField.layer.borderColor = UIColor.red.cgColor
-            DispatchQueue.main.async {
-                let indexPath = IndexPath(row: 12, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-                self.driverLicenceTextField.becomeFirstResponder()
-            }
-            return
-        }
-        guard let vehicleMake = modelShippingMen?.vehicleMake, vehicleMake != "" else {
-            driverMakeTextField.layer.borderWidth = 1
-            driverMakeTextField.layer.borderColor = UIColor.red.cgColor
-            DispatchQueue.main.async {
-                let indexPath = IndexPath(row: 13, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-                self.driverMakeTextField.becomeFirstResponder()
-            }
-            return
-        }
-        guard let vehicleModel = modelShippingMen?.vehicleModel, vehicleModel != "" else {
-            driverModelTextField.layer.borderWidth = 1
-            driverModelTextField.layer.borderColor = UIColor.red.cgColor
-            DispatchQueue.main.async {
-                let indexPath = IndexPath(row: 14, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-                self.driverModelTextField.becomeFirstResponder()
-            }
-            return
-        }
-        guard let vehicleColor = modelShippingMen?.vehicleColor, vehicleColor != "" else {
-            driverColorTextField.layer.borderWidth = 1
-            driverColorTextField.layer.borderColor = UIColor.red.cgColor
-            DispatchQueue.main.async {
-                let indexPath = IndexPath(row: 15, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-                self.driverColorTextField.becomeFirstResponder()
-            }
-            return
-        }
-        guard let driverLicenPlate = modelShippingMen?.driverLicenPlate, driverLicenPlate != "" else {
-            driverLicencePlateTextField.layer.borderWidth = 1
-            driverLicencePlateTextField.layer.borderColor = UIColor.red.cgColor
-            DispatchQueue.main.async {
-                let indexPath = IndexPath(row: 16, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-                self.driverLicencePlateTextField.becomeFirstResponder()
-            }
-            return
-        }
+//        guard let driverName = modelShippingMen?.driverName, driverName != "" else {
+//            driverNameTextField.layer.borderWidth = 1
+//            driverNameTextField.layer.borderColor = UIColor.red.cgColor
+//            DispatchQueue.main.async {
+//                let indexPath = IndexPath(row: 11, section: 0)
+//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//                self.driverNameTextField.becomeFirstResponder()
+//            }
+//            return
+//        }
+//        guard let driverLicence = modelShippingMen?.driverLicenseNumber, driverLicence != "" else {
+//            driverLicenceTextField.layer.borderWidth = 1
+//            driverLicenceTextField.layer.borderColor = UIColor.red.cgColor
+//            DispatchQueue.main.async {
+//                let indexPath = IndexPath(row: 12, section: 0)
+//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//                self.driverLicenceTextField.becomeFirstResponder()
+//            }
+//            return
+//        }
+//        guard let vehicleMake = modelShippingMen?.vehicleMake, vehicleMake != "" else {
+//            driverMakeTextField.layer.borderWidth = 1
+//            driverMakeTextField.layer.borderColor = UIColor.red.cgColor
+//            DispatchQueue.main.async {
+//                let indexPath = IndexPath(row: 13, section: 0)
+//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//                self.driverMakeTextField.becomeFirstResponder()
+//            }
+//            return
+//        }
+//        guard let vehicleModel = modelShippingMen?.vehicleModel, vehicleModel != "" else {
+//            driverModelTextField.layer.borderWidth = 1
+//            driverModelTextField.layer.borderColor = UIColor.red.cgColor
+//            DispatchQueue.main.async {
+//                let indexPath = IndexPath(row: 14, section: 0)
+//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//                self.driverModelTextField.becomeFirstResponder()
+//            }
+//            return
+//        }
+//        guard let vehicleColor = modelShippingMen?.vehicleColor, vehicleColor != "" else {
+//            driverColorTextField.layer.borderWidth = 1
+//            driverColorTextField.layer.borderColor = UIColor.red.cgColor
+//            DispatchQueue.main.async {
+//                let indexPath = IndexPath(row: 15, section: 0)
+//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//                self.driverColorTextField.becomeFirstResponder()
+//            }
+//            return
+//        }
+//        guard let driverLicenPlate = modelShippingMen?.driverLicenPlate, driverLicenPlate != "" else {
+//            driverLicencePlateTextField.layer.borderWidth = 1
+//            driverLicencePlateTextField.layer.borderColor = UIColor.red.cgColor
+//            DispatchQueue.main.async {
+//                let indexPath = IndexPath(row: 16, section: 0)
+//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//                self.driverLicencePlateTextField.becomeFirstResponder()
+//            }
+//            return
+//        }
         guard signImg != nil else {
             signatureImgView.layer.borderWidth = 1
             signatureImgView.layer.borderColor = UIColor.red.cgColor
@@ -598,6 +602,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             let obj = segue.destination as! SignatureViewController
             obj.modelShippingMen = self.modelShippingMen
             obj.isAddManifest = self.isAddManifest
+            obj.invoiceDetailsDict = self.invoiceDetailsDict
         }
     }
     
@@ -610,7 +615,8 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     }
     
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return driverInfo[row].driverName ?? ""
+        return "\(driverInfo[row].driverName ?? "Not") \(driverInfo[row].driverLastName ?? "Available")"
+        //return driverInfo[row].driverName ?? ""
     }
     
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
