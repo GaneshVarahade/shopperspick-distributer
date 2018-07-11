@@ -41,9 +41,6 @@ public class RequestModelShipingMainfest: BaseRequest {
       public   var receiverLicense:String?
       public   var invoiceStatus:String?
     
-//      public   var shipperId:String? = ""
-//      public   var receiverId:String?          = ""
-
       public var shipperInformation :RequestShipperInformation?
       public var receiverInformation : RequestReceiverInformation?
       public   var productMetrcInfo = [RequestShippingMainfestSelectedItem]()

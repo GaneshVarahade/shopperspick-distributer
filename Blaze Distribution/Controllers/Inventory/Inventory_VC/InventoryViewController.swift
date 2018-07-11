@@ -120,8 +120,10 @@ extension InventoryViewController{
             let tempi   = data[indexPath.row] as! ModelInventoryTransfers
             cell.nameLabel.text     = tempi.toInventoryName
             cell.requestLabel.text  = tempi.transferNo
-            cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(tempi.modified)/1000,
-                                                               format: DateFormatterUtil.mmddyyyy)
+            //cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(tempi.modified)/1000,
+                                                               //format: DateFormatterUtil.mmddyyyy)
+            
+            cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime: tempi.modified, type:DateIntConvertUtil.Seconds)),format: DateFormatterUtil.mmddyyyy)
            cell.dateLabel.isHidden = false
         }
         

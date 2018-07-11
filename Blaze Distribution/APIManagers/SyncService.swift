@@ -103,7 +103,10 @@ public final class SyncService {
                     
                     //Assign Asset to ShippingMenifest
                     modelShip.signatureAsset = modelAsset
+                    modelInvoice?.updated = true
                     RealmManager().write(table: modelInvoice!)
+                    
+                    print(RealmManager().read(type: ModelInvoice.self, primaryKey:requestSignature.invoiceId!))
                     
                     RealmManager().deletePredicate(type: ModelSignature.self, predicate: "id = '\(modelSign.id!)'")
                     break
@@ -235,8 +238,8 @@ public final class SyncService {
                     requestAsset.mediumURL = shiping.signatureAsset?.mediumURL
                     requestAsset.largeURL = shiping.signatureAsset?.largeURL
                     requestAsset.assetType = shiping.signatureAsset?.assetType
-                    
                     requestModelShippingMainfest.signaturePhoto = requestAsset
+                    
                     requestModelShippingMainfest.receiverCompany = shiping.receiverCompany
                     requestModelShippingMainfest.receiverType = shiping.receiverType
                     requestModelShippingMainfest.receiverContact = shiping.receiverContact
@@ -428,8 +431,7 @@ public final class SyncService {
                 model.companyId         = valu.companyId
                 model.customerId        = valu.customerId
                 model.invoiceNumber     = valu.invoiceNumber
-                model.dueDate           = DateFormatterUtil.format(dateTime: (Double(valu.dueDate ?? 0)/1000),
-                                                                   format: DateFormatterUtil.mmddyyyy)
+                model.dueDate           = DateFormatterUtil.format(dateTime: (Double(DateIntConvertUtil.convert(dateTime: valu.dueDate ?? 0, type: DateIntConvertUtil.Seconds))),format: DateFormatterUtil.mmddyyyy)
                 model.balanceDue        = valu.balanceDue!
                 model.vendorCompany           = valu.vendor?.name
                 model.balanceDue        = valu.balanceDue!

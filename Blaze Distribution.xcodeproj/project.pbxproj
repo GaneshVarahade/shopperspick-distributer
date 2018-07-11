@@ -12,10 +12,10 @@
 		1812B33F20CAB31800B4DC26 /* ModelInventoryTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */; };
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
 		181C388620EDFF1D00A567B3 /* RequestPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C388520EDFF1D00A567B3 /* RequestPostModel.swift */; };
-		181F602C20F4CDBB0071CA04 /* RequestShipperInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F602B20F4CDBB0071CA04 /* RequestShipperInformation.swift */; };
-		181F602E20F4CFC20071CA04 /* RequestReceiverInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F602D20F4CFC20071CA04 /* RequestReceiverInformation.swift */; };
 		181F602620F4C5510071CA04 /* ModelSignatureAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F602520F4C5510071CA04 /* ModelSignatureAsset.swift */; };
 		181F602A20F4C8E40071CA04 /* ResponseSignatureAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F602920F4C8E40071CA04 /* ResponseSignatureAsset.swift */; };
+		181F602C20F4CDBB0071CA04 /* RequestShipperInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F602B20F4CDBB0071CA04 /* RequestShipperInformation.swift */; };
+		181F602E20F4CFC20071CA04 /* RequestReceiverInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F602D20F4CFC20071CA04 /* RequestReceiverInformation.swift */; };
 		181F603120F4F1B90071CA04 /* RequestSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F603020F4F1B90071CA04 /* RequestSignature.swift */; };
 		1824279F20EE1652009BBF08 /* RequestPurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1824279E20EE1652009BBF08 /* RequestPurchaseOrder.swift */; };
 		182427A120EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */; };
@@ -78,6 +78,7 @@
 		18EE27BA20C962AB002A329B /* ResponseInventoryTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27B920C962AB002A329B /* ResponseInventoryTransfers.swift */; };
 		18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27BB20C962BA002A329B /* ResponsePurchaseOrder.swift */; };
 		18F3F61720E52977002B37C3 /* PurchaseOrderAddShipment_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F3F61620E52977002B37C3 /* PurchaseOrderAddShipment_VC.swift */; };
+		18FE8F2B20F5D0D700E4E8FE /* DateIntConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE8F2A20F5D0D700E4E8FE /* DateIntConvert.swift */; };
 		2FD731EB83170AF88FAF96D0 /* Pods_Blaze_DistributionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22B1597E869879AC4DD12C3 /* Pods_Blaze_DistributionTests.framework */; };
 		B910833420CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910833320CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift */; };
 		B91809D620D2792C001C336B /* InvoicePaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91809D520D2792C001C336B /* InvoicePaymentsViewController.swift */; };
@@ -200,10 +201,10 @@
 		1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventoryTransfers.swift; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
 		181C388520EDFF1D00A567B3 /* RequestPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPostModel.swift; sourceTree = "<group>"; };
-		181F602B20F4CDBB0071CA04 /* RequestShipperInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestShipperInformation.swift; sourceTree = "<group>"; };
-		181F602D20F4CFC20071CA04 /* RequestReceiverInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReceiverInformation.swift; sourceTree = "<group>"; };
 		181F602520F4C5510071CA04 /* ModelSignatureAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSignatureAsset.swift; sourceTree = "<group>"; };
 		181F602920F4C8E40071CA04 /* ResponseSignatureAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseSignatureAsset.swift; sourceTree = "<group>"; };
+		181F602B20F4CDBB0071CA04 /* RequestShipperInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestShipperInformation.swift; sourceTree = "<group>"; };
+		181F602D20F4CFC20071CA04 /* RequestReceiverInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReceiverInformation.swift; sourceTree = "<group>"; };
 		181F603020F4F1B90071CA04 /* RequestSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSignature.swift; sourceTree = "<group>"; };
 		1824279E20EE1652009BBF08 /* RequestPurchaseOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPurchaseOrder.swift; sourceTree = "<group>"; };
 		182427A020EE1771009BBF08 /* RequestPurchaseOrderProductReceived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPurchaseOrderProductReceived.swift; sourceTree = "<group>"; };
@@ -268,6 +269,7 @@
 		18EE27B920C962AB002A329B /* ResponseInventoryTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInventoryTransfers.swift; sourceTree = "<group>"; };
 		18EE27BB20C962BA002A329B /* ResponsePurchaseOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsePurchaseOrder.swift; sourceTree = "<group>"; };
 		18F3F61620E52977002B37C3 /* PurchaseOrderAddShipment_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseOrderAddShipment_VC.swift; sourceTree = "<group>"; };
+		18FE8F2A20F5D0D700E4E8FE /* DateIntConvert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateIntConvert.swift; sourceTree = "<group>"; };
 		22C3488055382B11C1D20750 /* Pods_Blaze_Distribution.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blaze_Distribution.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4071D8F6404055871EE91139 /* Pods-Blaze DistributionTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.dev.xcconfig"; sourceTree = "<group>"; };
 		7BD414FACE98F6854EA2F12E /* Pods-Blaze Distribution.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.stage.xcconfig"; sourceTree = "<group>"; };
@@ -717,6 +719,7 @@
 				1815A01B20C91C23000B0328 /* VersionUtils.swift */,
 				182F83AE20D007F3007A1019 /* EventBus.swift */,
 				1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */,
+				18FE8F2A20F5D0D700E4E8FE /* DateIntConvert.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1490,6 +1493,7 @@
 				B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */,
 				B91809D820D27960001C336B /* InvoicePaymentsTableViewCell.swift in Sources */,
 				181F603120F4F1B90071CA04 /* RequestSignature.swift in Sources */,
+				18FE8F2B20F5D0D700E4E8FE /* DateIntConvert.swift in Sources */,
 				182F83AF20D007F3007A1019 /* EventBus.swift in Sources */,
 				189F82C320C501B70054986E /* ModelInvoice.swift in Sources */,
 				B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */,

@@ -178,18 +178,46 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         addressTextField.text = "\(manifestInfo.receiverAddress?.address ?? "-"), \(manifestInfo.receiverAddress?.city ?? "-"), \(manifestInfo.receiverAddress?.country ?? "-")"
 
         if !isAddManifest {
-            deliveryDateTextField.text = DateFormatterUtil.format(dateTime: Double(manifestInfo.deliveryDate), format: DateFormatterUtil.mmddyyyy)
+            deliveryDateTextField.text = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime:manifestInfo.deliveryDate , type: DateIntConvertUtil.Seconds)), format: DateFormatterUtil.mmddyyyy)
             
-            deliveryTimeTextField.text = DateFormatterUtil.format(dateTime: Double(manifestInfo.deliveryTime), format: DateFormatterUtil.hhmma)
+            deliveryTimeTextField.text = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime:manifestInfo.deliveryTime , type: DateIntConvertUtil.Seconds)), format: DateFormatterUtil.hhmma)
             
             //"\(manifestInfo.deliveryDate)"
             //deliveryTimeTextField.text = "-/-"
             driverNameTextField.text = manifestInfo.driverName
-            driverLicenceTextField.text = manifestInfo.driverLicenseNumber ?? "-/-"
-            driverMakeTextField.text = manifestInfo.vehicleMake ?? "-/-"
-            driverModelTextField.text = manifestInfo.vehicleModel ?? "-/-"
-            driverColorTextField.text = manifestInfo.vehicleColor ?? "-/-"
-            driverLicencePlateTextField.text = manifestInfo.driverLicenPlate ?? "-/-"
+            driverLicenceTextField.text = manifestInfo.driverLicenseNumber ?? "Not available"
+            driverMakeTextField.text = manifestInfo.vehicleMake ?? "Not available"
+            driverModelTextField.text = manifestInfo.vehicleModel ?? "Not available"
+            driverColorTextField.text = manifestInfo.vehicleColor ?? "Not available"
+            driverLicencePlateTextField.text = manifestInfo.driverLicenPlate ?? "Not available"
+            
+            //Assine Image from asset
+            if let imageAsset : ModelSignatureAsset = manifestInfo.signatureAsset{
+                //imageAsset = manifestInfo.signatureAsset
+                let imageUrl =  URL(string: (imageAsset.mediumURL)!)
+                //does not make app unresponsive
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let imageData:NSData = NSData(contentsOf: imageUrl!)!
+                    // When from background thread, UI needs to be updated on main_queue
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: imageData as Data)
+                        self.signatureImgView.image = image
+                    }
+                }
+            }
+            
+//            var imageAsset : ModelSignatureAsset? = ModelSignatureAsset()
+//            imageAsset = manifestInfo.signatureAsset
+//            let imageUrl =  URL(string: (imageAsset?.mediumURL)!)
+//            // Start background thread so that image loading does not make app unresponsive
+//            DispatchQueue.global(qos: .userInitiated).async {
+//                let imageData:NSData = NSData(contentsOf: imageUrl!)!
+//                // When from background thread, UI needs to be updated on main_queue
+//                DispatchQueue.main.async {
+//                    let image = UIImage(data: imageData as Data)
+//                    self.signatureImgView.image = image
+//                }
+//            }
         }
         
     }
@@ -347,13 +375,13 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         if textField == deliveryDateTextField {
             let formatter = DateFormatter()
             formatter.dateFormat = "MM/dd/yyyy"
-            modelShippingMen?.deliveryDate = Int(datePicker.date.timeIntervalSince1970)
+            modelShippingMen?.deliveryDate = DateIntConvertUtil.convert(dateTime: Int(datePicker.date.timeIntervalSince1970), type: DateIntConvertUtil.Miliseconds)
             textField.text = formatter.string(from: datePicker.date)
         }
         else if textField == deliveryTimeTextField {
             let formatter = DateFormatter()
             formatter.dateFormat = "hh:mm a"
-            modelShippingMen?.deliveryTime = Int(timePicker.date.timeIntervalSince1970)
+            modelShippingMen?.deliveryTime = DateIntConvertUtil.convert(dateTime:Int(timePicker.date.timeIntervalSince1970) , type: DateIntConvertUtil.Miliseconds)
             textField.text = formatter.string(from: timePicker.date)
         }
         else if textField == companyNameTextField {

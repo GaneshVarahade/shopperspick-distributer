@@ -111,6 +111,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         }
         tempData.updated = true
         RealmManager().write(table: tempData)
+        RealmManager().read(type: ModelInvoice.self, primaryKey: tempData.invoiceNumber!)
         SyncService.sharedInstance().syncData()
         self.navigationController?.popViewController(animated: true)
     }

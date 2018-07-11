@@ -82,9 +82,9 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             //get currunt date
             let someDate = Date()
             let timeInterval = someDate.timeIntervalSince1970
-            let curruntDate = Int(timeInterval) * 1000
-            
-            //
+            let curruntDate = DateIntConvertUtil.convert(dateTime: Int(timeInterval), type:DateIntConvertUtil.Miliseconds)
+           //let curruntDate = Int(timeInterval) * 1000
+
             let transferNo : Int = RealmManager().readList(type: ModelInventoryTransfers.self).count + 1
             
             
