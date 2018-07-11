@@ -12,6 +12,7 @@ import RealmSwift
 
 public class ModelSignatureAsset:ModelBase{
     @objc public dynamic var name:String? = ""
+    @objc public dynamic var key:String? = ""
     @objc public dynamic var type:String?  = ""
     @objc public dynamic var publicURL:String?  = ""
     @objc public dynamic var active:Bool = false
@@ -36,6 +37,7 @@ public class ModelSignatureAsset:ModelBase{
         modelSignature.mediumURL = self.mediumURL
         modelSignature.largeURL     = self.largeURL
         modelSignature.assetType     = self.assetType
+        modelSignature.key = self.key
         return modelSignature
     }
     

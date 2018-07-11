@@ -10,8 +10,9 @@ import Foundation
 import RealmSwift
 
 public class RequestInvoice: BaseRequest {
+      public   var id: String?  = ""
       public   var invoiceNumber: String?  = ""
-      public   var dueDate:String?         = ""
+      public   var dueDate:Int         =  0
       public   var customerId:String?      = ""
       public   var vendorCompany:String?         = ""
       public   var salesPerson:String?         = ""

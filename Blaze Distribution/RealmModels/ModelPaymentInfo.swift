@@ -9,7 +9,12 @@
 import Foundation
 import Realm
 import RealmSwift
-
+public enum PyamentType:String{
+    case Cash = "CASH"
+    case Credit = "CREDIT"
+    case Debit = "DEBITE"
+    case Checqe = "CHECQ"
+}
 public class ModelPaymentInfo:ModelBase{
     
     @objc public dynamic var debitCardNo:Int        =   0

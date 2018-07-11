@@ -10,7 +10,7 @@ import Foundation
 
 public class RequestPostModel: BaseRequest {
     
-    public var purchaseOrders = [RequestPurchaseOrder]()
-    public var inventryTrasfer = [RequestInventry]()
+    public var purchaseOrder = [RequestPurchaseOrder]()
+    public var inventoryTransfer = [RequestInventry]()
     public var invoice = [RequestInvoice]()
 }

@@ -7,11 +7,17 @@
 //
 
 import Foundation
+public class pyamentNotes: BaseRequest{
+    public var message:String = ""
+}
+
 public class RequestModelInvoicePaymentInfo: BaseRequest {
       public   var debitCardNo:Int        =   0
-      public   var achDate:String         =   ""
+      public   var achDate:Int         =   0
       public   var paidDate:Int        =   0
       public   var referenceNo:String = ""
-      public   var amount:Double          = 0.0
-      public   var notes:String          = ""
+      public   var amountPaid:Double          = 0.0
+      public   var notes:pyamentNotes?         
+      public   var paymentType:String          = ""
+    
 }

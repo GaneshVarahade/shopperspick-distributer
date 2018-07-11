@@ -20,7 +20,7 @@ public class RequestAsset: BaseRequest {
     public var mediumURL:String? = ""
     public var largeURL:String? = ""
     public var assetType:String? = ""
-    
+    public var key:String? = ""
 }
 public class RequestModelShipingMainfest: BaseRequest {
       public   var shippingManifestNo:String?  = ""

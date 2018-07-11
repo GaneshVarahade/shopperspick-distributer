@@ -24,6 +24,14 @@ public class DateFormatterUtil {
         nsDateFormatter.dateFormat = format
         return nsDateFormatter.string(from: date)
     }
+    
+    public static func formatStringToInt(dateTime: String, format:String) -> Int{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        let dateFromString = dateFormatter.date(from: dateTime)
+        let intDate = Int((dateFromString?.timeIntervalSince1970)!)
+        return DateIntConvertUtil.convert(dateTime: intDate, type: DateIntConvertUtil.Miliseconds)
+    }
 }
 
 extension Date {

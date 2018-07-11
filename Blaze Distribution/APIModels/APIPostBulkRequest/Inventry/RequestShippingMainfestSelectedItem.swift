@@ -10,8 +10,8 @@
 import Foundation
 public class RequestShippingMainfestSelectedItem: BaseRequest {
       public   var productId:String? = ""
-      public   var productName:String? = ""
-      public   var remainingQuantity:Double = 0.0
-      public   var requestQuantity:Double = 0.0
-      public   var isSelected:Bool = false
+      //public   var productName:String? = ""
+     // public   var remainingQuantity:Double = 0.0
+      public   var quantity:Double = 0.0
+     // public   var isSelected:Bool = false
 }

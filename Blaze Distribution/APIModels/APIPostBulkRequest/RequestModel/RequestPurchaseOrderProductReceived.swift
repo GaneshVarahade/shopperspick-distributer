@@ -9,7 +9,7 @@
 import Foundation
 
 public class RequestPurchaseOrderProductReceived: BaseRequest {
-    
+    public var id:String?  = ""
     public var productId:String?  = ""
     public var name:String?     = ""
     public var requestQuantity:Double = 0

@@ -9,6 +9,7 @@
 import Foundation
 public class ResponseAsset:BaseResponseModel{
     public var id: String?
+    public var type: String?
     public var created: Int?
     public var modified: Int?
     public var deleted: Bool?
@@ -19,5 +20,10 @@ public class ResponseAsset:BaseResponseModel{
     public var thumbURL:String?
     public var mediumURL:String?
     public var largeURL:String?
+    
+    public var name: String?
+    public var key: String?
+    public var assetType: String?
+    
 
 }

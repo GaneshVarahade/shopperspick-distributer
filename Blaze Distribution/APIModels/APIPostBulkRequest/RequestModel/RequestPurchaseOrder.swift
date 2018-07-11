@@ -11,6 +11,7 @@ import RealmSwift
 
 public class RequestPurchaseOrder: BaseRequest {
     
+    public var id:String? = ""
     public var purchaseOrderNumber:String? = ""
     public var isMetRc:Bool                = false
     public var metrcId:String?             = ""

@@ -99,8 +99,11 @@ public final class SyncService {
                     modelAsset.thumbURL = result?.thumbURL
                     modelAsset.mediumURL = result?.mediumURL
                     modelAsset.largeURL = result?.largeURL
-                    //Map all asset
-                    
+                    modelAsset.type = result?.type
+                    modelAsset.name = result?.name
+                    modelAsset.assetType = result?.assetType
+                    modelAsset.key = result?.key
+    
                     //Assign Asset to ShippingMenifest
                     modelShip.signatureAsset = modelAsset
                     modelInvoice?.updated = true
@@ -137,6 +140,7 @@ public final class SyncService {
             for model in modelPurchaseOrders {
                 print("modelPurchaseOrders")
                 let requestPurchase: RequestPurchaseOrder = RequestPurchaseOrder()
+                requestPurchase.id = model.id
                 requestPurchase.purchaseOrderNumber = model.purchaseOrderNumber
                 requestPurchase.isMetRc = model.isMetRc
                 requestPurchase.metrcId = model.metrcId
@@ -147,16 +151,14 @@ public final class SyncService {
                 
                 for productReceived in model.productReceived {
                     let requestPurchaseOrderReceived: RequestPurchaseOrderProductReceived = RequestPurchaseOrderProductReceived()
+                    requestPurchaseOrderReceived.id = productReceived.id
                     requestPurchaseOrderReceived.productId = productReceived.id
                     requestPurchaseOrderReceived.name = productReceived.name
                     requestPurchaseOrderReceived.requestQuantity = productReceived.expected
                     requestPurchaseOrderReceived.receivedQuantity = productReceived.received
-                    
                     requestPurchase.poProductRequestList.append(requestPurchaseOrderReceived)
                 }
-                
-                
-                requestModel.purchaseOrders.append(requestPurchase)
+                requestModel.purchaseOrder.append(requestPurchase)
             }
             
             //For Model Inventry Transfer
@@ -183,7 +185,7 @@ public final class SyncService {
                     requestCartProduct.transferAmount = productInCart.quantity
                     requestInventry.transferLogs.append(requestCartProduct)
                 }
-                requestModel.inventryTrasfer.append(requestInventry)
+                requestModel.inventoryTransfer.append(requestInventry)
             }
             
             
@@ -191,8 +193,11 @@ public final class SyncService {
             for model in modelInvoice {
                 print("modelInvoice")
                 let requestInvoice: RequestInvoice = RequestInvoice()
+                requestInvoice.id = model.id
                 requestInvoice.invoiceNumber = model.invoiceNumber
-                requestInvoice.dueDate = model.dueDate
+                //Convert Date string to int and send
+                requestInvoice.dueDate = DateFormatterUtil.formatStringToInt(dateTime: model.dueDate!, format: DateFormatterUtil.mmddyyyy)
+                
                 requestInvoice.vendorCompany = model.vendorCompany
                 requestInvoice.customerId = model.customerId
                 
@@ -200,22 +205,24 @@ public final class SyncService {
                 for payment in model.paymentInfo {
                     let requestModelInvoicePayment: RequestModelInvoicePaymentInfo = RequestModelInvoicePaymentInfo()
                     requestModelInvoicePayment.debitCardNo = payment.debitCardNo
-                    requestModelInvoicePayment.achDate = payment.achDate
+                    //Convert Date string to int and send
+                    requestModelInvoicePayment.achDate = DateFormatterUtil.formatStringToInt(dateTime: payment.achDate, format: DateFormatterUtil.mmddyyyy)
+//                    print(DateFormatterUtil.format(dateTime: Double(requestModelInvoicePayment.achDate)/1000, format: DateFormatterUtil.mmddyyyy))
                     requestModelInvoicePayment.paidDate = payment.paymentDate
                     requestModelInvoicePayment.referenceNo = payment.referenceNumber
-                    requestModelInvoicePayment.amount = payment.amount
-                    requestModelInvoicePayment.notes = payment.notes
+                    requestModelInvoicePayment.amountPaid = payment.amount
+                    requestModelInvoicePayment.paymentType = PyamentType.Cash.rawValue
+                    let notesModel: pyamentNotes = pyamentNotes()
+                    notesModel.message = payment.notes
+                    requestModelInvoicePayment.notes = notesModel
+                    
                     requestInvoice.addPaymentRequest.append(requestModelInvoicePayment)
                 }
                 
                 //List shipping mainfest
                 for shiping in model.shippingManifests {
                     let requestModelShippingMainfest: RequestModelShipingMainfest = RequestModelShipingMainfest()
-                    
-                    //Shipper Id and Reciver Id
-//                     requestModelShippingMainfest.shipperId = model.companyId
-//                     requestModelShippingMainfest.receiverId = model.customerId
-                    
+                
                     requestModelShippingMainfest.shippingManifestNo = shiping.shippingManifestNo
                     requestModelShippingMainfest.deliveryDate = shiping.deliveryDate
                     requestModelShippingMainfest.deliveryTime = shiping.deliveryTime
@@ -238,6 +245,7 @@ public final class SyncService {
                     requestAsset.mediumURL = shiping.signatureAsset?.mediumURL
                     requestAsset.largeURL = shiping.signatureAsset?.largeURL
                     requestAsset.assetType = shiping.signatureAsset?.assetType
+                    requestAsset.key = shiping.signatureAsset?.key
                     requestModelShippingMainfest.signaturePhoto = requestAsset
                     
                     requestModelShippingMainfest.receiverCompany = shiping.receiverCompany
@@ -260,11 +268,10 @@ public final class SyncService {
                     for selectedItem in shiping.selectedItems {
                         let requestSelectedItemsShipping: RequestShippingMainfestSelectedItem = RequestShippingMainfestSelectedItem()
                         requestSelectedItemsShipping.productId = selectedItem.productId
-                        requestSelectedItemsShipping.productName = selectedItem.productName
-                        requestSelectedItemsShipping.remainingQuantity = selectedItem.remainingQuantity
-                        requestSelectedItemsShipping.requestQuantity = selectedItem.requestQuantity
-                        requestSelectedItemsShipping.isSelected = selectedItem.isSelected
-                        
+                        //requestSelectedItemsShipping.productName = selectedItem.productName
+                        //requestSelectedItemsShipping.remainingQuantity = selectedItem.remainingQuantity
+                        requestSelectedItemsShipping.quantity = selectedItem.requestQuantity
+                        //requestSelectedItemsShipping.isSelected = selectedItem.isSelected
                         requestModelShippingMainfest.productMetrcInfo.append(requestSelectedItemsShipping)
                     }
                     
@@ -366,6 +373,7 @@ public final class SyncService {
         for respPurchaseOrder in arrayPurchase {
             
             let modelPurcahseOrder:ModelPurchaseOrder = ModelPurchaseOrder()
+            modelPurcahseOrder.id = respPurchaseOrder.id
             modelPurcahseOrder.purchaseOrderNumber = respPurchaseOrder.poNumber
             modelPurcahseOrder.isMetRc = respPurchaseOrder.metrc ?? false
             modelPurcahseOrder.received = respPurchaseOrder.receivedDate ?? 0

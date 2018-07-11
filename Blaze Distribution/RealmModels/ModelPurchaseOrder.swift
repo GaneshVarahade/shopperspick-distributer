@@ -29,6 +29,7 @@ public class ModelPurchaseOrder:ModelBase{
     public override func copy(with zone:NSZone? = nil) -> Any {
         
         let modelPurchaseOrder                 = ModelPurchaseOrder()
+        modelPurchaseOrder.id                  = self.id
         modelPurchaseOrder.purchaseOrderNumber = self.purchaseOrderNumber
         modelPurchaseOrder.isMetRc             = self.isMetRc
         modelPurchaseOrder.metrcId             = self.metrcId
