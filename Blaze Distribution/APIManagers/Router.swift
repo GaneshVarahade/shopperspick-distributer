@@ -63,7 +63,7 @@ enum Router : URLRequestConvertible {
         case .bulkGet():
             return (Method.GET,"/api/v1/warehouse/mgmt/dataSync",nil,nil)
         case .bulkPost(let request):
-            return (Method.POST,"/api/v1/warehouse/mgmt/dataSync",encode(request),nil)
+            return (Method.PUT,"/api/v1/warehouse/mgmt/dataSync",encode(request),nil)
         case.forgotPassword(let request):
             return (Method.POST,"/api/v1/mgmt/password/reset",encode(request),nil)
         case.uploadSignature(let request):
