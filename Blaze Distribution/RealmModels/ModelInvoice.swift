@@ -31,6 +31,7 @@ public class ModelInvoice:ModelBase {
     @objc public dynamic var vendorState:String?
     @objc public dynamic var vendorZipcode:String?
     @objc public dynamic var vendorCountry:String?
+    @objc public dynamic var putBulkError:String?         = ""
     
     var remainingProducts = List<ModelRemainingProduct>()
     var items = List<ModelInvoiceItems>()
@@ -65,6 +66,7 @@ public class ModelInvoice:ModelBase {
         modelInvoice.vendorZipcode = self.vendorZipcode
         modelInvoice.vendorCountry = self.vendorCountry
         modelInvoice.updated = self.updated
+        modelInvoice.putBulkError = self.putBulkError
         
         for pay in self.paymentInfo{
             modelInvoice.paymentInfo.append(pay.copy() as! ModelPaymentInfo)

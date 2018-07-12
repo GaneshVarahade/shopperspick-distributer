@@ -23,6 +23,7 @@ public class ModelPurchaseOrder:ModelBase{
     @objc public dynamic var origin:String?              = ""
     @objc public dynamic var received:Int64              = 0
     @objc public dynamic var completedDate:Int64         = 0
+    @objc public dynamic var putBulkError:String?         = ""
     
     var productInShipment = List<ModelPurchaseOrderProduct>()
     var productReceived   = List<ModelPurchaseOrderProductReceived>()
@@ -37,7 +38,8 @@ public class ModelPurchaseOrder:ModelBase{
         modelPurchaseOrder.origin              = self.origin
         modelPurchaseOrder.received            = self.received
         modelPurchaseOrder.completedDate       = self.completedDate
-        modelPurchaseOrder.updated              = self.updated
+        modelPurchaseOrder.updated             = self.updated
+        modelPurchaseOrder.putBulkError        = self.putBulkError
         
         for prodInShip in self.productInShipment{
             modelPurchaseOrder.productInShipment.append(prodInShip.copy() as! ModelPurchaseOrderProduct)

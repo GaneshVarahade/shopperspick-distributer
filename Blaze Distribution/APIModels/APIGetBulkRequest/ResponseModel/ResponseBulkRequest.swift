@@ -23,5 +23,7 @@ public class ResponseBulkRequest: BaseResponseModel  {
     public var inventories:[ResponseInventories]?
     public var employees: ResponseArrayDriverInfo?
     
-    
+    public var inventoryTransferError:[inventoryTransferError]?
+    public var invoiceError:[invoiceError]?
+    public var poError:[poError]?
 }

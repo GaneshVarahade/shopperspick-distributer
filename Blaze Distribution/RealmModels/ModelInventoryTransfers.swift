@@ -29,6 +29,7 @@ public class ModelInventoryTransfers: ModelBase {
     @objc public dynamic var toInventoryName:String?   = ""
     @objc public  dynamic var completeTransfer:Bool                = false
     @objc public dynamic var status:String?   = ""
+    @objc public dynamic var putBulkError:String?         = ""
     public var slectedProducts = List<ModelCartProduct>()
     
     open override class func primaryKey() -> String? {
@@ -48,10 +49,11 @@ public class ModelInventoryTransfers: ModelBase {
         modelInventoryTransfers.toInventoryName   = self.toInventoryName
         modelInventoryTransfers.status            = self.status
         modelInventoryTransfers.id                = self.id
-        modelInventoryTransfers.updated                = self.updated
+        modelInventoryTransfers.updated           = self.updated
         modelInventoryTransfers.fromInventoryId   = self.fromInventoryId
         modelInventoryTransfers.toInventoryId     = self.toInventoryId
         modelInventoryTransfers.completeTransfer  = self.completeTransfer
+        modelInventoryTransfers.putBulkError      = self.putBulkError
         
         for prod in self.slectedProducts{
             modelInventoryTransfers.slectedProducts.append(prod.copy() as! ModelCartProduct)

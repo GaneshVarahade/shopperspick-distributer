@@ -56,12 +56,15 @@ public final class SyncService {
         AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: "\(realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true").count)")
         AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: "\(realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true").count)")
         AQLog.debug(tag: AQLog.TAG_DATABASE_DATA, text: "\(realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true").count)")
+        
         //Commented Temporaray
-        return (realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true").count > 0 ||
-            realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true").count > 0 ||
-            realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true").count > 0)
-        //return false;
+        return (realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true && putBulkError = '' ").count > 0
+            ||
+            realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true && putBulkError = ''").count > 0
+            ||
+            realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true && putBulkError = ''").count > 0)
     }
+    
     private func getModelSignature() ->[ModelSignature] {
        return RealmManager().readPredicate(type: ModelSignature.self, predicate: "updated = true")
     }
@@ -109,8 +112,7 @@ public final class SyncService {
                     modelInvoice?.updated = true
                     RealmManager().write(table: modelInvoice!)
                     
-                    print(RealmManager().read(type: ModelInvoice.self, primaryKey:requestSignature.invoiceId!))
-                    
+                    //print(RealmManager().read(type: ModelInvoice.self, primaryKey:requestSignature.invoiceId!))
                     RealmManager().deletePredicate(type: ModelSignature.self, predicate: "id = '\(modelSign.id!)'")
                     break
                 }
@@ -129,9 +131,9 @@ public final class SyncService {
           
             ///After API complete call resync, so syncdata can run recursively
             let realmManager: RealmManager = RealmManager()
-            let modelPurchaseOrders = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true")
-            let modelInventryTransfer = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true")
-            let modelInvoice = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true")
+            let modelPurchaseOrders = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true && putBulkError = ''")
+            let modelInventryTransfer = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true && putBulkError = ''")
+            let modelInvoice = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true && putBulkError = ''")
  
             
             let requestModel = RequestPostModel()
@@ -165,6 +167,7 @@ public final class SyncService {
             for model in modelInventryTransfer {
                 print("modelInventryTransfer")
                 let requestInventry: RequestInventry = RequestInventry()
+                requestInventry.id = model.id
                 requestInventry.transferNo = model.transferNo
                 requestInventry.fromShopId = model.fromShopId
                 requestInventry.toShopId = model.toShopId
@@ -196,7 +199,10 @@ public final class SyncService {
                 requestInvoice.id = model.id
                 requestInvoice.invoiceNumber = model.invoiceNumber
                 //Convert Date string to int and send
-                requestInvoice.dueDate = DateFormatterUtil.formatStringToInt(dateTime: model.dueDate!, format: DateFormatterUtil.mmddyyyy)
+                if let duedate = model.dueDate{
+                    requestInvoice.dueDate = DateFormatterUtil.formatStringToInt(dateTime: duedate, format: DateFormatterUtil.mmddyyyy)
+                }
+//                requestInvoice.dueDate = DateFormatterUtil.formatStringToInt(dateTime: duedate, format: DateFormatterUtil.mmddyyyy)
                 
                 requestInvoice.vendorCompany = model.vendorCompany
                 requestInvoice.customerId = model.customerId
@@ -206,7 +212,9 @@ public final class SyncService {
                     let requestModelInvoicePayment: RequestModelInvoicePaymentInfo = RequestModelInvoicePaymentInfo()
                     requestModelInvoicePayment.debitCardNo = payment.debitCardNo
                     //Convert Date string to int and send
-                    requestModelInvoicePayment.achDate = DateFormatterUtil.formatStringToInt(dateTime: payment.achDate, format: DateFormatterUtil.mmddyyyy)
+                    if let achdate =  payment.achDate, achdate != ""{
+                         requestModelInvoicePayment.achDate = DateFormatterUtil.formatStringToInt(dateTime: achdate, format: DateFormatterUtil.mmddyyyy)
+                    }
 //                    print(DateFormatterUtil.format(dateTime: Double(requestModelInvoicePayment.achDate)/1000, format: DateFormatterUtil.mmddyyyy))
                     requestModelInvoicePayment.paidDate = payment.paymentDate
                     requestModelInvoicePayment.referenceNo = payment.referenceNumber
@@ -286,28 +294,86 @@ public final class SyncService {
                 (result:ResponseBulkRequest?,error:PlatformError?) in
                 
                 DispatchQueue.global(qos: .userInitiated).async {
+                    
+                    // for inventoryTransferError object
+                    if let arrayInventory = result?.inventoryTransferError{
+                        for obj in arrayInventory {
+                            
+                           print(obj.request?.id ?? "",obj.error ?? "")
+                            let modelInvetry = RealmManager().read(type: ModelInventoryTransfers.self, primaryKey: (obj.request?.id)!)
+                                modelInvetry?.putBulkError = obj.error ?? ""
+                                RealmManager().write(table: modelInvetry!)
+                              print(RealmManager().read(type: ModelInventoryTransfers.self, primaryKey: (obj.request?.id)!))
+                        }
+                        
+                    }else{
+                         let modelInventryTransfer2 = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true")
+                         for model in modelInventryTransfer2 {
+                            model.updated = false
+                        }
+                        realmManager.write(modelInventryTransfer2)
+                    }
+                    
+                    // for invoice object
+                    if let arrayInvoice = result?.invoiceError{
+                       
+                        for obj in arrayInvoice {
+                            print(obj.request?.id ?? "",obj.error ?? "")
+                            let modelInvoice = RealmManager().read(type: ModelInvoice.self, primaryKey: (obj.request?.id)!)
+                            modelInvoice?.putBulkError = obj.error ?? ""
+                            RealmManager().write(table: modelInvoice!)
+                            print(RealmManager().read(type: ModelInvoice.self, primaryKey: (obj.request?.id)!))
+                        }
+                        
+                    }else{
+                        let modelInvoice2 = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true")
+                        for model in modelInvoice2 {
+                            model.updated = false
+                        }
+                        realmManager.write(modelInvoice2)
+                    }
+                    
+                    // for purchaseOrder object
+                    if let arrayPo = result?.poError{
+                        
+                        for obj in arrayPo {
+                            print(obj.request?.id ?? "" ,obj.error ?? "")
+                            let modelPo = RealmManager().read(type: ModelPurchaseOrder.self, primaryKey: (obj.request?.id)!)
+                            modelPo?.putBulkError = obj.error ?? ""
+                            RealmManager().write(table: modelPo!)
+                           // print( RealmManager().read(type: ModelPurchaseOrder.self, primaryKey: (obj.request?.id)!))
+                        }
+                        
+                    }else{
+                         let modelPurchaseOrders2 = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true")
+                         for model in modelPurchaseOrders2 {
+                            model.updated = false
+                         }
+                         realmManager.write(modelPurchaseOrders2)
+                    }
+                    
 
-                    print("======================")
-                    
-                    let realmManager = RealmManager()
-                    
-                    let modelPurchaseOrders2 = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true")
-                    let modelInventryTransfer2 = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true")
-                    let modelInvoice2 = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true")
-                    
-                    for model in modelPurchaseOrders2 {
-                        model.updated = false
-                    }
-                    for model in modelInventryTransfer2 {
-                        model.updated = false
-                    }
-                    for model in modelInvoice2 {
-                        model.updated = false
-                    }
-
-                    realmManager.write(modelPurchaseOrders2)
-                    realmManager.write(modelInventryTransfer2)
-                    realmManager.write(modelInvoice2)
+//                    print("======================")
+//
+//                    let realmManager = RealmManager()
+//
+//                    let modelPurchaseOrders2 = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true")
+//                    let modelInventryTransfer2 = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true")
+//                    let modelInvoice2 = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true")
+//
+//                    for model in modelPurchaseOrders2 {
+//                        model.updated = false
+//                    }
+//                    for model in modelInventryTransfer2 {
+//                        model.updated = false
+//                    }
+//                    for model in modelInvoice2 {
+//                        model.updated = false
+//                    }
+//
+//                    realmManager.write(modelPurchaseOrders2)
+//                    realmManager.write(modelInventryTransfer2)
+//                    realmManager.write(modelInvoice2)
 
                     DispatchQueue.main.async {
                         self.resync()
@@ -370,30 +436,43 @@ public final class SyncService {
     
     private func savePurchaseOrder(_ arrayPurchase: [ResponsePurchaseOrder]){
         
+        let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true ")
+        
         for respPurchaseOrder in arrayPurchase {
-            
-            let modelPurcahseOrder:ModelPurchaseOrder = ModelPurchaseOrder()
-            modelPurcahseOrder.id = respPurchaseOrder.id
-            modelPurcahseOrder.purchaseOrderNumber = respPurchaseOrder.poNumber
-            modelPurcahseOrder.isMetRc = respPurchaseOrder.metrc ?? false
-            modelPurcahseOrder.received = respPurchaseOrder.receivedDate ?? 0
-            modelPurcahseOrder.completedDate = respPurchaseOrder.completedDate ?? 0
-            modelPurcahseOrder.status = respPurchaseOrder.purchaseOrderStatus
-            
-            if let listProdReq = respPurchaseOrder.poProductRequestList {
-                
-                for productReq in listProdReq {
-                    let modelPOProduct = ModelPurchaseOrderProduct()
-                    modelPOProduct.id   = productReq.id
-                    modelPOProduct.name = productReq.productName
-                    modelPOProduct.quantity = productReq.requestQuantity ?? 0
-                    modelPOProduct.batchId = productReq.batchId
-                    modelPurcahseOrder.productInShipment.append(modelPOProduct)
+            var canSkip : Bool = false
+            if poErrorObject.count != 0{
+                for obj in poErrorObject{
+                    if obj.id == respPurchaseOrder.id{
+                        canSkip = true
+                    }
                 }
             }
             
-            //Write to database
-            RealmManager().write(table: modelPurcahseOrder)
+            //Check skip condition
+            if(canSkip == false){
+                let modelPurcahseOrder:ModelPurchaseOrder = ModelPurchaseOrder()
+                modelPurcahseOrder.id = respPurchaseOrder.id
+                modelPurcahseOrder.purchaseOrderNumber = respPurchaseOrder.poNumber
+                modelPurcahseOrder.isMetRc = respPurchaseOrder.metrc ?? false
+                modelPurcahseOrder.received = respPurchaseOrder.receivedDate ?? 0
+                modelPurcahseOrder.completedDate = respPurchaseOrder.completedDate ?? 0
+                modelPurcahseOrder.status = respPurchaseOrder.purchaseOrderStatus
+                
+                if let listProdReq = respPurchaseOrder.poProductRequestList {
+                    
+                    for productReq in listProdReq {
+                        let modelPOProduct = ModelPurchaseOrderProduct()
+                        modelPOProduct.id   = productReq.id
+                        modelPOProduct.name = productReq.productName
+                        modelPOProduct.quantity = productReq.requestQuantity ?? 0
+                        modelPOProduct.batchId = productReq.batchId
+                        modelPurcahseOrder.productInShipment.append(modelPOProduct)
+                    }
+                }
+                
+                //Write to database
+                RealmManager().write(table: modelPurcahseOrder)
+            }
         }
     }
     
@@ -428,110 +507,120 @@ public final class SyncService {
     }
     
     fileprivate func saveDataInvoice(jsonData: [ResponseInvoice]?){
-        
+        let invoiceErrorObject = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "updated = true ")
         if let values = jsonData{
             
             for valu in values{
-                
-                
-                let model: ModelInvoice = ModelInvoice()
-                model.id                = valu.id
-                model.companyId         = valu.companyId
-                model.customerId        = valu.customerId
-                model.invoiceNumber     = valu.invoiceNumber
-                model.dueDate           = DateFormatterUtil.format(dateTime: (Double(DateIntConvertUtil.convert(dateTime: valu.dueDate ?? 0, type: DateIntConvertUtil.Seconds))),format: DateFormatterUtil.mmddyyyy)
-                model.balanceDue        = valu.balanceDue!
-                model.vendorCompany           = valu.vendor?.name
-                model.balanceDue        = valu.balanceDue!
-                model.contact           = valu.companyContact
-                model.total             = valu.total!
-                
-                model.vendorLicenseNumber = valu.vendor?.licenseNumber
-                model.vendorCompanyType = valu.vendor?.companyType
-                model.vendorPhone = valu.vendor?.phone
-                model.vendorAddress = valu.vendor?.address?.address
-                model.vendorCity = valu.vendor?.address?.city
-                model.vendorState = valu.vendor?.address?.state
-                model.vendorZipcode = valu.vendor?.address?.zipCode
-                model.vendorCountry = valu.vendor?.address?.country
-                
-                
-                
-                if let remaingProducts = valu.remainingProductInformations{
-                    for remProd  in remaingProducts{
-                        let temp               = ModelRemainingProduct()
-                        temp.productId         = remProd.productId
-                        temp.productName       = remProd.productName
-                        temp.requestQuantity   = remProd.requestQuantity!
-                        temp.remainingQuantity = remProd.remainingQuantity!
-                        model.remainingProducts.append(temp)
-                    }
-                }else{
-                    
-                  //  print("Remaing nil..")
-                }
-                ///Mapping Items
-                if let items = valu.items{
-                    for item in items{
-                        let itemTemp = ModelInvoiceItems()
-                        itemTemp.productId = item.productId
-                        itemTemp.productName = item.productName
-                        itemTemp.batchId    = item.batchId
-                        itemTemp.quantity = item.quantity
-                        model.items.append(itemTemp)
-                        
-                    }
-                    
-                }else{
-                  //  print("Items nil")
-                }
-                //Mapping Payment Info
-                if let  paymentRec = valu.paymentsReceived{
-                    
-                    for payment in paymentRec{
-                        let paymentTemp             = ModelPaymentInfo()
-                        paymentTemp.id              = payment.id
-                        paymentTemp.paymentDate     = payment.paidDate!
-                        paymentTemp.referenceNumber = payment.referenceNo ?? ""
-                        paymentTemp.amount          = payment.amountPaid!
-                        model.paymentInfo.append(paymentTemp)
-                    }
-                }else{
-                    
-                  //  print("Payment info nil")
-                }
-                ///Mapping Shipping Manifests
-                if valu.shippingManifests != nil, valu.shippingManifests!.count > 0 {
-                    
-                    for ship in valu.shippingManifests! {
-                        let shipMen                 = ModelShipingMenifest()
-                        shipMen.id                  = ship.id
-                        shipMen.companyId           = ship.companyId
-                        shipMen.driverName          = ship.driverName
-                        shipMen.driverLicenseNumber = ship.driverLicenceNumber
-                        shipMen.vehicleMake         = ship.vehicleMake
-                        shipMen.vehicleModel        = ship.vehicleModel
-                        shipMen.vehicleLicensePlate = ship.vehicleLicensePlate
-                        shipMen.signaturePhoto      = ship.signaturePhoto
-                        shipMen.receiverCompany     = ship.receiverCompany?.name
-                        shipMen.receiverType        = ship.receiverCompany?.vendorType
-                        shipMen.receiverContact     = ship.receiverCompany?.phone
-                        shipMen.receiverLicense     = ship.receiverCompany?.licenseNumber
-                        shipMen.invoiceStatus       = ship.invoiceStatus
-                        shipMen.shippingManifestNo  = ship.shippingManifestNo
-                        if let add = ship.receiverAddress?.address{
-                            shipMen.receiverAddress?.id      = add.id
-                            shipMen.receiverAddress?.city    = add.city
-                            shipMen.receiverAddress?.address = add.address
-                            shipMen.receiverAddress?.state   = add.state
+                var canSkip : Bool = false
+                if invoiceErrorObject.count != 0{
+                    for obj in invoiceErrorObject{
+                        if obj.id == valu.id{
+                            canSkip = true
                         }
-                        model.shippingManifests.append(shipMen)
                     }
                 }
-                else{
-                  //  print("From json shipingMenifest: Nil")
+               //Cehck Skip Condition
+                if (canSkip == false){
+                    let model: ModelInvoice = ModelInvoice()
+                    model.id                = valu.id
+                    model.companyId         = valu.companyId
+                    model.customerId        = valu.customerId
+                    model.invoiceNumber     = valu.invoiceNumber
+                    model.dueDate           = DateFormatterUtil.format(dateTime: (Double(DateIntConvertUtil.convert(dateTime: valu.dueDate ?? 0, type: DateIntConvertUtil.Seconds))),format: DateFormatterUtil.mmddyyyy)
+                    model.balanceDue        = valu.balanceDue!
+                    model.vendorCompany           = valu.vendor?.name
+                    model.balanceDue        = valu.balanceDue!
+                    model.contact           = valu.companyContact
+                    model.total             = valu.total!
+                    
+                    model.vendorLicenseNumber = valu.vendor?.licenseNumber
+                    model.vendorCompanyType = valu.vendor?.companyType
+                    model.vendorPhone = valu.vendor?.phone
+                    model.vendorAddress = valu.vendor?.address?.address
+                    model.vendorCity = valu.vendor?.address?.city
+                    model.vendorState = valu.vendor?.address?.state
+                    model.vendorZipcode = valu.vendor?.address?.zipCode
+                    model.vendorCountry = valu.vendor?.address?.country
+                    
+                    
+                    
+                    if let remaingProducts = valu.remainingProductInformations{
+                        for remProd  in remaingProducts{
+                            let temp               = ModelRemainingProduct()
+                            temp.productId         = remProd.productId
+                            temp.productName       = remProd.productName
+                            temp.requestQuantity   = remProd.requestQuantity!
+                            temp.remainingQuantity = remProd.remainingQuantity!
+                            model.remainingProducts.append(temp)
+                        }
+                    }else{
+                        
+                        //  print("Remaing nil..")
+                    }
+                    ///Mapping Items
+                    if let items = valu.items{
+                        for item in items{
+                            let itemTemp = ModelInvoiceItems()
+                            itemTemp.productId = item.productId
+                            itemTemp.productName = item.productName
+                            itemTemp.batchId    = item.batchId
+                            itemTemp.quantity = item.quantity
+                            model.items.append(itemTemp)
+                            
+                        }
+                        
+                    }else{
+                        //  print("Items nil")
+                    }
+                    //Mapping Payment Info
+                    if let  paymentRec = valu.paymentsReceived{
+                        
+                        for payment in paymentRec{
+                            let paymentTemp             = ModelPaymentInfo()
+                            paymentTemp.id              = payment.id
+                            paymentTemp.paymentDate     = payment.paidDate!
+                            paymentTemp.referenceNumber = payment.referenceNo ?? ""
+                            paymentTemp.amount          = payment.amountPaid!
+                            model.paymentInfo.append(paymentTemp)
+                        }
+                    }else{
+                        
+                        //  print("Payment info nil")
+                    }
+                    ///Mapping Shipping Manifests
+                    if valu.shippingManifests != nil, valu.shippingManifests!.count > 0 {
+                        
+                        for ship in valu.shippingManifests! {
+                            let shipMen                 = ModelShipingMenifest()
+                            shipMen.id                  = ship.id
+                            shipMen.companyId           = ship.companyId
+                            shipMen.driverName          = ship.driverName
+                            shipMen.driverLicenseNumber = ship.driverLicenceNumber
+                            shipMen.vehicleMake         = ship.vehicleMake
+                            shipMen.vehicleModel        = ship.vehicleModel
+                            shipMen.vehicleLicensePlate = ship.vehicleLicensePlate
+                            shipMen.signaturePhoto      = ship.signaturePhoto
+                            shipMen.receiverCompany     = ship.receiverCompany?.name
+                            shipMen.receiverType        = ship.receiverCompany?.vendorType
+                            shipMen.receiverContact     = ship.receiverCompany?.phone
+                            shipMen.receiverLicense     = ship.receiverCompany?.licenseNumber
+                            shipMen.invoiceStatus       = ship.invoiceStatus
+                            shipMen.shippingManifestNo  = ship.shippingManifestNo
+                            if let add = ship.receiverAddress?.address{
+                                shipMen.receiverAddress?.id      = add.id
+                                shipMen.receiverAddress?.city    = add.city
+                                shipMen.receiverAddress?.address = add.address
+                                shipMen.receiverAddress?.state   = add.state
+                            }
+                            model.shippingManifests.append(shipMen)
+                        }
+                    }
+                    else{
+                        //  print("From json shipingMenifest: Nil")
+                    }
+                    RealmManager().write(table: model)
                 }
-                RealmManager().write(table: model)
+               
             }
         }
        // print("---Invoice Data Save---")
@@ -539,30 +628,38 @@ public final class SyncService {
     }
     
     fileprivate func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
+        let inventryErrorObject = RealmManager().readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true ")
         if let values = jsonData{
             
             for value in values{
+                var canSkip : Bool = false
+                if inventryErrorObject.count != 0{
+                    for obj in inventryErrorObject{
+                        if obj.id == value.id{
+                            canSkip = true
+                        }
+                    }
+                }
                 
-                //Avoid adding Inventory which are Pending
-//                guard value.status?.localizedCaseInsensitiveContains(TransferStatus.PENDING.rawValue) ?? false else {
-//                    continue
-//                }
-                let tempInventory = ModelInventoryTransfers()
-                tempInventory.id = value.id
-                tempInventory.transferNo = value.transferNo
-                tempInventory.modified = value.modified ?? 0
-                tempInventory.fromInventoryName = value.fromInventoryName
-                tempInventory.fromShopName = value.fromShopName
-                tempInventory.toInventoryName = value.toInventoryName
-                tempInventory.toShopId = value.toShopId
-                tempInventory.fromInventoryId = value.fromInventoryId
-                tempInventory.toInventoryId = value.toInventoryId
-                tempInventory.completeTransfer = value.completeTransfer ?? false
-                tempInventory.toShopName = value.toShopName
-                tempInventory.toInventoryName = value.toInventoryName
-                tempInventory.status = value.status
-                
-                RealmManager().write(table: tempInventory)
+                //Check Skip condition
+                if canSkip == false {
+                    let tempInventory = ModelInventoryTransfers()
+                    tempInventory.id = value.id
+                    tempInventory.transferNo = value.transferNo
+                    tempInventory.modified = value.modified ?? 0
+                    tempInventory.fromInventoryName = value.fromInventoryName
+                    tempInventory.fromShopName = value.fromShopName
+                    tempInventory.toInventoryName = value.toInventoryName
+                    tempInventory.toShopId = value.toShopId
+                    tempInventory.fromInventoryId = value.fromInventoryId
+                    tempInventory.toInventoryId = value.toInventoryId
+                    tempInventory.completeTransfer = value.completeTransfer ?? false
+                    tempInventory.toShopName = value.toShopName
+                    tempInventory.toInventoryName = value.toInventoryName
+                    tempInventory.status = value.status
+                    
+                    RealmManager().write(table: tempInventory)
+                }
             }
         }else{
             print("Inventory is nil....")

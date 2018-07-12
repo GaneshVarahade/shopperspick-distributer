@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 public class RequestInventry: BaseRequest {
+      public   var id:String?        = ""
       public   var transferNo:String?        = ""
       public   var fromShopId:String?        = ""
       public   var toShopId:String?          = ""

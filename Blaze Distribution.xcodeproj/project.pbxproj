@@ -70,6 +70,9 @@
 		189F82DB20C50C090054986E /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82DA20C50C090054986E /* BaseRequest.swift */; };
 		189F82DD20C50EB40054986E /* PlatformError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82DC20C50EB40054986E /* PlatformError.swift */; };
 		18CD0BFC20C6B1C1007E8515 /* SingleInvoice.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */; };
+		18E66A1C20F72A1B003AA075 /* inventoryTransferError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E66A1B20F72A1B003AA075 /* inventoryTransferError.swift */; };
+		18E66A1E20F72D2A003AA075 /* invoiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E66A1D20F72D2A003AA075 /* invoiceError.swift */; };
+		18E66A2020F72D54003AA075 /* poError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E66A1F20F72D54003AA075 /* poError.swift */; };
 		18EE27B020C96003002A329B /* ResponseBulkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27AF20C96003002A329B /* ResponseBulkRequest.swift */; };
 		18EE27B220C960F0002A329B /* ResponseArrayInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27B120C960F0002A329B /* ResponseArrayInvoice.swift */; };
 		18EE27B420C96178002A329B /* ResponseInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE27B320C96178002A329B /* ResponseInvoice.swift */; };
@@ -262,6 +265,9 @@
 		189F82DA20C50C090054986E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		189F82DC20C50EB40054986E /* PlatformError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformError.swift; sourceTree = "<group>"; };
 		18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SingleInvoice.txt; sourceTree = "<group>"; };
+		18E66A1B20F72A1B003AA075 /* inventoryTransferError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inventoryTransferError.swift; sourceTree = "<group>"; };
+		18E66A1D20F72D2A003AA075 /* invoiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = invoiceError.swift; sourceTree = "<group>"; };
+		18E66A1F20F72D54003AA075 /* poError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = poError.swift; sourceTree = "<group>"; };
 		18EE27AF20C96003002A329B /* ResponseBulkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseBulkRequest.swift; sourceTree = "<group>"; };
 		18EE27B120C960F0002A329B /* ResponseArrayInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseArrayInvoice.swift; sourceTree = "<group>"; };
 		18EE27B320C96178002A329B /* ResponseInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInvoice.swift; sourceTree = "<group>"; };
@@ -425,6 +431,7 @@
 		181C388320EDFEEC00A567B3 /* APIPostBulkRequest */ = {
 			isa = PBXGroup;
 			children = (
+				18E66A1A20F72A01003AA075 /* ResponseModel */,
 				182427A420EE3DBA009BBF08 /* PurchaseOrder */,
 				182427A320EE3D9B009BBF08 /* Inventry */,
 				182427A220EE3D8B009BBF08 /* Invoice */,
@@ -579,6 +586,16 @@
 				B9AA85DC20C9081900751BF2 /* RequestModel */,
 			);
 			path = APILogin;
+			sourceTree = "<group>";
+		};
+		18E66A1A20F72A01003AA075 /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				18E66A1B20F72A1B003AA075 /* inventoryTransferError.swift */,
+				18E66A1D20F72D2A003AA075 /* invoiceError.swift */,
+				18E66A1F20F72D54003AA075 /* poError.swift */,
+			);
+			path = ResponseModel;
 			sourceTree = "<group>";
 		};
 		18EE27AD20C95FDC002A329B /* APIGetBulkRequest */ = {
@@ -1505,6 +1522,7 @@
 				182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */,
 				B985566920B43B2900A56497 /* YPDrawSignatureView.swift in Sources */,
 				B9CAC8E020AF1155008F1650 /* UILabelX.swift in Sources */,
+				18E66A1C20F72A1B003AA075 /* inventoryTransferError.swift in Sources */,
 				181F602C20F4CDBB0071CA04 /* RequestShipperInformation.swift in Sources */,
 				181F602620F4C5510071CA04 /* ModelSignatureAsset.swift in Sources */,
 				B942E45E20CFD26C00E474E1 /* ModelAddres.swift in Sources */,
@@ -1529,6 +1547,7 @@
 				184B43BF20F37F7E000EFC55 /* ResponseArrayDriverInfo.swift in Sources */,
 				18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */,
 				B942E46320D00A4000E474E1 /* ResponseProduct.swift in Sources */,
+				18E66A2020F72D54003AA075 /* poError.swift in Sources */,
 				1827FC0620D11AB300DEA5E8 /* DateFormatter.swift in Sources */,
 				B9E5265820B2BB7800127E43 /* InventoryTableViewCell.swift in Sources */,
 				182B921420C8397B0041915B /* ModelPurchaseOrder.swift in Sources */,
@@ -1552,6 +1571,7 @@
 				B9CAC8DA20AF1155008F1650 /* UIVisualEffectViewX.swift in Sources */,
 				B9CAC8DD20AF1155008F1650 /* UIButtonX.swift in Sources */,
 				182B921620C839A30041915B /* ModelSignature.swift in Sources */,
+				18E66A1E20F72D2A003AA075 /* invoiceError.swift in Sources */,
 				B98E12DE20D150470067B5B0 /* ModelInventory.swift in Sources */,
 				182427AC20EE4EA3009BBF08 /* RequestInvoice.swift in Sources */,
 				B9D45A1420CA74CB00E4E0E8 /* ResponseForgorPassword.swift in Sources */,
