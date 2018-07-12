@@ -10,6 +10,7 @@ import UIKit
 
 class PurchaseOrderTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var btnErrrorPo: UIButton!
     @IBOutlet weak var poNoLabel: UILabel!
     @IBOutlet weak var metricImg: UIImageView!
     

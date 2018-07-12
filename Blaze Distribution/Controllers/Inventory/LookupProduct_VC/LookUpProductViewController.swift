@@ -79,9 +79,8 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationController?.pushViewController(obj, animated: true)
     }
     func getData(){
-        productData   = RealmManager().readList(type: ModelProduct.self)
-//        cartData = RealmManager().readList(type:ModelCartProduct.self)
-//        print(cartData)
+        //productData   = RealmManager().readList(type: ModelProduct.self)
+        productData = RealmManager().readPredicate(type: ModelProduct.self , predicate: "shopId = '\(modelCreateTransfer.fromLocation?.shop?.id ?? "")'" )
         
         //filterArray()
         for val in predicateArray{

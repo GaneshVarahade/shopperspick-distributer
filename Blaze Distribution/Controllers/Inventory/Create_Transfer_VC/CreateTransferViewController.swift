@@ -299,7 +299,11 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         if modelFromLocation.shop == nil || modelToLocation.shop == nil || modelFromLocation.inventory == nil || modelToLocation.inventory == nil{
             showToast("Please all options to proceed")
             return false
-        }else{
+        }else if modelFromLocation.shop?.id == modelToLocation.shop?.id{
+            showToast("You can not transfer within same inventry, Please select diffrant location.")
+            return false
+        }
+        else{
             self.modelCreateTransfer.fromLocation = modelFromLocation
             self.modelCreateTransfer.toLocation = modelToLocation
             return true

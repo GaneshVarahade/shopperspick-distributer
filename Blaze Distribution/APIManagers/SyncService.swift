@@ -212,10 +212,11 @@ public final class SyncService {
                     let requestModelInvoicePayment: RequestModelInvoicePaymentInfo = RequestModelInvoicePaymentInfo()
                     requestModelInvoicePayment.debitCardNo = payment.debitCardNo
                     //Convert Date string to int and send
-                    if let achdate =  payment.achDate, achdate != ""{
-                         requestModelInvoicePayment.achDate = DateFormatterUtil.formatStringToInt(dateTime: achdate, format: DateFormatterUtil.mmddyyyy)
-                    }
-//                    print(DateFormatterUtil.format(dateTime: Double(requestModelInvoicePayment.achDate)/1000, format: DateFormatterUtil.mmddyyyy))
+                     // print(payment.achDate!)
+//                    if let achdate =  payment.achDate, achdate != ""{
+//                         requestModelInvoicePayment.achDate = DateFormatterUtil.formatStringToInt(dateTime: achdate, format: DateFormatterUtil.mmddyyyy)
+//                    }
+
                     requestModelInvoicePayment.paidDate = payment.paymentDate
                     requestModelInvoicePayment.referenceNo = payment.referenceNumber
                     requestModelInvoicePayment.amountPaid = payment.amount
@@ -296,7 +297,7 @@ public final class SyncService {
                 DispatchQueue.global(qos: .userInitiated).async {
                     
                     // for inventoryTransferError object
-                    if let arrayInventory = result?.inventoryTransferError{
+                    if let arrayInventory = result?.inventoryTransferError, arrayInventory.count > 0{
                         for obj in arrayInventory {
                             
                            print(obj.request?.id ?? "",obj.error ?? "")
@@ -307,7 +308,7 @@ public final class SyncService {
                         }
                         
                     }else{
-                         let modelInventryTransfer2 = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true")
+                         let modelInventryTransfer2 = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true && putBulkError = ''")
                          for model in modelInventryTransfer2 {
                             model.updated = false
                         }
@@ -315,7 +316,7 @@ public final class SyncService {
                     }
                     
                     // for invoice object
-                    if let arrayInvoice = result?.invoiceError{
+                    if let arrayInvoice = result?.invoiceError, arrayInvoice.count > 0{
                        
                         for obj in arrayInvoice {
                             print(obj.request?.id ?? "",obj.error ?? "")
@@ -326,7 +327,7 @@ public final class SyncService {
                         }
                         
                     }else{
-                        let modelInvoice2 = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true")
+                        let modelInvoice2 = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true && putBulkError = ''")
                         for model in modelInvoice2 {
                             model.updated = false
                         }
@@ -334,7 +335,7 @@ public final class SyncService {
                     }
                     
                     // for purchaseOrder object
-                    if let arrayPo = result?.poError{
+                    if let arrayPo = result?.poError, arrayPo.count > 0{
                         
                         for obj in arrayPo {
                             print(obj.request?.id ?? "" ,obj.error ?? "")
@@ -345,7 +346,7 @@ public final class SyncService {
                         }
                         
                     }else{
-                         let modelPurchaseOrders2 = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true")
+                         let modelPurchaseOrders2 = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true && putBulkError = ''")
                          for model in modelPurchaseOrders2 {
                             model.updated = false
                          }
@@ -677,6 +678,7 @@ public final class SyncService {
                let temp  = ModelProduct()
                    temp.id   = prod.id
                    temp.name = prod.name
+                   temp.shopId = prod.shopId
                    if let tempQuantity = prod.quantities{
                     
                       for qut in tempQuantity{

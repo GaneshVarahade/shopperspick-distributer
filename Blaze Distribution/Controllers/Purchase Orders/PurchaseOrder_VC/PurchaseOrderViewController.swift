@@ -241,6 +241,16 @@ extension PurchaseOrderViewController {
         else {
             cell.metricImg.image = UIImage()
         }
+        
+        //Error btn
+        cell.btnErrrorPo.isHidden = true
+        if let error = modelPurcahseOrder.putBulkError, error != ""{
+            cell.btnErrrorPo.isHidden = false
+        }
+        // Adda target to error button
+        cell.btnErrrorPo.addTarget(self, action: #selector(btnPoClicked(_ :)), for: .touchUpInside)
+        cell.btnErrrorPo.tag = indexPath.row
+        
         return cell
     }
     
@@ -274,5 +284,26 @@ extension PurchaseOrderViewController {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return arrayModelPurchaseOrders.count==0 ? 60.0 : 0.0
     }
+    
+    @objc func btnPoClicked(_ sender :UIButton){
+        let index : Int = sender.tag
+        let modelPurcahseOrder = arrayModelPurchaseOrders[index]
+        //Show Alert
+        let alert = UIAlertController(title: "Error", message: modelPurcahseOrder.putBulkError, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+            //closure()
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
+    }
+
     
 }

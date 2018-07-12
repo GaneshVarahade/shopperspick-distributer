@@ -12,6 +12,7 @@ import RealmSwift
 public class ModelProduct:ModelBase{
     
     @objc public dynamic var name:String? = ""
+    @objc public dynamic var shopId:String? = ""
     @objc public  dynamic var quantity:Double = 0.0
     open override class func primaryKey() -> String? {
         return "id"
@@ -21,6 +22,7 @@ public class ModelProduct:ModelBase{
         modelProduct.id          = self.id
         modelProduct.name        = self.name
         modelProduct.quantity    = self.quantity
+        modelProduct.shopId      = self.shopId
         return modelProduct
         
     }

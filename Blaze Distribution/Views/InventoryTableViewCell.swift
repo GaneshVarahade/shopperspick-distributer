@@ -10,6 +10,7 @@ import UIKit
 
 class InventoryTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var btnErrorInvetry: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var requestLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!

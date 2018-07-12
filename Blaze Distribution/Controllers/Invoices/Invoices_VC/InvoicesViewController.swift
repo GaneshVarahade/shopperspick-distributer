@@ -144,6 +144,7 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     public func searchBarTextDidEndEditing(_ searchBar: UISearchBar){
         invoicesSearchBar.endEditing(true)
     }
+
 }
 
 extension InvoicesViewController{
@@ -162,6 +163,14 @@ extension InvoicesViewController{
         cell.invoicesNoLabel.text = temp.invoiceNumber
         cell.dueDateLabel.text   =  temp.dueDate?.description
         cell.createdByLabel.text =  temp.salesPerson
+        cell.btnInvoiceError.isHidden = true
+        
+        if let error = temp.putBulkError, error != ""{
+           cell.btnInvoiceError.isHidden = false
+        }
+        // Adda target to error button
+        cell.btnInvoiceError.addTarget(self, action: #selector(btnInvoiceClicked(_ :)), for: .touchUpInside)
+        cell.btnInvoiceError.tag = indexPath.row
         
         return cell
     }
@@ -205,6 +214,25 @@ extension InvoicesViewController{
             let invoiceObject = valueDataObj[(indexPath?.row)!]
                 nextVC.tempData = invoiceObject
         }
+    }
+    
+    @objc func btnInvoiceClicked(_ sender: UIButton) {
+        let index:Int = sender.tag
+        //Show alert
+        let alert = UIAlertController(title: "Error", message: valueDataObj[index].putBulkError, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                //closure()
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
     }
     
     //MARK : -  QRCOde reder deleaget

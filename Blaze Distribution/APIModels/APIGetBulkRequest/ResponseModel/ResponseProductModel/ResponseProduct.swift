@@ -15,6 +15,7 @@ public class ResponseProduct:BaseResponseModel{
     public var updated: Bool?
     public var companyId: String?
     public var name:String?
+    public var shopId:String?
     public var quantities:[ResponseQuantities]?
     
 }

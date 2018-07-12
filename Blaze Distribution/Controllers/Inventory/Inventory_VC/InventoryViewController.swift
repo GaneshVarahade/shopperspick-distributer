@@ -122,9 +122,17 @@ extension InventoryViewController{
             cell.requestLabel.text  = tempi.transferNo
             //cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(tempi.modified)/1000,
                                                                //format: DateFormatterUtil.mmddyyyy)
-            
             cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime: tempi.modified, type:DateIntConvertUtil.Seconds)),format: DateFormatterUtil.mmddyyyy)
-           cell.dateLabel.isHidden = false
+            cell.dateLabel.isHidden = false
+            
+            cell.btnErrorInvetry.isHidden = true
+            if let error = tempi.putBulkError, error != ""{
+                cell.btnErrorInvetry.isHidden = false
+            }
+            // Adda target to error button
+            cell.btnErrorInvetry.addTarget(self, action: #selector(btnInvetryErrorClicked(_ :)), for: .touchUpInside)
+            cell.btnErrorInvetry.tag = indexPath.row
+            
         }
         
         return cell
@@ -137,6 +145,26 @@ extension InventoryViewController{
         else {
             return 44
         }
+    }
+    
+    @objc func btnInvetryErrorClicked(_ sender :UIButton){
+        let index : Int = sender.tag
+        let tempi   = data[index] as! ModelInventoryTransfers
+        //Show Alert
+        let alert = UIAlertController(title: "Error", message: tempi.putBulkError, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                //closure()
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
