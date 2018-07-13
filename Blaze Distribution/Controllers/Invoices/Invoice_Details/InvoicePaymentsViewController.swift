@@ -21,6 +21,8 @@ class InvoicePaymentsViewController: UIViewController {
     var paymentList  = List<ModelPaymentInfo>()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.paymantTableView.delegate = self
+        self.paymantTableView.dataSource = self
 
       // print(paymentList)
     }
@@ -39,6 +41,7 @@ extension InvoicePaymentsViewController:UITableViewDelegate,UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = paymantTableView.dequeueReusableCell(withIdentifier: "paymentCell", for: indexPath) as! InvoicePaymentsTableViewCell
+        cell.isUserInteractionEnabled = true
         //cell.lblPaymentName = paymentList[indexPath.row].
         cell.lblAmount.text = "$ \(paymentList[indexPath.row].amount)"
         
@@ -54,6 +57,15 @@ extension InvoicePaymentsViewController:UITableViewDelegate,UITableViewDataSourc
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        if paymentList.count > 0{
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "AddPaymentTableViewController") as! AddPaymentTableViewController
+            obj.isfromDetails = true
+            obj.paymentModel = paymentList[indexPath.row]
+            self.navigationController?.pushViewController(obj, animated: true)
+        }
+        
+    }
     // MARK: - PaymentDelegate
     
     func getDataForInvoicePayments(dataDict:ModelInvoice) {

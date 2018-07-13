@@ -16,7 +16,10 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
 
     var invoiceObj: ModelInvoice?
     var paymentDelegate:AddPaymentDelegate?
+    var isfromDetails : Bool = false
+    var paymentModel: ModelPaymentInfo?
     
+    @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var paymentTypeView: UIView!
     @IBOutlet weak var paymentDateView: UIView!
     @IBOutlet weak var referenceNoTextField: UITextField!
@@ -56,6 +59,29 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         achDateTextField.inputView = datePicker
         paymentDateTextField.inputView = datePicker
         datePicker.datePickerMode = .date
+        manageTextfield()
+        setDefaultData()
+    }
+    
+    func  manageTextfield() {
+        debitCardTextField.isUserInteractionEnabled = isfromDetails ? false : true
+        achDateTextField.isUserInteractionEnabled = isfromDetails ? false : true
+        paymentDateTextField.isUserInteractionEnabled = isfromDetails ? false : true
+        referenceNoTextField.isUserInteractionEnabled = isfromDetails ? false : true
+        amountTextField.isUserInteractionEnabled = isfromDetails ? false : true
+        notesTextView.isUserInteractionEnabled = isfromDetails ? false : true
+        btnSubmit.isUserInteractionEnabled = isfromDetails ? false : true
+    }
+    
+    func setDefaultData() {
+        if self.isfromDetails && (paymentModel != nil) {
+            debitCardTextField?.text = String(format: "%d", (paymentModel?.debitCardNo)!)
+            achDateTextField.text = paymentModel?.achDate
+            paymentDateTextField.text = ""
+            referenceNoTextField.text = paymentModel?.referenceNumber
+            amountTextField.text = String(format:"%.1f",(paymentModel?.amount)!)
+            notesTextView.text = paymentModel?.notes
+        }
     }
 
     override func didReceiveMemoryWarning() {
