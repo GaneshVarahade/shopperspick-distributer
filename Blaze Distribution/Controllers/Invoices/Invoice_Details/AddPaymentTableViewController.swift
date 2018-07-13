@@ -327,12 +327,12 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         invoiceObj?.paymentInfo.append(modelPaymanetInfo)
         invoiceObj?.updated = true
         RealmManager().write(table: invoiceObj!)
-        SyncService.sharedInstance().syncData()
+        //SyncService.sharedInstance().syncData()
         
-       print(RealmManager().read(type: ModelInvoice.self, primaryKey:invoiceObj!.id!))
-       print(RealmManager().readList(type: ModelInvoice.self))
+      // print(RealmManager().read(type: ModelInvoice.self, primaryKey:invoiceObj!.id!))
+       //print(RealmManager().readList(type: ModelInvoice.self))
         
-        print("----PaymentInfo Data Save----")
+        //print("----PaymentInfo Data Save----")
         paymentDelegate?.getDataFromAddPayment(dataDict: invoiceObj!)
         self.navigationController?.popViewController(animated: true)
     }

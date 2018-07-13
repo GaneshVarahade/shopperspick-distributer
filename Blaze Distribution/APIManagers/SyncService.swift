@@ -72,7 +72,7 @@ public final class SyncService {
     private func syncSignature() {
         //Get image one by one from ModelSignature
         let arrayModelSignature = getModelSignature()
-        print("arrayModelSignature.count : \(arrayModelSignature.count)")
+        //print("arrayModelSignature.count : \(arrayModelSignature.count)")
         if arrayModelSignature.count <= 0 {
             self.resync()
         }
@@ -128,7 +128,6 @@ public final class SyncService {
  
     private func syncPostBulkData(){
  
-          
             ///After API complete call resync, so syncdata can run recursively
             let realmManager: RealmManager = RealmManager()
             let modelPurchaseOrders = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true && putBulkError = ''")
@@ -304,7 +303,7 @@ public final class SyncService {
                             let modelInvetry = RealmManager().read(type: ModelInventoryTransfers.self, primaryKey: (obj.request?.id)!)
                                 modelInvetry?.putBulkError = obj.error ?? ""
                                 RealmManager().write(table: modelInvetry!)
-                              print(RealmManager().read(type: ModelInventoryTransfers.self, primaryKey: (obj.request?.id)!))
+                             // print(RealmManager().read(type: ModelInventoryTransfers.self, primaryKey: (obj.request?.id)!))
                         }
                         
                     }else{
@@ -323,7 +322,7 @@ public final class SyncService {
                             let modelInvoice = RealmManager().read(type: ModelInvoice.self, primaryKey: (obj.request?.id)!)
                             modelInvoice?.putBulkError = obj.error ?? ""
                             RealmManager().write(table: modelInvoice!)
-                            print(RealmManager().read(type: ModelInvoice.self, primaryKey: (obj.request?.id)!))
+                            //print(RealmManager().read(type: ModelInvoice.self, primaryKey: (obj.request?.id)!))
                         }
                         
                     }else{
@@ -524,6 +523,7 @@ public final class SyncService {
                 if (canSkip == false){
                     let model: ModelInvoice = ModelInvoice()
                     model.id                = valu.id
+                    model.invoiceStatus     = valu.invoiceStatus
                     model.companyId         = valu.companyId
                     model.customerId        = valu.customerId
                     model.invoiceNumber     = valu.invoiceNumber
@@ -669,27 +669,26 @@ public final class SyncService {
     }
     
     fileprivate func saveDataProduct(jsonData:[ResponseProduct]?){
+        //RealmManager.deleteAll(ModelProduct.self)
         
         if let products = jsonData{
             
             for prod in products{
-               
-               var qnty = 0.0
-               let temp  = ModelProduct()
-                   temp.id   = prod.id
-                   temp.name = prod.name
-                   temp.shopId = prod.shopId
-                   if let tempQuantity = prod.quantities{
-                    
-                      for qut in tempQuantity{
-                        qnty = qnty + qut.quantity!
-                      }
-                    temp.quantity = qnty
-                    }else{
-                      print("----Quantity nil----")
+                if let tempQuantity = prod.quantities{
+                    for qut in tempQuantity{
+                        let temp  = ModelProduct()
+                        temp.id = HexGenerator.sharedInstance().generate()
+                        temp.productId = prod.id
+                        temp.name = prod.name
+                        temp.companyLinkId = prod.companyLinkId
+                        temp.shopId = qut.shopId
+                        temp.inventoryId = qut.inventoryId
+                        temp.quantity = qut.quantity ?? 0
+                        RealmManager().write(table: temp)
                     }
-                
-                    RealmManager().write(table: temp)
+                    
+                    print(RealmManager().readList(type: ModelProduct.self))
+                }
             }
         }else{
             print("---Products nil---")

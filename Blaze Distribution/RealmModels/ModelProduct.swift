@@ -11,11 +11,30 @@ import Realm
 import RealmSwift
 public class ModelProduct:ModelBase{
     
+    @objc public dynamic var productId:String? = "" {
+        didSet {
+            createCompoundKey()
+        }
+    }
+    @objc public dynamic var shopId:String? = "" {
+        didSet {
+            createCompoundKey()
+        }
+    }
+    @objc public dynamic var inventoryId:String? = "" {
+        didSet {
+            createCompoundKey()
+        }
+    }
     @objc public dynamic var name:String? = ""
-    @objc public dynamic var shopId:String? = ""
+    @objc public dynamic var companyLinkId:String? = ""
     @objc public  dynamic var quantity:Double = 0.0
+    @objc public dynamic var compositeKey: String = ""
     open override class func primaryKey() -> String? {
-        return "id"
+        return "compositeKey"
+    }
+    private func createCompoundKey() {
+        compositeKey = "\(productId)\(shopId)\(inventoryId)"
     }
     public override func copy(with zone: NSZone? = nil) -> Any {
         let modelProduct      = ModelProduct()
@@ -23,6 +42,9 @@ public class ModelProduct:ModelBase{
         modelProduct.name        = self.name
         modelProduct.quantity    = self.quantity
         modelProduct.shopId      = self.shopId
+        modelProduct.productId   = self.productId
+        modelProduct.companyLinkId = self.companyLinkId
+        modelProduct.inventoryId   = self.inventoryId
         return modelProduct
         
     }

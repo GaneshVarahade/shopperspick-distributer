@@ -59,18 +59,19 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func getData(){
-        valueDataObj =  RealmManager().readList(type: ModelInvoice.self)
+        //valueDataObj =  RealmManager().readList(type: ModelInvoice.self)
+        getOpenInvoices()
         invoiceTableView.reloadData()
         print("----DataRead----- \(valueDataObj.count)")
     }
     
     private func getOpenInvoices() {
-        valueDataObj = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceStatus != \(InvoiceStatus.COMPLETED)")
+        valueDataObj = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceStatus != '\(InvoiceStatus.COMPLETED)'")
         invoiceTableView.reloadData()
     }
     
     private func getCompleteInvoices() {
-        valueDataObj = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceStatus = \(InvoiceStatus.COMPLETED)")
+        valueDataObj = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceStatus = '\(InvoiceStatus.COMPLETED)' && invoiceStatus != '(null)'")
         invoiceTableView.reloadData()
     }
     
@@ -89,13 +90,13 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK:- Segment Value Change
     @IBAction func invoiceSegmentValueChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            //getOpenInvoices()
+            getOpenInvoices()
             dueDateTitle.text       = "DUE DATE"
             scanInvoiceBtn.isHidden = false
             invoiceTableView.reloadData()
         }
         else {
-            //getCompleteInvoices()
+            getCompleteInvoices()
             dueDateTitle.text       = "COMPLETED"
             scanInvoiceBtn.isHidden = true
             invoiceTableView.reloadData()

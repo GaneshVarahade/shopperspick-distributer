@@ -79,7 +79,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
         inventoryData.reverse()
         
-        productData   = RealmManager().readList(type: ModelProduct.self)
+        productData   = RealmManager().readList(type: ModelProduct.self,distinct:"productId")
         if productFlag{
             data  = productData
         }else{
@@ -115,6 +115,7 @@ extension InventoryViewController{
             cell.nameLabel.text     = temp.name
             cell.requestLabel.text  = String(format: "%.1f", temp.quantity)
             cell.dateLabel.isHidden = true
+            cell.btnErrorInvetry.isHidden = true
             
         }else{
             let tempi   = data[indexPath.row] as! ModelInventoryTransfers

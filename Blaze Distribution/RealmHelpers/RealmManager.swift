@@ -73,6 +73,18 @@ public class RealmManager <T: ModelBase>{
         return array
     }
     
+    public func readList<T: ModelBase>(type: T.Type,distinct: String) -> [T] {
+        let result: Results<T>? = getRealm().objects(type).distinct(by: [distinct])
+        var array:[T] = [T]()
+        guard let resultObj = result else {
+            return array
+        }
+        
+        for obj in resultObj {
+            array.append(obj.copy() as! T)
+        }
+        return array
+    }
     public func readPredicate<T: ModelBase>(type: T.Type,predicate: String) -> [T]{
         let result: Results<T>? = getRealm().objects(type).filter(predicate)
         var array:[T] = [T]()

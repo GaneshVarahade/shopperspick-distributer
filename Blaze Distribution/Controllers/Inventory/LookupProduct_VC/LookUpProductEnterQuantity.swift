@@ -118,7 +118,7 @@ class LookUpProductEnterQuantity: UIViewController,UITextFieldDelegate{
            showToast("Please make sure that, quantity should not be 0")
         }else{
             modelCartProduct.name = modelProudct.name
-            modelCartProduct.batchId = modelProudct.id
+            modelCartProduct.batchId = modelProudct.productId
             let quantity = Double(txtQuantity.text!)
             modelCartProduct.quantity = quantity!
             modelCreateTransfer.slectedProducts.append(modelCartProduct)

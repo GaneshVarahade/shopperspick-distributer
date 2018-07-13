@@ -117,6 +117,20 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
     }
     
     // MARK: - Navigation
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "addPaymentSegue" {
+            if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoiceStatus == "COMPLETED"){
+                showToast("Payment not allowed for Draft and Cancelled Invoice")
+                return false
+            }
+        }else  if identifier == "addManifestInfoSegue" {
+            if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoiceStatus == "COMPLETED"){
+                showToast("Shipping manifest not allowed for Draft and Cancelled Invoice")
+                return false
+            }
+        }
+        return true
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {  
@@ -151,9 +165,10 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
             }
         }
         else if segue.identifier == "addPaymentSegue" {
-            let obj = segue.destination as! AddPaymentTableViewController
-            obj.paymentDelegate = self
-            obj.invoiceObj = tempData
+                let obj = segue.destination as! AddPaymentTableViewController
+                obj.paymentDelegate = self
+                obj.invoiceObj = tempData
+        
         }
         else if segue.identifier == "addManifestInfoSegue" {
             let obj = segue.destination as! ShippingManifestViewController

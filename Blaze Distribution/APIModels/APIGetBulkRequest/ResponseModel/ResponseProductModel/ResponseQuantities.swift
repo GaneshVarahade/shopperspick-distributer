@@ -14,6 +14,7 @@ public class ResponseQuantities:BaseResponseModel{
     public var deleted: Bool?
     public var updated: Bool?
     public var companyId: String?
+    public var shopId:String?
     public var inventoryId:String?
     public var quantity:Double?
 }

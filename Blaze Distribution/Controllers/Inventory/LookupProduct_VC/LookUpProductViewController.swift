@@ -80,7 +80,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
     }
     func getData(){
         //productData   = RealmManager().readList(type: ModelProduct.self)
-        productData = RealmManager().readPredicate(type: ModelProduct.self , predicate: "shopId = '\(modelCreateTransfer.fromLocation?.shop?.id ?? "")'" )
+        productData = RealmManager().readPredicate(type: ModelProduct.self , predicate: "shopId = '\(modelCreateTransfer.fromLocation?.shop?.id ?? "")' and inventoryId = '\(modelCreateTransfer.fromLocation?.inventory?.id ?? "")' " )
         
         //filterArray()
         for val in predicateArray{

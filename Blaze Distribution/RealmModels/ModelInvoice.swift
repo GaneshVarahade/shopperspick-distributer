@@ -9,7 +9,6 @@
 import Foundation
 import Realm
 import RealmSwift
-
 public class ModelInvoice:ModelBase {
 
     @objc public dynamic var invoiceNumber: String?  = ""
