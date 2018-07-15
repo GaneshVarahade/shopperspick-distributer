@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1804748320FBB520006E1570 /* ViewLogsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804748220FBB520006E1570 /* ViewLogsVC.swift */; };
+		1804748520FBBB48006E1570 /* ViewLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804748420FBBB48006E1570 /* ViewLogCell.swift */; };
 		18051EE520EA3C0A005BF274 /* LookUpProductEnterQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18051EE420EA3C09005BF274 /* LookUpProductEnterQuantity.swift */; };
 		1808A84120D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808A84020D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift */; };
 		1812B33F20CAB31800B4DC26 /* ModelInventoryTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */; };
@@ -200,6 +202,8 @@
 /* Begin PBXFileReference section */
 		0258B61748E9715829B0B522 /* Pods-Blaze DistributionTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.stage.xcconfig"; sourceTree = "<group>"; };
 		0938C2F5672F799D7AB60923 /* Pods-Blaze Distribution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.dev.xcconfig"; sourceTree = "<group>"; };
+		1804748220FBB520006E1570 /* ViewLogsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLogsVC.swift; sourceTree = "<group>"; };
+		1804748420FBBB48006E1570 /* ViewLogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLogCell.swift; sourceTree = "<group>"; };
 		18051EE420EA3C09005BF274 /* LookUpProductEnterQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpProductEnterQuantity.swift; sourceTree = "<group>"; };
 		1808A84020D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseOrderItemsViewController.swift; sourceTree = "<group>"; };
 		1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventoryTransfers.swift; sourceTree = "<group>"; };
@@ -428,6 +432,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		1804748020FBB4B2006E1570 /* TimeStampLogs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TimeStampLogs;
+			sourceTree = "<group>";
+		};
+		1804748120FBB4DD006E1570 /* ViewLog */ = {
+			isa = PBXGroup;
+			children = (
+				1804748220FBB520006E1570 /* ViewLogsVC.swift */,
+				1804748420FBBB48006E1570 /* ViewLogCell.swift */,
+			);
+			path = ViewLog;
+			sourceTree = "<group>";
+		};
 		181C388320EDFEEC00A567B3 /* APIPostBulkRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,6 +573,7 @@
 		189F82B820C501B70054986E /* RealmModels */ = {
 			isa = PBXGroup;
 			children = (
+				1804748020FBB4B2006E1570 /* TimeStampLogs */,
 				B9AA85E020C9254300751BF2 /* LoginModels */,
 				189F82B920C501B70054986E /* ModelBase.swift */,
 				189F82BA20C501B70054986E /* ModelInvoice.swift */,
@@ -766,6 +787,7 @@
 		B9266C6E20AED0620021356C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1804748120FBB4DD006E1570 /* ViewLog */,
 				B985566220B42CB800A56497 /* Splash_Screen */,
 				B985566120B42C9400A56497 /* Login */,
 				B9E5268920B2FEDF00127E43 /* Invoices */,
@@ -1521,6 +1543,7 @@
 				B9D45A0520CA53F900E4E0E8 /* ResponseProducts.swift in Sources */,
 				182B921C20C83A360041915B /* ModelCartProduct.swift in Sources */,
 				B985566920B43B2900A56497 /* YPDrawSignatureView.swift in Sources */,
+				1804748520FBBB48006E1570 /* ViewLogCell.swift in Sources */,
 				B9CAC8E020AF1155008F1650 /* UILabelX.swift in Sources */,
 				18E66A1C20F72A1B003AA075 /* inventoryTransferError.swift in Sources */,
 				181F602C20F4CDBB0071CA04 /* RequestShipperInformation.swift in Sources */,
@@ -1591,6 +1614,7 @@
 				B95A8A3020B423F500F76A15 /* AddProductViewController.swift in Sources */,
 				B9E5267D20B2DAAA00127E43 /* Completed_PurchaseOrderDetailsTableViewController.swift in Sources */,
 				18EE27B220C960F0002A329B /* ResponseArrayInvoice.swift in Sources */,
+				1804748320FBB520006E1570 /* ViewLogsVC.swift in Sources */,
 				189F82C420C501B70054986E /* ModelShipingMenifest.swift in Sources */,
 				18EE27B620C9623A002A329B /* ResponseArrayInventory.swift in Sources */,
 				B91809D620D2792C001C336B /* InvoicePaymentsViewController.swift in Sources */,
