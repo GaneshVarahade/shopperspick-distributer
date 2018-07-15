@@ -110,6 +110,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
             return
         }
         tempData.updated = true
+        tempData.putBulkError = ""
         RealmManager().write(table: tempData)
         RealmManager().read(type: ModelInvoice.self, primaryKey: tempData.invoiceNumber!)
         SyncService.sharedInstance().syncData()
