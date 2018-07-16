@@ -27,6 +27,7 @@ public class DateFormatterUtil {
     
     public static func formatStringToInt(dateTime: String, format:String) -> Int{
         let dateFormatter = DateFormatter()
+        dateFormatter.isLenient = true
         dateFormatter.dateFormat = format
         let dateFromString = dateFormatter.date(from: dateTime)
         let intDate = Int((dateFromString?.timeIntervalSince1970)!)

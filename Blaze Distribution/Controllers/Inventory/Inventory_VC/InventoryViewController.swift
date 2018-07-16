@@ -57,6 +57,9 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             RealmManager().deleteAll(type: ModelInvoice.self)
             RealmManager().deleteAll(type: ModelInventoryTransfers.self)
             RealmManager().deleteAll(type: ModelPurchaseOrder.self)
+            RealmManager().deleteAll(type: ModelTimesStampLog.self)
+            RealmManager().deleteAll(type: ModelSignature.self)
+            RealmManager().deleteAll(type: ModelSignatureAsset.self)
             
             //pop to login view controller
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

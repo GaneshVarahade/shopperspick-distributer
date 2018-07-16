@@ -75,9 +75,10 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     
     func setDefaultData() {
         if self.isfromDetails && (paymentModel != nil) {
+            notesTextView.textColor = UIColor.black
             debitCardTextField?.text = String(format: "%d", (paymentModel?.debitCardNo)!)
             achDateTextField.text = paymentModel?.achDate
-            paymentDateTextField.text = ""
+            paymentDateTextField.text = DateFormatterUtil.format(dateTime:Double(DateIntConvertUtil.convert(dateTime: (paymentModel?.paymentDate)!, type: DateIntConvertUtil.Seconds)) , format:"dd/MM/yyyy")
             referenceNoTextField.text = paymentModel?.referenceNumber
             amountTextField.text = String(format:"%.1f",(paymentModel?.amount)!)
             notesTextView.text = paymentModel?.notes
@@ -231,6 +232,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             let formatter = DateFormatter()
             formatter.dateFormat = "dd/MM/yyyy"
             textField.text = formatter.string(from: datePicker.date)
+            
         }
     }
     
@@ -344,7 +346,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         modelPaymanetInfo.id = HexGenerator.sharedInstance().generate()
         modelPaymanetInfo.debitCardNo = Int(debitCardNo)!
         modelPaymanetInfo.achDate = achDate
-        modelPaymanetInfo.paymentDate = 0
+        modelPaymanetInfo.paymentDate = DateFormatterUtil.formatStringToInt(dateTime: paymentDateTextField.text!, format: "dd/MM/yyyy")
         modelPaymanetInfo.referenceNumber = referenceNo
         modelPaymanetInfo.amount = Double(amount)!
         modelPaymanetInfo.notes = notes
