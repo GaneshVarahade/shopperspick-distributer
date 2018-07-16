@@ -1,5 +1,6 @@
 import Foundation
 import RealmSwift
+import SKActivityIndicatorView
 
 public final class SyncService {
     
@@ -35,15 +36,17 @@ public final class SyncService {
                 
                 self.syncSignature()
                 
+                
             }else if self.isPostBulkAvailable() {
                 
                self.syncPostBulkData()
                 
+                
             }else{
                 self.syncGetBulkData()
+                //SKActivityIndicator.dismiss()
             }
-       
-        
+    
     }
     
     private func isSignatureAvailable() -> Bool {
@@ -454,7 +457,7 @@ public final class SyncService {
                 }else{
                     self.saveDriverData([])
                 }
-            
+                
                 self.finishSync()
             }
         }
@@ -466,6 +469,10 @@ public final class SyncService {
     }
     
     private func finishSync(){
+        //Write Log Finish Sync
+        UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.LastSync.rawValue , objectId:nil, lastSynch:UtilWriteLogs.curruntDate)
+        
+        SKActivityIndicator.dismiss()
         EventBus.sharedBus().publishMain(EventBusEventType.SYNCDATA)
         isUpdating = false
     }
@@ -473,13 +480,14 @@ public final class SyncService {
     private func savePurchaseOrder(_ arrayPurchase: [ResponsePurchaseOrder]){
         
         //Update Inventry logs
-        let modelTimeStampPo = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.PurchaseOrderes.rawValue)'")
-        if modelTimeStampPo.count > 0{
-            for objPo in modelTimeStampPo{
-                UtilWriteLogs.updateLog(id:objPo.id!,timesStamp: objPo.timesStamp, event:objPo.event , objectId: objPo.objectId, lastSynch:UtilWriteLogs.curruntDate)
-            }
-        }
+//        let modelTimeStampPo = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.PurchaseOrderes.rawValue)'")
+//        if modelTimeStampPo.count > 0{
+//            for objPo in modelTimeStampPo{
+//                UtilWriteLogs.updateLog(id:objPo.id!,timesStamp: objPo.timesStamp, event:objPo.event , objectId: objPo.objectId, lastSynch:UtilWriteLogs.curruntDate)
+//            }
+//        }
 //        let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true ")
+        
         let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "putBulkError != ''")
         
         for respPurchaseOrder in arrayPurchase {
@@ -552,13 +560,13 @@ public final class SyncService {
     
     fileprivate func saveDataInvoice(jsonData: [ResponseInvoice]?){
         //Update invoice logs
-        let modelTimeStampInvoice = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.Invoices.rawValue)'")
-        if modelTimeStampInvoice.count > 0{
-            for objInvoice in modelTimeStampInvoice{
-                UtilWriteLogs.updateLog(id:objInvoice.id!,timesStamp: objInvoice.timesStamp, event:objInvoice.event , objectId: objInvoice.objectId, lastSynch:UtilWriteLogs.curruntDate)
-            }
-        }
         
+//        let modelTimeStampInvoice = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.Invoices.rawValue)'")
+//        if modelTimeStampInvoice.count > 0{
+//            for objInvoice in modelTimeStampInvoice{
+//                UtilWriteLogs.updateLog(id:objInvoice.id!,timesStamp: objInvoice.timesStamp, event:objInvoice.event , objectId: objInvoice.objectId, lastSynch:UtilWriteLogs.curruntDate)
+//            }
+//        }
         
         let invoiceErrorObject = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "putBulkError != ''")
         if let values = jsonData{
@@ -683,12 +691,12 @@ public final class SyncService {
     
     fileprivate func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
         //Update Inventry logs
-        let modelTimeStampInventry = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.Inventry.rawValue)'")
-        if modelTimeStampInventry.count > 0{
-            for objInventry in modelTimeStampInventry{
-                UtilWriteLogs.updateLog(id:objInventry.id!,timesStamp: objInventry.timesStamp, event:objInventry.event , objectId: objInventry.objectId, lastSynch:UtilWriteLogs.curruntDate)
-            }
-        }
+//        let modelTimeStampInventry = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.Inventry.rawValue)'")
+//        if modelTimeStampInventry.count > 0{
+//            for objInventry in modelTimeStampInventry{
+//                UtilWriteLogs.updateLog(id:objInventry.id!,timesStamp: objInventry.timesStamp, event:objInventry.event , objectId: objInventry.objectId, lastSynch:UtilWriteLogs.curruntDate)
+//            }
+//        }
        
         let inventryErrorObject = RealmManager().readPredicate(type: ModelInventoryTransfers.self, predicate: "putBulkError != ''")
         if let values = jsonData{

@@ -49,6 +49,19 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         //Refresh data
         getData()
     }
+    @IBAction func BtnLogoutPressed(_ sender: Any) {
+        //Show Alert logout
+        let alert = UIAlertController(title: "Error", message:"Are you sure you want to logout ?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            //pop to login view controller
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
+            UIApplication.shared.keyWindow?.rootViewController = viewController
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     // MARK:- UISegmentController Valu Changed
     

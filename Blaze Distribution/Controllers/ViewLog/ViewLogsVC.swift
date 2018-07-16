@@ -27,7 +27,8 @@ class ViewLogsVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
      print(objModelLogs)
         // Do any additional setup after loading the view.
     }
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -61,7 +62,7 @@ class ViewLogsVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.lblTimesStamp.text = objModelLogs[indexPath.row].timesStamp
         cell.lblEventId.text = objModelLogs[indexPath.row].objectId
         cell.lblEventName.text = objModelLogs[indexPath.row].event
-        cell.lblLastSyncDate.text = objModelLogs[indexPath.row].lastSyncTime ?? "--"
+        //cell.lblLastSyncDate.text = objModelLogs[indexPath.row].lastSyncTime ?? "--"
         
         return cell
     }

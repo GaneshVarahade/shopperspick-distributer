@@ -14,6 +14,7 @@ public enum activityLogEvent : String {
     case Invoices = "Invoice"
     case Inventry = "Inventry"
     case PurchaseOrderes = "Purchase Orders"
+    case LastSync = "Last Sync"
 }
 
 public class ModelTimesStampLog : ModelBase {

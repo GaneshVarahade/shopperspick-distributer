@@ -18,7 +18,7 @@ public static let curruntDate = DateFormatterUtil.format(dateTime: Double(Date()
         objTimeStamp.id = HexGenerator.sharedInstance().generate()
         objTimeStamp.timesStamp = timesStamp
         objTimeStamp.event = event
-        objTimeStamp.objectId = objectId
+        objTimeStamp.objectId = objectId ?? "--"
         objTimeStamp.lastSyncTime = lastSynch ?? "--"
         RealmManager().write(table: objTimeStamp)
         print(RealmManager().readList(type: ModelTimesStampLog.self))
