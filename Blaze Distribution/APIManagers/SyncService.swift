@@ -1,5 +1,6 @@
 import Foundation
 import RealmSwift
+import SKActivityIndicatorView
 
 public final class SyncService {
     
@@ -35,15 +36,17 @@ public final class SyncService {
                 
                 self.syncSignature()
                 
+                
             }else if self.isPostBulkAvailable() {
                 
                self.syncPostBulkData()
                 
+                
             }else{
                 self.syncGetBulkData()
+                //SKActivityIndicator.dismiss()
             }
-       
-        
+    
     }
     
     private func isSignatureAvailable() -> Bool {
@@ -208,82 +211,88 @@ public final class SyncService {
                 
                 //Payment info list
                 for payment in model.paymentInfo {
-                    let requestModelInvoicePayment: RequestModelInvoicePaymentInfo = RequestModelInvoicePaymentInfo()
-                    requestModelInvoicePayment.debitCardNo = payment.debitCardNo
-                    //Convert Date string to int and send
-                     // print(payment.achDate!)
-//                    if let achdate =  payment.achDate, achdate != ""{
-//                         requestModelInvoicePayment.achDate = DateFormatterUtil.formatStringToInt(dateTime: achdate, format: DateFormatterUtil.mmddyyyy)
-//                    }
-
-                    requestModelInvoicePayment.paidDate = payment.paymentDate
-                    requestModelInvoicePayment.referenceNo = payment.referenceNumber
-                    requestModelInvoicePayment.amountPaid = payment.amount
-                    requestModelInvoicePayment.paymentType = PyamentType.Cash.rawValue
-                    let notesModel: pyamentNotes = pyamentNotes()
-                    notesModel.message = payment.notes
-                    requestModelInvoicePayment.notes = notesModel
-                    
-                    requestInvoice.addPaymentRequest.append(requestModelInvoicePayment)
+                    if payment.updated == true{
+                        let requestModelInvoicePayment: RequestModelInvoicePaymentInfo = RequestModelInvoicePaymentInfo()
+                        requestModelInvoicePayment.debitCardNo = payment.debitCardNo
+                        //Convert Date string to int and send
+                        // print(payment.achDate!)
+                        //                    if let achdate =  payment.achDate, achdate != ""{
+                        //                         requestModelInvoicePayment.achDate = DateFormatterUtil.formatStringToInt(dateTime: achdate, format: DateFormatterUtil.mmddyyyy)
+                        //                    }
+                        
+                        requestModelInvoicePayment.paidDate = payment.paymentDate
+                        requestModelInvoicePayment.referenceNo = payment.referenceNumber
+                        requestModelInvoicePayment.amountPaid = payment.amount
+                        requestModelInvoicePayment.paymentType = PyamentType.Cash.rawValue
+                        let notesModel: pyamentNotes = pyamentNotes()
+                        notesModel.message = payment.notes
+                        requestModelInvoicePayment.notes = notesModel
+                        
+                        requestInvoice.addPaymentRequest.append(requestModelInvoicePayment)
+                    }
                 }
                 
                 //List shipping mainfest
                 for shiping in model.shippingManifests {
-                    let requestModelShippingMainfest: RequestModelShipingMainfest = RequestModelShipingMainfest()
-                
-                    requestModelShippingMainfest.shippingManifestNo = shiping.shippingManifestNo
-                    requestModelShippingMainfest.deliveryDate = shiping.deliveryDate
-                    requestModelShippingMainfest.deliveryTime = shiping.deliveryTime
-                    requestModelShippingMainfest.driverId = shiping.driverId
-                    requestModelShippingMainfest.driverName = shiping.driverName
-                    requestModelShippingMainfest.vehicleMake = shiping.vehicleMake
-                    requestModelShippingMainfest.vehicleModel = shiping.vehicleModel
-                    requestModelShippingMainfest.vehicleColor = shiping.vehicleColor
-                    requestModelShippingMainfest.vehicleLicensePlate = shiping.vehicleLicensePlate
-                    requestModelShippingMainfest.driverLicenPlate = shiping.driverLicenPlate
-                    
-                    let requestAsset = RequestAsset()
-                    requestAsset.name = shiping.signatureAsset?.name
-                    
-                    requestAsset.type = shiping.signatureAsset?.type
-                    requestAsset.publicURL = shiping.signatureAsset?.publicURL
-                    requestAsset.active = shiping.signatureAsset?.active ?? false
-                    requestAsset.secured = shiping.signatureAsset?.secured ?? false
-                    requestAsset.thumbURL = shiping.signatureAsset?.thumbURL
-                    requestAsset.mediumURL = shiping.signatureAsset?.mediumURL
-                    requestAsset.largeURL = shiping.signatureAsset?.largeURL
-                    requestAsset.assetType = shiping.signatureAsset?.assetType
-                    requestAsset.key = shiping.signatureAsset?.key
-                    requestModelShippingMainfest.signaturePhoto = requestAsset
-                    
-                    requestModelShippingMainfest.receiverCompany = shiping.receiverCompany
-                    requestModelShippingMainfest.receiverType = shiping.receiverType
-                    requestModelShippingMainfest.receiverContact = shiping.receiverContact
-                    requestModelShippingMainfest.receiverLicense = shiping.receiverLicense
-                    requestModelShippingMainfest.invoiceStatus = shiping.invoiceStatus
-                    
-                    //separate Shipping and reciving data
-                    let requestSipperInfo : RequestShipperInformation = RequestShipperInformation()
-                    requestSipperInfo.companyId = model.companyId
-                    requestModelShippingMainfest.shipperInformation = requestSipperInfo
-                    
-                    let requestReciverInfo : RequestReceiverInformation = RequestReceiverInformation()
-                    requestReciverInfo.customerCompanyId = model.customerId
-                    requestModelShippingMainfest.receiverInformation = requestReciverInfo
-                    
-                    //add shiping selected items
-                    //Payment info list
-                    for selectedItem in shiping.selectedItems {
-                        let requestSelectedItemsShipping: RequestShippingMainfestSelectedItem = RequestShippingMainfestSelectedItem()
-                        requestSelectedItemsShipping.productId = selectedItem.productId
-                        //requestSelectedItemsShipping.productName = selectedItem.productName
-                        //requestSelectedItemsShipping.remainingQuantity = selectedItem.remainingQuantity
-                        requestSelectedItemsShipping.quantity = selectedItem.requestQuantity
-                        //requestSelectedItemsShipping.isSelected = selectedItem.isSelected
-                        requestModelShippingMainfest.productMetrcInfo.append(requestSelectedItemsShipping)
+                    if shiping.updated == true{
+                      
+                        let requestModelShippingMainfest: RequestModelShipingMainfest = RequestModelShipingMainfest()
+                        
+                        requestModelShippingMainfest.shippingManifestNo = shiping.shippingManifestNo
+                        requestModelShippingMainfest.deliveryDate = shiping.deliveryDate
+                        requestModelShippingMainfest.deliveryTime = shiping.deliveryTime
+                        requestModelShippingMainfest.driverId = shiping.driverId
+                        requestModelShippingMainfest.driverName = shiping.driverName
+                        requestModelShippingMainfest.vehicleMake = shiping.vehicleMake
+                        requestModelShippingMainfest.vehicleModel = shiping.vehicleModel
+                        requestModelShippingMainfest.vehicleColor = shiping.vehicleColor
+                        requestModelShippingMainfest.vehicleLicensePlate = shiping.vehicleLicensePlate
+                        requestModelShippingMainfest.driverLicenPlate = shiping.driverLicenPlate
+                        
+                        let requestAsset = RequestAsset()
+                        requestAsset.name = shiping.signatureAsset?.name
+                        
+                        requestAsset.type = shiping.signatureAsset?.type
+                        requestAsset.publicURL = shiping.signatureAsset?.publicURL
+                        requestAsset.active = shiping.signatureAsset?.active ?? false
+                        requestAsset.secured = shiping.signatureAsset?.secured ?? false
+                        requestAsset.thumbURL = shiping.signatureAsset?.thumbURL
+                        requestAsset.mediumURL = shiping.signatureAsset?.mediumURL
+                        requestAsset.largeURL = shiping.signatureAsset?.largeURL
+                        requestAsset.assetType = shiping.signatureAsset?.assetType
+                        requestAsset.key = shiping.signatureAsset?.key
+                        requestModelShippingMainfest.signaturePhoto = requestAsset
+                        
+                        requestModelShippingMainfest.receiverCompany = shiping.receiverCompany
+                        requestModelShippingMainfest.receiverType = shiping.receiverType
+                        requestModelShippingMainfest.receiverContact = shiping.receiverContact
+                        requestModelShippingMainfest.receiverLicense = shiping.receiverLicense
+                        requestModelShippingMainfest.invoiceStatus = shiping.invoiceStatus
+                        
+                        //separate Shipping and reciving data
+                        let requestSipperInfo : RequestShipperInformation = RequestShipperInformation()
+                        requestSipperInfo.companyId = model.companyId
+                        requestModelShippingMainfest.shipperInformation = requestSipperInfo
+                        
+                        let requestReciverInfo : RequestReceiverInformation = RequestReceiverInformation()
+                        requestReciverInfo.customerCompanyId = model.customerId
+                        requestModelShippingMainfest.receiverInformation = requestReciverInfo
+                        
+                        //add shiping selected items
+                        //Payment info list
+                        for selectedItem in shiping.selectedItems {
+                            let requestSelectedItemsShipping: RequestShippingMainfestSelectedItem = RequestShippingMainfestSelectedItem()
+                            requestSelectedItemsShipping.productId = selectedItem.productId
+                            //requestSelectedItemsShipping.productName = selectedItem.productName
+                            //requestSelectedItemsShipping.remainingQuantity = selectedItem.remainingQuantity
+                            requestSelectedItemsShipping.quantity = selectedItem.requestQuantity
+                            //requestSelectedItemsShipping.isSelected = selectedItem.isSelected
+                            requestModelShippingMainfest.productMetrcInfo.append(requestSelectedItemsShipping)
+                        }
+                        
+                        requestInvoice.addShippingManifestRequest.append(requestModelShippingMainfest)
+                        
                     }
-                    
-                    requestInvoice.addShippingManifestRequest.append(requestModelShippingMainfest)
                     
                 }
                 
@@ -302,6 +311,7 @@ public final class SyncService {
                            print(obj.request?.id ?? "",obj.error ?? "")
                             let modelInvetry = RealmManager().read(type: ModelInventoryTransfers.self, primaryKey: (obj.request?.id)!)
                                 modelInvetry?.putBulkError = obj.error ?? ""
+                                modelInvetry?.updated = false
                                 RealmManager().write(table: modelInvetry!)
                              // print(RealmManager().read(type: ModelInventoryTransfers.self, primaryKey: (obj.request?.id)!))
                         }
@@ -321,6 +331,20 @@ public final class SyncService {
                             print(obj.request?.id ?? "",obj.error ?? "")
                             let modelInvoice = RealmManager().read(type: ModelInvoice.self, primaryKey: (obj.request?.id)!)
                             modelInvoice?.putBulkError = obj.error ?? ""
+                            modelInvoice?.updated = false
+                            
+                            //Write Payment
+                            let modelPaymentInfo = modelInvoice?.paymentInfo
+                            for objInfo in modelPaymentInfo!{
+                                objInfo.updated = false
+                            }
+                            
+                            //Write Shipment
+                            let modelShipment = modelInvoice?.shippingManifests
+                            for objInfo in modelShipment!{
+                                objInfo.updated = false
+                            }
+                            
                             RealmManager().write(table: modelInvoice!)
                             //print(RealmManager().read(type: ModelInvoice.self, primaryKey: (obj.request?.id)!))
                         }
@@ -329,9 +353,23 @@ public final class SyncService {
                         let modelInvoice2 = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true && putBulkError = ''")
                         for model in modelInvoice2 {
                             model.updated = false
+                            
+                            //Write Payment
+                            let modelPaymentInfo = model.paymentInfo
+                            for objInfo in modelPaymentInfo{
+                                objInfo.updated = false
+                            }
+                            
+                            //Write Shipment
+                            let modelShipment = model.shippingManifests
+                            for objInfo in modelShipment{
+                                objInfo.updated = false
+                            }
                         }
+                        
                         realmManager.write(modelInvoice2)
                     }
+                    
                     
                     // for purchaseOrder object
                     if let arrayPo = result?.poError, arrayPo.count > 0{
@@ -340,6 +378,7 @@ public final class SyncService {
                             print(obj.request?.id ?? "" ,obj.error ?? "")
                             let modelPo = RealmManager().read(type: ModelPurchaseOrder.self, primaryKey: (obj.request?.id)!)
                             modelPo?.putBulkError = obj.error ?? ""
+                            modelPo?.updated = false
                             RealmManager().write(table: modelPo!)
                            // print( RealmManager().read(type: ModelPurchaseOrder.self, primaryKey: (obj.request?.id)!))
                         }
@@ -418,7 +457,7 @@ public final class SyncService {
                 }else{
                     self.saveDriverData([])
                 }
-            
+                
                 self.finishSync()
             }
         }
@@ -430,13 +469,26 @@ public final class SyncService {
     }
     
     private func finishSync(){
+        //Write Log Finish Sync
+        UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.LastSync.rawValue , objectId:nil, lastSynch:UtilWriteLogs.curruntDate)
+        
+        SKActivityIndicator.dismiss()
         EventBus.sharedBus().publishMain(EventBusEventType.SYNCDATA)
         isUpdating = false
     }
     
     private func savePurchaseOrder(_ arrayPurchase: [ResponsePurchaseOrder]){
         
-        let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true ")
+        //Update Inventry logs
+//        let modelTimeStampPo = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.PurchaseOrderes.rawValue)'")
+//        if modelTimeStampPo.count > 0{
+//            for objPo in modelTimeStampPo{
+//                UtilWriteLogs.updateLog(id:objPo.id!,timesStamp: objPo.timesStamp, event:objPo.event , objectId: objPo.objectId, lastSynch:UtilWriteLogs.curruntDate)
+//            }
+//        }
+//        let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true ")
+        
+        let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "putBulkError != ''")
         
         for respPurchaseOrder in arrayPurchase {
             var canSkip : Bool = false
@@ -507,7 +559,16 @@ public final class SyncService {
     }
     
     fileprivate func saveDataInvoice(jsonData: [ResponseInvoice]?){
-        let invoiceErrorObject = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "updated = true ")
+        //Update invoice logs
+        
+//        let modelTimeStampInvoice = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.Invoices.rawValue)'")
+//        if modelTimeStampInvoice.count > 0{
+//            for objInvoice in modelTimeStampInvoice{
+//                UtilWriteLogs.updateLog(id:objInvoice.id!,timesStamp: objInvoice.timesStamp, event:objInvoice.event , objectId: objInvoice.objectId, lastSynch:UtilWriteLogs.curruntDate)
+//            }
+//        }
+        
+        let invoiceErrorObject = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "putBulkError != ''")
         if let values = jsonData{
             
             for valu in values{
@@ -529,7 +590,7 @@ public final class SyncService {
                     model.invoiceNumber     = valu.invoiceNumber
                     model.dueDate           = DateFormatterUtil.format(dateTime: (Double(DateIntConvertUtil.convert(dateTime: valu.dueDate ?? 0, type: DateIntConvertUtil.Seconds))),format: DateFormatterUtil.mmddyyyy)
                     model.balanceDue        = valu.balanceDue!
-                    model.vendorCompany           = valu.vendor?.name
+                    model.vendorCompany     = valu.vendor?.name
                     model.balanceDue        = valu.balanceDue!
                     model.contact           = valu.companyContact
                     model.total             = valu.total!
@@ -629,7 +690,15 @@ public final class SyncService {
     }
     
     fileprivate func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
-        let inventryErrorObject = RealmManager().readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true ")
+        //Update Inventry logs
+//        let modelTimeStampInventry = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.Inventry.rawValue)'")
+//        if modelTimeStampInventry.count > 0{
+//            for objInventry in modelTimeStampInventry{
+//                UtilWriteLogs.updateLog(id:objInventry.id!,timesStamp: objInventry.timesStamp, event:objInventry.event , objectId: objInventry.objectId, lastSynch:UtilWriteLogs.curruntDate)
+//            }
+//        }
+       
+        let inventryErrorObject = RealmManager().readPredicate(type: ModelInventoryTransfers.self, predicate: "putBulkError != ''")
         if let values = jsonData{
             
             for value in values{

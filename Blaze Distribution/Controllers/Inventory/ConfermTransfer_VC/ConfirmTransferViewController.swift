@@ -99,7 +99,11 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             modelOpenTransfer.modified = curruntDate
             modelOpenTransfer.transferNo = String(transferNo)
             modelOpenTransfer.updated = true
-            modelOpenTransfer.slectedProducts = modelCreateTransfer.slectedProducts
+            for model in modelCreateTransfer.slectedProducts{
+                model.id = model.batchId
+                modelOpenTransfer.slectedProducts.append(model)
+            }
+           // modelOpenTransfer.slectedProducts = modelCreateTransfer.slectedProducts
             
             //shop id and name
             modelOpenTransfer.fromShopId = self.modelCreateTransfer.fromLocation?.shop?.id
@@ -107,8 +111,12 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             modelOpenTransfer.fromInventoryId = self.modelCreateTransfer.fromLocation?.inventory?.id
             modelOpenTransfer.toInventoryId = self.modelCreateTransfer.toLocation?.inventory?.id
             modelOpenTransfer.completeTransfer = true
-            
             RealmManager().write(table: modelOpenTransfer)
+            
+            //write log
+            UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.Inventry.rawValue , objectId: modelOpenTransfer.id, lastSynch:nil)
+            
+            
             SyncService.sharedInstance().syncData()
             
             showAlert(title: "Message", message: "Saved Successfully!", closure: {

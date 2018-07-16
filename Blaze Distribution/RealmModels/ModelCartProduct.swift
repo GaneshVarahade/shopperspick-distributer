@@ -21,6 +21,7 @@ open override class func primaryKey() -> String? {
     }
     public override func copy(with zone: NSZone? = nil) -> Any {
         let modelProduct      = ModelCartProduct()
+        modelProduct.id = self.id
         modelProduct.name     = self.name
         modelProduct.batchId  = self.batchId
         modelProduct.quantity = self.quantity

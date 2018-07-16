@@ -58,6 +58,10 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
         RealmManager().write(table: modelPurchaseOrder)
         SyncService.sharedInstance().syncData()
         
+        //write Logs
+        //write log
+        UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.PurchaseOrderes.rawValue , objectId: modelPurchaseOrder.id, lastSynch:nil)
+        
         showAlert(title: NSLocalizedString("Done", comment: ""), message: NSLocalizedString("Saved Successfully!", comment: ""), closure: {
             self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
         })
