@@ -111,9 +111,12 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             modelOpenTransfer.fromInventoryId = self.modelCreateTransfer.fromLocation?.inventory?.id
             modelOpenTransfer.toInventoryId = self.modelCreateTransfer.toLocation?.inventory?.id
             modelOpenTransfer.completeTransfer = true
-            
-            
             RealmManager().write(table: modelOpenTransfer)
+            
+            //write log
+            UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.Inventry.rawValue , objectId: modelOpenTransfer.id, lastSynch:nil)
+            
+            
             SyncService.sharedInstance().syncData()
             
             showAlert(title: "Message", message: "Saved Successfully!", closure: {

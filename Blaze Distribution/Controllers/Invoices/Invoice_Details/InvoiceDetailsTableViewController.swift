@@ -112,6 +112,9 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         tempData.updated = true
         tempData.putBulkError = ""
         RealmManager().write(table: tempData)
+        //Write timeStamp
+        UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.Invoices.rawValue , objectId: tempData.id, lastSynch:nil)
+        
         RealmManager().read(type: ModelInvoice.self, primaryKey: tempData.invoiceNumber!)
         SyncService.sharedInstance().syncData()
         self.navigationController?.popViewController(animated: true)

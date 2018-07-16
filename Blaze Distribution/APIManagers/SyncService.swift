@@ -472,6 +472,13 @@ public final class SyncService {
     
     private func savePurchaseOrder(_ arrayPurchase: [ResponsePurchaseOrder]){
         
+        //Update Inventry logs
+        let modelTimeStampPo = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.PurchaseOrderes.rawValue)'")
+        if modelTimeStampPo.count > 0{
+            for objPo in modelTimeStampPo{
+                UtilWriteLogs.updateLog(id:objPo.id!,timesStamp: objPo.timesStamp, event:objPo.event , objectId: objPo.objectId, lastSynch:UtilWriteLogs.curruntDate)
+            }
+        }
 //        let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true ")
         let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "putBulkError != ''")
         
@@ -544,6 +551,15 @@ public final class SyncService {
     }
     
     fileprivate func saveDataInvoice(jsonData: [ResponseInvoice]?){
+        //Update invoice logs
+        let modelTimeStampInvoice = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.Invoices.rawValue)'")
+        if modelTimeStampInvoice.count > 0{
+            for objInvoice in modelTimeStampInvoice{
+                UtilWriteLogs.updateLog(id:objInvoice.id!,timesStamp: objInvoice.timesStamp, event:objInvoice.event , objectId: objInvoice.objectId, lastSynch:UtilWriteLogs.curruntDate)
+            }
+        }
+        
+        
         let invoiceErrorObject = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "putBulkError != ''")
         if let values = jsonData{
             
@@ -566,7 +582,7 @@ public final class SyncService {
                     model.invoiceNumber     = valu.invoiceNumber
                     model.dueDate           = DateFormatterUtil.format(dateTime: (Double(DateIntConvertUtil.convert(dateTime: valu.dueDate ?? 0, type: DateIntConvertUtil.Seconds))),format: DateFormatterUtil.mmddyyyy)
                     model.balanceDue        = valu.balanceDue!
-                    model.vendorCompany           = valu.vendor?.name
+                    model.vendorCompany     = valu.vendor?.name
                     model.balanceDue        = valu.balanceDue!
                     model.contact           = valu.companyContact
                     model.total             = valu.total!
@@ -666,6 +682,14 @@ public final class SyncService {
     }
     
     fileprivate func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
+        //Update Inventry logs
+        let modelTimeStampInventry = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.Inventry.rawValue)'")
+        if modelTimeStampInventry.count > 0{
+            for objInventry in modelTimeStampInventry{
+                UtilWriteLogs.updateLog(id:objInventry.id!,timesStamp: objInventry.timesStamp, event:objInventry.event , objectId: objInventry.objectId, lastSynch:UtilWriteLogs.curruntDate)
+            }
+        }
+       
         let inventryErrorObject = RealmManager().readPredicate(type: ModelInventoryTransfers.self, predicate: "putBulkError != ''")
         if let values = jsonData{
             

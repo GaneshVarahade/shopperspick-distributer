@@ -9,10 +9,13 @@
 import UIKit
 
 class ViewLogCell: UITableViewCell {
-
-    @IBOutlet weak var lblStatus: UILabel!
-    @IBOutlet weak var lblTimestap: UILabel!
-    @IBOutlet weak var lblId: UILabel!
+    @IBOutlet weak var lblTimesStamp: UILabel!
+    @IBOutlet weak var lblEventName: UILabel!
+    @IBOutlet weak var lblEventId: UILabel!
+    @IBOutlet weak var lblLastSyncDate: UILabel!
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
