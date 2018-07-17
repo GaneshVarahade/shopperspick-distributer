@@ -29,7 +29,7 @@ class ScanLookUpViewController: UIViewController,QRCodeReaderViewControllerDeleg
         super.viewDidLoad()
        //Read model product value
         self.modelProduct = RealmManager().readList(type:ModelProduct.self)
-        print(self.modelProduct)
+        //print(self.modelProduct)
         
         //SetUp UIBarButton Item
         customBarbutton.setBackgroundImage(UIImage(named: "Basket"), for: (UIControlState.normal))
@@ -56,7 +56,8 @@ class ScanLookUpViewController: UIViewController,QRCodeReaderViewControllerDeleg
         readerVC.delegate = self
         // Or by using the closure pattern
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            print(result)
+            //print(result)
+            UtilPrintLogs.DLog(message: "Scan result", objectToPrint: result)
         }
         // Presents the readerVC as modal form sheet
         readerVC.modalPresentationStyle = .formSheet

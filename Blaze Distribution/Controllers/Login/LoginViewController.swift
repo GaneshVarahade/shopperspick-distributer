@@ -42,7 +42,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         reqLogin.version  = "2.10.10"
         reqLogin.deviceId = "1F036D8E-1EE4-4C1C-B451-0EA44760344F"
         
-        print(UIDevice.current.identifierForVendor!.uuidString)
+        //print(UIDevice.current.identifierForVendor!.uuidString)
+        UtilPrintLogs.DLog(message:"Login Info", objectToPrint: UIDevice.current.identifierForVendor!.uuidString)
         WebServicesAPI.sharedInstance().loginAPI(request: reqLogin, onComplition: {(result:ResponseLogin?, error:PlatformError?) in
            
             SKActivityIndicator.show()
@@ -92,7 +93,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                
             }else{
                 
-                print("Employee data nil")
+                //print("Employee data nil")
+                UtilPrintLogs.DLog(message:"Employee data nil", objectToPrint:nil)
             }
             //AssingShop Mapping
             if let assigndata = data.assignedShop {
@@ -104,7 +106,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
             }else{
                 
-                print("Assigned Shop nil")
+                //print("Assigned Shop nil")
+                UtilPrintLogs.DLog(message: "Assigned Shop nil", objectToPrint: nil)
             }
             //AssingTerminal Mapping
             if let terminalData = data.assignedTerminal{
@@ -115,7 +118,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 modelLogin.assignedTerminal?.currentEmployeeId   = terminalData.currentEmployeeId
             }else{
                 
-                print("Assined Terminal nil")
+                //print("Assined Terminal nil")
+                UtilPrintLogs.DLog(message: "Assined Terminal nil", objectToPrint: nil)
             }
             //Address Mapping
             if let  addr = data.assignedShop?.address{
@@ -125,7 +129,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 modelLogin.assignedShop?.address?.state   = addr.state
             }else{
                 
-                print("Address nil")
+                //print("Address nil")
+                UtilPrintLogs.DLog(message: "Address nil", objectToPrint: nil)
             }
             ///Shops Mapping
             if let shops = data.shops{
@@ -140,13 +145,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
             }else{
             
-                print("Shops nil")
+                //print("Shops nil")
+                UtilPrintLogs.DLog(message: "Shops nil", objectToPrint: nil)
             }
                 
             RealmManager().write(table: modelLogin)
-            print("----Login Data Save----")
+            UtilPrintLogs.DLog(message: "Login Data Save", objectToPrint: nil)
+            //print("----Login Data Save----")
         }else{
-            print("Unable to save data ...")
+            UtilPrintLogs.DLog(message: "Unable to save data", objectToPrint: nil)
+            //print("Unable to save data ...")
         }
     }
 }

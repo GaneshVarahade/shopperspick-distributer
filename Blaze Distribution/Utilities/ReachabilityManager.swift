@@ -46,7 +46,8 @@ class ReachabilityManager: NSObject {
         do{
             try reachability.startNotifier()
         } catch {
-           print("Could not start reachability notifier")
+            UtilPrintLogs.DLog(message: "Could not start reachability notifier", objectToPrint: nil)
+           //print("Could not start reachability notifier")
         }
     }
     

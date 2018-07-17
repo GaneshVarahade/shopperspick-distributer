@@ -17,7 +17,8 @@ public class StoreImage {
             try data.write(to: directory.appendingPathComponent(fileName)!)
             return true
         } catch {
-            print(error.localizedDescription)
+            //print(error.localizedDescription)
+            UtilPrintLogs.DLog(message:DLogMessage.Error.rawValue, objectToPrint:error.localizedDescription )
             return false
         }
     }

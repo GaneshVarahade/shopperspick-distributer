@@ -51,7 +51,8 @@ class ScanInvoiceViewController: UIViewController,QRCodeReaderViewControllerDele
         
         // Or by using the closure pattern
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            print(result)
+           // print(result)
+            UtilPrintLogs.DLog(message:"Scan Info", objectToPrint:result)
         }
         // Presents the readerVC as modal form sheet
         readerVC.modalPresentationStyle = .formSheet

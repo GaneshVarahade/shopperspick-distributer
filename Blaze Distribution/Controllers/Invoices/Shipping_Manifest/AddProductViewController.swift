@@ -64,7 +64,7 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath.row)")
+        //print("\(indexPath.row)")
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -86,7 +86,7 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @objc func tapOnCell(sender: UITapGestureRecognizer) {
         let senderView = sender.view as? UIView
-        print(senderView?.tag)
+        //print(senderView?.tag)
         
         let product = remainingItemList[(senderView?.tag)!]
         product.isSelected = !product.isSelected

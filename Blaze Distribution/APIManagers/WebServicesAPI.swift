@@ -242,7 +242,8 @@ class WebServicesAPI: NSObject {
                     
                 }
             }catch {
-                print("In RestWrapper.makeRequest \(error.localizedDescription)")
+                //print("In RestWrapper.makeRequest \(error.localizedDescription)")
+                UtilPrintLogs.DLog(message:"In RestWrapper.makeRequest" , objectToPrint: error.localizedDescription)
             }
         }else {
             str.append("NonJson Response")
@@ -252,7 +253,8 @@ class WebServicesAPI: NSObject {
         str.append("----------------------------------------------------")
         str.append("\n")
         str.append("----------------------------------------------------")
-        print(str)
+        //print(str)
+        UtilPrintLogs.DLog(message: DLogMessage.Request.rawValue, objectToPrint: str)
 
     }
 }

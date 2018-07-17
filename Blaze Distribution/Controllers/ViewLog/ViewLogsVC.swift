@@ -24,7 +24,8 @@ class ViewLogsVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         self.logTable.dataSource = self
         //Read Model timestamp Log
      self.objModelLogs = RealmManager().readList(type: ModelTimesStampLog.self)
-     print(objModelLogs)
+        //print(objModelLogs)
+        UtilPrintLogs.DLog(message:"Log list", objectToPrint: objModelLogs)
         // Do any additional setup after loading the view.
     }
     

@@ -132,7 +132,8 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             
             loadData()
         }
-        
+       //Make selected option none
+        //selectedOption = SelectedOption.none
     }
     
     override func viewWillAppear(_ animated: Bool) {

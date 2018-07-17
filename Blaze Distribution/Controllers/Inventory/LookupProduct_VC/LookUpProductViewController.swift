@@ -54,7 +54,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewWillAppear(true)
         getData()
         //Update cart count
-        print(modelCreateTransfer.slectedProducts.count)
+        //print(modelCreateTransfer.slectedProducts.count)
         customBarbutton.setTitle(String(format: "%d",modelCreateTransfer.slectedProducts.count), for: UIControlState.normal)
     }
 
@@ -86,7 +86,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         for val in predicateArray{
             filterArrayByPredicate(predicateString: val)
         }
-        print(filterDict)
+        //print(filterDict)
         print(Array(filterDict.keys))
         sectionNameList = Array(filterDict.keys)
         lookUpTableView.reloadData()
@@ -219,7 +219,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             }
             //Check Filtered Dict count
-            print(filterDict)
+            //print(filterDict)
             if (filterDict.count == 0){
                 showToast("No Record found")
             }

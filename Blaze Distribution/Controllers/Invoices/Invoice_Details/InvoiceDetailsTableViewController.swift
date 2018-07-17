@@ -294,7 +294,7 @@ extension InvoiceDetailsTableViewController{
     
     // MARK: Custom Delegate
     func getDataForFixedInvoices(dataDict: ModelInvoice) {
-        print(dataDict)
+        //print(dataDict)
     }
     
     func getDataForInvoicePayments(dataDict: ModelInvoice) {

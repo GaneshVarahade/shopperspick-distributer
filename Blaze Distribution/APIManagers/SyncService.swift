@@ -142,7 +142,7 @@ public final class SyncService {
             
             //For Model purchase order
             for model in modelPurchaseOrders {
-                print("modelPurchaseOrders")
+                //print("modelPurchaseOrders")
                 let requestPurchase: RequestPurchaseOrder = RequestPurchaseOrder()
                 requestPurchase.id = model.id
                 requestPurchase.purchaseOrderNumber = model.purchaseOrderNumber
@@ -167,7 +167,7 @@ public final class SyncService {
             
             //For Model Inventry Transfer
             for model in modelInventryTransfer {
-                print("modelInventryTransfer")
+                //print("modelInventryTransfer")
                 let requestInventry: RequestInventry = RequestInventry()
                 requestInventry.id = model.id
                 requestInventry.transferNo = model.transferNo
@@ -196,7 +196,7 @@ public final class SyncService {
             
             //For Model Invoice
             for model in modelInvoice {
-                print("modelInvoice")
+                //print("modelInvoice")
                 let requestInvoice: RequestInvoice = RequestInvoice()
                 requestInvoice.id = model.id
                 requestInvoice.invoiceNumber = model.invoiceNumber
@@ -308,7 +308,7 @@ public final class SyncService {
                     if let arrayInventory = result?.inventoryTransferError, arrayInventory.count > 0{
                         for obj in arrayInventory {
                             
-                           print(obj.request?.id ?? "",obj.error ?? "")
+                           //print(obj.request?.id ?? "",obj.error ?? "")
                             let modelInvetry = RealmManager().read(type: ModelInventoryTransfers.self, primaryKey: (obj.request?.id)!)
                                 modelInvetry?.putBulkError = obj.error ?? ""
                                 modelInvetry?.updated = false
@@ -328,7 +328,7 @@ public final class SyncService {
                     if let arrayInvoice = result?.invoiceError, arrayInvoice.count > 0{
                        
                         for obj in arrayInvoice {
-                            print(obj.request?.id ?? "",obj.error ?? "")
+                            //print(obj.request?.id ?? "",obj.error ?? "")
                             let modelInvoice = RealmManager().read(type: ModelInvoice.self, primaryKey: (obj.request?.id)!)
                             modelInvoice?.putBulkError = obj.error ?? ""
                             modelInvoice?.updated = false
@@ -375,7 +375,7 @@ public final class SyncService {
                     if let arrayPo = result?.poError, arrayPo.count > 0{
                         
                         for obj in arrayPo {
-                            print(obj.request?.id ?? "" ,obj.error ?? "")
+                            //print(obj.request?.id ?? "" ,obj.error ?? "")
                             let modelPo = RealmManager().read(type: ModelPurchaseOrder.self, primaryKey: (obj.request?.id)!)
                             modelPo?.putBulkError = obj.error ?? ""
                             modelPo?.updated = false
@@ -426,7 +426,8 @@ public final class SyncService {
         
         WebServicesAPI.sharedInstance().BulkAPI(request: RequestGetBulkAPI()) { (result:ResponseBulkRequest?,error:PlatformError?) in
             if error != nil{
-                print(error?.message! ?? "Error")
+                //print(error?.message! ?? "Error")
+                UtilPrintLogs.DLog(message: DLogMessage.Error.rawValue, objectToPrint:error?.message! ?? "Error" )
                 self.finishSync()
                 return
             }
@@ -478,16 +479,6 @@ public final class SyncService {
     }
     
     private func savePurchaseOrder(_ arrayPurchase: [ResponsePurchaseOrder]){
-        
-        //Update Inventry logs
-//        let modelTimeStampPo = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.PurchaseOrderes.rawValue)'")
-//        if modelTimeStampPo.count > 0{
-//            for objPo in modelTimeStampPo{
-//                UtilWriteLogs.updateLog(id:objPo.id!,timesStamp: objPo.timesStamp, event:objPo.event , objectId: objPo.objectId, lastSynch:UtilWriteLogs.curruntDate)
-//            }
-//        }
-//        let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true ")
-        
         let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "putBulkError != ''")
         
         for respPurchaseOrder in arrayPurchase {
@@ -529,7 +520,6 @@ public final class SyncService {
     }
     
     private func saveDriverData(_ arrayDriver: [ResponceDriverInfo]){
-       
         for response in arrayDriver{
             let model: ModelDriverInfo = ModelDriverInfo()
             model.id = response.id
@@ -543,31 +533,11 @@ public final class SyncService {
             model.vehicleLicensePlate = response.vehicleLicensePlate
             RealmManager().write(table: model)
         }
-        
-//        let model: ModelDriverInfo = ModelDriverInfo()
-//        model.driverId = "jkfdafdfbkj"
-//        model.driverName = "Jon Lee"
-//        model.driverLicenseNumber = "785g457t87455g4"
-//        model.vehicleMake = "jhdah"
-//        model.vehicleModel = "truck"
-//        model.vehicleColor = "red"
-//        model.vehicleLicensePlate = "673vhajdwtb"
-//        RealmManager().write(table: model)
-        print(RealmManager().readList(type: ModelDriverInfo.self))
-        
-        //var dummyData = [[""]]
+        //print(RealmManager().readList(type: ModelDriverInfo.self))
+        UtilPrintLogs.DLog(message:"DriverInfo", objectToPrint:RealmManager().readList(type: ModelDriverInfo.self))
     }
     
     fileprivate func saveDataInvoice(jsonData: [ResponseInvoice]?){
-        //Update invoice logs
-        
-//        let modelTimeStampInvoice = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.Invoices.rawValue)'")
-//        if modelTimeStampInvoice.count > 0{
-//            for objInvoice in modelTimeStampInvoice{
-//                UtilWriteLogs.updateLog(id:objInvoice.id!,timesStamp: objInvoice.timesStamp, event:objInvoice.event , objectId: objInvoice.objectId, lastSynch:UtilWriteLogs.curruntDate)
-//            }
-//        }
-        
         let invoiceErrorObject = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "putBulkError != ''")
         if let values = jsonData{
             
@@ -690,14 +660,7 @@ public final class SyncService {
     }
     
     fileprivate func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
-        //Update Inventry logs
-//        let modelTimeStampInventry = RealmManager().readPredicate(type: ModelTimesStampLog.self, predicate: "event == '\(activityLogEvent.Inventry.rawValue)'")
-//        if modelTimeStampInventry.count > 0{
-//            for objInventry in modelTimeStampInventry{
-//                UtilWriteLogs.updateLog(id:objInventry.id!,timesStamp: objInventry.timesStamp, event:objInventry.event , objectId: objInventry.objectId, lastSynch:UtilWriteLogs.curruntDate)
-//            }
-//        }
-       
+        
         let inventryErrorObject = RealmManager().readPredicate(type: ModelInventoryTransfers.self, predicate: "putBulkError != ''")
         if let values = jsonData{
             
@@ -732,16 +695,17 @@ public final class SyncService {
                 }
             }
         }else{
-            print("Inventory is nil....")
+            UtilPrintLogs.DLog(message:"Inventory is nil....", objectToPrint: nil)
+            //print("Inventory is nil....")
         }
-        print("---Inventory Data Save---")
+        UtilPrintLogs.DLog(message:"---Inventory Data Save---", objectToPrint: nil)
+        //print("---Inventory Data Save---")
     }
     
     fileprivate func saveDataProduct(jsonData:[ResponseProduct]?){
         //RealmManager.deleteAll(ModelProduct.self)
         
         if let products = jsonData{
-            
             for prod in products{
                 if let tempQuantity = prod.quantities{
                     for qut in tempQuantity{
@@ -756,7 +720,8 @@ public final class SyncService {
                         RealmManager().write(table: temp)
                     }
                     
-                    print(RealmManager().readList(type: ModelProduct.self))
+                    //print(RealmManager().readList(type: ModelProduct.self))
+                    UtilPrintLogs.DLog(message:DLogMessage.ProductData.rawValue, objectToPrint: RealmManager().readList(type: ModelProduct.self))
                 }
             }
         }else{
@@ -766,13 +731,9 @@ public final class SyncService {
     fileprivate func saveInventory(jsonData:[ResponseInventories]){
         
         let shops:[ShopsModel] = RealmManager().readList(type: ShopsModel.self)
-        
-        
         for inventories in jsonData{
            let model = ModelInventories()
-            print(inventories.shopId ?? "-Empty-")
-            
-            
+            //print(inventories.shopId ?? "-Empty-")
             for shop in shops{
                 if shop.id == inventories.shopId{
                        model.shopName = shop.name
@@ -790,7 +751,8 @@ public final class SyncService {
                 }
             }
              RealmManager().write(table: model)
-             print("---ResponseInventories Save---")
+            UtilPrintLogs.DLog(message:"---ResponseInventories Save---", objectToPrint: nil)
+             //print("---ResponseInventories Save---")
         }
     }
 }

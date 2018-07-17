@@ -103,7 +103,7 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
              let requestQuantity = Double(cell.quantityTextField.text!)!
             
             let remainingProd = remainingItemList[index!]
-            print("\(product.requestQuantity) > \(remainingProd.remainingQuantity)")
+            //print("\(product.requestQuantity) > \(remainingProd.remainingQuantity)")
             
             if requestQuantity > remainingProd.remainingQuantity {
 

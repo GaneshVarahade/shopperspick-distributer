@@ -11,6 +11,7 @@
 		1804748520FBBB48006E1570 /* ViewLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804748420FBBB48006E1570 /* ViewLogCell.swift */; };
 		18051EE520EA3C0A005BF274 /* LookUpProductEnterQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18051EE420EA3C09005BF274 /* LookUpProductEnterQuantity.swift */; };
 		1808A84120D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808A84020D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift */; };
+		180C603F20FDB1BD005D781C /* UtilPrintLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C603E20FDB1BD005D781C /* UtilPrintLogs.swift */; };
 		1812B33F20CAB31800B4DC26 /* ModelInventoryTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */; };
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
 		181C388620EDFF1D00A567B3 /* RequestPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C388520EDFF1D00A567B3 /* RequestPostModel.swift */; };
@@ -208,6 +209,7 @@
 		1804748420FBBB48006E1570 /* ViewLogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLogCell.swift; sourceTree = "<group>"; };
 		18051EE420EA3C09005BF274 /* LookUpProductEnterQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpProductEnterQuantity.swift; sourceTree = "<group>"; };
 		1808A84020D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseOrderItemsViewController.swift; sourceTree = "<group>"; };
+		180C603E20FDB1BD005D781C /* UtilPrintLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilPrintLogs.swift; sourceTree = "<group>"; };
 		1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventoryTransfers.swift; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
 		181C388520EDFF1D00A567B3 /* RequestPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPostModel.swift; sourceTree = "<group>"; };
@@ -767,6 +769,7 @@
 				1827FC0520D11AB300DEA5E8 /* DateFormatter.swift */,
 				18FE8F2A20F5D0D700E4E8FE /* DateIntConvert.swift */,
 				18FFC99A20FC76CD00BCAA6A /* UtilWriteLogs.swift */,
+				180C603E20FDB1BD005D781C /* UtilPrintLogs.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1551,6 +1554,7 @@
 				B985566920B43B2900A56497 /* YPDrawSignatureView.swift in Sources */,
 				1804748520FBBB48006E1570 /* ViewLogCell.swift in Sources */,
 				B9CAC8E020AF1155008F1650 /* UILabelX.swift in Sources */,
+				180C603F20FDB1BD005D781C /* UtilPrintLogs.swift in Sources */,
 				18E66A1C20F72A1B003AA075 /* inventoryTransferError.swift in Sources */,
 				181F602C20F4CDBB0071CA04 /* RequestShipperInformation.swift in Sources */,
 				181F602620F4C5510071CA04 /* ModelSignatureAsset.swift in Sources */,

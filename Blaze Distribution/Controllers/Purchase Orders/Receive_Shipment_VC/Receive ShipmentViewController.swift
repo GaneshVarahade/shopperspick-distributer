@@ -66,7 +66,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
             self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
         })
         
-        print(modelPurchaseOrder.productReceived)
+        //print(modelPurchaseOrder.productReceived)
     }
     //Text Field validation
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -174,7 +174,7 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
         }else{
             selectedPurchaseOrder = selectedPurchaseOrder.filter { $0 != self.modelPurchaseOrder.productInShipment[index] }
         }
-        print(selectedPurchaseOrder);
+        //print(selectedPurchaseOrder);
     }
     
     //MARK:- BtnCountinue Clicked

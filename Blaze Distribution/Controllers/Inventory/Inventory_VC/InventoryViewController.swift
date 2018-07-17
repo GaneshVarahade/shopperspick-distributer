@@ -107,7 +107,8 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             data  = inventoryData
         }
         inventoryTableView.reloadData()
-        print("----DataRead----- \(inventoryData.count)")
+        //print("----DataRead----- \(inventoryData.count)")
+        UtilPrintLogs.DLog(message:"DataRead", objectToPrint: inventoryData.count)
     }
     
     

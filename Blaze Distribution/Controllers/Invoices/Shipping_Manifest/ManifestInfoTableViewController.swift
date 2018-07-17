@@ -61,7 +61,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         super.viewWillAppear(true)
         //Read Driver info list from database
         self.driverInfo = RealmManager().readList(type: ModelDriverInfo.self)
-        print(self.modelShippingMen)
+        //print(self.modelShippingMen)
         
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -237,7 +237,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     
     
     func validateFields() {
-        print("validate")
+        //print("validate")
         let signImg = StoreImage.getSavedImage(name: (modelShippingMen?.shippingManifestNo!)!)
         
         if modelShippingMen?.deliveryDate == 0 {
