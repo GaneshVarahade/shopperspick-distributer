@@ -1800,7 +1800,7 @@
                                         <rect key="frame" x="0.0" y="520" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kCb-gH-4Wh" id="0PJ-ei-nIr">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tvh-ia-0hV" customClass="UIViewX" customModule="Blaze_Distribution" customModuleProvider="target">
@@ -1898,7 +1898,7 @@
                                         <rect key="frame" x="0.0" y="570" width="320" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="15j-8o-cDM" id="Xxx-Do-g7g">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CiE-5T-haz">
@@ -1920,7 +1920,7 @@
                                         <rect key="frame" x="0.0" y="710" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="daF-cQ-M3I" id="zmX-RB-B6u">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1DL-rM-NaK" customClass="UIViewX" customModule="Blaze_Distribution" customModuleProvider="target">
@@ -2006,7 +2006,7 @@
                                         <rect key="frame" x="0.0" y="760" width="320" height="153"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5aN-CP-eS4" id="Qcg-lo-l41">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="152.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="153"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vmF-ip-kKT">
@@ -2028,7 +2028,7 @@
                                         <rect key="frame" x="0.0" y="913" width="320" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AeL-d0-N5s" id="tdb-bZ-hoC">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="45.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLc-m1-uMn">
@@ -2945,7 +2945,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" placeholder="Enter amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VMq-76-mjM">
-                                                    <rect key="frame" x="16" y="7" width="288" height="30"/>
+                                                    <rect key="frame" x="16" y="7" width="185" height="30"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="nn3-jW-Kzu">
@@ -2962,11 +2962,35 @@
                                                         <outlet property="delegate" destination="ibx-vP-ptJ" id="VbO-N1-spf"/>
                                                     </connections>
                                                 </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Balance" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7U-eq-8iL">
+                                                    <rect key="frame" x="211" y="6" width="93" height="10"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="93" id="5u5-ZW-nw6"/>
+                                                        <constraint firstAttribute="height" constant="10" id="mzm-R1-oSg"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0aP-96-I7o">
+                                                    <rect key="frame" x="211" y="16" width="93" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="93" id="Is9-Nb-6eO"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="VMq-76-mjM" secondAttribute="trailing" constant="16" id="Ulg-lS-Iqr"/>
+                                                <constraint firstItem="R7U-eq-8iL" firstAttribute="leading" secondItem="VMq-76-mjM" secondAttribute="trailing" constant="10" id="0sS-uH-Jxo"/>
+                                                <constraint firstItem="R7U-eq-8iL" firstAttribute="top" secondItem="x0F-WE-fRe" secondAttribute="top" constant="6" id="COY-U6-t19"/>
                                                 <constraint firstItem="VMq-76-mjM" firstAttribute="leading" secondItem="x0F-WE-fRe" secondAttribute="leading" constant="16" id="V2C-8u-KPI"/>
+                                                <constraint firstAttribute="trailing" secondItem="0aP-96-I7o" secondAttribute="trailing" constant="16" id="XVo-sX-EAZ"/>
                                                 <constraint firstItem="VMq-76-mjM" firstAttribute="centerY" secondItem="x0F-WE-fRe" secondAttribute="centerY" id="mKY-0b-bHZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="R7U-eq-8iL" secondAttribute="trailing" constant="16" id="qH2-7M-mru"/>
+                                                <constraint firstItem="0aP-96-I7o" firstAttribute="top" secondItem="R7U-eq-8iL" secondAttribute="bottom" id="tjL-2W-aRs"/>
+                                                <constraint firstAttribute="bottom" secondItem="0aP-96-I7o" secondAttribute="bottom" constant="6" id="xiF-E5-Oxd"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -3066,7 +3090,7 @@
                                         <rect key="frame" x="0.0" y="538" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6UZ-LW-BjU" id="Xxj-Sb-vgo">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qu4-rC-iQr">
@@ -3106,6 +3130,7 @@
                         <outlet property="btnSubmit" destination="qu4-rC-iQr" id="9lp-My-kxJ"/>
                         <outlet property="debitCardTextField" destination="xdc-Er-GVg" id="38s-cE-GM8"/>
                         <outlet property="debitCheckMarkImage" destination="ydv-r8-vwo" id="6vk-XE-Upz"/>
+                        <outlet property="lblBalanceDue" destination="0aP-96-I7o" id="ItG-vv-oph"/>
                         <outlet property="notesTextView" destination="HjI-ZG-EUI" id="9De-Ff-1ch"/>
                         <outlet property="paymentDateTextField" destination="8Ed-3c-zUc" id="sbz-VM-oeT"/>
                         <outlet property="referenceNoTextField" destination="r72-ys-v4Z" id="6ju-BN-O0h"/>

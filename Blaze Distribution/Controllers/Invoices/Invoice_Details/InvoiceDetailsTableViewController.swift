@@ -126,6 +126,9 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
             if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoiceStatus == "COMPLETED"){
                 showToast("Payment not allowed for Draft and Cancelled Invoice")
                 return false
+            }else if Int(tempData?.balanceDue ?? 0) == 0 {
+                showToast("Sorry, this invoice is aleredy paid and has no due remainig")
+                return false
             }
         }else  if identifier == "addManifestInfoSegue" {
             if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoiceStatus == "COMPLETED"){
@@ -188,6 +191,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
                 obj.isAddManifest = true
                 obj.modelShippingMen = ModelShipingMenifest()
                 obj.modelShippingMen?.shippingManifestNo = HexGenerator.sharedInstance().generate()
+                obj.modelShippingMen?.id = HexGenerator.sharedInstance().generate()
             }
         }
     }

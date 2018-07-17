@@ -19,6 +19,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     var isfromDetails : Bool = false
     var paymentModel: ModelPaymentInfo?
     
+    @IBOutlet weak var lblBalanceDue: UILabel!
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var paymentTypeView: UIView!
     @IBOutlet weak var paymentDateView: UIView!
@@ -59,6 +60,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         achDateTextField.inputView = datePicker
         paymentDateTextField.inputView = datePicker
         datePicker.datePickerMode = .date
+       
         manageTextfield()
         setDefaultData()
     }
@@ -82,6 +84,12 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             referenceNoTextField.text = paymentModel?.referenceNumber
             amountTextField.text = String(format:"%.1f",(paymentModel?.amount)!)
             notesTextView.text = paymentModel?.notes
+            lblBalanceDue.text = "0";
+        }else{
+            //Set Due balance
+            if(invoiceObj != nil){
+                 lblBalanceDue.text = String(format: "%.1f",(invoiceObj?.balanceDue)!)
+            }
         }
     }
 
@@ -252,7 +260,6 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         else if textField == amountTextField {
             let cs = NSCharacterSet(charactersIn: "0123456789.").inverted
             let filtered = string.components(separatedBy: cs).joined(separator: "")
-            
             return (string == filtered)
         }
         return true
@@ -341,6 +348,15 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             self.showToast("Please enter notes")
             return
         }
+        
+        let enteredAmont:Int = Int((amountTextField.text! as NSString).intValue)
+        if(enteredAmont > Int((invoiceObj?.balanceDue)!)){
+        self.showToast("Please enter valid due amount")
+        return
+        }
+        
+        let remainingamount = Int((invoiceObj?.balanceDue)!) - enteredAmont
+        invoiceObj?.balanceDue = Double(remainingamount)
         
         let modelPaymanetInfo:ModelPaymentInfo = ModelPaymentInfo()
         modelPaymanetInfo.id = HexGenerator.sharedInstance().generate()
