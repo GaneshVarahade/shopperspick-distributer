@@ -20,7 +20,7 @@ class LookUpProductEnterQuantity: UIViewController,UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Enter Quantity"
+        self.title = NSLocalizedString("ProdLookQtTitle", comment: "")
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -108,21 +108,21 @@ class LookUpProductEnterQuantity: UIViewController,UITextFieldDelegate{
         //save data into cart
         let modelCartProduct = ModelCartProduct()
         if txtQuantity.text?.isEmpty == true {
-            showToast("Please enter product quantity to proceed further")
+            showToast(NSLocalizedString("ProdQuat_Validation1", comment: ""))
         }
         
         else if (txtQuantity.text! as NSString).doubleValue > Double(modelProudct.quantity){
-            showToast("Please enter valid product quantity")
+            showToast(NSLocalizedString("ProdQuat_Validation2", comment: ""))
         }
         else if (txtQuantity.text! as NSString).doubleValue == 0{
-           showToast("Please make sure that, quantity should not be 0")
+           showToast(NSLocalizedString("ProdQuat_Validation3", comment: ""))
         }else{
             modelCartProduct.name = modelProudct.name
             modelCartProduct.batchId = modelProudct.productId
             let quantity = Double(txtQuantity.text!)
             modelCartProduct.quantity = quantity!
             modelCreateTransfer.slectedProducts.append(modelCartProduct)
-            showToast("Added in Cart")
+            showToast(NSLocalizedString("LookProd_Message", comment: ""))
             //set cart count
             customBarbutton.setTitle(String(modelCreateTransfer.slectedProducts.count), for: UIControlState.normal)
             self.navigationController?.popViewController(animated: true)

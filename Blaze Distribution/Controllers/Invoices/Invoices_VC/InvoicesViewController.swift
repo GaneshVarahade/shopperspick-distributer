@@ -55,7 +55,7 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = "Invoices"
+        self.title = NSLocalizedString("InvVcTitle", comment: "")
     }
     
     func getData(){
@@ -304,10 +304,10 @@ extension InvoicesViewController{
                 self.navigationController?.pushViewController(obj, animated: true)
                 
             }else{
-                showToast("Sorry! no record found")
+                showToast(NSLocalizedString("Inv_noRecords", comment: ""))
             }
         }else{
-            showToast("Sorry! no record found")
+            showToast(NSLocalizedString("Inv_noRecords", comment: ""))
         }
     }
     

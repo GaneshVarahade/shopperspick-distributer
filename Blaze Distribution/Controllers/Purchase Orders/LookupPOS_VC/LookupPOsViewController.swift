@@ -20,7 +20,7 @@ class LookupPOsViewController: UIViewController, UITableViewDataSource, UITableV
 
         // Do any additional setup after loading the view.
         
-        self.title = "Lookup PO#"
+        self.title = NSLocalizedString("LookUpPoTitle", comment: "")
         
         tempDataList = [["po_no":"123456","metric":"YES"],["po_no":"123456","metric":"NO"]]
         

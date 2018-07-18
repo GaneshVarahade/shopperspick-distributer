@@ -25,7 +25,7 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Add Product"
+        self.title = NSLocalizedString("AddProdVcTitle", comment: "")
         
         //print("\(modelInvoice.remainingProducts.count)")
         invoiceItemsTableView.delegate =  self

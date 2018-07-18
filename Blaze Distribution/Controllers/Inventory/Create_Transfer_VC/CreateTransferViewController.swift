@@ -48,7 +48,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Inventory"
+        self.title = NSLocalizedString("CreateTransTitle", comment: "")
         
         //add target to text field
         // navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
@@ -164,7 +164,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     @objc private func onclickFromInventory() {
         
         if modelFromLocation.shop == nil {
-            showToast("Please select shop first")
+            showToast(NSLocalizedString("CreateTrans_selectShop", comment:""))
             return
         }
         selectedOption = SelectedOption.fromInventory
@@ -175,7 +175,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     @objc private func onclickToStore() {
         
         if modelFromLocation.shop == nil || modelFromLocation.inventory == nil{
-            showToast("Please select From Location First")
+            showToast(NSLocalizedString("CreateTrans_selectFromLoc", comment: ""))
             return
         }
         selectedOption = SelectedOption.toStore
@@ -185,7 +185,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func onclickToInventory() {
         if modelToLocation.shop == nil {
-            showToast("Please select shop first")
+            showToast(NSLocalizedString("CreateTrans_selectShop", comment: ""))
             return
         }
         
@@ -298,10 +298,10 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if modelFromLocation.shop == nil || modelToLocation.shop == nil || modelFromLocation.inventory == nil || modelToLocation.inventory == nil{
-            showToast("Please all options to proceed")
+            showToast(NSLocalizedString("CreateTrans_selectAllOpt", comment: ""))
             return false
         }else if modelFromLocation.shop?.id == modelToLocation.shop?.id{
-            showToast("You can not transfer within same inventry, Please select diffrant location.")
+            showToast(NSLocalizedString("CreateTrans_inventryValid", comment: ""))
             return false
         }
         else{

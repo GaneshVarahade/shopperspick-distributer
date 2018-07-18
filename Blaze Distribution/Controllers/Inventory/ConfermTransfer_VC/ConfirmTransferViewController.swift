@@ -22,7 +22,7 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Confirm Transfer"
+        self.title = NSLocalizedString("ConfirmTransTitle", comment: "")
         if deviceIdiom == .pad{
             self.transferTableView.estimatedRowHeight = 80
         }else {
@@ -77,7 +77,7 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
     
     @IBAction func btnSubmitTransferClicked(_ sender: Any) {
         if modelCreateTransfer.slectedProducts.count == 0 {
-            showToast("Sorry! No product in cart to submit")
+            showToast(NSLocalizedString("ConfirmTrans_Message", comment: ""))
         }else{
             //get currunt date
             let someDate = Date()

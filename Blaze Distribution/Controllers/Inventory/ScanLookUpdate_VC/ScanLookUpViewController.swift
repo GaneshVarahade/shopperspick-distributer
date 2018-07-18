@@ -42,7 +42,7 @@ class ScanLookUpViewController: UIViewController,QRCodeReaderViewControllerDeleg
         self.navigationItem.rightBarButtonItem = rightBarButton
 
         // Do any additional setup after loading the view.
-        self.title = "Create Transfer"
+        self.title = NSLocalizedString("ScanlookTitle", comment: "")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,10 +114,10 @@ class ScanLookUpViewController: UIViewController,QRCodeReaderViewControllerDeleg
                 obj.isFromScanView = true
                 self.navigationController?.pushViewController(obj, animated: true)
             }else{
-                 showToast("Sorry! No records found")
+                 showToast(NSLocalizedString("ScanProd_Message", comment: ""))
             }
         }else{
-            showToast("Sorry! No records found")
+            showToast(NSLocalizedString("ScanProd_Message", comment: ""))
         }
         
     }

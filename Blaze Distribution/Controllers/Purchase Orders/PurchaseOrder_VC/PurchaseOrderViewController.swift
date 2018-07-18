@@ -91,7 +91,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
 //            isBackFromScanView = false
 //        }
         poSearchBar.text=""
-        self.title = "Purchase Orders"
+        self.title = NSLocalizedString("PoTitle", comment: "")
         
     }
     
@@ -198,7 +198,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
         if arrayFilteredModelPurchaseOrders.count == 0 {
-            showToast("Sorry! No records found")
+            showToast(NSLocalizedString("PO_Message", comment: ""))
         }else{
             arrayModelPurchaseOrders = arrayFilteredModelPurchaseOrders
             poTableView.reloadData()

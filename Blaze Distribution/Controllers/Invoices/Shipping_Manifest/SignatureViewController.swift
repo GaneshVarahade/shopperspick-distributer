@@ -31,7 +31,7 @@ class SignatureViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        self.title = "Collect Signature"
+        self.title = NSLocalizedString("SignatureVCTitle", comment: "")
         signatureView.layer.borderColor = UIColor.orange.cgColor
         
         if isAddManifest {
@@ -69,7 +69,7 @@ class SignatureViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             else {
-                showToast("Error saving signature")
+                showToast(NSLocalizedString("sig_Error", comment:""))
             }
             
             // Since the Signature is now saved to the Photo Roll, the View can be cleared anyway.

@@ -27,7 +27,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Lookup Product"
+        self.title = NSLocalizedString("ProdLookUpTitle", comment: "")
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -222,7 +222,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
             //Check Filtered Dict count
             //print(filterDict)
             if (filterDict.count == 0){
-                showToast("No Record found")
+                showToast(NSLocalizedString("LookProd_Message", comment: ""))
             }
             lookUpTableView.reloadData()
         }else{

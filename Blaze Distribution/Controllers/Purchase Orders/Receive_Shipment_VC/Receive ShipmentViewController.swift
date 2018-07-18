@@ -20,7 +20,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
         self.listTableView.estimatedRowHeight = 120
         self.listTableView.rowHeight = UITableViewAutomaticDimension;
-        self.title = "Received Products"
+        self.title = NSLocalizedString("ReceiveShipTitle", comment: "")
         //productsView.dropShadow()
     }
     

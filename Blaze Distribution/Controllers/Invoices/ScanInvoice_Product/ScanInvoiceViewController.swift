@@ -28,7 +28,7 @@ class ScanInvoiceViewController: UIViewController,QRCodeReaderViewControllerDele
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.title = "Scan Product"
+        self.title = NSLocalizedString("ScanInvTitle", comment: "")
         
         self.startScanning()
         
@@ -91,7 +91,7 @@ class ScanInvoiceViewController: UIViewController,QRCodeReaderViewControllerDele
        // self.navigationController?.pushViewController(obj, animated: true)
         
         guard modelInvoice != nil, modelInvoice?.count != 0 else {
-            self.showToast("Invoice details not found")
+            self.showToast(NSLocalizedString("ScanInv_Details", comment: ""))
             return
         }
         self.performSegue(withIdentifier: "goInvoiceDetail", sender: nil)

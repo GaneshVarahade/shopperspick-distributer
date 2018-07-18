@@ -124,15 +124,15 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "addPaymentSegue" {
             if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoiceStatus == "COMPLETED"){
-                showToast("Payment not allowed for Draft and Cancelled Invoice")
+                showToast(NSLocalizedString("InvDetail_Validation1", comment: ""))
                 return false
             }else if Int(tempData?.balanceDue ?? 0) == 0 {
-                showToast("Sorry, this invoice is aleredy paid and has no due remainig")
+                showToast(NSLocalizedString("InvDetail_Validation2", comment: ""))
                 return false
             }
         }else  if identifier == "addManifestInfoSegue" {
             if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoiceStatus == "COMPLETED"){
-                showToast("Shipping manifest not allowed for Draft and Cancelled Invoice")
+                showToast(NSLocalizedString("InvDetail_Validation3", comment: ""))
                 return false
             }
         }

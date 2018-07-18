@@ -33,7 +33,7 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
 
         // Do any additional setup after loading the view.
         
-        self.title = "Quantity & Batch"
+        self.title = NSLocalizedString("QtVcTitle", comment: "")
         itemsTableView.delegate     = self
         itemsTableView.dataSource   = self
         

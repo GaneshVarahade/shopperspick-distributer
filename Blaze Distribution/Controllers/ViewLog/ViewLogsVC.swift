@@ -16,7 +16,7 @@ class ViewLogsVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "View Logs"
+        self.title = NSLocalizedString("LogVcTitle", comment: "")
         //self.logTable.tableHeaderView?.backgroundColor = UIColor.darkGray
         self.logTable.sectionIndexColor = UIColor(red:0.97, green:0.69, blue:0.06, alpha:1.0)
         self.logTable.tableHeaderView?.tintColor = UIColor(red:0.97, green:0.69, blue:0.06, alpha:1.0)

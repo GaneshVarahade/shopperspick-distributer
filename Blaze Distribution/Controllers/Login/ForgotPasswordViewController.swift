@@ -25,17 +25,30 @@ class ForgotPasswordViewController: UIViewController{
     
     @IBAction func resetAction(_ sender: UIButton) {
         
-        if txtEmail.text != " "{
-            let request = RequestForgotPassword()
-            request.email = txtEmail.text
-            WebServicesAPI.sharedInstance().ForgorPasswordAPI(request: request) { (result, error) in
-                
-                if let err = error{
+        if (txtEmail.text?.count)! > 0{
+            if isValidEmail(testStr: txtEmail.text!){
+                let request = RequestForgotPassword()
+                request.email = txtEmail.text
+                WebServicesAPI.sharedInstance().ForgorPasswordAPI(request: request) { (result, error) in
                     
-                    KSToastView.ks_showToast(err.message)
+                    if let err = error{
+                        
+                        KSToastView.ks_showToast(err.message)
+                    }
                 }
+            }else{
+                showToast(NSLocalizedString("ForgotPass_InvalidEmail", comment: ""))
             }
+        }else{
+            showToast(NSLocalizedString("ForgotPass_EmailEmpty", comment: ""))
         }
+    }
+    
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
     }
     
     // MARK: - UITedxtField Delegate

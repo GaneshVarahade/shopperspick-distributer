@@ -20,7 +20,7 @@ class BasketViewController: UIViewController, UITableViewDelegate, UITableViewDa
              print(self.selectedCartProd)
         }
         // Do any additional setup after loading the view.
-        self.title = "Transfer Basket"
+        self.title = NSLocalizedString("BsketVcTitle", comment: "")
     }
 
     // MARK:- UITableviewDatasource/Delegate

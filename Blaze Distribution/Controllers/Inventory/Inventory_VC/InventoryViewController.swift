@@ -28,7 +28,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.title = "Inventory"
+        self.title = NSLocalizedString("InvetryTitle", comment: "")
         getData()
     }
     

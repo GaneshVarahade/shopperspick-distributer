@@ -44,7 +44,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.title = "Add Payment"
+        self.title = NSLocalizedString("AddPayTitle", comment: "")
 
 //        paymentTypeView.dropShadow()
 //        paymentDateView.dropShadow()
@@ -320,38 +320,38 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     @IBAction func submitBtnPressed(_ sender: Any) {
         
         guard let debitCardNo = debitCardTextField.text, debitCardNo != "" else {
-            self.showToast("Please enter debit card no")
+            self.showToast(NSLocalizedString("AddPay_Validation1", comment: ""))
             return
         }
         
         guard let achDate = achDateTextField.text, achDate != "" else {
-            self.showToast("Please select ACH date")
+            self.showToast(NSLocalizedString("AddPay_Validation2", comment: ""))
             return
         }
         
         guard let paymentDate = paymentDateTextField.text, paymentDate != "" else {
-            self.showToast("Please select payment date")
+            self.showToast(NSLocalizedString("AddPay_Validation3", comment: ""))
             return
         }
         
         guard let referenceNo = referenceNoTextField.text, referenceNo != "" else {
-            self.showToast("Please enter reference no")
+            self.showToast(NSLocalizedString("AddPay_Validation4", comment: ""))
             return
         }
         
         guard let amount = amountTextField.text, amount != "" else {
-            self.showToast("Please enter amount")
+            self.showToast(NSLocalizedString("AddPay_Validation5", comment: ""))
             return
         }
         
         guard let notes = notesTextView.text, notes != "Enter your notes here...", notes != "" else {
-            self.showToast("Please enter notes")
+            self.showToast(NSLocalizedString("AddPay_Validation6", comment: ""))
             return
         }
         
         let enteredAmont:Int = Int((amountTextField.text! as NSString).intValue)
         if(enteredAmont > Int((invoiceObj?.balanceDue)!)){
-        self.showToast("Please enter valid due amount")
+        self.showToast(NSLocalizedString("AddPay_Validation7", comment: ""))
         return
         }
         
