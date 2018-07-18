@@ -16,11 +16,12 @@ public class ModelRemainingProduct: ModelBase{
     @objc public dynamic var isSelected:Bool = false
     
     open override class func primaryKey() -> String? {
-        return "productId"
+        return "id"
     }
     public override func copy(with zone:NSZone? = nil) -> Any {
 
         let modelRemainingProduct               = ModelRemainingProduct()
+        modelRemainingProduct.id                = self.id
         modelRemainingProduct.productId         = self.productId
         modelRemainingProduct.productName       = self.productName
         modelRemainingProduct.remainingQuantity = self.remainingQuantity

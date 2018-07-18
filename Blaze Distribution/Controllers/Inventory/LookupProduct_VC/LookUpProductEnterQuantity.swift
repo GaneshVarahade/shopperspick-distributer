@@ -122,7 +122,7 @@ class LookUpProductEnterQuantity: UIViewController,UITextFieldDelegate{
             let quantity = Double(txtQuantity.text!)
             modelCartProduct.quantity = quantity!
             modelCreateTransfer.slectedProducts.append(modelCartProduct)
-            showToast(NSLocalizedString("LookProd_Message", comment: ""))
+            showToast(NSLocalizedString("ProdQuat_Message", comment: ""))
             //set cart count
             customBarbutton.setTitle(String(modelCreateTransfer.slectedProducts.count), for: UIControlState.normal)
             self.navigationController?.popViewController(animated: true)

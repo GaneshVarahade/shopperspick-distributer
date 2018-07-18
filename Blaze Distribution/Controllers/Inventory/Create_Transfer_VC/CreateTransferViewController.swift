@@ -148,8 +148,13 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    func reloadPickerView(){
+        pickerView.selectRow(0, inComponent: 0, animated: true)
+        pickerView.reloadAllComponents()
+    }
  
     @objc private func onclickFromStore() {
+        
         selectedOption = SelectedOption.fromStore
         
         listToShop = nil
@@ -158,22 +163,23 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         
         listFromShop = modelLogin?.shops
         dummyTextField.becomeFirstResponder()
+        reloadPickerView()
         
     }
  
     @objc private func onclickFromInventory() {
-        
+       
         if modelFromLocation.shop == nil {
             showToast(NSLocalizedString("CreateTrans_selectShop", comment:""))
             return
         }
         selectedOption = SelectedOption.fromInventory
         dummyTextField.becomeFirstResponder()
-        
+        reloadPickerView()
     }
     
     @objc private func onclickToStore() {
-        
+       
         if modelFromLocation.shop == nil || modelFromLocation.inventory == nil{
             showToast(NSLocalizedString("CreateTrans_selectFromLoc", comment: ""))
             return
@@ -181,6 +187,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         selectedOption = SelectedOption.toStore
         listToShop = modelLogin?.shops
         dummyTextField.becomeFirstResponder()
+        reloadPickerView()
     }
     
     @objc private func onclickToInventory() {
@@ -191,6 +198,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         
         selectedOption = SelectedOption.toInventory
         dummyTextField.becomeFirstResponder()
+        reloadPickerView()
     }
     
     @IBAction func continueBtnPressed(_ sender: Any) {

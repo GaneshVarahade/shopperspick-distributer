@@ -10,11 +10,11 @@ import Foundation
 
 public enum InvoiceStatus:String {
     
-    case IN_PROGRESS
-    case DRAFT
-    case SENT
-    case CANCELLED
-    case COMPLETED
+    case IN_PROGRESS = "IN_PROGRESS"
+    case DRAFT = "DRAFT"
+    case SENT = "SENT"
+    case CANCELLED = "CANCELLED"
+    case COMPLETED = "COMPLETED"
 }
 public class ResponseInvoice :BaseResponseModel{
     public var id: String?

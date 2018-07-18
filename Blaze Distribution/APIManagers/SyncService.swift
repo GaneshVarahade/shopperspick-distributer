@@ -579,6 +579,7 @@ public final class SyncService {
                     if let remaingProducts = valu.remainingProductInformations{
                         for remProd  in remaingProducts{
                             let temp               = ModelRemainingProduct()
+                            temp.id                = HexGenerator.sharedInstance().generate()
                             temp.productId         = remProd.productId
                             temp.productName       = remProd.productName
                             temp.requestQuantity   = remProd.requestQuantity!
