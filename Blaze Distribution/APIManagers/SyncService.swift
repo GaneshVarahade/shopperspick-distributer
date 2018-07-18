@@ -594,6 +594,7 @@ public final class SyncService {
                     if let items = valu.items{
                         for item in items{
                             let itemTemp = ModelInvoiceItems()
+                            itemTemp.id  = HexGenerator.sharedInstance().generate()
                             itemTemp.productId = item.productId
                             itemTemp.productName = item.productName
                             itemTemp.batchId    = item.batchId
