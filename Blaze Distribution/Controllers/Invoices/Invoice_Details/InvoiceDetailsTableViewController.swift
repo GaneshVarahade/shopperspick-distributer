@@ -130,6 +130,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
                 showToast(NSLocalizedString("InvDetail_Validation2", comment: ""))
                 return false
             }
+            return true
         }else  if identifier == "addManifestInfoSegue" {
             if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoiceStatus == "COMPLETED"){
                 showToast(NSLocalizedString("InvDetail_Validation3", comment: ""))

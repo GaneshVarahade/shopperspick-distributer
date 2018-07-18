@@ -82,13 +82,13 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             achDateTextField.text = paymentModel?.achDate
             paymentDateTextField.text = DateFormatterUtil.format(dateTime:Double(DateIntConvertUtil.convert(dateTime: (paymentModel?.paymentDate)!, type: DateIntConvertUtil.Seconds)) , format:"dd/MM/yyyy")
             referenceNoTextField.text = paymentModel?.referenceNumber
-            amountTextField.text = String(format:"%.1f",(paymentModel?.amount)!)
+            amountTextField.text = String(format:"$%.1f",(paymentModel?.amount)!)
             notesTextView.text = paymentModel?.notes
             lblBalanceDue.text = "0";
         }else{
             //Set Due balance
             if(invoiceObj != nil){
-                 lblBalanceDue.text = String(format: "%.1f",(invoiceObj?.balanceDue)!)
+                 lblBalanceDue.text = String(format: "$%.1f",(invoiceObj?.balanceDue)!)
             }
         }
     }
