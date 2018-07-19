@@ -81,10 +81,10 @@ class PurchaseOrderDetailsTableViewController: UITableViewController {
             
             //case for Product List
             if deviceIdiom == .pad {
-                return CGFloat(80 * (modelPurcahseOrder.productInShipment.count))
+                return CGFloat(100 * (modelPurcahseOrder.productInShipment.count))
             }
             else{
-                return CGFloat(60 * (modelPurcahseOrder.productInShipment.count))
+                return CGFloat(80 * (modelPurcahseOrder.productInShipment.count))
             }
         case 4:
             //case for Continue button

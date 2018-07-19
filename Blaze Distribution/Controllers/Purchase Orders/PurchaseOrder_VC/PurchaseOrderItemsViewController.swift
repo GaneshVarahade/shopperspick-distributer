@@ -39,7 +39,8 @@ class PurchaseOrderItemsViewController: UIViewController, UITableViewDelegate, U
         
         let modelProduct = model.productInShipment[indexPath.row]
         
-        cell.productNameBtn.setTitle(modelProduct.name, for: .normal)
+        //cell.productNameBtn.setTitle(modelProduct.name, for: .normal)
+        cell.lblProductName.text = modelProduct.name ?? "--"
         cell.batchNoLabel.text = modelProduct.batchId
         cell.noUnits.text = "\(modelProduct.quantity)"
         
@@ -47,11 +48,14 @@ class PurchaseOrderItemsViewController: UIViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if deviceIdiom == .pad {
-            return 80
-        }
-        return 60
+        return UITableViewAutomaticDimension
     }
     
-
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat{
+        if deviceIdiom == .pad {
+            return 80.0
+        }
+        return 60.0
+    }
+        
 }

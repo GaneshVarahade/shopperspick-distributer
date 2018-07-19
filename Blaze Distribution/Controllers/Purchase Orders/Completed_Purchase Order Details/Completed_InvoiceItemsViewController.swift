@@ -49,7 +49,8 @@ class Completed_InvoiceItemsViewController: UIViewController,UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemsCell") as! InvoiceItemsTableViewCell
         
-        cell.productNameBtn.setTitle("  \((invoiceItem[indexPath.row])["product_name"] as? String ?? "No value")" , for: .normal)
+       // cell.productNameBtn.setTitle("  \((invoiceItem[indexPath.row])["product_name"] as? String ?? "No value")" , for: .normal)
+        cell.lblProductName.text = "  \((invoiceItem[indexPath.row])["product_name"] as? String ?? "No value")"
         cell.batchNoLabel.text = (invoiceItem[indexPath.row])["batch_no"] as? String
         cell.noUnits.text = (invoiceItem[indexPath.row])["quantity"] as? String
         
@@ -57,10 +58,13 @@ class Completed_InvoiceItemsViewController: UIViewController,UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+       return UITableViewAutomaticDimension
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat{
         if deviceIdiom == .pad {
             return 80
         }
         return 60
     }
-
 }

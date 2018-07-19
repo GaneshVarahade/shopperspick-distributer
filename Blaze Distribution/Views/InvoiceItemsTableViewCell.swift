@@ -9,7 +9,7 @@
 import UIKit
 
 class InvoiceItemsTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var lblProductName: UILabel!
     @IBOutlet weak var productNameBtn: UIButton!
     @IBOutlet weak var batchNoLabel: UILabel!
     @IBOutlet weak var noUnits: UILabel!

@@ -40,6 +40,11 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if deviceIdiom == .pad {
+            invoiceItemsTableView.estimatedRowHeight = 70.0
+        }else{
+            invoiceItemsTableView.estimatedRowHeight = 60.0
+        }
         
         invoiceItemsTableView.delegate = self
         invoiceItemsTableView.dataSource = self
@@ -95,18 +100,16 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
         
         let product = modelShippingMenifest.selectedItems[indexPath.row]
         
-        cell.productNameBtn.setTitle(product.productName, for: .normal)
-        cell.batchNoLabel.text = ""
+        //cell.productNameBtn.setTitle(product.productName, for: .normal)
+        cell.lblProductName.text = product.productName ?? "--"
+        cell.batchNoLabel.text = product.productId ?? "--"
         cell.noUnits.text = "\(product.requestQuantity)"
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if deviceIdiom == .pad {
-            return 80
-        }
-        return 60
+        return UITableViewAutomaticDimension
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

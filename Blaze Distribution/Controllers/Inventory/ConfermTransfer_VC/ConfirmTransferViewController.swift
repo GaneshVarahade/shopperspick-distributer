@@ -61,7 +61,7 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! ConfirmTransferTableViewCell
-        cell.lblProductName.text = self.selectedCartProduct[indexPath.row].name
+        cell.lblProductName.text = self.selectedCartProduct[indexPath.row].name ?? "--"
         cell.lblProductQuantity.text = String(format: "%.1f", self.selectedCartProduct[indexPath.row].quantity)
         return cell
     }

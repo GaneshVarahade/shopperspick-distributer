@@ -30,6 +30,12 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
         //print("\(modelInvoice.remainingProducts.count)")
         invoiceItemsTableView.delegate =  self
         invoiceItemsTableView.dataSource = self
+        
+        if deviceIdiom == .pad {
+            invoiceItemsTableView.estimatedRowHeight = 70.0
+        }else{
+            invoiceItemsTableView.estimatedRowHeight = 60.0
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,7 +47,8 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let product = remainingItemList[indexPath.row]
         cell.productNameBtn.tag = indexPath.row
-        cell.productNameBtn.setTitle("\(product.productName!)", for: .normal)
+        //cell.productNameBtn.setTitle("\(product.productName!)", for: .normal)
+        cell.lblProductName.text = product.productName ?? "--"
         cell.batchNoLabel.text = product.productId
         cell.noUnits.text = "\(product.remainingQuantity)"
         if !product.isSelected {
@@ -57,10 +64,7 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if deviceIdiom == .pad {
-            return 70
-        }
-        return 60
+        return UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
