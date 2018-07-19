@@ -32,7 +32,14 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         lookUpTableView.sectionIndexColor = UIColor(red:0.97, green:0.69, blue:0.06, alpha:1.0)
-        self.lookUpTableView.estimatedRowHeight = 120
+        
+        if deviceIdiom == .pad {
+           self.lookUpTableView.estimatedRowHeight = 70
+        }
+        else {
+            self.lookUpTableView.estimatedRowHeight = 60
+        }
+        
         self.lookUpTableView.rowHeight = UITableViewAutomaticDimension
         predicateArray = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R",
         "S","T","U","V","W","X","Y","Z"]
@@ -178,12 +185,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if deviceIdiom == .pad {
-            return 70
-        }
-        else {
-            return 50
-        }
+        return UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){

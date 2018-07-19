@@ -23,6 +23,7 @@
 
 //3. InvoicesViewController
 "Inv_noRecords" = "Sorry! no record found";
+"confirmLogout" = "Are you sure you want to logout ?";
 
 //4. ScanInvoiceViewController
 "ScanInv_Details" = "Invoice details not found";

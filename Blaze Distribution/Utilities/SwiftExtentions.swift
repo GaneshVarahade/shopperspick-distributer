@@ -53,6 +53,32 @@ extension UIViewController {
         self.present(alert, animated: true, completion: nil)
         
     }
+    
+    public func showAlert(title: String?, message: String?, actions:[UIAlertActionStyle], closure: @escaping (UIAlertActionStyle) -> Void){
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        //Add Multiple actions
+        for userAction in actions{
+            let Actiontitle = (userAction == UIAlertActionStyle.default) ? "Yes" : "Cancel"
+            alert.addAction(UIAlertAction(title: Actiontitle , style: userAction, handler: { action in
+                switch action.style{
+                case .default:
+                    print("default")
+                    closure(.default)
+                case .cancel:
+                    print("cancel")
+                    closure(.cancel)
+                    
+                case .destructive:
+                    print("destructive")
+                    
+                }}))
+        }
+        
+        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
 }
 
 extension UINavigationController {
