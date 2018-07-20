@@ -97,7 +97,6 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             
             let shop = listFromShop[pickerView.selectedRow(inComponent: 0)]
             
-            
             //selectedFromShop = shop
             modelFromLocation.shop = shop
             let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)

@@ -11,6 +11,7 @@ public class ResponseShippingManifests:BaseResponseModel{
     public var id: String?
     public var created: Int?
     public var modified: Int?
+    public var deliveryTime: Int?
     public var deleted: Bool?
     public var updated: Bool?
     public var companyId: String?
@@ -29,5 +30,5 @@ public class ResponseShippingManifests:BaseResponseModel{
     public var vehicleMake:String?
     public var vehicleModel:String?
     public var vehicleLicensePlate:String?
-    public var signaturePhoto:String?
+    public var signaturePhoto:ResposeSignaturePhoto?
 }

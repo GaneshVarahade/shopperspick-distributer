@@ -8,7 +8,7 @@
 
 import Foundation
 public class pyamentNotes: BaseRequest{
-    public var message:String = ""
+    public var message:String? = ""
 }
 
 public class RequestModelInvoicePaymentInfo: BaseRequest {
