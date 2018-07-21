@@ -18,15 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        Crashlytics().debugMode = true
-        Fabric.with([Crashlytics.self])
-        
         // MARK: - KeyBord Manager
-        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.shared.enable = true
         
         // MARK: - Network Rechability Cheking in Real time
         ReachabilityManager.shared.startMonitoring()
         
+        Crashlytics().debugMode = true
+        Fabric.with([Crashlytics.self])
         return true
     }
     func applicationWillResignActive(_ application: UIApplication) {

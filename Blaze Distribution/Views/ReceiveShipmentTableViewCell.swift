@@ -9,7 +9,11 @@
 import UIKit
 
 class ReceiveShipmentTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var btnCheck: UIButton!
+    @IBOutlet weak var lblProduct: UILabel!
+    @IBOutlet weak var lblExpected: UILabel!
+    @IBOutlet weak var txtRecived: UITextField!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

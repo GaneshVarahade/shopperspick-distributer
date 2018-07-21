@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 protocol signatureDelegate {
     func getSignatureImg(signImg: UIImage)
@@ -14,17 +16,37 @@ protocol signatureDelegate {
 
 class SignatureViewController: UIViewController {
 
+    @IBOutlet weak var signatureImgView: UIImageView!
     @IBOutlet weak var signatureView: YPDrawSignatureView!
+    @IBOutlet weak var agreeBtn: UIButton!
+    @IBOutlet weak var clearBtn: UIButton!
     
     var signDelegate:signatureDelegate?
+    var modelShippingMen: ModelShipingMenifest?
+    var invoiceDetailsDict: ModelInvoice?
+    var isAddManifest = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        self.title = "Collect Signature"
+        self.title = NSLocalizedString("SignatureVCTitle", comment: "")
         signatureView.layer.borderColor = UIColor.orange.cgColor
+        
+        if isAddManifest {
+            signatureImgView.isHidden = true
+            agreeBtn.isEnabled = true
+            clearBtn.isEnabled = true
+        }
+        else {
+            signatureImgView.isHidden = false
+            agreeBtn.isEnabled = false
+            clearBtn.isEnabled = false
+            if let signImg = StoreImage.getSavedImage(name: (modelShippingMen?.shippingManifestNo!)!) {
+                signatureImgView.image = signImg
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,17 +62,36 @@ class SignatureViewController: UIViewController {
             // Saving signatureImage from the line above to the Photo Roll.
             // The first time you do this, the app asks for access to your pictures.
             //UIImageWriteToSavedPhotosAlbum(signatureImage, nil, nil, nil)
-            signDelegate?.getSignatureImg(signImg: signatureImage)
-            self.navigationController?.popViewController(animated: true)
+            //signDelegate?.getSignatureImg(signImg: signatureImage)
+            
+            if StoreImage.saveImage(image: signatureImage, fileName: (modelShippingMen?.shippingManifestNo)!, 0.5) {
+                saveModelSignature(imageName:(modelShippingMen?.shippingManifestNo)!)
+                self.navigationController?.popViewController(animated: true)
+            }
+            else {
+                showToast(NSLocalizedString("sig_Error", comment:""))
+            }
             
             // Since the Signature is now saved to the Photo Roll, the View can be cleared anyway.
             self.signatureView.clear()
         }
     }
     
+    func saveModelSignature(imageName:String) {
+        let objSignature: ModelSignature = ModelSignature()
+        objSignature.id = HexGenerator.sharedInstance().generate()
+        objSignature.name = imageName
+        objSignature.shippingMainfestId = modelShippingMen?.shippingManifestNo
+        objSignature.invoiceId = invoiceDetailsDict?.id
+        objSignature.updated = true
+        RealmManager().write(table: objSignature)
+        //print(RealmManager().readList(type: ModelSignature.self))
+        UtilPrintLogs.DLog(message:"Signature saved info", objectToPrint: RealmManager().readList(type: ModelSignature.self))
+    }
     @IBAction func clearSignatureBtnPressed(_ sender: Any) {
         signatureView.clear()
     }
+    
     /*
     // MARK: - Navigation
 

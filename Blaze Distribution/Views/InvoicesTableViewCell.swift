@@ -10,6 +10,7 @@ import UIKit
 
 class InvoicesTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var btnInvoiceError: UIButton!
     @IBOutlet weak var invoicesNoLabel: UILabel!
     @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var createdByLabel: UILabel!

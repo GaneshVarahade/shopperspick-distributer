@@ -32,8 +32,8 @@ class SplashScreenVCViewController: UIViewController {
                              repeats: false)
         
         
-        showToast("\(Bundle.main.releaseVersionNumber!) : \(Bundle.main.releaseBuildNumber!)")
-        showToast("\(DistributionConfig.sharedInstance().getAppUrl())")        
+       // showToast("\(Bundle.main.releaseVersionNumber!) : \(Bundle.main.releaseBuildNumber!)")
+       // showToast("\(DistributionConfig.sharedInstance().getAppUrl())")        
         
     }
     

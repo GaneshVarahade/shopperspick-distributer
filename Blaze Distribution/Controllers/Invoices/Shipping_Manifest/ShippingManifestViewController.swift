@@ -7,29 +7,41 @@
 //
 
 import UIKit
+import RealmSwift
 
-class ShippingManifestViewController: UIViewController{
+protocol ShippingMenifestConfirmSelectedProductsDelegate {
+    func confirmSelectedProducts(modelSelectedProducts: List<ModelRemainingProduct>)
+}
 
+
+class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmSelectedProductsDelegate,validationProtocol,validateFieldsProtocol {
+
+    var manifestInfoViewController: ManifestInfoTableViewController?
+    var invoiceDetailsDict: ModelInvoice?
+    var isAddManifest = Bool()
+    var modelShippingMen: ModelShipingMenifest?
+    var shippiingMenifestConfirm: ShippingMenifestConfirmDelegate?
+    
+    var manifestDetailController:ManifestInfoTableViewController?
+    var itemsToShipController:ItemsToShipViewController?
+    
     @IBOutlet weak var shippingSegmentControler: UISegmentedControl!
     @IBOutlet weak var itemsToShipContainerView: UIView!
     @IBOutlet weak var manifestInfoContainerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
         shippingSegmentControler.selectedSegmentIndex = 1
         manifestInfoContainerView.isHidden = true
         itemsToShipContainerView.isHidden = false
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    // MARK: - SegmentControl value changed
     
     @IBAction func segmentValueChanged(_ sender: Any) {
         if shippingSegmentControler.selectedSegmentIndex == 0 {
@@ -43,23 +55,66 @@ class ShippingManifestViewController: UIViewController{
         }
     }
     
-    // MARK:- ItemsToShip Delegate
-    
     func changeUI() {
         shippingSegmentControler.selectedSegmentIndex = 0
         manifestInfoContainerView.isHidden = false
         itemsToShipContainerView.isHidden = true
     }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-//        if segue.identifier == "invoiceItemsSegue" {
-//            let vc:ItemsToShipViewController = segue.destination as! ItemsToShipViewController
-//            vc.itemsDelegate = self
-//        }
+        
+        if segue.identifier == "manifestDetailsSegue" {
+            
+            let modelAddress = ModelAddres()
+            modelAddress.address = invoiceDetailsDict?.vendorAddress
+            modelAddress.city = invoiceDetailsDict?.vendorCity
+            modelAddress.country = invoiceDetailsDict?.vendorCountry
+            modelAddress.state = invoiceDetailsDict?.vendorState
+            modelAddress.zipCode = invoiceDetailsDict?.vendorZipcode
+            
+            modelShippingMen?.receiverCompany = invoiceDetailsDict?.vendorCompany ?? "-/-"
+            modelShippingMen?.receiverType = invoiceDetailsDict?.vendorCompanyType ?? "-/-"
+            modelShippingMen?.receiverContact = invoiceDetailsDict?.vendorPhone ?? "-/-"
+            modelShippingMen?.receiverLicense = invoiceDetailsDict?.vendorLicenseNumber ?? "-/-"
+            modelShippingMen?.receiverAddress = modelAddress
+            
+            manifestDetailController = segue.destination as! ManifestInfoTableViewController
+            manifestDetailController?.validateFieldsDelegate = self
+            manifestDetailController?.isAddManifest = isAddManifest
+            manifestDetailController?.modelShippingMen = self.modelShippingMen
+            manifestDetailController?.invoiceDetailsDict = self.invoiceDetailsDict
+            
+        }else if segue.identifier == "invoiceItemsSegue" {
+            
+            itemsToShipController = segue.destination as! ItemsToShipViewController
+            itemsToShipController?.validateDelegate = self
+            itemsToShipController?.isAddManifest = isAddManifest
+            itemsToShipController?.modelShippingMenifest = self.modelShippingMen
+            itemsToShipController?.remainingItemsList = (invoiceDetailsDict?.remainingProducts)!
+            itemsToShipController?.confirmShippingDelegate = self
+        }
+    }
+    
+    func confirmSelectedProducts(modelSelectedProducts: List<ModelRemainingProduct>) {
+        
+        let shiipingMenifest = manifestDetailController?.getShippingMenifest()
+        if isAddManifest {
+            shiipingMenifest?.updated = true
+            shiipingMenifest?.selectedItems = modelSelectedProducts
+        }
+        shippiingMenifestConfirm?.confirmShippingMenifest(modelShipping: shiipingMenifest!)
+        //shippiingMenifestConfirm?.confirmShippingMenifest()
+    }
+    
+    // MARK: - Validate Delegate
+    func doValidateFields() {
+        shippingSegmentControler.selectedSegmentIndex = 0
+        manifestInfoContainerView.isHidden = false
+        itemsToShipContainerView.isHidden = true
+        manifestDetailController?.validateFields()
+    }
+    
+    func validateFields() {
+
     }
 }

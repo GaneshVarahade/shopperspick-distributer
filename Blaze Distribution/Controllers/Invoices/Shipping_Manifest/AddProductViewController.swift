@@ -7,67 +7,100 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class AddProductViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var invoiceItemsTableView: UITableView!
     @IBOutlet weak var topView: UIView!
     
-    var tempDataDict = [[String:Any]]()
+    
+    //var modelInvoice: ModelInvoice!
+    var shippingManifest : ModelShipingMenifest?
+    var remainingItemList = List<ModelRemainingProduct>()
+    
+    var shippingMenifDelegate: ShippingMenifestSelectedItemsDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Add Product"
-        // Do any additional setup after loading the view.
-        //topView.dropShadow()
+        self.title = NSLocalizedString("AddProdVcTitle", comment: "")
         
-        tempDataDict = [["batch_no": "LLPWQ", "product_name": "Product 1", "quantity": "5 Units"], ["batch_no": "Batch ID", "product_name": "Product 2", "quantity": "5 Units"]]
+        //print("\(modelInvoice.remainingProducts.count)")
+        invoiceItemsTableView.delegate =  self
+        invoiceItemsTableView.dataSource = self
+        
+        if deviceIdiom == .pad {
+            invoiceItemsTableView.estimatedRowHeight = 70.0
+        }else{
+            invoiceItemsTableView.estimatedRowHeight = 60.0
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: - UITableviewDelegate/Datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tempDataDict.count
+        return remainingItemList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemsCell") as! InvoiceItemsTableViewCell
         
-        cell.productNameBtn.setTitle("  \((tempDataDict[indexPath.row])["product_name"] as? String ?? "No value")" , for: .normal)
-        cell.batchNoLabel.text = (tempDataDict[indexPath.row])["batch_no"] as? String
-        cell.noUnits.text = (tempDataDict[indexPath.row])["quantity"] as? String
+        let product = remainingItemList[indexPath.row]
+        cell.productNameBtn.tag = indexPath.row
+        //cell.productNameBtn.setTitle("\(product.productName!)", for: .normal)
+        cell.lblProductName.text = product.productName ?? "--"
+        cell.batchNoLabel.text = product.productId
+        cell.noUnits.text = "\(product.remainingQuantity)"
+        if !product.isSelected {
+            cell.productNameBtn.setImage(UIImage(named: "checkbox_unselected"), for: .normal)
+        }else{
+            cell.productNameBtn.setImage(UIImage(named: "Checkbox"), for: .normal)
+        }
         
+        cell.cellTapView.tag = indexPath.row
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOnCell(sender:)))
+        cell.cellTapView.addGestureRecognizer(tapGesture)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if deviceIdiom == .pad {
-            return 70
-        }
-        return 60
+        return UITableViewAutomaticDimension
     }
     
-    // MARK: - UIButton Events
-    
-    @IBAction func continueBtnPressed(_ sender: Any) {
-        let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "QuantityAndBatchViewController") as! QuantityAndBatchViewController        
-        obj.tempDataDict = tempDataDict
-        self.navigationController?.pushViewController(obj, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //print("\(indexPath.row)")
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "addProductQuantityShippmentSegue" {
+            
+            let listRemaining = remainingItemList
+            shippingManifest?.selectedItems.removeAll()
+            for prod in listRemaining {
+                if prod.isSelected {
+                    shippingManifest?.selectedItems.append(prod.copy() as! ModelRemainingProduct)
+                }
+            }
+            let addQuantity = segue.destination as? QuantityAndBatchViewController
+            addQuantity?.shippingManifest = shippingManifest
+            addQuantity?.remainingItemList = self.remainingItemList
+            addQuantity?.shippingMenifDelegate = shippingMenifDelegate
+        }
     }
-    */
 
+    @objc func tapOnCell(sender: UITapGestureRecognizer) {
+        let senderView = sender.view as? UIView
+        //print(senderView?.tag)
+        
+        let product = remainingItemList[(senderView?.tag)!]
+        product.isSelected = !product.isSelected
+        
+        let cell:InvoiceItemsTableViewCell = invoiceItemsTableView.cellForRow(at: IndexPath.init(row: (senderView?.tag)!, section: 0)) as! InvoiceItemsTableViewCell
+        
+        if !product.isSelected {
+            cell.productNameBtn.setImage(UIImage(named: "checkbox_unselected"), for: .normal)
+        }else{
+            cell.productNameBtn.setImage(UIImage(named: "Checkbox"), for: .normal)
+        }
+    }
 }

@@ -7,17 +7,24 @@
 //
 
 import UIKit
+import KSToastView
+import RealmSwift
+import Realm
 
-class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
-
+class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+    
     var tempDataDict = [[String:Any]]()
-    var batchIDList = [String]()
     var toolBar = UIToolbar()
     var doneButton = UIBarButtonItem()
     
     var batchPickerView : UIPickerView!
     
-    var invoiceItemsDelegate:InvoiceItemsDelegate?
+    //var modelInvoice: ModelInvoice!
+    var shippingManifest : ModelShipingMenifest?
+    var remainingItemList = List<ModelRemainingProduct>()
+    
+    var shippingMenifDelegate: ShippingMenifestSelectedItemsDelegate!
+    var boolContinuePressed = false
     
     @IBOutlet weak var itemsTableView: UITableView!
     
@@ -26,41 +33,43 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
 
         // Do any additional setup after loading the view.
         
-        self.title = "Quantity & Batch"
+        self.title = NSLocalizedString("QtVcTitle", comment: "")
+        itemsTableView.delegate     = self
+        itemsTableView.dataSource   = self
         
-        batchIDList = ["ASHKDFNK","FDSSDFZ","SDFGFDSG","VCXVRDF","XVBCGFR"]
-    }
+//        self.navigationItem.hidesBackButton = true
+//        let newBackButton = UIBarButtonItem(title: "< Add Product", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.back(sender:)))
+//        self.navigationItem.leftBarButtonItem = newBackButton
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    
-    // MARK:- Selector Methods
-    
-    @objc func donePicker(sender: UIButton) {
-        print(sender.tag)
-        batchPickerView.selectedRow(inComponent: 0)
-        let index = IndexPath(row: sender.tag, section: 0)
-        let cell: QuantityBatchTableViewCell = self.itemsTableView.cellForRow(at: index) as! QuantityBatchTableViewCell
-        cell.batchTextField.text =  batchIDList[batchPickerView.selectedRow(inComponent: 0)]
-        cell.batchTextField.resignFirstResponder()
+    override func viewWillDisappear(_ animated: Bool) {
+        if self.isMovingFromParentViewController, !boolContinuePressed {
+            shippingManifest?.selectedItems.removeAll()
+        }
     }
+    
     
     // MARK:- UITableview Delegate/DataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tempDataDict.count
+        return shippingManifest!.selectedItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! QuantityBatchTableViewCell
-        cell.productLabel.text = " \((tempDataDict[indexPath.row])["product_name"] as? String ?? "No value")"
-        cell.quantityLabel.text = (tempDataDict[indexPath.row])["quantity"] as? String
-        cell.batchTextField.text = (tempDataDict[indexPath.row])["batch_no"] as? String
-        cell.batchTextField.tag = indexPath.row
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! QuantityBatchTableViewCell
+        let product = shippingManifest?.selectedItems[indexPath.row]
+        
+        cell.productLabel.text = product?.productName
+        if let remainingQuantity = product?.remainingQuantity {
+            cell.quantityTextField.text = "\(remainingQuantity)"
+        }
+        cell.batchTextField.text = product?.productId
+        cell.batchTextField.tag = indexPath.row
+        cell.quantityTextField.tag = indexPath.row
+        
+        cell.quantityTextField.delegate = self
         return cell
     }
     
@@ -78,65 +87,45 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return batchIDList.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return batchIDList[row]
-    }
-    
-    // MARK:- Cell Delegate
+ 
     
     func didPressBatchBtn(_ tag: Int) {
         print("pressed \(tag)")
     }
     
-    // MARK:- UIButton Events
-    
     @IBAction func continueBtnPressed(_ sender: Any) {
 
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "INVOICE_ITEMS"), object: nil, userInfo: ["items":tempDataDict])
-        
-        for viewController in (self.navigationController?.viewControllers)! {
+        for product in (shippingManifest?.selectedItems)! {
+  
+            let index = shippingManifest?.selectedItems.map({ $0.productId }).index(of: product.productId)!
 
-            if viewController is ShippingManifestViewController {
-                invoiceItemsDelegate?.getDataForInvoiceItems(dataDict: tempDataDict)
-                self.navigationController?.popToViewController(viewController, animated: true)
+            let cell:QuantityBatchTableViewCell = itemsTableView.cellForRow(at: IndexPath.init(row: index!, section: 0)) as! QuantityBatchTableViewCell
+             let requestQuantity = Double(cell.quantityTextField.text!)!
+            
+            let remainingProd = remainingItemList[index!]
+            //print("\(product.requestQuantity) > \(remainingProd.remainingQuantity)")
+            
+            if requestQuantity > remainingProd.remainingQuantity {
+
+                KSToastView.ks_showToast("Requested quantity is Greater than remaining quantity for Product \(product.productName!)")
+                //shippingManifest?.selectedItems.removeAll()
+                return
+            }
+            product.requestQuantity = requestQuantity
+        }
+        
+        boolContinuePressed = true
+        shippingMenifDelegate.changeModelInvoice(shippingManifest: shippingManifest!)
+        popBack(2)        
+    }
+    
+    func popBack(_ nb: Int) {
+        if let viewControllers: [UIViewController] = self.navigationController?.viewControllers {
+            guard viewControllers.count < nb else {
+                self.navigationController?.popToViewController(viewControllers[viewControllers.count - (nb+1)], animated: true)
+                return
             }
         }
     }
-    
-    // MARK:- UITextfield Delegate
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("begin")
-        batchPickerView = UIPickerView()
-        batchPickerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 215)
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        toolBar.sizeToFit()
-        doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action:#selector(donePicker))
-        doneButton.tag = textField.tag
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([spaceButton, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
-        batchPickerView.delegate = self
-        batchPickerView.dataSource = self
-        textField.tintColor = UIColor.clear
-        textField.inputView = batchPickerView
-        textField.inputAccessoryView = toolBar
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

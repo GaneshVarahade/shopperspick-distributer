@@ -8,15 +8,32 @@
 
 import UIKit
 
-class AddPaymentTableViewController: UITableViewController, UITextViewDelegate {
+protocol AddPaymentDelegate {
+    func getDataFromAddPayment(dataDict:ModelInvoice)
+}
 
+class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate {
+
+    var invoiceObj: ModelInvoice?
+    var paymentDelegate:AddPaymentDelegate?
+    var isfromDetails : Bool = false
+    var paymentModel: ModelPaymentInfo?
+    
+    @IBOutlet weak var lblBalanceDue: UILabel!
+    @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var paymentTypeView: UIView!
     @IBOutlet weak var paymentDateView: UIView!
-    @IBOutlet weak var referenceNoView: UIView!
-    @IBOutlet weak var amountView: UIView!
+    @IBOutlet weak var referenceNoTextField: UITextField!
+    @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var notesView: UIView!
+    @IBOutlet weak var debitCheckMarkImage: UIImageView!
     
     @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var debitCardTextField: UITextField!
+    @IBOutlet weak var achDateTextField: UITextField!
+    @IBOutlet weak var paymentDateTextField: UITextField!
+    
+    let datePicker = UIDatePicker()
     
     
     override func viewDidLoad() {
@@ -27,7 +44,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.title = "Add Payment"
+        self.title = NSLocalizedString("AddPayTitle", comment: "")
 
 //        paymentTypeView.dropShadow()
 //        paymentDateView.dropShadow()
@@ -35,8 +52,45 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate {
 //        amountView.dropShadow()
 //        notesView.dropShadow()
         
+        debitCheckMarkImage.isHidden = true
+        
         notesTextView.text = "Enter your notes here..."
         notesTextView.textColor = UIColor.lightGray
+        
+        achDateTextField.inputView = datePicker
+        paymentDateTextField.inputView = datePicker
+        datePicker.datePickerMode = .date
+       
+        manageTextfield()
+        setDefaultData()
+    }
+    
+    func  manageTextfield() {
+        debitCardTextField.isUserInteractionEnabled = isfromDetails ? false : true
+        achDateTextField.isUserInteractionEnabled = isfromDetails ? false : true
+        paymentDateTextField.isUserInteractionEnabled = isfromDetails ? false : true
+        referenceNoTextField.isUserInteractionEnabled = isfromDetails ? false : true
+        amountTextField.isUserInteractionEnabled = isfromDetails ? false : true
+        notesTextView.isUserInteractionEnabled = isfromDetails ? false : true
+        btnSubmit.isUserInteractionEnabled = isfromDetails ? false : true
+    }
+    
+    func setDefaultData() {
+        if self.isfromDetails && (paymentModel != nil) {
+            notesTextView.textColor = UIColor.black
+            debitCardTextField?.text = String(format: "%d", (paymentModel?.debitCardNo)!)
+            achDateTextField.text = paymentModel?.achDate
+            paymentDateTextField.text = DateFormatterUtil.format(dateTime:Double(DateIntConvertUtil.convert(dateTime: (paymentModel?.paymentDate)!, type: DateIntConvertUtil.Seconds)) , format:"dd/MM/yyyy")
+            referenceNoTextField.text = paymentModel?.referenceNumber
+            amountTextField.text = String(format:"$%.1f",(paymentModel?.amount)!)
+            notesTextView.text = paymentModel?.notes
+            lblBalanceDue.text = "0";
+        }else{
+            //Set Due balance
+            if(invoiceObj != nil){
+                 lblBalanceDue.text = String(format: "$%.1f",(invoiceObj?.balanceDue)!)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -169,6 +223,48 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate {
         }
     }
     
+    
+    // MARK: - UITextField Delegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        if textField == achDateTextField {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd/MM/yyyy"
+            textField.text = formatter.string(from: datePicker.date)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == achDateTextField || textField == paymentDateTextField{
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd/MM/yyyy"
+            textField.text = formatter.string(from: datePicker.date)
+            
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == debitCardTextField {
+            let maxLength = 12
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString =
+                currentString.replacingCharacters(in: range, with: string) as NSString
+            
+            if newString.length >= maxLength { debitCheckMarkImage.isHidden = false } else {
+                debitCheckMarkImage.isHidden = true
+            }
+            return newString.length <= maxLength
+        }
+        else if textField == amountTextField {
+            let cs = NSCharacterSet(charactersIn: "0123456789.").inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
+        }
+        return true
+    }
+    
     // MARK:- Touch events
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -222,6 +318,66 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate {
     // MARK: - UIButton Events
     
     @IBAction func submitBtnPressed(_ sender: Any) {
+        
+        guard let debitCardNo = debitCardTextField.text, debitCardNo != "" else {
+            self.showToast(NSLocalizedString("AddPay_Validation1", comment: ""))
+            return
+        }
+        
+        guard let achDate = achDateTextField.text, achDate != "" else {
+            self.showToast(NSLocalizedString("AddPay_Validation2", comment: ""))
+            return
+        }
+        
+        guard let paymentDate = paymentDateTextField.text, paymentDate != "" else {
+            self.showToast(NSLocalizedString("AddPay_Validation3", comment: ""))
+            return
+        }
+        
+        guard let referenceNo = referenceNoTextField.text, referenceNo != "" else {
+            self.showToast(NSLocalizedString("AddPay_Validation4", comment: ""))
+            return
+        }
+        
+        guard let amount = amountTextField.text, amount != "" else {
+            self.showToast(NSLocalizedString("AddPay_Validation5", comment: ""))
+            return
+        }
+        
+        guard let notes = notesTextView.text, notes != "Enter your notes here...", notes != "" else {
+            self.showToast(NSLocalizedString("AddPay_Validation6", comment: ""))
+            return
+        }
+        
+        let enteredAmont:Int = Int((amountTextField.text! as NSString).intValue)
+        if(enteredAmont > Int((invoiceObj?.balanceDue)!)){
+        self.showToast(NSLocalizedString("AddPay_Validation7", comment: ""))
+        return
+        }
+        
+        let remainingamount = Int((invoiceObj?.balanceDue)!) - enteredAmont
+        invoiceObj?.balanceDue = Double(remainingamount)
+        
+        let modelPaymanetInfo:ModelPaymentInfo = ModelPaymentInfo()
+        modelPaymanetInfo.id = HexGenerator.sharedInstance().generate()
+        modelPaymanetInfo.debitCardNo = Int(debitCardNo)!
+        modelPaymanetInfo.achDate = achDate
+        modelPaymanetInfo.paymentDate = DateFormatterUtil.formatStringToInt(dateTime: paymentDateTextField.text!, format: "dd/MM/yyyy")
+        modelPaymanetInfo.referenceNumber = referenceNo
+        modelPaymanetInfo.amount = Double(amount)!
+        modelPaymanetInfo.notes = notes
+        modelPaymanetInfo.updated = true
+        
+        invoiceObj?.paymentInfo.append(modelPaymanetInfo)
+        invoiceObj?.updated = true
+        RealmManager().write(table: invoiceObj!)
+        //SyncService.sharedInstance().syncData()
+        
+      // print(RealmManager().read(type: ModelInvoice.self, primaryKey:invoiceObj!.id!))
+       //print(RealmManager().readList(type: ModelInvoice.self))
+        
+        //print("----PaymentInfo Data Save----")
+        paymentDelegate?.getDataFromAddPayment(dataDict: invoiceObj!)
         self.navigationController?.popViewController(animated: true)
     }
     
