@@ -20,20 +20,13 @@ class LookupPOsViewController: UIViewController, UITableViewDataSource, UITableV
 
         // Do any additional setup after loading the view.
         
-        self.title = "Lookup PO#"
+        self.title = NSLocalizedString("LookUpPoTitle", comment: "")
         
         tempDataList = [["po_no":"123456","metric":"YES"],["po_no":"123456","metric":"NO"]]
         
         //topView.dropShadow()
         setSearchBarUI()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
     // MARK:- Utilities
     func setSearchBarUI() {
         poSearchBar.layer.borderWidth = 1;
@@ -71,15 +64,8 @@ class LookupPOsViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PurchaseOrderDetailsTableViewController") as! PurchaseOrderDetailsTableViewController
-        obj.poNo = ((tempDataList[indexPath.row])["po_no"] as? String)!
-        if (tempDataList[indexPath.row])["metric"] as? String == "YES" {
-            obj.isMetric = true
-               showAdd = false
-        }
-        else {
-            obj.isMetric = false
-                 showAdd = true
-        }
+        
+         
         self.navigationController?.pushViewController(obj, animated: true)
     }
     

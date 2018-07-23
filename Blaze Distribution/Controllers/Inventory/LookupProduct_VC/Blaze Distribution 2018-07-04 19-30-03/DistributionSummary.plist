@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Blaze Distribution.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>5564EE2AB298CBE2E280373D1350E6B785C1BE41</string>
+				<key>dateExpires</key>
+				<string>02/07/19</string>
+				<key>type</key>
+				<string>iOS Development</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>5564EE2AB298CBE2E280373D1350E6B785C1BE41</string>
+						<key>dateExpires</key>
+						<string>02/07/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>Alamofire.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WDSFCZBD66</string>
+						<key>name</key>
+						<string>420 Connect</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>5564EE2AB298CBE2E280373D1350E6B785C1BE41</string>
+						<key>dateExpires</key>
+						<string>02/07/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>IQKeyboardManagerSwift.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WDSFCZBD66</string>
+						<key>name</key>
+						<string>420 Connect</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>5564EE2AB298CBE2E280373D1350E6B785C1BE41</string>
+						<key>dateExpires</key>
+						<string>02/07/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>KSToastView.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WDSFCZBD66</string>
+						<key>name</key>
+						<string>420 Connect</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>5564EE2AB298CBE2E280373D1350E6B785C1BE41</string>
+						<key>dateExpires</key>
+						<string>02/07/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>Kingfisher.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WDSFCZBD66</string>
+						<key>name</key>
+						<string>420 Connect</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>5564EE2AB298CBE2E280373D1350E6B785C1BE41</string>
+						<key>dateExpires</key>
+						<string>02/07/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>QRCodeReader.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WDSFCZBD66</string>
+						<key>name</key>
+						<string>420 Connect</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>5564EE2AB298CBE2E280373D1350E6B785C1BE41</string>
+						<key>dateExpires</key>
+						<string>02/07/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>Reachability.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WDSFCZBD66</string>
+						<key>name</key>
+						<string>420 Connect</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>5564EE2AB298CBE2E280373D1350E6B785C1BE41</string>
+						<key>dateExpires</key>
+						<string>02/07/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>Realm.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WDSFCZBD66</string>
+						<key>name</key>
+						<string>420 Connect</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>5564EE2AB298CBE2E280373D1350E6B785C1BE41</string>
+						<key>dateExpires</key>
+						<string>02/07/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>RealmSwift.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WDSFCZBD66</string>
+						<key>name</key>
+						<string>420 Connect</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>5564EE2AB298CBE2E280373D1350E6B785C1BE41</string>
+						<key>dateExpires</key>
+						<string>02/07/19</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>SKActivityIndicatorView.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WDSFCZBD66</string>
+						<key>name</key>
+						<string>420 Connect</string>
+					</dict>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>WDSFCZBD66.com.blaze.distribution</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>WDSFCZBD66</string>
+				<key>get-task-allow</key>
+				<true/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>WDSFCZBD66.com.blaze.distribution</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>Blaze Distribution.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>be1ebff6-d51b-4b3d-8436-55aa570825de</string>
+				<key>name</key>
+				<string>iOS Team Provisioning Profile: com.blaze.distribution</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>WDSFCZBD66</string>
+				<key>name</key>
+				<string>420 Connect</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

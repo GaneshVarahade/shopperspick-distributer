@@ -1,4 +1,4 @@
 {
-    "env":"DEBUG",
-    "server":"LOCALSERVER"
+    "env":"DEV",
+    "server":"DEVSERVER"
 }

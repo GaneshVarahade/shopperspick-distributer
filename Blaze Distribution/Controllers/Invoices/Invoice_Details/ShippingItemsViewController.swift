@@ -7,33 +7,31 @@
 //
 
 import UIKit
+import  RealmSwift
 
 protocol ShippingItemsDelegate {
-    func getDataForShippingItems(dataDict: [[String:Any]])
+    func getDataForShippingItems(dataDict: ModelShipingMenifest)
 }
 
 class ShippingItemsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var shippingItemsDelegate:ShippingItemsDelegate?
-    var shippingData = [[String:Any]]()
+    var shippingData = List<ModelShipingMenifest>()
+    
+    @IBOutlet weak var shipingTable: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+       // print(shippingData)
     }
     
-    func getDataForShippingItems(dataDict: [[String:Any]]) {
-        print(dataDict)
-        //print(displayDetailsDict)
-        shippingData = dataDict
+    func shippingList(shippingData: List<ModelShipingMenifest>){
+        self.shippingData = shippingData
+        shipingTable.reloadData()
     }
-    
+}
+
+extension ShippingItemsViewController{
     
     // MARK: - UITableviewDatasource/Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,10 +40,16 @@ class ShippingItemsViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "shippingCell") as! ShippingManifestTableViewCell
-        cell.shippingId.text = (shippingData[indexPath.row])["id"] as? String
-        cell.shippingStatusLabel.text = (shippingData[indexPath.row])["status"] as? String
+        cell.shippingIdButton.setTitle((shippingData[indexPath.row]).shippingManifestNo, for: .normal)
+        cell.shippingStatusButton.setTitle((shippingData[indexPath.row]).invoiceStatus ?? "Shipped", for: .normal)
+        
+        cell.shippingStatusButton.tag = indexPath.row
+        cell.shippingIdButton.tag = indexPath.row
+        cell.shippingIdButton.addTarget(self, action: #selector(self.showManifestDetails(sender:)), for: .touchUpInside)
+        cell.shippingStatusButton.addTarget(self, action: #selector(self.showManifestDetails(sender:)), for: .touchUpInside)
         return cell
     }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if deviceIdiom == .pad {
@@ -54,14 +58,9 @@ class ShippingItemsViewController: UIViewController, UITableViewDataSource, UITa
         return 50
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARk: - UIButton Events
+    
+    @objc func showManifestDetails(sender: UIButton) {
+        shippingItemsDelegate?.getDataForShippingItems(dataDict: shippingData[sender.tag])
     }
-    */
-
 }

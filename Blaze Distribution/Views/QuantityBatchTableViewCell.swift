@@ -15,7 +15,8 @@ protocol qauntityBatchCellDelegate : class {
 class QuantityBatchTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var productLabel: UILabel!
-    @IBOutlet weak var quantityLabel: UILabel!
+    
+    @IBOutlet weak var quantityTextField: UITextField!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var batchTextField: UITextField!
     

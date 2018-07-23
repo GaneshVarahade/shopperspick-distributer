@@ -10,9 +10,10 @@ import UIKit
 
 class ConfirmTransferTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var productNameBtn: UIButton!
-    @IBOutlet weak var transferAmountLbl: UILabel!
-    @IBOutlet weak var expectedTotalLabel: UILabel!
+    @IBOutlet weak var btnCheck: UIButton!
+    @IBOutlet weak var lblProductName: UILabel!
+    @IBOutlet weak var lblProductQuantity: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

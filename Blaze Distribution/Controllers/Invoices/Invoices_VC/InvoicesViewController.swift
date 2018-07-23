@@ -7,11 +7,24 @@
 //
 
 import UIKit
-
-class InvoicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    var tempDataList : [[String:Any]] = []
+import SKActivityIndicatorView
+import RealmSwift
+import Realm
+import QRCodeReader
+import AVFoundation
+class InvoicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate,QRCodeReaderViewControllerDelegate {
     
+    lazy var readerVC: QRCodeReaderViewController = {
+        let builder = QRCodeReaderViewControllerBuilder {
+            $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
+        }
+        
+        return QRCodeReaderViewController(builder: builder)
+    }()
+
+    var filtered : [ModelInvoice] = []
+    var valueDataObj : [ModelInvoice]!
+    var modelInvoice: [ModelInvoice]?
     @IBOutlet weak var invoiceSegmentController: UISegmentedControl!
     @IBOutlet weak var invoicesSearchBar: UISearchBar!
     @IBOutlet weak var invoiceTableView: UITableView!
@@ -20,22 +33,50 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         self.tabBarController?.selectedIndex = 1
-        
+        invoiceTableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         setSearchBarUI()
-        
-        tempDataList = [["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"],["created_by":"Justin Bruss","invoice_no":"123456","due_date":"04/23/2018"]]
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        getData()
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
+    }
+    
+    @objc func syncFinished(_ notification: Notification){
+        //Refresh data
+        getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.title = "Invoices"
+        super.viewWillAppear(animated)
+        self.title = NSLocalizedString("InvVcTitle", comment: "")
+    }
+    
+    func getData(){
+        //valueDataObj =  RealmManager().readList(type: ModelInvoice.self)
+        if self.invoiceSegmentController.selectedSegmentIndex==0{
+           getOpenInvoices()
+        }else{
+           getCompleteInvoices()
+        }
+        invoiceTableView.reloadData()
+        print("----DataRead----- \(valueDataObj.count)")
+    }
+    
+    private func getOpenInvoices() {
+        valueDataObj = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceStatus != '\(InvoiceStatus.COMPLETED)'")
+        invoiceTableView.reloadData()
+    }
+    
+    private func getCompleteInvoices() {
+        valueDataObj = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceStatus = '\(InvoiceStatus.COMPLETED)'")
+        invoiceTableView.reloadData()
     }
     
     // MARK:- Utilities
@@ -49,26 +90,127 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
     }
+    @IBAction func BtnLogoutPressed(_ sender: Any) {
+        self.showAlert(title: "", message:NSLocalizedString("confirmLogout", comment: ""), actions:[UIAlertActionStyle.cancel,UIAlertActionStyle.default], closure:{ action in
+        switch action {
+        case .default :
+            print("default")
+            
+            //Delete All Table Data
+            RealmManager().deleteAll(type: ModelInvoice.self)
+            RealmManager().deleteAll(type: ModelInventoryTransfers.self)
+            RealmManager().deleteAll(type: ModelPurchaseOrder.self)
+            RealmManager().deleteAll(type: ModelTimesStampLog.self)
+            RealmManager().deleteAll(type: ModelSignature.self)
+            RealmManager().deleteAll(type: ModelSignatureAsset.self)
+            
+            //pop to login view controller
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
+            UIApplication.shared.keyWindow?.rootViewController = viewController
+            
+        case .cancel :
+            print("cancel")
+            
+        case .destructive :
+            print("Destructive")
+        }
+        
+    })
+        
+    }
     
+    //MARK:- Segment Value Change
+    @IBAction func invoiceSegmentValueChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            getOpenInvoices()
+            dueDateTitle.text       = "DUE DATE"
+            scanInvoiceBtn.isHidden = false
+            invoiceTableView.reloadData()
+        }
+        else {
+            getCompleteInvoices()
+            dueDateTitle.text       = "COMPLETED"
+            scanInvoiceBtn.isHidden = true
+            invoiceTableView.reloadData()
+        }
+    }
+    // MARK:- UIButton Events
+    @IBAction func scanInvoiceBtnPressed(_ sender: Any) {
+       startScanning()
+    } 
+    // MARK:- UITouch events
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
+    //MARK:- SearchBar Delegate
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+        filtered.removeAll()
+        getData()
+        
+        for dict in valueDataObj {
+            //print(dict)
+            //find range of string 
+            let invName : NSString! = dict.invoiceNumber! as NSString
+            let range = invName.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+            
+            if(range.location != NSNotFound){
+               filtered.append(dict)
+            }
+            
+        }
+        //print(filtered)
+        if !(invoicesSearchBar.text?.count==0)
+        {            valueDataObj=filtered
+        }else{
+            invoicesSearchBar.endEditing(true)
+        }
+        //print(valueDataObj)
+        invoiceTableView.reloadData()
+        
+    }
+    
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+        invoicesSearchBar.endEditing(true)
+    }
+    
+    public func searchBarTextDidEndEditing(_ searchBar: UISearchBar){
+        invoicesSearchBar.endEditing(true)
+    }
+
+}
+
+extension InvoicesViewController{
     // MARK: - UITableview Datasource/Delegate
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tempDataList.count
+        if valueDataObj != nil{
+            return valueDataObj.count
+        }else{
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell                  = tableView.dequeueReusableCell(withIdentifier: "cell") as! InvoicesTableViewCell
+        let temp                  = valueDataObj[indexPath.row]
+        cell.invoicesNoLabel.text = temp.invoiceNumber
+        cell.dueDateLabel.text   =  temp.dueDate?.description
+        cell.createdByLabel.text =  temp.salesPerson
+        cell.btnInvoiceError.isHidden = true
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! InvoicesTableViewCell
-        
-        cell.invoicesNoLabel.text = (tempDataList[indexPath.row])["invoice_no"] as? String
-        cell.dueDateLabel.text = (tempDataList[indexPath.row])["due_date"] as? String
-        cell.createdByLabel.text =  (tempDataList[indexPath.row])["created_by"] as? String
+        if let error = temp.putBulkError, error != ""{
+           cell.btnInvoiceError.isHidden = false
+        }
+        // Adda target to error button
+        cell.btnInvoiceError.addTarget(self, action: #selector(btnInvoiceClicked(_ :)), for: .touchUpInside)
+        cell.btnInvoiceError.tag = indexPath.row
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+       
         if deviceIdiom == .pad {
             return 60
         }
@@ -77,41 +219,108 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    
-    //MARK:- Segment Value Change
-    @IBAction func invoiceSegmentValueChanged(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            dueDateTitle.text = "DUE DATE"
-            scanInvoiceBtn.isHidden = false
-            invoiceTableView.reloadData()
-        }
-        else {
-            dueDateTitle.text = "COMPLETED"
-            scanInvoiceBtn.isHidden = true
-            invoiceTableView.reloadData()
-        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goInvoiceDetail", sender: self)
+        
     }
     
-    // MARK:- UIButton Events
-    
-    @IBAction func scanInvoiceBtnPressed(_ sender: Any) {
-       // let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScanInvoiceViewController")
-       // self.navigationController?.pushViewController(obj, animated: true)
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 60))
+        let label = UILabel(frame: CGRect(x: 10, y: 20, width: tableView.frame.size.width - 10, height: 60))
+        label.text = "Sorry! No Records found."
+        label.textColor = UIColor.lightGray
+        label.textAlignment = NSTextAlignment.center
+        view.backgroundColor = UIColor.clear
+        view.addSubview(label)
+        return view
     }
     
-    // MARK:- UITouch events
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return valueDataObj?.count==0 ? 60.0 : 0.0
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "goInvoiceDetail" {
+        
+            let nextVC = segue.destination as! InvoiceDetailsTableViewController
+            let indexPath = invoiceTableView.indexPathForSelectedRow
+            let invoiceObject = valueDataObj[(indexPath?.row)!]
+                nextVC.tempData = invoiceObject
+        }
     }
-    */
-
+    
+    @objc func btnInvoiceClicked(_ sender: UIButton) {
+        let index:Int = sender.tag
+        //Show alert
+        let alert = UIAlertController(title: "Error", message: valueDataObj[index].putBulkError, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                //closure()
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    //MARK : -  QRCOde reder deleaget
+    func startScanning() {
+        readerVC.delegate = self
+        
+        // Or by using the closure pattern
+        readerVC.completionBlock = { (result: QRCodeReaderResult?) in
+            print(result)
+        }
+        // Presents the readerVC as modal form sheet
+        readerVC.modalPresentationStyle = .formSheet
+        present(readerVC, animated: true, completion: nil)
+    }
+    
+    // MARK: - QRCodeReaderViewController Delegate Methods
+    func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
+        reader.stopScanning()
+        
+        //scanResultLabel.text = "\(result.value)"
+        //let invoiceNumber = "INV-003765"
+        self.modelInvoice = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceNumber = '\(result.value)'")
+        afterScan()
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    //This is an optional delegate method, that allows you to be notified when the user switches the cameraName
+    //By pressing on the switch camera button
+    func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
+        if newCaptureDevice.device.localizedName != "" {
+            print("Switching capturing to: \(newCaptureDevice.device.localizedName)")
+        }
+    }
+    
+    func readerDidCancel(_ reader: QRCodeReaderViewController) {
+        reader.stopScanning()
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func afterScan(){
+        if let modelInvoiceList = modelInvoice {
+            if modelInvoiceList.count > 0 {
+                let obj = self.storyboard?.instantiateViewController(withIdentifier: "InvoiceDetailsTableViewController") as! InvoiceDetailsTableViewController
+                obj.tempData = modelInvoice?.first
+                self.navigationController?.pushViewController(obj, animated: true)
+                
+            }else{
+                showToast(NSLocalizedString("Inv_noRecords", comment: ""))
+            }
+        }else{
+            showToast(NSLocalizedString("Inv_noRecords", comment: ""))
+        }
+    }
+    
 }

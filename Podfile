@@ -24,6 +24,9 @@ target 'Blaze Distribution' do
       pod 'Crashlytics', '~>  3.10'
       
       pod 'RealmSwift'
+      
+      pod 'QRCodeReader.swift'
+      
      
 
   target 'Blaze DistributionTests' do

@@ -1,0 +1,86 @@
+/* 
+  Localizable.strings
+  Blaze Distribution
+
+  Created by Apple on 21/06/18.
+  Copyright © 2018 Fidel iOS. All rights reserved.
+*/
+"dueof" = "Due of";
+"Message" = "Message";
+"Saved Successfully!" = "Saved Successfully!";
+"Done" = "Done";
+"Warning" = "Warning";
+
+// -------Toast Message------
+//1. CreateTransferViewController
+"CreateTrans_selectShop" = "Please select shop first.";
+"CreateTrans_selectFromLoc" = "Please select From Location First";
+"CreateTrans_selectAllOpt" = "Please select all options to proceed";
+"CreateTrans_inventryValid" = "You can not transfer within same inventry, Please select diffrant location.";
+
+//2. SignatureViewController
+"sig_Error" = "Error saving signature";
+
+//3. InvoicesViewController
+"Inv_noRecords" = "Sorry! no record found";
+"confirmLogout" = "Are you sure you want to logout ?";
+
+//4. ScanInvoiceViewController
+"ScanInv_Details" = "Invoice details not found";
+
+//5. InvoiceDetailsTableViewController
+"InvDetail_Validation1" = "Payment not allowed for Draft and Cancelled Invoice";
+"InvDetail_Validation2" = "Sorry, this invoice is aleredy paid, and has no remaining due";
+"InvDetail_Validation3" = "Shipping manifest not allowed for Draft and Cancelled Invoice";
+
+//6. AddPaymentTableViewController
+"AddPay_Validation1" = "Please enter debit card number";
+"AddPay_Validation2" = "Please select ACH Date";
+"AddPay_Validation3" = "Please select Payment Date";
+"AddPay_Validation4" = "Please enter reference number";
+"AddPay_Validation5" = "Please enter amount";
+"AddPay_Validation6" = "Please enter notes";
+"AddPay_Validation7" = "Please enter valid due amount";
+
+//7. ConfirmTransferViewController
+"ConfirmTrans_Message" = "Sorry! No product in cart to submit";
+
+//8. LookUpProductViewController
+"LookProd_Message" = "Sorry! No records found";
+
+//9. LookUpProductEnterQuantity
+"ProdQuat_Validation1" = "Please enter product quantity to proceed further";
+"ProdQuat_Validation2" = "Please enter valid product quantity";
+"ProdQuat_Validation3" = "Please make sure that quantity should not be 0";
+"ProdQuat_Message" = "Added in cart";
+
+//10. ScanLookUpViewController
+"ScanProd_Message" = "Sorry! No records found";
+
+//11. PurchaseOrderViewController
+"PO_Message" = "Sorry! No records found";
+
+//12. ForgotPasswordViewController
+"ForgotPass_InvalidEmail" = "Please enter valid email id";
+"ForgotPass_EmailEmpty" = "Email id should not be empty";
+
+// -------Navigation Title-----
+"LogVcTitle" = "View Logs";
+"AddProdVcTitle" = "Add Product";
+"SignatureVCTitle" = "Collect Signature";
+"QtVcTitle" = "Quantity & Batch";
+"InvVcTitle" = "Invoices";
+"ScanInvTitle" = "Scan Product";
+"AddPayTitle" = "Add Payment";
+"ConfirmTransTitle" = "Confirm Transfer";
+"BsketVcTitle" = "Transfer Basket";
+"ProdLookUpTitle" = "Lookup Product";
+"ProdLookQtTitle" = "Enter Quantity";
+"ScanlookTitle" = "Create Transfer";
+"CreateTransTitle" = "Inventry";
+"InvetryTitle" = "Inventry";
+"ReceiveShipTitle" = "Received Products";
+"LookUpPoTitle" = "Lookup PO#";
+"PoTitle" = "Purchase Orders";
+
+// -------Label text---------

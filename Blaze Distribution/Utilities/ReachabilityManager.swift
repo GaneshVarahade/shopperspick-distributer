@@ -13,11 +13,7 @@ import Alamofire
 class ReachabilityManager: NSObject {
     
     static  let shared = ReachabilityManager()
-
-    // 3. Boolean to track network reachability
-    var isNetworkAvailable : Bool {
-        return reachabilityStatus != .none
-    }
+ 
     // 4. Tracks current NetworkStatus (notReachable, reachableViaWiFi, reachableViaWWAN)
     var reachabilityStatus: Reachability.Connection = .none
     // 5. Reachability instance for Network status monitoring
@@ -28,20 +24,15 @@ class ReachabilityManager: NSObject {
         switch reachability.connection {
         case .none:
          
+            return
             
-            showMessage(message:"Network became unreachable")
-        case .wifi:
+          //  showMessage(message:"Network became unreachable")
+        case .wifi, .cellular:
          
-            
-         
+           // SyncService.sharedInstance().syncData()
+         return
           
-            showMessage(message:"Network reachable through WiFi")
-        case .cellular:
-         
-         
-          
-            
-            showMessage(message:"Network reachable through Cellular Data")
+           // showMessage(message:"Network reachable ")
             
         }
     }
@@ -55,7 +46,8 @@ class ReachabilityManager: NSObject {
         do{
             try reachability.startNotifier()
         } catch {
-           print("Could not start reachability notifier")
+            UtilPrintLogs.DLog(message: "Could not start reachability notifier", objectToPrint: nil)
+           //print("Could not start reachability notifier")
         }
     }
     

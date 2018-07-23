@@ -7,20 +7,15 @@
 //
 
 import UIKit
+import KSToastView
+class ForgotPasswordViewController: UIViewController{
 
-class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
-
+    @IBOutlet weak var txtEmail: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     // MARK:- UIButton Events
     
@@ -28,18 +23,45 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func resetAction(_ sender: UIButton) {
+        
+        if (txtEmail.text?.count)! > 0{
+            if isValidEmail(testStr: txtEmail.text!){
+                let request = RequestForgotPassword()
+                request.email = txtEmail.text
+                WebServicesAPI.sharedInstance().ForgorPasswordAPI(request: request) { (result, error) in
+                    
+                    if let err = error{
+                        
+                        KSToastView.ks_showToast(err.message)
+                    }
+                }
+            }else{
+                showToast(NSLocalizedString("ForgotPass_InvalidEmail", comment: ""))
+            }
+        }else{
+            showToast(NSLocalizedString("ForgotPass_EmailEmpty", comment: ""))
+        }
+    }
+    
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
     
     // MARK: - UITedxtField Delegate
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
     
     // MARK: - Touch events
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.view.endEditing(true)
+//    }
     
     /*
     // MARK: - Navigation

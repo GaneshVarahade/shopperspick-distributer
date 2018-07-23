@@ -11,19 +11,9 @@ import Foundation
 struct Constants {
     
     struct GoogleMaps {
-        static let GMSServiceAPIKey = "AIzaSyB8JmHSYfbbnYtOH-_951l-LMgU-WjpHCw"
+        static let GMSServiceAPIKey = ""
     }
-    
-    struct Development {
-        
-        static let baseURL = "https://api.dev.blaze.me/api/v1/session/terminal/init"
-        static let Content_Type = "application/json"
-    }
-    
-    struct Production {
-        
-        static let baseURL = ""
-    }
+   
     
     struct WebAPI {
         

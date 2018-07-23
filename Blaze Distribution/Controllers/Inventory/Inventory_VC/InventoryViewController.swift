@@ -7,83 +7,164 @@
 //
 
 import UIKit
-
+import SKActivityIndicatorView
 class InventoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var topView: UIView!
-
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var requestLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    
     @IBOutlet weak var segmentControl: UISegmentedControl!
-    
     @IBOutlet weak var createBtn: UIButton!
-    
     @IBOutlet weak var inventoryTableView: UITableView!
-    
-    var tempDataList : [[String:Any]] = []
+   
+    var data : [Any]                     = []
+    var inventoryData : [ModelInventoryTransfers] = []
+    var productData : [ModelProduct]     = []
+    var productFlag:Bool                 = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        tempDataList = [["name":"Transfer 1","request_no":"123456","date":"04/23/2018"],["name":"Transfer 1","request_no":"123456","date":"04/23/2018"],["name":"Transfer 1","request_no":"123456","date":"04/23/2018"],["name":"Transfer 1","request_no":"123456","date":"04/23/2018"],["name":"Transfer 1","request_no":"123456","date":"04/23/2018"],["name":"Transfer 1","request_no":"123456","date":"04/23/2018"],["name":"Transfer 1","request_no":"123456","date":"04/23/2018"],["name":"Transfer 1","request_no":"123456","date":"04/23/2018"]]
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
-        self.title = "Inventory"
+        self.title = NSLocalizedString("InvetryTitle", comment: "")
+        getData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        data.removeAll()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        getData()
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
+    }
+    
+    @objc func syncFinished(_ notification: Notification){
+        //Refresh data
+        getData()
+    }
+    @IBAction func BtnLogoutPressed(_ sender: Any) {
+        self.showAlert(title: "", message:NSLocalizedString("confirmLogout", comment: ""), actions:[UIAlertActionStyle.cancel,UIAlertActionStyle.default], closure:{ action in
+            switch action {
+            case .default :
+                print("default")
+                
+                           //Delete All Table Data
+                            RealmManager().deleteAll(type: ModelInvoice.self)
+                            RealmManager().deleteAll(type: ModelInventoryTransfers.self)
+                            RealmManager().deleteAll(type: ModelPurchaseOrder.self)
+                            RealmManager().deleteAll(type: ModelTimesStampLog.self)
+                            RealmManager().deleteAll(type: ModelSignature.self)
+                            RealmManager().deleteAll(type: ModelSignatureAsset.self)
+                
+                            //pop to login view controller
+                            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
+                        UIApplication.shared.keyWindow?.rootViewController = viewController
+                
+            case .cancel :
+                print("cancel")
+                
+            case .destructive :
+                print("Destructive")
+            }
+            
+        })
+    }
+    
+    
     
     // MARK:- UISegmentController Valu Changed
     
     @IBAction func segmentChanged(_ sender: Any) {
         
         if segmentControl.selectedSegmentIndex == 0 {
-            nameLabel.isHidden = false
+            data.removeAll()
+            nameLabel.isHidden    = false
             requestLabel.isHidden = false
-            dateLabel.isHidden = false
-            requestLabel.text = "REQUEST #"
-            createBtn.isHidden = false
+            dateLabel.isHidden    = false
+            requestLabel.text     = "REQUEST#"
+            createBtn.isHidden    = false
+            productFlag           = false
+            data                  = inventoryData
             inventoryTableView.reloadData()
         }
         else {
+            data.removeAll()
+            productFlag        = true
             dateLabel.isHidden = true
-            requestLabel.text = "QUANTITY"
+            requestLabel.text  = "QUANTITY"
             createBtn.isHidden = true
+            data               = productData
             inventoryTableView.reloadData()
         }
     }
+    func getData(){
+        inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
+        inventoryData.reverse()
+        
+        productData   = RealmManager().readList(type: ModelProduct.self,distinct:"productId")
+        if productFlag{
+            data  = productData
+        }else{
+            data  = inventoryData
+        }
+        inventoryTableView.reloadData()
+        //print("----DataRead----- \(inventoryData.count)")
+        UtilPrintLogs.DLog(message:"DataRead", objectToPrint: inventoryData.count)
+    }
     
+    
+     // MARK: - UIButton Events
+    @IBAction func createTransferBtnPressed(_ sender: Any) {
+      
+    }
+}
+
+extension InventoryViewController{
     
     // MARk:- UITableview DataSource/ Delegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tempDataList.count
+        return data.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
+        let cell = inventoryTableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
         
-        cell.nameLabel.text = (tempDataList[indexPath.row])["name"] as? String
-        cell.requestLabel.text = (tempDataList[indexPath.row])["request_no"] as? String
-        if segmentControl.selectedSegmentIndex == 0 {
-            cell.dateLabel.isHidden = false
-            cell.dateLabel.text = (tempDataList[indexPath.row])["date"] as? String
-        }
-        else {
+        
+        
+        if productFlag{
+            
+            let temp                = data[indexPath.row] as! ModelProduct
+            cell.nameLabel.text     = temp.name
+            cell.requestLabel.text  = String(format: "%.1f", temp.quantity)
             cell.dateLabel.isHidden = true
+            cell.btnErrorInvetry.isHidden = true
+            
+        }else{
+            let tempi   = data[indexPath.row] as! ModelInventoryTransfers
+            cell.nameLabel.text     = tempi.toInventoryName
+            cell.requestLabel.text  = tempi.transferNo
+            //cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(tempi.modified)/1000,
+                                                               //format: DateFormatterUtil.mmddyyyy)
+            cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime: tempi.modified, type:DateIntConvertUtil.Seconds)),format: DateFormatterUtil.mmddyyyy)
+            cell.dateLabel.isHidden = false
+            
+            cell.btnErrorInvetry.isHidden = true
+            if let error = tempi.putBulkError, error != ""{
+                cell.btnErrorInvetry.isHidden = false
+            }
+            // Adda target to error button
+            cell.btnErrorInvetry.addTarget(self, action: #selector(btnInvetryErrorClicked(_ :)), for: .touchUpInside)
+            cell.btnErrorInvetry.tag = indexPath.row
+            
         }
         
         return cell
@@ -98,22 +179,24 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    
-     // MARK: - UIButton Events
-    
-    @IBAction func createTransferBtnPressed(_ sender: Any) {
-        //let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CreateTransferViewController")
-        //self.navigationController?.pushViewController(obj, animated: true)
+    @objc func btnInvetryErrorClicked(_ sender :UIButton){
+        let index : Int = sender.tag
+        let tempi   = data[index] as! ModelInventoryTransfers
+        //Show Alert
+        let alert = UIAlertController(title: "Error", message: tempi.putBulkError, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                //closure()
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

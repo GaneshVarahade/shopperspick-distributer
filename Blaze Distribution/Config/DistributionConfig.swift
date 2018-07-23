@@ -103,7 +103,8 @@ open class DistributionConfig:NSObject {
                 print("bad json")
             }
         } catch let error as NSError {
-            print(error)
+            //print(error)
+            UtilPrintLogs.DLog(message:DLogMessage.Error.rawValue, objectToPrint:error)
         }
         
     }

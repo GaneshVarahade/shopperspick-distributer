@@ -13,41 +13,29 @@ class PurchaseOrderDetailsTableViewController: UITableViewController {
     @IBOutlet weak var shippingDetailsView: UIView!
     @IBOutlet weak var productsView: UIView!
     
-    var isMetric = Bool()
-    var poNo = String()
-    var tempDataDict = [String:Any]()
+    var modelPurcahseOrder: ModelPurchaseOrder!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        AQLog.debug()
 
         navigationController?.navigationBar.isTranslucent = false
-        self.title = poNo
+        self.title = modelPurcahseOrder.purchaseOrderNumber
         
-        if isMetric {
-             tempDataDict = ["shipment_details":["metric_id":"45258","status":"Pending","origin":"Dainkin Farms","received":"04/22/2018 - 3:30"],"products":[["product_name":"Product 1","batch_no":"LLPWQ","quantity":"5 Units"],["product_name":"Product 1","batch_no":"LLPWQ","quantity":"5 Units"],["product_name":"Product 1","batch_no":"LLPWQ","quantity":"5 Units"]]]
-        }
-        else {
-             tempDataDict = ["shipment_details":["status":"Pending","origin":"Dainkin Farms","received":"04/22/2018 - 3:30"],"products":[["product_name":"Product 1","batch_no":"LLPWQ","quantity":"5 Units"],["product_name":"Product 1","batch_no":"LLPWQ","quantity":"5 Units"],["product_name":"Product 1","batch_no":"LLPWQ","quantity":"5 Units"]]]
-        }
+        EventBus.sharedBus().publish(EventBusEventType.SENDATA_PURCHASEORDER, data: ["data":modelPurcahseOrder])
         
-        //shippingDetailsView.dropShadow()
-        //productsView.dropShadow()
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "PO_DETAILS"), object: nil, userInfo: ["data":tempDataDict])
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+            let destinationVC = segue.destination as? Receive_ShipmentViewController
+            destinationVC?.modelPurchaseOrder = modelPurcahseOrder
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -62,6 +50,7 @@ class PurchaseOrderDetailsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
+            //case for Header of shipment Details
             if deviceIdiom == .pad {
                 return 70
             }
@@ -69,23 +58,19 @@ class PurchaseOrderDetailsTableViewController: UITableViewController {
                 return 50
             }
         case 1:
+            
+            //case for Shipment Details
             if deviceIdiom == .pad {
-                if isMetric {
-                    return (70 * 4)
-                }
-                else {
-                    return 70 * 3
-                }
+                
+                return (70 * 5)
             }
             else {
-                if isMetric {
-                    return 50 * 4
-                }
-                else {
-                    return 50 * 3
-                }
+                
+                return 50 * 5
+                
             }
         case 2:
+            //case for Header Of ProductList
             if deviceIdiom == .pad {
                 return 90
             }
@@ -93,13 +78,23 @@ class PurchaseOrderDetailsTableViewController: UITableViewController {
                 return 70
             }
         case 3:
+            
+            //case for Product List
             if deviceIdiom == .pad {
-                return CGFloat(80 * (tempDataDict["products"] as? [[String:Any]])!.count)
+                return CGFloat(100 * (modelPurcahseOrder.productInShipment.count))
             }
             else{
-                return CGFloat(60 * (tempDataDict["products"] as? [[String:Any]])!.count)
+                return CGFloat(80 * (modelPurcahseOrder.productInShipment.count))
             }
         case 4:
+            //case for Continue button
+            if indexPath.row ==  tableView.numberOfRows(inSection: 0) - 1{
+                
+                if modelPurcahseOrder.status == PurchaseOrderStatus.Closed.rawValue {
+                    return 0
+                }
+            }
+            
             if deviceIdiom == .pad {
                 return 70
             }
@@ -116,60 +111,6 @@ class PurchaseOrderDetailsTableViewController: UITableViewController {
             }
         }
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+ 
 
 }
