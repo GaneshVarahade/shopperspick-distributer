@@ -16,6 +16,7 @@ public class ResponsePaymentsReceived:BaseResponseModel{
     public var companyId: String?
     public var paidDate: Int?
     public var referenceNo: String?
+    public var notes: String?
     public var amountPaid: Double?
    
 }

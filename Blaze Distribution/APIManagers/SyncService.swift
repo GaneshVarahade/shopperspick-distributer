@@ -615,6 +615,7 @@ public final class SyncService {
                             paymentTemp.paymentDate     = payment.paidDate!
                             paymentTemp.referenceNumber = payment.referenceNo ?? ""
                             paymentTemp.amount          = payment.amountPaid!
+                            paymentTemp.notes           = payment.notes
                             model.paymentInfo.append(paymentTemp)
                         }
                     }else{
@@ -633,13 +634,29 @@ public final class SyncService {
                             shipMen.vehicleMake         = ship.vehicleMake
                             shipMen.vehicleModel        = ship.vehicleModel
                             shipMen.vehicleLicensePlate = ship.vehicleLicensePlate
-                            shipMen.signaturePhoto      = ship.signaturePhoto
+                            //shipMen.signaturePhoto      = ship.signaturePhoto
                             shipMen.receiverCompany     = ship.receiverCompany?.name
                             shipMen.receiverType        = ship.receiverCompany?.vendorType
                             shipMen.receiverContact     = ship.receiverCompany?.phone
                             shipMen.receiverLicense     = ship.receiverCompany?.licenseNumber
                             shipMen.invoiceStatus       = ship.invoiceStatus
                             shipMen.shippingManifestNo  = ship.shippingManifestNo
+                            shipMen.deliveryDate        = ship.deliveryDate ?? 0
+                            shipMen.deliveryTime        = ship.deliveryTime ?? 0
+                            
+                            if let sigAsset = ship.signaturePhoto{
+                               //Write signature assets
+                                let signature = ModelSignatureAsset()
+                                signature.id = HexGenerator.sharedInstance().generate()
+                                signature.assetType = sigAsset.assetType
+                                signature.mediumURL = sigAsset.mediumURL
+                                signature.largeURL  = sigAsset.largeURL
+                                signature.publicURL = sigAsset.publicURL
+                                signature.thumbURL  = sigAsset.thumbURL
+                                
+                                shipMen.signatureAsset = signature
+                            }
+                            
                             if let add = ship.receiverAddress?.address{
                                 shipMen.receiverAddress?.id      = add.id
                                 shipMen.receiverAddress?.city    = add.city
