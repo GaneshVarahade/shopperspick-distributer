@@ -64,6 +64,10 @@
 "ForgotPass_InvalidEmail" = "Please enter valid email id";
 "ForgotPass_EmailEmpty" = "Email id should not be empty";
 
+//13. QuantityAndBatchViewController
+"QtValidation" = "Requested quantity is Greater than remaining quantity for Product";
+"QtValidation1" = "Requested quantity should be gretter than 0";
+
 // -------Navigation Title-----
 "LogVcTitle" = "View Logs";
 "AddProdVcTitle" = "Add Product";
