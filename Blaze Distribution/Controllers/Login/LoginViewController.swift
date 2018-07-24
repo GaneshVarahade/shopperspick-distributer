@@ -139,6 +139,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 let temp = ShopsModel()
                     temp.id = shop.id
                     temp.name = shop.name
+                    temp.appTarget = shop.appTarget
                     temp.shopType = shop.shopType
                     modelLogin.shops.append(temp)
                 }

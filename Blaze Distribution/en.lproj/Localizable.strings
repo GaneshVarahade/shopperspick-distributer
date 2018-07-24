@@ -67,6 +67,12 @@
 //13. QuantityAndBatchViewController
 "QtValidation" = "Requested quantity is Greater than remaining quantity for Product";
 "QtValidation1" = "Requested quantity should be gretter than 0";
+//14. SettingsVc
+"SwitchShopTitle" = "Switch Shop";
+"SettingTitle"= "My Settings";
+//15. SwitchShopVC
+"sameShopValidation" = "Sorry! This shop is already assined to you, Select another shop to switch";
+"shopSwitchedSucessfuly" = "Shop switched sucessfully";
 
 // -------Navigation Title-----
 "LogVcTitle" = "View Logs";
