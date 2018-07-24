@@ -191,6 +191,11 @@ class WebServicesAPI: NSObject {
         
     }
     
+    func SwitchShopPostAPI(request:RequestSwitchShop,onComplition:@escaping (_ result:ResponseSwitchShop?, _ error:PlatformError?)-> ()){
+        makeRequest(Router.SwitchShopPost(request: request), callback: onComplition)
+        
+    }
+    
     func uploadSignature(request: RequestSignature,onComplition:@escaping (_ result:ResponseAsset?, _ error:PlatformError?)-> ()){
         upload(Router.uploadSignature(request: request), storeSign: request, handler: onComplition)
     }

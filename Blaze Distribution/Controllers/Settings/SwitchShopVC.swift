@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import SKActivityIndicatorView
 
 class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var btnSubmit: UIButton!
@@ -26,26 +27,27 @@ class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         self.shopsTableView.estimatedRowHeight = 60.0
         self.shopsTableView.rowHeight = UITableViewAutomaticDimension
         self.title = NSLocalizedString("SwitchShopTitle", comment: "")
-        
+        setValue()
+       // Do any additional setup after loading the view.
+    }
+    
+    func setValue(){
         //Read Login Model
         self.modelLogin = RealmManager().readList(type: LoginModel.self).first
         if let shopsModel = modelLogin?.shops{
-             self.shopList = Array(shopsModel)
-            print(self.shopList)
+            self.shopList = Array(shopsModel).filter { $0.appTarget == "Distribution"}
         }
         
         if let assinedShop = modelLogin?.assignedShop{
-          assineShopId = assinedShop.id
-         //set assined shop selected
+            assineShopId = assinedShop.id
+            //set assined shop selected
             for shop in shopList{
                 if shop.id == assineShopId{
                     selectedShops.append(shop)
                 }
             }
         }
-       
         
-       // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -95,26 +97,56 @@ class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @objc func checkboxClicked(_ sender: UIButton) {
         selectedShops.removeAll()
         let index : Int = sender.tag
-        print(index)
+        ////print(index)
         sender.isSelected = !sender.isSelected
         selectedShops.append(self.shopList[index])
         self.shopsTableView.reloadData()
-        print(selectedShops);
+        //print(selectedShops);
     }
     
     
     //MARK: - Button Actions
     @IBAction func btnSubmitClicked(_ sender: Any) {
-    }
+        if assineShopId == selectedShops[0].id{
+           //Show toast for same shop validation
+            self.showToast(NSLocalizedString("sameShopValidation", comment: ""))
+        }else{
+            //Create Switch request bulk model
+            let requestModel = RequestSwitchShop()
+            requestModel.shopId = selectedShops[0].id
+            //print(requestModel);
+            
+            SKActivityIndicator.show()
+            WebServicesAPI.sharedInstance().SwitchShopPostAPI(request: requestModel) {
+                (result:ResponseSwitchShop?,error:PlatformError?) in
+                if error == nil{
+                    SKActivityIndicator.dismiss()
+                    //Write assinedShopId
+                    if let data = result?.assignedShop{
+                        let assineShop = AssignedShopModel()
+                        assineShop.id          = data.id
+                        assineShop.name        = data.name!
+                        assineShop.emailAdress = data.emailAdress
+                        assineShop.shopType    = data.shopType
+                        assineShop.phoneNumber = data.phoneNumber
+                        
+                        self.modelLogin?.assignedShop = assineShop
+                        RealmManager().write(table: self.modelLogin!)
+                        
+                        self.modelLogin = RealmManager().readList(type: LoginModel.self).first
+                        //print(self.modelLogin ?? "--")
+                        self.setValue()
+                        self.showAlert(title: "Message", message:NSLocalizedString("shopSwitchedSucessfuly", comment: ""), closure:{})
+                    }
+                    
+                }else{
+                    SKActivityIndicator.dismiss()
+                    self.showAlert(title: "Error", message: error?.message ?? "Error", closure:{})
+                    return
+                }
+            }
+            
+        }
+        }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

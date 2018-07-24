@@ -70,6 +70,9 @@
 //14. SettingsVc
 "SwitchShopTitle" = "Switch Shop";
 "SettingTitle"= "My Settings";
+//15. SwitchShopVC
+"sameShopValidation" = "Sorry! This shop is already assined to you, Select another shop to switch";
+"shopSwitchedSucessfuly" = "Shop switched sucessfully";
 
 // -------Navigation Title-----
 "LogVcTitle" = "View Logs";

@@ -90,35 +90,35 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
     }
-    @IBAction func BtnLogoutPressed(_ sender: Any) {
-        self.showAlert(title: "", message:NSLocalizedString("confirmLogout", comment: ""), actions:[UIAlertActionStyle.cancel,UIAlertActionStyle.default], closure:{ action in
-        switch action {
-        case .default :
-            print("default")
-            
-            //Delete All Table Data
-            RealmManager().deleteAll(type: ModelInvoice.self)
-            RealmManager().deleteAll(type: ModelInventoryTransfers.self)
-            RealmManager().deleteAll(type: ModelPurchaseOrder.self)
-            RealmManager().deleteAll(type: ModelTimesStampLog.self)
-            RealmManager().deleteAll(type: ModelSignature.self)
-            RealmManager().deleteAll(type: ModelSignatureAsset.self)
-            
-            //pop to login view controller
-            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
-            UIApplication.shared.keyWindow?.rootViewController = viewController
-            
-        case .cancel :
-            print("cancel")
-            
-        case .destructive :
-            print("Destructive")
-        }
-        
-    })
-        
-    }
+//    @IBAction func BtnLogoutPressed(_ sender: Any) {
+//        self.showAlert(title: "", message:NSLocalizedString("confirmLogout", comment: ""), actions:[UIAlertActionStyle.cancel,UIAlertActionStyle.default], closure:{ action in
+//        switch action {
+//        case .default :
+//            print("default")
+//            
+//            //Delete All Table Data
+//            RealmManager().deleteAll(type: ModelInvoice.self)
+//            RealmManager().deleteAll(type: ModelInventoryTransfers.self)
+//            RealmManager().deleteAll(type: ModelPurchaseOrder.self)
+//            RealmManager().deleteAll(type: ModelTimesStampLog.self)
+//            RealmManager().deleteAll(type: ModelSignature.self)
+//            RealmManager().deleteAll(type: ModelSignatureAsset.self)
+//            
+//            //pop to login view controller
+//            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
+//            UIApplication.shared.keyWindow?.rootViewController = viewController
+//            
+//        case .cancel :
+//            print("cancel")
+//            
+//        case .destructive :
+//            print("Destructive")
+//        }
+//        
+//    })
+//        
+//    }
     
     //MARK:- Segment Value Change
     @IBAction func invoiceSegmentValueChanged(_ sender: UISegmentedControl) {

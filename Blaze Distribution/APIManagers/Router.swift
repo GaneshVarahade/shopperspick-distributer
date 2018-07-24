@@ -24,6 +24,8 @@ enum Router : URLRequestConvertible {
     case bulkGet()
     //BulkPostAPI
     case bulkPost(request: RequestPostModel)
+    //SwitchShopPostAPI
+    case SwitchShopPost(request: RequestSwitchShop)
     //Forgot Password
     case forgotPassword(request: RequestForgotPassword)
     //uploadSignatureApi
@@ -64,6 +66,8 @@ enum Router : URLRequestConvertible {
             return (Method.GET,"/api/v1/warehouse/mgmt/dataSync",nil,nil)
         case .bulkPost(let request):
             return (Method.PUT,"/api/v1/warehouse/mgmt/dataSync",encode(request),nil)
+        case .SwitchShopPost(let request):
+            return (Method.POST,"/api/v1/mgmt/session/shop",encode(request),nil)
         case.forgotPassword(let request):
             return (Method.POST,"/api/v1/mgmt/password/reset",encode(request),nil)
         case.uploadSignature(let request):

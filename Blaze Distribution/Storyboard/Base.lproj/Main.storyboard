@@ -726,13 +726,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="f4X-kF-Cuj"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Invoices" id="mzN-m6-Fm1">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="logOut" id="vz1-4z-djI">
-                            <connections>
-                                <action selector="BtnLogoutPressed:" destination="6fZ-mh-Qlc" id="DIp-xb-JsA"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Invoices" id="mzN-m6-Fm1"/>
                     <connections>
                         <outlet property="dueDateTitle" destination="1XC-kq-6Bt" id="i55-EI-8pj"/>
                         <outlet property="invoiceSegmentController" destination="yPG-Ln-bEI" id="djF-Os-Upa"/>
@@ -1173,13 +1167,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sXE-qH-y3K"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Inventory" id="Dlw-Kw-hzo">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="logOut" id="wrT-RZ-DFG">
-                            <connections>
-                                <action selector="BtnLogoutPressed:" destination="MOd-vj-yFP" id="IFd-KW-GBg"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Inventory" id="Dlw-Kw-hzo"/>
                     <connections>
                         <outlet property="createBtn" destination="XA5-tx-sGD" id="K5W-In-qN1"/>
                         <outlet property="dateLabel" destination="Ja6-cc-FuN" id="RYB-Bj-bU9"/>
@@ -1202,17 +1190,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usY-WC-LcX">
-                                <rect key="frame" x="50" y="261.5" width="220" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usY-WC-LcX">
+                                <rect key="frame" x="50" y="262" width="220" height="45"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="xhu-Nu-nKr">
                                         <variation key="heightClass=regular-widthClass=regular" constant="55"/>
                                     </constraint>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="tintColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Log Out">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="LogOut">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <variation key="heightClass=regular-widthClass=regular">
@@ -1222,15 +1211,17 @@
                                     <action selector="btnLogOutClicked:" destination="BS2-x8-Taz" eventType="touchUpInside" id="wzz-Xf-zj2"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIr-3y-r06">
-                                <rect key="frame" x="50" y="321.5" width="220" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIr-3y-r06">
+                                <rect key="frame" x="50" y="327" width="220" height="45"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="ySX-mC-gUY">
                                         <variation key="heightClass=regular-widthClass=regular" constant="55"/>
                                     </constraint>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="View logs">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -1242,7 +1233,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CU-gC-kbK">
-                                <rect key="frame" x="50" y="201.5" width="220" height="45"/>
+                                <rect key="frame" x="50" y="197" width="220" height="45"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="YmE-PO-WYS">
@@ -1250,9 +1241,8 @@
                                     </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Switch Shop">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Switch Shop"/>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 </variation>
@@ -1264,8 +1254,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="usY-WC-LcX" firstAttribute="centerY" secondItem="chw-Ed-5PM" secondAttribute="centerY" id="0cY-zj-tQw"/>
-                            <constraint firstItem="usY-WC-LcX" firstAttribute="top" secondItem="0CU-gC-kbK" secondAttribute="bottom" constant="15" id="1Y8-6B-lNN"/>
-                            <constraint firstItem="dIr-3y-r06" firstAttribute="top" secondItem="usY-WC-LcX" secondAttribute="bottom" constant="15" id="4cL-0c-Boh"/>
+                            <constraint firstItem="usY-WC-LcX" firstAttribute="top" secondItem="0CU-gC-kbK" secondAttribute="bottom" constant="20" id="1Y8-6B-lNN"/>
+                            <constraint firstItem="dIr-3y-r06" firstAttribute="top" secondItem="usY-WC-LcX" secondAttribute="bottom" constant="20" id="4cL-0c-Boh"/>
                             <constraint firstItem="dIr-3y-r06" firstAttribute="leading" secondItem="Qju-bN-U64" secondAttribute="leading" constant="50" id="Fjh-Cp-xuZ"/>
                             <constraint firstItem="Qju-bN-U64" firstAttribute="trailing" secondItem="usY-WC-LcX" secondAttribute="trailing" constant="50" id="Ka2-8V-aXy"/>
                             <constraint firstItem="Qju-bN-U64" firstAttribute="trailing" secondItem="dIr-3y-r06" secondAttribute="trailing" constant="50" id="OnD-LL-tIL"/>
@@ -1297,33 +1287,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9w-2k-kO6" customClass="UIViewX" customModule="Blaze_Distribution" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="320" height="60"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shops" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uka-PS-hNk">
-                                        <rect key="frame" x="8" y="5" width="41" height="16"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                        <color key="textColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="bK8-N3-B69">
-                                        <rect key="frame" x="50" y="35" width="262" height="17"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shop Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02B-oW-Iqg">
-                                                <rect key="frame" x="0.0" y="0.0" width="262" height="17"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
+                                <rect key="frame" x="0.0" y="64" width="320" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="bK8-N3-B69" firstAttribute="leading" secondItem="f9w-2k-kO6" secondAttribute="leading" constant="50" id="0r2-tm-4zc"/>
-                                    <constraint firstAttribute="trailing" secondItem="bK8-N3-B69" secondAttribute="trailing" constant="8" id="TIf-Zm-6wS"/>
-                                    <constraint firstAttribute="height" constant="60" id="bFk-Cc-8BS"/>
-                                    <constraint firstAttribute="bottom" secondItem="bK8-N3-B69" secondAttribute="bottom" constant="8" id="xW4-hj-XmA"/>
+                                    <constraint firstAttribute="height" id="bFk-Cc-8BS"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
@@ -1341,7 +1308,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="r2J-CZ-53l">
-                                <rect key="frame" x="0.0" y="134" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="74" width="320" height="390"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="60" id="f1B-VM-MKm" customClass="ReceiveShipmentTableViewCell" customModule="Blaze_Distribution" customModuleProvider="target">
@@ -1403,7 +1370,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9BT-Oe-F3d">
-                                <rect key="frame" x="50" y="464" width="220" height="45"/>
+                                <rect key="frame" x="0.0" y="474" width="320" height="45"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="2W4-Wm-OvY">
@@ -1415,7 +1382,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <variation key="heightClass=regular-widthClass=regular">
-                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 </variation>
                                 <connections>
                                     <action selector="btnSubmitClicked:" destination="xbN-ll-ZP5" eventType="touchUpInside" id="C8s-DN-LaU"/>
@@ -1424,15 +1391,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="82k-Ja-O3G" firstAttribute="bottom" secondItem="9BT-Oe-F3d" secondAttribute="bottom" constant="10" id="7Jx-Zh-4jg"/>
-                            <constraint firstItem="82k-Ja-O3G" firstAttribute="trailing" secondItem="9BT-Oe-F3d" secondAttribute="trailing" constant="50" id="7NT-98-th6"/>
+                            <constraint firstItem="82k-Ja-O3G" firstAttribute="bottom" secondItem="9BT-Oe-F3d" secondAttribute="bottom" id="7Jx-Zh-4jg"/>
+                            <constraint firstItem="82k-Ja-O3G" firstAttribute="trailing" secondItem="9BT-Oe-F3d" secondAttribute="trailing" id="7NT-98-th6"/>
                             <constraint firstItem="f9w-2k-kO6" firstAttribute="trailing" secondItem="82k-Ja-O3G" secondAttribute="trailing" id="FMe-25-Tqi"/>
                             <constraint firstItem="82k-Ja-O3G" firstAttribute="trailing" secondItem="r2J-CZ-53l" secondAttribute="trailing" id="QxB-Q4-JkA"/>
                             <constraint firstItem="f9w-2k-kO6" firstAttribute="leading" secondItem="82k-Ja-O3G" secondAttribute="leading" id="UdZ-f0-OLO"/>
                             <constraint firstItem="r2J-CZ-53l" firstAttribute="leading" secondItem="82k-Ja-O3G" secondAttribute="leading" id="VSj-7g-pq6"/>
                             <constraint firstItem="9BT-Oe-F3d" firstAttribute="top" secondItem="r2J-CZ-53l" secondAttribute="bottom" constant="10" id="atO-cA-ccy"/>
                             <constraint firstItem="r2J-CZ-53l" firstAttribute="top" secondItem="f9w-2k-kO6" secondAttribute="bottom" constant="10" id="b47-Wg-cQd"/>
-                            <constraint firstItem="9BT-Oe-F3d" firstAttribute="leading" secondItem="82k-Ja-O3G" secondAttribute="leading" constant="50" id="fWQ-mj-2lQ"/>
+                            <constraint firstItem="9BT-Oe-F3d" firstAttribute="leading" secondItem="82k-Ja-O3G" secondAttribute="leading" id="fWQ-mj-2lQ"/>
                             <constraint firstItem="f9w-2k-kO6" firstAttribute="top" secondItem="82k-Ja-O3G" secondAttribute="top" id="p2j-cw-V4N"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="82k-Ja-O3G"/>
@@ -1711,13 +1678,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uJs-M7-8Nc"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Purchase Order" id="xAJ-Xh-scu">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="logOut" id="4q6-OR-aGg">
-                            <connections>
-                                <action selector="BtnLogoutPressed:" destination="HQ8-bb-zzw" id="laE-Ed-GzY"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Purchase Order" id="xAJ-Xh-scu"/>
                     <connections>
                         <outlet property="lookUpBtn" destination="EpR-i9-9Jk" id="bDA-gW-rFr"/>
                         <outlet property="poSearchBar" destination="T5R-3f-N2Y" id="yPC-Bi-EuS"/>
@@ -8989,7 +8950,6 @@
         <image name="checkbox_unselected" width="18" height="18"/>
         <image name="error" width="20" height="20"/>
         <image name="indicator" width="42" height="42"/>
-        <image name="logOut" width="30" height="30"/>
         <image name="okGreen" width="22" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>

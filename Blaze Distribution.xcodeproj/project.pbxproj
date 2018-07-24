@@ -14,6 +14,8 @@
 		180C603F20FDB1BD005D781C /* UtilPrintLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C603E20FDB1BD005D781C /* UtilPrintLogs.swift */; };
 		180E7C0A2107013600943618 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180E7C092107013600943618 /* SettingsVC.swift */; };
 		180E7C0C2107014E00943618 /* SwitchShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180E7C0B2107014D00943618 /* SwitchShopVC.swift */; };
+		180E7C112107392400943618 /* RequestSwitchShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180E7C102107392400943618 /* RequestSwitchShop.swift */; };
+		180E7C1321073B2100943618 /* ResponseSwitchShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180E7C1221073B2100943618 /* ResponseSwitchShop.swift */; };
 		1812B33F20CAB31800B4DC26 /* ModelInventoryTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */; };
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
 		181C388620EDFF1D00A567B3 /* RequestPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C388520EDFF1D00A567B3 /* RequestPostModel.swift */; };
@@ -214,6 +216,8 @@
 		180C603E20FDB1BD005D781C /* UtilPrintLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilPrintLogs.swift; sourceTree = "<group>"; };
 		180E7C092107013600943618 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		180E7C0B2107014D00943618 /* SwitchShopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchShopVC.swift; sourceTree = "<group>"; };
+		180E7C102107392400943618 /* RequestSwitchShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSwitchShop.swift; sourceTree = "<group>"; };
+		180E7C1221073B2100943618 /* ResponseSwitchShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseSwitchShop.swift; sourceTree = "<group>"; };
 		1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventoryTransfers.swift; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
 		181C388520EDFF1D00A567B3 /* RequestPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPostModel.swift; sourceTree = "<group>"; };
@@ -468,6 +472,31 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		180E7C0D210738BE00943618 /* APISwitchShop */ = {
+			isa = PBXGroup;
+			children = (
+				180E7C0F210738E300943618 /* ResponseModel */,
+				180E7C0E210738D400943618 /* RequestModel */,
+			);
+			path = APISwitchShop;
+			sourceTree = "<group>";
+		};
+		180E7C0E210738D400943618 /* RequestModel */ = {
+			isa = PBXGroup;
+			children = (
+				180E7C102107392400943618 /* RequestSwitchShop.swift */,
+			);
+			path = RequestModel;
+			sourceTree = "<group>";
+		};
+		180E7C0F210738E300943618 /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				180E7C1221073B2100943618 /* ResponseSwitchShop.swift */,
+			);
+			path = ResponseModel;
+			sourceTree = "<group>";
+		};
 		181C388320EDFEEC00A567B3 /* APIPostBulkRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,6 +599,7 @@
 		189F82B320C501B70054986E /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				180E7C0D210738BE00943618 /* APISwitchShop */,
 				181F602F20F4F1A40071CA04 /* APIUploadSignature */,
 				181C388320EDFEEC00A567B3 /* APIPostBulkRequest */,
 				B9D45A0E20CA734600E4E0E8 /* APIForgotPassword */,
@@ -1609,10 +1639,12 @@
 				B9E5265420B2B93600127E43 /* CreateTransferViewController.swift in Sources */,
 				B9D45A0720CA55E200E4E0E8 /* ResponseSalesPerson.swift in Sources */,
 				18EE27B420C96178002A329B /* ResponseInvoice.swift in Sources */,
+				180E7C1321073B2100943618 /* ResponseSwitchShop.swift in Sources */,
 				182B920520C7E0860041915B /* HexGenerator.swift in Sources */,
 				B9E5265E20B2C2B100127E43 /* BasketViewController.swift in Sources */,
 				B9CAC8E320AF1155008F1650 /* UIViewX.swift in Sources */,
 				B9E5267220B2D7DF00127E43 /* Receive ShipmentViewController.swift in Sources */,
+				180E7C112107392400943618 /* RequestSwitchShop.swift in Sources */,
 				B92A65B220AF424500CDA4CC /* FixedInvoiceDetailsTableViewController.swift in Sources */,
 				B9E5266020B2C2D100127E43 /* ConfirmTransferViewController.swift in Sources */,
 				181F602E20F4CFC20071CA04 /* RequestReceiverInformation.swift in Sources */,

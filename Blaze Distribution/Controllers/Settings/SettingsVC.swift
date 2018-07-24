@@ -20,6 +20,12 @@ class SettingsVC: UIViewController {
         self.title = NSLocalizedString("SettingTitle", comment: "")
 
         // Do any additional setup after loading the view.
+        //set  icon image to buttons
+        let image = UIImage(named: "LogsImage")?.withRenderingMode(.alwaysTemplate)
+        self.btnViewLogs.setImage(image, for: .normal)
+        
+        let image1 = UIImage(named: "logOut")?.withRenderingMode(.alwaysTemplate)
+        self.btnLogout.setImage(image1, for: .normal)
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,12 +43,12 @@ class SettingsVC: UIViewController {
                 print("default")
                 
                 //Delete All Table Data
-                RealmManager().deleteAll(type: ModelInvoice.self)
-                RealmManager().deleteAll(type: ModelInventoryTransfers.self)
-                RealmManager().deleteAll(type: ModelPurchaseOrder.self)
-                RealmManager().deleteAll(type: ModelTimesStampLog.self)
-                RealmManager().deleteAll(type: ModelSignature.self)
-                RealmManager().deleteAll(type: ModelSignatureAsset.self)
+//                RealmManager().deleteAll(type: ModelInvoice.self)
+//                RealmManager().deleteAll(type: ModelInventoryTransfers.self)
+//                RealmManager().deleteAll(type: ModelPurchaseOrder.self)
+//                RealmManager().deleteAll(type: ModelTimesStampLog.self)
+//                RealmManager().deleteAll(type: ModelSignature.self)
+//                RealmManager().deleteAll(type: ModelSignatureAsset.self)
                 
                 //pop to login view controller
                 let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
