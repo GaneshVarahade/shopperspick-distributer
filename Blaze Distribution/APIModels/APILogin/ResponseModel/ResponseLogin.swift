@@ -77,6 +77,7 @@ public class ResponseShop:BaseResponseModel{
     public var companyId: String?
     public var name:String?
     public var shopType:String?
+    public var appTarget:String?
 }
 
 public class ResponseAddress:BaseResponseModel{

@@ -67,6 +67,9 @@
 //13. QuantityAndBatchViewController
 "QtValidation" = "Requested quantity is Greater than remaining quantity for Product";
 "QtValidation1" = "Requested quantity should be gretter than 0";
+//14. SettingsVc
+"SwitchShopTitle" = "Switch Shop";
+"SettingTitle"= "My Settings";
 
 // -------Navigation Title-----
 "LogVcTitle" = "View Logs";

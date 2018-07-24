@@ -125,6 +125,7 @@ public class AddressModel:ModelBase{
 public class ShopsModel:ModelBase{
     @objc public dynamic var name:String? = ""
     @objc public dynamic var shopType:String? = ""
+    @objc public dynamic var appTarget:String? = ""
     open override class func primaryKey() -> String? {
         return "id"
     }
@@ -132,6 +133,7 @@ public class ShopsModel:ModelBase{
         let shopsModel = ShopsModel()
         shopsModel.id  = self.id
         shopsModel.name = self.name
+        shopsModel.appTarget = self.appTarget
         shopsModel.shopType = self.shopType
         return shopsModel
     }

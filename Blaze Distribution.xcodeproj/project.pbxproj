@@ -12,6 +12,8 @@
 		18051EE520EA3C0A005BF274 /* LookUpProductEnterQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18051EE420EA3C09005BF274 /* LookUpProductEnterQuantity.swift */; };
 		1808A84120D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808A84020D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift */; };
 		180C603F20FDB1BD005D781C /* UtilPrintLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C603E20FDB1BD005D781C /* UtilPrintLogs.swift */; };
+		180E7C0A2107013600943618 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180E7C092107013600943618 /* SettingsVC.swift */; };
+		180E7C0C2107014E00943618 /* SwitchShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180E7C0B2107014D00943618 /* SwitchShopVC.swift */; };
 		1812B33F20CAB31800B4DC26 /* ModelInventoryTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */; };
 		1815A01C20C91C23000B0328 /* VersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815A01B20C91C23000B0328 /* VersionUtils.swift */; };
 		181C388620EDFF1D00A567B3 /* RequestPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C388520EDFF1D00A567B3 /* RequestPostModel.swift */; };
@@ -210,6 +212,8 @@
 		18051EE420EA3C09005BF274 /* LookUpProductEnterQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpProductEnterQuantity.swift; sourceTree = "<group>"; };
 		1808A84020D3745200DAD7C7 /* PurchaseOrderItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseOrderItemsViewController.swift; sourceTree = "<group>"; };
 		180C603E20FDB1BD005D781C /* UtilPrintLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilPrintLogs.swift; sourceTree = "<group>"; };
+		180E7C092107013600943618 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		180E7C0B2107014D00943618 /* SwitchShopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchShopVC.swift; sourceTree = "<group>"; };
 		1812B33E20CAB31800B4DC26 /* ModelInventoryTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventoryTransfers.swift; sourceTree = "<group>"; };
 		1815A01B20C91C23000B0328 /* VersionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUtils.swift; sourceTree = "<group>"; };
 		181C388520EDFF1D00A567B3 /* RequestPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPostModel.swift; sourceTree = "<group>"; };
@@ -453,6 +457,15 @@
 				1804748420FBBB48006E1570 /* ViewLogCell.swift */,
 			);
 			path = ViewLog;
+			sourceTree = "<group>";
+		};
+		180E7C082107010800943618 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				180E7C092107013600943618 /* SettingsVC.swift */,
+				180E7C0B2107014D00943618 /* SwitchShopVC.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		181C388320EDFEEC00A567B3 /* APIPostBulkRequest */ = {
@@ -796,6 +809,7 @@
 		B9266C6E20AED0620021356C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				180E7C082107010800943618 /* Settings */,
 				1804748120FBB4DD006E1570 /* ViewLog */,
 				B985566220B42CB800A56497 /* Splash_Screen */,
 				B985566120B42C9400A56497 /* Login */,
@@ -1240,6 +1254,9 @@
 		B9266C2C20AEC8FB0021356C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					"com.apple.gamecenter.Leaderboard Set",
+				);
 				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Fidel iOS";
@@ -1565,6 +1582,7 @@
 				B9E5265A20B2C0D000127E43 /* ScanLookUpViewController.swift in Sources */,
 				1832492D20D2B11E008A71A4 /* InvoiceItemsViewController.swift in Sources */,
 				184B43BD20F37A2B000EFC55 /* ResponceDriverInfo.swift in Sources */,
+				180E7C0A2107013600943618 /* SettingsVC.swift in Sources */,
 				B9E5269020B3063C00127E43 /* LoginViewController.swift in Sources */,
 				B9CAC8DB20AF1155008F1650 /* UITextFieldX.swift in Sources */,
 				B9266C7520AEDC940021356C /* ForgotPasswordViewController.swift in Sources */,
@@ -1649,6 +1667,7 @@
 				B9E5265C20B2C1EE00127E43 /* LookUpProductViewController.swift in Sources */,
 				B9E5265620B2BAA500127E43 /* InventoryViewController.swift in Sources */,
 				B942E45620CFA19300E474E1 /* ModelRemainingProduct.swift in Sources */,
+				180E7C0C2107014E00943618 /* SwitchShopVC.swift in Sources */,
 				B9CAC8DC20AF1155008F1650 /* UISliderX.swift in Sources */,
 				B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */,
 				B9D45A0920CA566C00E4E0E8 /* ResponseVendor.swift in Sources */,
