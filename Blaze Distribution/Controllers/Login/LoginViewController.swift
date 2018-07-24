@@ -41,6 +41,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         reqLogin.password = txtPassword.text!
         reqLogin.version  = "2.10.10"
         reqLogin.deviceId = "1F036D8E-1EE4-4C1C-B451-0EA44760344F"
+        reqLogin.appTarget = "Distribution"
         
         //print(UIDevice.current.identifierForVendor!.uuidString)
         UtilPrintLogs.DLog(message:"Login Info", objectToPrint: UIDevice.current.identifierForVendor!.uuidString)
