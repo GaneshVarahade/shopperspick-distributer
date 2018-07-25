@@ -27,6 +27,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        EventBus.sharedBus().unsubscribe(self, eventType: EventBusEventType.SYNCDATA)
         if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
             statusbar.backgroundColor = nil
         }
@@ -49,6 +50,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
            
             SKActivityIndicator.show()
             if error != nil {
+                SKActivityIndicator.dismiss()
                 self.showAlert(title: "Error", message: error?.details ?? "Error", closure:{})
                 return
             }

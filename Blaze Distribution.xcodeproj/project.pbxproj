@@ -63,6 +63,7 @@
 		184B43BD20F37A2B000EFC55 /* ResponceDriverInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B43BC20F37A2B000EFC55 /* ResponceDriverInfo.swift */; };
 		184B43BF20F37F7E000EFC55 /* ResponseArrayDriverInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B43BE20F37F7E000EFC55 /* ResponseArrayDriverInfo.swift */; };
 		186E434A20DBF34100421708 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 186E434C20DBF34100421708 /* Localizable.strings */; };
+		186F722B210892490058C06F /* UtilRealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F722A210892490058C06F /* UtilRealmData.swift */; };
 		18984BF220C94CA500381603 /* LoginResponse in Resources */ = {isa = PBXBuildFile; fileRef = 18984BF120C94CA500381603 /* LoginResponse */; };
 		189F82BC20C501B70054986E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B020C501B70054986E /* RealmManager.swift */; };
 		189F82C120C501B70054986E /* BaseResponseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82B720C501B70054986E /* BaseResponseProtocol.swift */; };
@@ -267,6 +268,7 @@
 		184B43BE20F37F7E000EFC55 /* ResponseArrayDriverInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseArrayDriverInfo.swift; sourceTree = "<group>"; };
 		1856C76199F812D749E0AA01 /* Pods-Blaze DistributionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.release.xcconfig"; sourceTree = "<group>"; };
 		186E434B20DBF34100421708 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		186F722A210892490058C06F /* UtilRealmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilRealmData.swift; sourceTree = "<group>"; };
 		18984BF120C94CA500381603 /* LoginResponse */ = {isa = PBXFileReference; lastKnownFileType = text; path = LoginResponse; sourceTree = "<group>"; };
 		189F82B020C501B70054986E /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		189F82B720C501B70054986E /* BaseResponseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponseProtocol.swift; sourceTree = "<group>"; };
@@ -813,6 +815,7 @@
 				18FE8F2A20F5D0D700E4E8FE /* DateIntConvert.swift */,
 				18FFC99A20FC76CD00BCAA6A /* UtilWriteLogs.swift */,
 				180C603E20FDB1BD005D781C /* UtilPrintLogs.swift */,
+				186F722A210892490058C06F /* UtilRealmData.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1629,6 +1632,7 @@
 				18EE27BC20C962BA002A329B /* ResponsePurchaseOrder.swift in Sources */,
 				B942E46320D00A4000E474E1 /* ResponseProduct.swift in Sources */,
 				18E66A2020F72D54003AA075 /* poError.swift in Sources */,
+				186F722B210892490058C06F /* UtilRealmData.swift in Sources */,
 				1827FC0620D11AB300DEA5E8 /* DateFormatter.swift in Sources */,
 				B9E5265820B2BB7800127E43 /* InventoryTableViewCell.swift in Sources */,
 				182B921420C8397B0041915B /* ModelPurchaseOrder.swift in Sources */,

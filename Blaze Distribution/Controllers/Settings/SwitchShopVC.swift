@@ -97,56 +97,72 @@ class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @objc func checkboxClicked(_ sender: UIButton) {
         selectedShops.removeAll()
         let index : Int = sender.tag
-        ////print(index)
         sender.isSelected = !sender.isSelected
         selectedShops.append(self.shopList[index])
         self.shopsTableView.reloadData()
-        //print(selectedShops);
     }
     
     
     //MARK: - Button Actions
     @IBAction func btnSubmitClicked(_ sender: Any) {
-        if assineShopId == selectedShops[0].id{
-           //Show toast for same shop validation
-            self.showToast(NSLocalizedString("sameShopValidation", comment: ""))
-        }else{
+        
+            guard !UtilRealmData.hasData() else {
+                showAlert(title: "Warning!", message:NSLocalizedString("hasOfflineDataError", comment: ""), closure:{})
+                return
+            }
+        
+            guard !(assineShopId == selectedShops[0].id) else {
+                showToast(NSLocalizedString("sameShopValidation", comment: ""))
+                return
+            }
+        
             //Create Switch request bulk model
             let requestModel = RequestSwitchShop()
             requestModel.shopId = selectedShops[0].id
-            //print(requestModel);
-            
+        
             SKActivityIndicator.show()
             WebServicesAPI.sharedInstance().SwitchShopPostAPI(request: requestModel) {
                 (result:ResponseSwitchShop?,error:PlatformError?) in
+                
                 if error == nil{
+                    
+                    UtilRealmData.deletAllTables()
+                    self.parseResponse(result: result)
                     SKActivityIndicator.dismiss()
-                    //Write assinedShopId
-                    if let data = result?.assignedShop{
-                        let assineShop = AssignedShopModel()
-                        assineShop.id          = data.id
-                        assineShop.name        = data.name!
-                        assineShop.emailAdress = data.emailAdress
-                        assineShop.shopType    = data.shopType
-                        assineShop.phoneNumber = data.phoneNumber
-                        
-                        self.modelLogin?.assignedShop = assineShop
-                        RealmManager().write(table: self.modelLogin!)
-                        
-                        self.modelLogin = RealmManager().readList(type: LoginModel.self).first
-                        //print(self.modelLogin ?? "--")
-                        self.setValue()
-                        self.showAlert(title: "Message", message:NSLocalizedString("shopSwitchedSucessfuly", comment: ""), closure:{})
-                    }
+                    //Download New Data
+                    SyncService.sharedInstance().syncData()
                     
                 }else{
+                    
                     SKActivityIndicator.dismiss()
                     self.showAlert(title: "Error", message: error?.message ?? "Error", closure:{})
                     return
+                    
                 }
             }
+    }
+    
+    private func parseResponse(result:ResponseSwitchShop?){
+        
+        
+        
+        //Write assinedShopId
+        if let data = result?.assignedShop{
+            let assineShop = AssignedShopModel()
+            assineShop.id          = data.id
+            assineShop.name        = data.name!
+            assineShop.emailAdress = data.emailAdress
+            assineShop.shopType    = data.shopType
+            assineShop.phoneNumber = data.phoneNumber
             
+            self.modelLogin?.assignedShop = assineShop
+            RealmManager().write(table: self.modelLogin!)
+            
+            self.modelLogin = RealmManager().readList(type: LoginModel.self).first
+            //print(self.modelLogin ?? "--")
+            self.setValue()
+            self.showAlert(title: "Message", message:NSLocalizedString("shopSwitchedSucessfuly", comment: ""), closure:{})
         }
-        }
+    }
     
 }

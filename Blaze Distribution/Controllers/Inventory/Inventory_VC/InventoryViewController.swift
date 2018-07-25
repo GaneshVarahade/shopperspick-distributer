@@ -49,39 +49,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         //Refresh data
         getData()
     }
-//    @IBAction func BtnLogoutPressed(_ sender: Any) {
-//        self.showAlert(title: "", message:NSLocalizedString("confirmLogout", comment: ""), actions:[UIAlertActionStyle.cancel,UIAlertActionStyle.default], closure:{ action in
-//            switch action {
-//            case .default :
-//                print("default")
-//                
-//                           //Delete All Table Data
-//                            RealmManager().deleteAll(type: ModelInvoice.self)
-//                            RealmManager().deleteAll(type: ModelInventoryTransfers.self)
-//                            RealmManager().deleteAll(type: ModelPurchaseOrder.self)
-//                            RealmManager().deleteAll(type: ModelTimesStampLog.self)
-//                            RealmManager().deleteAll(type: ModelSignature.self)
-//                            RealmManager().deleteAll(type: ModelSignatureAsset.self)
-//                
-//                            //pop to login view controller
-//                            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//                            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
-//                        UIApplication.shared.keyWindow?.rootViewController = viewController
-//                
-//            case .cancel :
-//                print("cancel")
-//                
-//            case .destructive :
-//                print("Destructive")
-//            }
-//            
-//        })
-//    }
-    
-    
-    
-    // MARK:- UISegmentController Valu Changed
-    
+ 
     @IBAction func segmentChanged(_ sender: Any) {
         
         if segmentControl.selectedSegmentIndex == 0 {
@@ -116,7 +84,6 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             data  = inventoryData
         }
         inventoryTableView.reloadData()
-        //print("----DataRead----- \(inventoryData.count)")
         UtilPrintLogs.DLog(message:"DataRead", objectToPrint: inventoryData.count)
     }
     
@@ -152,8 +119,6 @@ extension InventoryViewController{
             let tempi   = data[indexPath.row] as! ModelInventoryTransfers
             cell.nameLabel.text     = tempi.toInventoryName
             cell.requestLabel.text  = tempi.transferNo
-            //cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(tempi.modified)/1000,
-                                                               //format: DateFormatterUtil.mmddyyyy)
             cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime: tempi.modified, type:DateIntConvertUtil.Seconds)),format: DateFormatterUtil.mmddyyyy)
             cell.dateLabel.isHidden = false
             
