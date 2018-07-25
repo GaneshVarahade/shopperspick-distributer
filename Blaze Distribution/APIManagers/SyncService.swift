@@ -89,6 +89,11 @@ public final class SyncService {
         WebServicesAPI.sharedInstance().uploadSignature(request: requestSignature) {
             (result:ResponseAsset?, _ error:PlatformError?) in
             
+            if error != nil{
+                self.finishSync()
+                return
+            }
+            
             if result == nil {
                 self.resync()
                 return
@@ -653,6 +658,7 @@ public final class SyncService {
                                 signature.largeURL  = sigAsset.largeURL
                                 signature.publicURL = sigAsset.publicURL
                                 signature.thumbURL  = sigAsset.thumbURL
+                                signature.key       = sigAsset.key
                                 
                                 shipMen.signatureAsset = signature
                             }
