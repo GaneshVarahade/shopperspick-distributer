@@ -61,7 +61,7 @@ enum Router : URLRequestConvertible {
             
         // SESSIONS
         case .sessionLogin(let request):
-            return (Method.POST,"/api/v1/session/terminal/init",encode(request),nil)
+            return (Method.POST,"api/v1/mgmt/session",encode(request),nil)
         case .bulkGet():
             return (Method.GET,"/api/v1/warehouse/mgmt/dataSync",nil,nil)
         case .bulkPost(let request):
