@@ -46,6 +46,12 @@ class SignatureViewController: UIViewController {
             if let signImg = StoreImage.getSavedImage(name: (modelShippingMen?.shippingManifestNo!)!) {
                 signatureImgView.image = signImg
             }
+            
+            if let imageAsset : ModelSignatureAsset = modelShippingMen?.signatureAsset{
+                if let url = imageAsset.getNSURL(){
+                    self.signatureImgView.imageFromSecureURL(url, placeHolder: "loadingImage")
+                }
+            }
         }
     }
 

@@ -194,18 +194,8 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             
             //Assine Image from asset
             if let imageAsset : ModelSignatureAsset = manifestInfo.signatureAsset{
-                //imageAsset = manifestInfo.signatureAsset
-                let imageUrl =  URL(string: (imageAsset.mediumURL)!)
-                //does not make app unresponsive
-                DispatchQueue.global(qos: .userInitiated).async {
-                
-                    if let data = NSData(contentsOf: imageUrl!){
-                        // When from background thread, UI needs to be updated on main_queue
-                            DispatchQueue.main.async {
-                                let image = UIImage(data: data as Data)
-                                self.signatureImgView.image = image
-                        }
-                    }
+                if let url = imageAsset.getNSURL(){
+                    self.signatureImgView.imageFromSecureURL(url, placeHolder: "loadingImage")
                 }
             }
         }

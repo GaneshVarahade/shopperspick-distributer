@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import KSToastView
+import Kingfisher
 
 extension Bundle {
     
@@ -89,5 +90,42 @@ extension UINavigationController {
         } else {
             print("Trying to pop \(controllersToPop) view controllers but navigation controller contains only \(viewControllers.count) controllers in stack")
         }
+    }
+}
+
+public extension UIImageView {
+    public func imageFromUrl(_ urlString: String) {
+        if let url = URL(string: urlString) {
+            self.kf.setImage(with: url, placeholder: nil, options: [.transition(ImageTransition.fade(0.7))])
+        }
+    }
+    
+    public func tintImageColor(color : UIColor) {
+        self.image = self.image!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        self.tintColor = color
+    }
+    
+    public func imageFromSecureURL(_ securedURL:URL?, placeHolder:String? = nil) {
+        let modifier = AnyModifier { request in
+            var r = request
+            if let sURL = securedURL {
+                if sURL.absoluteString.contains("connect-files-public") {
+                    return r
+                }
+            }
+            if let sessionToken = UtilityUserDefaults.sharedInstance().getToken() {
+                // requestModifier will be called before image download request made.
+                let sessionData = "Token \(sessionToken)"
+                r.setValue(sessionData, forHTTPHeaderField: "Authorization")
+                
+            }
+            
+            return r
+        }
+        var placeHolderImage:UIImage?
+        if let ph = placeHolder {
+            placeHolderImage = UIImage(named: ph)
+        }
+        self.kf.setImage(with: securedURL, placeholder: placeHolderImage, options: [.requestModifier(modifier),.transition(ImageTransition.fade(0.7))])
     }
 }

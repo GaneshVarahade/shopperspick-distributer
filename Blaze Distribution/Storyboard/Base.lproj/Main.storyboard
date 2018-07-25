@@ -4378,7 +4378,7 @@
                                                         <constraint firstAttribute="width" constant="15" id="NNj-68-kdU"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6wf-fH-Sg5">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6wf-fH-Sg5">
                                                     <rect key="frame" x="64" y="0.0" width="192" height="131.5"/>
                                                 </imageView>
                                             </subviews>
@@ -4424,7 +4424,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uul-EZ-czv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9683" y="1216"/>
+            <point key="canvasLocation" x="9699" y="1171"/>
         </scene>
         <!--Add Product View Controller-->
         <scene sceneID="A6t-e5-rEo">
@@ -4677,7 +4677,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YsB-Zp-K6W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10608.75" y="711.44366197183103"/>
+            <point key="canvasLocation" x="10434" y="663"/>
         </scene>
         <!--Quantity And Batch View Controller-->
         <scene sceneID="142-BH-AyY">
@@ -4862,7 +4862,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NS6-qY-MW6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11651.25" y="712.5"/>
+            <point key="canvasLocation" x="11214" y="663"/>
         </scene>
         <!--Signature View Controller-->
         <scene sceneID="5aa-ln-lqY">
@@ -4875,7 +4875,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WBT-ai-2HP" customClass="YPDrawSignatureView" customModule="Blaze_Distribution" customModuleProvider="target">
                                 <rect key="frame" x="16" y="15" width="288" height="226"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kTI-01-UZa">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kTI-01-UZa">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="226"/>
                                     </imageView>
                                 </subviews>
@@ -4974,7 +4974,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qlx-4j-VrF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10608.75" y="1379.0492957746478"/>
+            <point key="canvasLocation" x="10539" y="1171"/>
         </scene>
         <!--Shipping Items View Controller-->
         <scene sceneID="340-sk-mVO">
@@ -5396,7 +5396,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TH0-s9-UYd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9693.75" y="714.61267605633805"/>
+            <point key="canvasLocation" x="9701" y="663"/>
         </scene>
         <!--Create Transfer View Controller-->
         <scene sceneID="4af-uP-3xX">
@@ -7457,7 +7457,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pXD-Uj-dr3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7376" y="3033"/>
+            <point key="canvasLocation" x="8229" y="2738"/>
         </scene>
         <!--Receive Shipment View Controller-->
         <scene sceneID="dL4-Jc-Le8">
@@ -8468,7 +8468,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UfT-31-XwJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11130" y="2801"/>
+            <point key="canvasLocation" x="12128" y="2773"/>
         </scene>
         <!--Invoice Payments View Controller-->
         <scene sceneID="M8E-Tz-we7">

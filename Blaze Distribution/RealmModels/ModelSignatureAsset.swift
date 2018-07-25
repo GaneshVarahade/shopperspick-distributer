@@ -16,7 +16,7 @@ public class ModelSignatureAsset:ModelBase{
     @objc public dynamic var type:String?  = ""
     @objc public dynamic var publicURL:String?  = ""
     @objc public dynamic var active:Bool = false
-    @objc public dynamic var secured:Bool = false
+    @objc public dynamic var secured:Bool = true
     @objc public dynamic var thumbURL:String? = ""
     @objc public dynamic var mediumURL:String? = ""
     @objc public dynamic var largeURL:String? = ""
@@ -43,6 +43,33 @@ public class ModelSignatureAsset:ModelBase{
     
     public override var description: String {
         return "name: \(name), largeURL: \(largeURL)"
+    }
+    
+    open func getURL() -> String! {
+        if self.secured {
+            if let k : String = key {
+                return DistributionConfig.sharedInstance().getAppUrl() + "/api/v1/pos/assets/\(k)"
+            }
+        }
+        
+        
+        if let pURL = self.thumbURL {
+            return pURL
+        }
+        if let pURL = self.publicURL {
+            return pURL
+        }
+        if let k : String = key {
+            return DistributionConfig.sharedInstance().getAppUrl() + "/api/v1/pos/assets/\(k)"
+        }
+        return nil
+    }
+    
+    open func getNSURL() -> URL! {
+        if let url : String = getURL() {
+            return URL(string: url)
+        }
+        return nil
     }
 }
 
