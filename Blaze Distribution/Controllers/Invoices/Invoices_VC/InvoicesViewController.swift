@@ -30,6 +30,8 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var invoiceTableView: UITableView!
     @IBOutlet weak var dueDateTitle: UILabel!
     @IBOutlet weak var scanInvoiceBtn: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,21 +43,35 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getData()
-        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
     }
     
+    func manageActivityIndicator(canShow:Bool){
+        if canShow{
+            self.activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+        }else{
+            self.activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
+        }
+    }
     override func viewDidDisappear(_ animated: Bool) {
-        EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
+        EventBus.sharedBus().unsubscribe(self, eventType: .FINISHSYNCDATA)
     }
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
+        self.manageActivityIndicator(canShow: false)
         getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //call method manage activity indicator
+        self.view.bringSubview(toFront: self.activityIndicator)
+        self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelInvoice.self).count == 0))
         self.title = NSLocalizedString("InvVcTitle", comment: "")
+        
     }
     
     func getData(){
@@ -237,7 +253,7 @@ extension InvoicesViewController{
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return valueDataObj?.count==0 ? 60.0 : 0.0
+        return (valueDataObj?.count==0) ? 60.0 : 0.0
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

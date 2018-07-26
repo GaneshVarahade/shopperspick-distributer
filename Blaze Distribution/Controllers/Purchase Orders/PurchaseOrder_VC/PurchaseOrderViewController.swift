@@ -12,6 +12,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var poSegmentController: UISegmentedControl!
     @IBOutlet weak var poTableView: UITableView!
     @IBOutlet weak var lookUpBtn: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //Initialize QRCodeScanner
     lazy var readerVC: QRCodeReaderViewController = {
@@ -59,17 +60,29 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
 //            
 //        })
 //    }
+    
+    func manageActivityIndicator(canShow:Bool){
+        if canShow{
+            self.activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+        }else{
+            self.activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
     }
     override func viewDidDisappear(_ animated: Bool) {
-        EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
+        EventBus.sharedBus().unsubscribe(self, eventType: .FINISHSYNCDATA)
     }
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
+         self.manageActivityIndicator(canShow: false)
         getPurchaseOrdersReceiving()
     }
     
@@ -90,6 +103,10 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //call method manage activity indicator
+        self.view.bringSubview(toFront: self.activityIndicator)
+        self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelPurchaseOrder.self).count == 0))
+        
         //if !isBackFromScanView {
             initializePurchaseOrderType()
             poTableView.reloadData()

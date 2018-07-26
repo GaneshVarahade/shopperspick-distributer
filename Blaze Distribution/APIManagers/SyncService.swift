@@ -428,6 +428,9 @@ public final class SyncService {
     }
     
     private func syncGetBulkData() {
+        //Set boll var in user default i.e synch start
+        UserDefaults.standard.set(true, forKey: "isSynchStart")
+        EventBus.sharedBus().publishMain(EventBusEventType.STARTSYNCDATA)
         
         WebServicesAPI.sharedInstance().BulkAPI(request: RequestGetBulkAPI()) { (result:ResponseBulkRequest?,error:PlatformError?) in
             if error != nil{
@@ -475,11 +478,14 @@ public final class SyncService {
     }
     
     private func finishSync(){
+        //Remove object from default synch finish
+        UserDefaults.standard.removeObject(forKey: "isSynchStart")
+        
         //Write Log Finish Sync
         UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.LastSync.rawValue , objectId:nil, lastSynch:UtilWriteLogs.curruntDate)
         
         SKActivityIndicator.dismiss()
-        EventBus.sharedBus().publishMain(EventBusEventType.SYNCDATA)
+        EventBus.sharedBus().publishMain(EventBusEventType.FINISHSYNCDATA)
         isUpdating = false
     }
     

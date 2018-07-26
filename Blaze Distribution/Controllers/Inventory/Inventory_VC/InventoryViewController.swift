@@ -17,7 +17,8 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var createBtn: UIButton!
     @IBOutlet weak var inventoryTableView: UITableView!
-   
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var data : [Any]                     = []
     var inventoryData : [ModelInventoryTransfers] = []
     var productData : [ModelProduct]     = []
@@ -27,8 +28,23 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
     }
+    
+    func manageActivityIndicator(canShow:Bool){
+        if canShow{
+            self.activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+        }else{
+            self.activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.title = NSLocalizedString("InvetryTitle", comment: "")
+        //call method manage activity indicator
+        self.view.bringSubview(toFront: self.activityIndicator)
+        self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelInventoryTransfers.self).count == 0))
+        
         getData()
     }
     
@@ -39,14 +55,15 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getData()
-        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
     }
     override func viewDidDisappear(_ animated: Bool) {
-        EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
+        EventBus.sharedBus().unsubscribe(self, eventType: .FINISHSYNCDATA)
     }
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
+        self.manageActivityIndicator(canShow: false)
         getData()
     }
  

@@ -14,6 +14,7 @@ import SKActivityIndicatorView
 class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var shopsTableView: UITableView!
+    @IBOutlet weak var lblMessage: UILabel!
     
     var modelLogin: LoginModel?
     var shopList = [ShopsModel]()
@@ -29,6 +30,43 @@ class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         self.title = NSLocalizedString("SwitchShopTitle", comment: "")
         setValue()
        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
+        EventBus.sharedBus().subscribe(self, selector: #selector(startSynchData(_ :)), eventType: .STARTSYNCDATA)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        EventBus.sharedBus().unsubscribe(self, eventType: .FINISHSYNCDATA)
+        EventBus.sharedBus().unsubscribe(self, eventType: .STARTSYNCDATA)
+    }
+    
+    @objc func startSynchData(_ notification: Notification){
+        self.manageSubmitButton(canAllow: !UserDefaults.standard.bool(forKey: "isSynchStart"))
+    }
+    
+    @objc func syncFinished(_ notification: Notification){
+        //Synch finished
+        self.manageSubmitButton(canAllow: true)
+    }
+    
+    func manageSubmitButton(canAllow:Bool){
+        if canAllow{
+            btnSubmit.isUserInteractionEnabled = true
+            btnSubmit.alpha = 1.0
+            lblMessage.isHidden = true
+            
+        }else{
+            btnSubmit.isUserInteractionEnabled = false
+            btnSubmit.alpha = 0.4
+            lblMessage.isHidden = false
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.manageSubmitButton(canAllow:!UserDefaults.standard.bool(forKey: "isSynchStart"))
     }
     
     func setValue(){
@@ -130,6 +168,7 @@ class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     self.parseResponse(result: result)
                     SKActivityIndicator.dismiss()
                     //Download New Data
+                    self.manageSubmitButton(canAllow:false)
                     SyncService.sharedInstance().syncData()
                     
                 }else{
@@ -143,8 +182,6 @@ class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     }
     
     private func parseResponse(result:ResponseSwitchShop?){
-        
-        
         
         //Write assinedShopId
         if let data = result?.assignedShop{

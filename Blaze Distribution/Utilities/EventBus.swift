@@ -1,7 +1,8 @@
 import Foundation
 
 public enum EventBusEventType : String {
-    case SYNCDATA = "SYNCDATA"
+    case FINISHSYNCDATA = "FINISHSYNCDATA"
+    case STARTSYNCDATA = "STARTSYNCDATA"
     case SENDATA_PURCHASEORDER = "SENDATA_PURCHASEORDER"
    
 }

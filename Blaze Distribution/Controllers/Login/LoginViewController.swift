@@ -27,7 +27,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        EventBus.sharedBus().unsubscribe(self, eventType: EventBusEventType.SYNCDATA)
+        EventBus.sharedBus().unsubscribe(self, eventType: EventBusEventType.FINISHSYNCDATA)
         if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
             statusbar.backgroundColor = nil
         }
@@ -58,7 +58,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             UtilityUserDefaults.sharedInstance().saveToken(strToken: (result?.accessToken)!)
            
             SyncService.sharedInstance().syncData()
-            EventBus.sharedBus().subscribe(self, selector: #selector(self.goHome), eventType: EventBusEventType.SYNCDATA)
+            EventBus.sharedBus().subscribe(self, selector: #selector(self.goHome), eventType: EventBusEventType.FINISHSYNCDATA)
           
         })
     }
