@@ -201,6 +201,9 @@ class WebServicesAPI: NSObject {
     }
     private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){
  
+        guard UtilPrintLogs.canPrintResponseLog else {
+            return
+        }
         var str: String = ""
         str.append("\n\n\n\n")
         str.append("=================================================================")
