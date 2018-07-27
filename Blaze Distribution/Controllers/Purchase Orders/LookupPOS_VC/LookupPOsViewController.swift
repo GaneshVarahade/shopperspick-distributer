@@ -17,13 +17,9 @@ class LookupPOsViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        
         self.title = NSLocalizedString("LookUpPoTitle", comment: "")
-        
         tempDataList = [["po_no":"123456","metric":"YES"],["po_no":"123456","metric":"NO"]]
-        
         //topView.dropShadow()
         setSearchBarUI()
     }
@@ -64,12 +60,9 @@ class LookupPOsViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PurchaseOrderDetailsTableViewController") as! PurchaseOrderDetailsTableViewController
-        
-         
         self.navigationController?.pushViewController(obj, animated: true)
     }
-    
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if deviceIdiom == .pad {
             return 60

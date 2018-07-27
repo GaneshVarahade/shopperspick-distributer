@@ -15,35 +15,34 @@ class SettingsVC: UIViewController {
     @IBOutlet weak var btnViewLogs: UIButton!
     @IBOutlet weak var btnLogout: UIButton!
     @IBOutlet weak var btnSwitchShop: UIButton!
+    @IBOutlet weak var btnViewLogsClicked: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = NSLocalizedString("SettingTitle", comment: "")
-
+        
         // Do any additional setup after loading the view.
-        //set  icon image to buttons
+        //Set  icon image to buttons
         let image = UIImage(named: "LogsImage")?.withRenderingMode(.alwaysTemplate)
         self.btnViewLogs.setImage(image, for: .normal)
         
         let image1 = UIImage(named: "logOut")?.withRenderingMode(.alwaysTemplate)
         self.btnLogout.setImage(image1, for: .normal)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: - 
+    //MARK: - Button Actions
     
+    // Logout,delete all user data and navigate user to login VC
     @IBAction func btnLogOutClicked(_ sender: Any) {
-        
         self.showAlert(title: "", message:NSLocalizedString("confirmLogout", comment: ""), actions:[UIAlertActionStyle.cancel,UIAlertActionStyle.default], closure:{ action in
             switch action {
             case .default :
                 print("default")
-                
                 UtilRealmData.deletAllTables()
-                
                 //pop to login view controller
                 let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let viewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
@@ -58,7 +57,6 @@ class SettingsVC: UIViewController {
             
         })
     }
-    @IBOutlet weak var btnViewLogsClicked: UIButton!
     
 
     /*

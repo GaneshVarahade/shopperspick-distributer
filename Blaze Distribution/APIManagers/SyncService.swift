@@ -18,7 +18,7 @@ public final class SyncService {
     
     private var isUpdating:Bool = false
     
-    
+    //POST,GET Data related operations
     public func syncData() {
         
             /// If Data is already syncing, then return from here
@@ -49,10 +49,12 @@ public final class SyncService {
     
     }
     
+    //Check whether signature is available to post
     private func isSignatureAvailable() -> Bool {
         return getModelSignature().count > 0
     }
     
+    //Check whether Bulk ia avaialble to post
     private func isPostBulkAvailable() -> Bool {
         
         let realmManager = RealmManager()
@@ -72,6 +74,7 @@ public final class SyncService {
        return RealmManager().readPredicate(type: ModelSignature.self, predicate: "updated = true")
     }
     
+    //Upload signature and write "Signature Asset response" in to mainfest in invoice
     private func syncSignature() {
         //Get image one by one from ModelSignature
         let arrayModelSignature = getModelSignature()
@@ -134,6 +137,7 @@ public final class SyncService {
 
     }
  
+    //Post Bulk data saved offline , Only updated = "true"
     private func syncPostBulkData(){
  
             ///After API complete call resync, so syncdata can run recursively
@@ -396,29 +400,6 @@ public final class SyncService {
                          realmManager.write(modelPurchaseOrders2)
                     }
                     
-
-//                    print("======================")
-//
-//                    let realmManager = RealmManager()
-//
-//                    let modelPurchaseOrders2 = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true")
-//                    let modelInventryTransfer2 = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true")
-//                    let modelInvoice2 = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true")
-//
-//                    for model in modelPurchaseOrders2 {
-//                        model.updated = false
-//                    }
-//                    for model in modelInventryTransfer2 {
-//                        model.updated = false
-//                    }
-//                    for model in modelInvoice2 {
-//                        model.updated = false
-//                    }
-//
-//                    realmManager.write(modelPurchaseOrders2)
-//                    realmManager.write(modelInventryTransfer2)
-//                    realmManager.write(modelInvoice2)
-
                     DispatchQueue.main.async {
                         self.resync()
                         return
@@ -427,6 +408,7 @@ public final class SyncService {
             }
     }
     
+    //Get bulk data and write realm models
     private func syncGetBulkData() {
         //Set boll var in user default i.e synch start
         UserDefaults.standard.set(true, forKey: "isSynchStart")
@@ -760,7 +742,6 @@ public final class SyncService {
         }
     }
     fileprivate func saveInventory(jsonData:[ResponseInventories]){
-        
         let shops:[ShopsModel] = RealmManager().readList(type: ShopsModel.self)
         for inventories in jsonData{
            let model = ModelInventories()
