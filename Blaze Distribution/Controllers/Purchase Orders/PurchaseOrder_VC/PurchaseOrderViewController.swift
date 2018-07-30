@@ -327,7 +327,7 @@ extension PurchaseOrderViewController {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return arrayModelPurchaseOrders.count==0 ? 60.0 : 0.0
+        return (arrayModelPurchaseOrders.count==0 && !UserDefaults.standard.bool(forKey: "isSynchStart")) ? 60.0 : 0.0
     }
     
     @objc func btnPoClicked(_ sender :UIButton){

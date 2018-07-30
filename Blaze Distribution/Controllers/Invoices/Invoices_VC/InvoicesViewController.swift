@@ -253,7 +253,7 @@ extension InvoicesViewController{
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return (valueDataObj?.count==0) ? 60.0 : 0.0
+        return (valueDataObj?.count==0 && !UserDefaults.standard.bool(forKey: "isSynchStart")) ? 60.0 : 0.0
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -280,6 +280,11 @@ extension InvoicesViewController{
                 
             case .destructive:
                 print("destructive")
+                
+                
+                
+                
+                
                 
             }}))
         self.present(alert, animated: true, completion: nil)
