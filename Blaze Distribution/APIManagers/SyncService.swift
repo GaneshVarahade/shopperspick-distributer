@@ -739,6 +739,13 @@ public final class SyncService {
         if let products = jsonData{
             for prod in products{
                 if let tempQuantity = prod.quantities{
+                    //Calcualte total quty.
+                    var totoalQt:Int = 0
+                    for qut in tempQuantity{
+                        totoalQt += Int(qut.quantity ?? 0)
+                    }
+                   
+                    //Write product
                     for qut in tempQuantity{
                         let temp  = ModelProduct()
                         temp.id = HexGenerator.sharedInstance().generate()
@@ -748,6 +755,7 @@ public final class SyncService {
                         temp.shopId = qut.shopId
                         temp.inventoryId = qut.inventoryId
                         temp.quantity = qut.quantity ?? 0
+                        temp.totalQuantity = Double(totoalQt)
                         RealmManager().write(table: temp)
                     }
                     

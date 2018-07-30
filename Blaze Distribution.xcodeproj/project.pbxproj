@@ -113,6 +113,8 @@
 		B92A65B020AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65AF20AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift */; };
 		B92A65B220AF424500CDA4CC /* FixedInvoiceDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65B120AF424400CDA4CC /* FixedInvoiceDetailsTableViewController.swift */; };
 		B92A65B620AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A65B520AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift */; };
+		B92D54F9210F321500CD6090 /* ProductDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92D54F8210F321500CD6090 /* ProductDetailsVC.swift */; };
+		B92D54FB210F323F00CD6090 /* ProductDetailsCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92D54FA210F323F00CD6090 /* ProductDetailsCellVC.swift */; };
 		B939C5C620D12FAC00552DEF /* ResponseInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939C5C520D12FAC00552DEF /* ResponseInventory.swift */; };
 		B939C5C820D1330A00552DEF /* ResponseInventories.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939C5C720D1330A00552DEF /* ResponseInventories.swift */; };
 		B942801820CE5DF500F2FA0F /* RequestGetBulkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942801720CE5DF500F2FA0F /* RequestGetBulkAPI.swift */; };
@@ -332,6 +334,8 @@
 		B92A65AF20AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceDetailsTableViewController.swift; sourceTree = "<group>"; };
 		B92A65B120AF424400CDA4CC /* FixedInvoiceDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedInvoiceDetailsTableViewController.swift; sourceTree = "<group>"; };
 		B92A65B520AF461F00CDA4CC /* InvoiceItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceItemsTableViewCell.swift; sourceTree = "<group>"; };
+		B92D54F8210F321500CD6090 /* ProductDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsVC.swift; sourceTree = "<group>"; };
+		B92D54FA210F323F00CD6090 /* ProductDetailsCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsCellVC.swift; sourceTree = "<group>"; };
 		B939C5C520D12FAC00552DEF /* ResponseInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInventory.swift; sourceTree = "<group>"; };
 		B939C5C720D1330A00552DEF /* ResponseInventories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseInventories.swift; sourceTree = "<group>"; };
 		B942801720CE5DF500F2FA0F /* RequestGetBulkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestGetBulkAPI.swift; sourceTree = "<group>"; };
@@ -895,6 +899,15 @@
 			path = ResponseModel;
 			sourceTree = "<group>";
 		};
+		B92D54F7210F31DB00CD6090 /* ProductDetails */ = {
+			isa = PBXGroup;
+			children = (
+				B92D54F8210F321500CD6090 /* ProductDetailsVC.swift */,
+				B92D54FA210F323F00CD6090 /* ProductDetailsCellVC.swift */,
+			);
+			path = ProductDetails;
+			sourceTree = "<group>";
+		};
 		B942801620CE5CBD00F2FA0F /* RequestModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1162,6 +1175,7 @@
 		B9E5268A20B2FEF900127E43 /* Inventory */ = {
 			isa = PBXGroup;
 			children = (
+				B92D54F7210F31DB00CD6090 /* ProductDetails */,
 				B985565B20B42AE700A56497 /* ConfermTransfer_VC */,
 				B985565A20B42AC600A56497 /* Basket_VC */,
 				B985565920B42A9400A56497 /* LookupProduct_VC */,
@@ -1583,6 +1597,7 @@
 				18F3F61720E52977002B37C3 /* PurchaseOrderAddShipment_VC.swift in Sources */,
 				189F82CE20C5054E0054986E /* Router.swift in Sources */,
 				182B921020C839290041915B /* ModelLocation.swift in Sources */,
+				B92D54F9210F321500CD6090 /* ProductDetailsVC.swift in Sources */,
 				189F82DB20C50C090054986E /* BaseRequest.swift in Sources */,
 				182427AE20EE57B7009BBF08 /* RequestModelInvoicePaymentInfo.swift in Sources */,
 				B9AA85E220C925B800751BF2 /* LoginModel.swift in Sources */,
@@ -1673,6 +1688,7 @@
 				1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */,
 				189F82C220C501B70054986E /* ModelBase.swift in Sources */,
 				18FFC99920FC72A400BCAA6A /* ModelTimesStampLog.swift in Sources */,
+				B92D54FB210F323F00CD6090 /* ProductDetailsCellVC.swift in Sources */,
 				182B921A20C83A140041915B /* ModelPaymentInfo.swift in Sources */,
 				182F83AB20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift in Sources */,
 				B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */,

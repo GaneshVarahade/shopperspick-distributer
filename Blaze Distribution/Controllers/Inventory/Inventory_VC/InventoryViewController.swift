@@ -128,7 +128,7 @@ extension InventoryViewController{
             
             let temp                = data[indexPath.row] as! ModelProduct
             cell.nameLabel.text     = temp.name
-            cell.requestLabel.text  = String(format: "%.1f", temp.quantity)
+            cell.requestLabel.text  = String(format: "%.1f", temp.totalQuantity)
             cell.dateLabel.isHidden = true
             cell.btnErrorInvetry.isHidden = true
             
@@ -195,6 +195,15 @@ extension InventoryViewController{
                 
             }}))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        if productFlag{
+          let objProdDetails = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVCSegue") as! ProductDetailsVC
+            objProdDetails.selectedProd = data[indexPath.row] as! ModelProduct
+            self.navigationController?.pushViewController(objProdDetails, animated: true)
+        }
+       
     }
     
 }

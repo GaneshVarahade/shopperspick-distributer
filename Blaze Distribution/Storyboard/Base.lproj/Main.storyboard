@@ -6663,6 +6663,133 @@
             </objects>
             <point key="canvasLocation" x="10080" y="1773.5915492957747"/>
         </scene>
+        <!--Product DetailsVC-->
+        <scene sceneID="bvp-Xk-YIF">
+            <objects>
+                <viewController storyboardIdentifier="ProductDetailsVCSegue" id="9HS-6r-wQ2" customClass="ProductDetailsVC" customModule="Blaze_Distribution" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bYM-Fd-OTY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Um3-b6-msf">
+                                <rect key="frame" x="0.0" y="74" width="320" height="484"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="99" id="4La-HF-Hiw" customClass="ProductDetailsCellVC" customModule="Blaze_Distribution" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="99"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4La-HF-Hiw" id="lfY-HK-DAd">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Y1-Qf-aXu">
+                                                    <rect key="frame" x="225" y="10" width="80" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="CeR-qj-cvS"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Shop Id :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Duo-YZ-qGM">
+                                                    <rect key="frame" x="15" y="10" width="200" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Inventry Id :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xh-mz-Ifs">
+                                                    <rect key="frame" x="15" y="54" width="200" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shop Id :" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqG-ZL-G9P">
+                                                    <rect key="frame" x="15" y="26" width="200" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="119-UW-hKu"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shop Id :" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmI-k6-MgN">
+                                                    <rect key="frame" x="225" y="26" width="80" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8X-mB-TOa">
+                                                    <rect key="frame" x="0.0" y="98" width="320" height="1"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="lXi-qK-eL5"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Shop Id :" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPw-kK-2vf">
+                                                    <rect key="frame" x="15" y="70" width="200" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="rKL-Hp-qeA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="CPw-kK-2vf" firstAttribute="leading" secondItem="lfY-HK-DAd" secondAttribute="leading" constant="15" id="2nq-5A-MO0"/>
+                                                <constraint firstItem="a8X-mB-TOa" firstAttribute="top" secondItem="CPw-kK-2vf" secondAttribute="bottom" constant="10" id="4Nf-Wj-7Ww"/>
+                                                <constraint firstItem="5Y1-Qf-aXu" firstAttribute="leading" secondItem="Duo-YZ-qGM" secondAttribute="trailing" constant="10" id="5aa-yh-nxR"/>
+                                                <constraint firstItem="1Xh-mz-Ifs" firstAttribute="top" secondItem="VqG-ZL-G9P" secondAttribute="bottom" constant="10" id="6ss-gw-qRx"/>
+                                                <constraint firstItem="CPw-kK-2vf" firstAttribute="width" secondItem="VqG-ZL-G9P" secondAttribute="width" id="7iP-N0-PQi"/>
+                                                <constraint firstAttribute="trailing" secondItem="5Y1-Qf-aXu" secondAttribute="trailing" constant="15" id="82J-iz-9EC"/>
+                                                <constraint firstAttribute="trailing" secondItem="a8X-mB-TOa" secondAttribute="trailing" id="8A3-0T-hka"/>
+                                                <constraint firstItem="PmI-k6-MgN" firstAttribute="width" secondItem="5Y1-Qf-aXu" secondAttribute="width" id="9Lk-a6-49c"/>
+                                                <constraint firstItem="Duo-YZ-qGM" firstAttribute="top" secondItem="lfY-HK-DAd" secondAttribute="top" constant="10" id="A4p-Qm-6k0"/>
+                                                <constraint firstItem="Duo-YZ-qGM" firstAttribute="leading" secondItem="lfY-HK-DAd" secondAttribute="leading" constant="15" id="DOu-cZ-dh9"/>
+                                                <constraint firstItem="CPw-kK-2vf" firstAttribute="top" secondItem="1Xh-mz-Ifs" secondAttribute="bottom" id="LrS-LN-e90"/>
+                                                <constraint firstItem="5Y1-Qf-aXu" firstAttribute="top" secondItem="lfY-HK-DAd" secondAttribute="top" constant="10" id="Niq-Od-7ob"/>
+                                                <constraint firstItem="a8X-mB-TOa" firstAttribute="leading" secondItem="lfY-HK-DAd" secondAttribute="leading" id="Tkb-AN-uCm"/>
+                                                <constraint firstItem="VqG-ZL-G9P" firstAttribute="top" secondItem="Duo-YZ-qGM" secondAttribute="bottom" id="cLx-lB-Kld"/>
+                                                <constraint firstAttribute="bottom" secondItem="a8X-mB-TOa" secondAttribute="bottom" id="ieI-W8-nep"/>
+                                                <constraint firstItem="1Xh-mz-Ifs" firstAttribute="leading" secondItem="lfY-HK-DAd" secondAttribute="leading" constant="15" id="mAh-hV-Sj4"/>
+                                                <constraint firstItem="PmI-k6-MgN" firstAttribute="leading" secondItem="VqG-ZL-G9P" secondAttribute="trailing" constant="10" id="pX6-Rd-N9M"/>
+                                                <constraint firstItem="1Xh-mz-Ifs" firstAttribute="width" secondItem="Duo-YZ-qGM" secondAttribute="width" id="qpk-85-4kI"/>
+                                                <constraint firstItem="VqG-ZL-G9P" firstAttribute="leading" secondItem="lfY-HK-DAd" secondAttribute="leading" constant="15" id="rfU-gM-qAg"/>
+                                                <constraint firstItem="PmI-k6-MgN" firstAttribute="top" secondItem="5Y1-Qf-aXu" secondAttribute="bottom" id="uby-Hq-mCD"/>
+                                                <constraint firstAttribute="trailing" secondItem="PmI-k6-MgN" secondAttribute="trailing" constant="15" id="vUs-Iw-sUW"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblInvetryId" destination="CPw-kK-2vf" id="x38-Yx-czu"/>
+                                            <outlet property="lblProductQty" destination="PmI-k6-MgN" id="nRR-KW-ChD"/>
+                                            <outlet property="lblShopId" destination="VqG-ZL-G9P" id="Et3-Xs-JfY"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9HS-6r-wQ2" id="bRw-bH-usc"/>
+                                    <outlet property="delegate" destination="9HS-6r-wQ2" id="saj-pI-VRq"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3eV-Xs-ftM" firstAttribute="trailing" secondItem="Um3-b6-msf" secondAttribute="trailing" id="NYI-4R-Tm9"/>
+                            <constraint firstItem="Um3-b6-msf" firstAttribute="leading" secondItem="3eV-Xs-ftM" secondAttribute="leading" id="PA4-4k-8Lz"/>
+                            <constraint firstItem="3eV-Xs-ftM" firstAttribute="bottom" secondItem="Um3-b6-msf" secondAttribute="bottom" constant="10" id="efd-ru-QV6"/>
+                            <constraint firstItem="Um3-b6-msf" firstAttribute="top" secondItem="3eV-Xs-ftM" secondAttribute="top" constant="10" id="reX-Eo-XDX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3eV-Xs-ftM"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="prodDetailsTable" destination="Um3-b6-msf" id="nNd-ss-Amr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m64-R7-auP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="10755" y="1774.6478873239437"/>
+        </scene>
         <!--LookupP Os View Controller-->
         <scene sceneID="VQs-kp-Flz">
             <objects>

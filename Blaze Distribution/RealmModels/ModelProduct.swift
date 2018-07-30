@@ -29,6 +29,7 @@ public class ModelProduct:ModelBase{
     @objc public dynamic var name:String? = ""
     @objc public dynamic var companyLinkId:String? = ""
     @objc public  dynamic var quantity:Double = 0.0
+    @objc public  dynamic var totalQuantity:Double = 0.0
     @objc public dynamic var compositeKey: String = ""
     open override class func primaryKey() -> String? {
         return "compositeKey"
@@ -45,6 +46,7 @@ public class ModelProduct:ModelBase{
         modelProduct.productId   = self.productId
         modelProduct.companyLinkId = self.companyLinkId
         modelProduct.inventoryId   = self.inventoryId
+        modelProduct.totalQuantity = self.totalQuantity
         return modelProduct
         
     }
