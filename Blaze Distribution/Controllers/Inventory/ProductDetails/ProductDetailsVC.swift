@@ -17,6 +17,7 @@ class ProductDetailsVC: UIViewController,UITableViewDataSource{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = NSLocalizedString("prodDetailsTitle", comment: "")
         self.prodDetailsTable.estimatedRowHeight = 60.0
         //Get products by product id
         if let Productid = selectedProd.productId{
@@ -51,9 +52,14 @@ extension ProductDetailsVC{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProductDetailsCellVC
         //Get shops name by shops id
-        //let shopsModel = RealmManager().readPredicate(type: ShopsModel.self, predicate:"id = ")
+//        let shopsModel = RealmManager().readPredicate(type: ShopsModel.self, predicate:"id = '\(productList[indexPath.row].shopId ?? "")'")
+//        let invetryModel = RealmManager().readPredicate(type: ModelInventory.self, predicate: "id = '\(productList[indexPath.row].inventoryId ?? "")'")
+//        cell.lblShopId.text = shopsModel[0].name ?? productList[indexPath.row].shopId
+//        cell.lblInvetryId.text = invetryModel[0].name ?? productList[indexPath.row].inventoryId
+        
         cell.lblShopId.text = productList[indexPath.row].shopId
         cell.lblInvetryId.text = productList[indexPath.row].inventoryId
+        
         cell.lblProductQty.text = String(format:"%.1f",productList[indexPath.row].quantity)
         return cell
     }

@@ -74,6 +74,8 @@
 "sameShopValidation" = "Sorry! This shop is already assined to you, Select another shop to switch";
 "shopSwitchedSucessfuly" = "Shop switched sucessfully";
 "hasOfflineDataError" = "You have offline data, which is not synced yet. Please sync data before try switching shop";
+//16. ProductDetailsVC
+"prodDetailsTitle" = "Product Details";
 
 // -------Navigation Title-----
 "LogVcTitle" = "View Logs";
