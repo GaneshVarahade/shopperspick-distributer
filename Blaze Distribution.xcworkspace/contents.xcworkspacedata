@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Blaze Distribution.xcodeproj">
+      location = "group:/Users/mdo/dev/420/blaze-distribution-ios/BLAZE Distribution.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
