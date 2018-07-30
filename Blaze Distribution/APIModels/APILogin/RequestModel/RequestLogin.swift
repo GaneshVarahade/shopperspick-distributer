@@ -14,5 +14,6 @@ public class RequestLogin: BaseRequest {
     public var password:String!
     public var deviceId:String!
     public var version:String!
+    public var appTarget:String!
     
 }

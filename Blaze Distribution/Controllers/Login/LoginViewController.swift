@@ -27,6 +27,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        EventBus.sharedBus().unsubscribe(self, eventType: EventBusEventType.FINISHSYNCDATA)
         if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
             statusbar.backgroundColor = nil
         }
@@ -41,6 +42,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         reqLogin.password = txtPassword.text!
         reqLogin.version  = "2.10.10"
         reqLogin.deviceId = "1F036D8E-1EE4-4C1C-B451-0EA44760344F"
+        reqLogin.appTarget = "Distribution"
         
         //print(UIDevice.current.identifierForVendor!.uuidString)
         UtilPrintLogs.DLog(message:"Login Info", objectToPrint: UIDevice.current.identifierForVendor!.uuidString)
@@ -48,6 +50,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
            
             SKActivityIndicator.show()
             if error != nil {
+                SKActivityIndicator.dismiss()
                 self.showAlert(title: "Error", message: error?.details ?? "Error", closure:{})
                 return
             }
@@ -55,7 +58,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             UtilityUserDefaults.sharedInstance().saveToken(strToken: (result?.accessToken)!)
            
             SyncService.sharedInstance().syncData()
-            EventBus.sharedBus().subscribe(self, selector: #selector(self.goHome), eventType: EventBusEventType.SYNCDATA)
+            EventBus.sharedBus().subscribe(self, selector: #selector(self.goHome), eventType: EventBusEventType.FINISHSYNCDATA)
           
         })
     }
@@ -139,6 +142,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 let temp = ShopsModel()
                     temp.id = shop.id
                     temp.name = shop.name
+                    temp.appTarget = shop.appTarget
                     temp.shopType = shop.shopType
                     modelLogin.shops.append(temp)
                 }

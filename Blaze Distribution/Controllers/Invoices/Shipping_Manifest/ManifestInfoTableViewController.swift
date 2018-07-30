@@ -191,20 +191,13 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             driverColorTextField.text = manifestInfo.vehicleColor ?? "Not available"
             driverLicencePlateTextField.text = manifestInfo.driverLicenPlate ?? "Not available"
             
+            
             //Assine Image from asset
-//            if let imageAsset : ModelSignatureAsset = manifestInfo.signatureAsset{
-//                //imageAsset = manifestInfo.signatureAsset
-//                let imageUrl =  URL(string: (imageAsset.mediumURL)!)
-//                //does not make app unresponsive
-//                DispatchQueue.global(qos: .userInitiated).async {
-//                    let imageData:NSData = NSData(contentsOf: imageUrl!)!
-//                    // When from background thread, UI needs to be updated on main_queue
-//                    DispatchQueue.main.async {
-//                        let image = UIImage(data: imageData as Data)
-//                        self.signatureImgView.image = image
-//                    }
-//                }
-//            }
+            if let imageAsset : ModelSignatureAsset = manifestInfo.signatureAsset{
+                if let url = imageAsset.getNSURL(){
+                    self.signatureImgView.imageFromSecureURL(url, placeHolder: "loadingImage")
+                }
+            }
         }
         
     }

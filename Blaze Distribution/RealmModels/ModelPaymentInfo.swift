@@ -22,7 +22,7 @@ public class ModelPaymentInfo:ModelBase{
     @objc public dynamic var paymentDate:Int        =   0
     @objc public dynamic var referenceNumber:String = ""
     @objc public dynamic var amount:Double          = 0.0
-    @objc public dynamic var notes:String          = ""
+    @objc public dynamic var notes:String?          = ""
     
     open override class func primaryKey() -> String? {
         return "id"

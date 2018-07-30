@@ -116,5 +116,4 @@ public class RealmManager <T: ModelBase>{
     private func getRealm() -> Realm {
         return RealmSingleton.sharedInstance().getRealm()
     }
-     
 }

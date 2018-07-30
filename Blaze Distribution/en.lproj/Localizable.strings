@@ -64,6 +64,19 @@
 "ForgotPass_InvalidEmail" = "Please enter valid email id";
 "ForgotPass_EmailEmpty" = "Email id should not be empty";
 
+//13. QuantityAndBatchViewController
+"QtValidation" = "Requested quantity is Greater than remaining quantity for Product";
+"QtValidation1" = "Requested quantity should be gretter than 0";
+//14. SettingsVc
+"SwitchShopTitle" = "Switch Shop";
+"SettingTitle"= "My Settings";
+//15. SwitchShopVC
+"sameShopValidation" = "Sorry! This shop is already assined to you, Select another shop to switch";
+"shopSwitchedSucessfuly" = "Shop switched sucessfully";
+"hasOfflineDataError" = "You have offline data, which is not synced yet. Please sync data before try switching shop";
+//16. ProductDetailsVC
+"prodDetailsTitle" = "Product Details";
+
 // -------Navigation Title-----
 "LogVcTitle" = "View Logs";
 "AddProdVcTitle" = "Add Product";

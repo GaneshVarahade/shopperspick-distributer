@@ -12,6 +12,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var poSegmentController: UISegmentedControl!
     @IBOutlet weak var poTableView: UITableView!
     @IBOutlet weak var lookUpBtn: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //Initialize QRCodeScanner
     lazy var readerVC: QRCodeReaderViewController = {
@@ -31,45 +32,57 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
         setSearchBarUI()
     }
 
-    @IBAction func BtnLogoutPressed(_ sender: Any) {
-        self.showAlert(title: "", message:NSLocalizedString("confirmLogout", comment: ""), actions:[UIAlertActionStyle.cancel,UIAlertActionStyle.default], closure:{ action in
-            switch action {
-            case .default :
-                print("default")
-                
-                //Delete All Table Data
-                RealmManager().deleteAll(type: ModelInvoice.self)
-                RealmManager().deleteAll(type: ModelInventoryTransfers.self)
-                RealmManager().deleteAll(type: ModelPurchaseOrder.self)
-                RealmManager().deleteAll(type: ModelTimesStampLog.self)
-                RealmManager().deleteAll(type: ModelSignature.self)
-                RealmManager().deleteAll(type: ModelSignatureAsset.self)
-                
-                //pop to login view controller
-                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let viewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
-                UIApplication.shared.keyWindow?.rootViewController = viewController
-                
-            case .cancel :
-                print("cancel")
-                
-            case .destructive :
-                print("Destructive")
-            }
-            
-        })
+//    @IBAction func BtnLogoutPressed(_ sender: Any) {
+//        self.showAlert(title: "", message:NSLocalizedString("confirmLogout", comment: ""), actions:[UIAlertActionStyle.cancel,UIAlertActionStyle.default], closure:{ action in
+//            switch action {
+//            case .default :
+//                print("default")
+//                
+//                //Delete All Table Data
+//                RealmManager().deleteAll(type: ModelInvoice.self)
+//                RealmManager().deleteAll(type: ModelInventoryTransfers.self)
+//                RealmManager().deleteAll(type: ModelPurchaseOrder.self)
+//                RealmManager().deleteAll(type: ModelTimesStampLog.self)
+//                RealmManager().deleteAll(type: ModelSignature.self)
+//                RealmManager().deleteAll(type: ModelSignatureAsset.self)
+//                
+//                //pop to login view controller
+//                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//                let viewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
+//                UIApplication.shared.keyWindow?.rootViewController = viewController
+//                
+//            case .cancel :
+//                print("cancel")
+//                
+//            case .destructive :
+//                print("Destructive")
+//            }
+//            
+//        })
+//    }
+    
+    func manageActivityIndicator(canShow:Bool){
+        if canShow{
+            self.activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+        }else{
+            self.activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
+        }
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
     }
     override func viewDidDisappear(_ animated: Bool) {
-        EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
+        EventBus.sharedBus().unsubscribe(self, eventType: .FINISHSYNCDATA)
     }
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
+         self.manageActivityIndicator(canShow: false)
         getPurchaseOrdersReceiving()
     }
     
@@ -90,6 +103,10 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //call method manage activity indicator
+        self.view.bringSubview(toFront: self.activityIndicator)
+        self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelPurchaseOrder.self).count == 0))
+        
         //if !isBackFromScanView {
             initializePurchaseOrderType()
             poTableView.reloadData()
@@ -310,7 +327,7 @@ extension PurchaseOrderViewController {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return arrayModelPurchaseOrders.count==0 ? 60.0 : 0.0
+        return (arrayModelPurchaseOrders.count==0 && !UserDefaults.standard.bool(forKey: "isSynchStart")) ? 60.0 : 0.0
     }
     
     @objc func btnPoClicked(_ sender :UIButton){

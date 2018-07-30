@@ -89,6 +89,11 @@ public final class SyncService {
         WebServicesAPI.sharedInstance().uploadSignature(request: requestSignature) {
             (result:ResponseAsset?, _ error:PlatformError?) in
             
+            if error != nil{
+                self.finishSync()
+                return
+            }
+            
             if result == nil {
                 self.resync()
                 return
@@ -423,6 +428,9 @@ public final class SyncService {
     }
     
     private func syncGetBulkData() {
+        //Set boll var in user default i.e synch start
+        UserDefaults.standard.set(true, forKey: "isSynchStart")
+        EventBus.sharedBus().publishMain(EventBusEventType.STARTSYNCDATA)
         
         WebServicesAPI.sharedInstance().BulkAPI(request: RequestGetBulkAPI()) { (result:ResponseBulkRequest?,error:PlatformError?) in
             if error != nil{
@@ -470,11 +478,14 @@ public final class SyncService {
     }
     
     private func finishSync(){
+        //Remove object from default synch finish
+        UserDefaults.standard.removeObject(forKey: "isSynchStart")
+        
         //Write Log Finish Sync
         UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.LastSync.rawValue , objectId:nil, lastSynch:UtilWriteLogs.curruntDate)
         
         SKActivityIndicator.dismiss()
-        EventBus.sharedBus().publishMain(EventBusEventType.SYNCDATA)
+        EventBus.sharedBus().publishMain(EventBusEventType.FINISHSYNCDATA)
         isUpdating = false
     }
     
@@ -615,6 +626,7 @@ public final class SyncService {
                             paymentTemp.paymentDate     = payment.paidDate!
                             paymentTemp.referenceNumber = payment.referenceNo ?? ""
                             paymentTemp.amount          = payment.amountPaid!
+                            paymentTemp.notes           = payment.notes
                             model.paymentInfo.append(paymentTemp)
                         }
                     }else{
@@ -633,13 +645,30 @@ public final class SyncService {
                             shipMen.vehicleMake         = ship.vehicleMake
                             shipMen.vehicleModel        = ship.vehicleModel
                             shipMen.vehicleLicensePlate = ship.vehicleLicensePlate
-                            shipMen.signaturePhoto      = ship.signaturePhoto
+                            //shipMen.signaturePhoto      = ship.signaturePhoto
                             shipMen.receiverCompany     = ship.receiverCompany?.name
                             shipMen.receiverType        = ship.receiverCompany?.vendorType
                             shipMen.receiverContact     = ship.receiverCompany?.phone
                             shipMen.receiverLicense     = ship.receiverCompany?.licenseNumber
                             shipMen.invoiceStatus       = ship.invoiceStatus
                             shipMen.shippingManifestNo  = ship.shippingManifestNo
+                            shipMen.deliveryDate        = ship.deliveryDate ?? 0
+                            shipMen.deliveryTime        = ship.deliveryTime ?? 0
+                            
+                            if let sigAsset = ship.signaturePhoto{
+                               //Write signature assets
+                                let signature = ModelSignatureAsset()
+                                signature.id = HexGenerator.sharedInstance().generate()
+                                signature.assetType = sigAsset.assetType
+                                signature.mediumURL = sigAsset.mediumURL
+                                signature.largeURL  = sigAsset.largeURL
+                                signature.publicURL = sigAsset.publicURL
+                                signature.thumbURL  = sigAsset.thumbURL
+                                signature.key       = sigAsset.key
+                                
+                                shipMen.signatureAsset = signature
+                            }
+                            
                             if let add = ship.receiverAddress?.address{
                                 shipMen.receiverAddress?.id      = add.id
                                 shipMen.receiverAddress?.city    = add.city
@@ -710,6 +739,13 @@ public final class SyncService {
         if let products = jsonData{
             for prod in products{
                 if let tempQuantity = prod.quantities{
+                    //Calcualte total quty.
+                    var totoalQt:Int = 0
+                    for qut in tempQuantity{
+                        totoalQt += Int(qut.quantity ?? 0)
+                    }
+                   
+                    //Write product
                     for qut in tempQuantity{
                         let temp  = ModelProduct()
                         temp.id = HexGenerator.sharedInstance().generate()
@@ -719,6 +755,7 @@ public final class SyncService {
                         temp.shopId = qut.shopId
                         temp.inventoryId = qut.inventoryId
                         temp.quantity = qut.quantity ?? 0
+                        temp.totalQuantity = Double(totoalQt)
                         RealmManager().write(table: temp)
                     }
                     

@@ -97,7 +97,6 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             
             let shop = listFromShop[pickerView.selectedRow(inComponent: 0)]
             
-            
             //selectedFromShop = shop
             modelFromLocation.shop = shop
             let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
@@ -308,7 +307,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         if modelFromLocation.shop == nil || modelToLocation.shop == nil || modelFromLocation.inventory == nil || modelToLocation.inventory == nil{
             showToast(NSLocalizedString("CreateTrans_selectAllOpt", comment: ""))
             return false
-        }else if modelFromLocation.shop?.id == modelToLocation.shop?.id{
+        }else if modelFromLocation.inventory?.id == modelToLocation.inventory?.id{
             showToast(NSLocalizedString("CreateTrans_inventryValid", comment: ""))
             return false
         }

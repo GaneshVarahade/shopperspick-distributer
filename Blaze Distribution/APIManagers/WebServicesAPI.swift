@@ -191,11 +191,19 @@ class WebServicesAPI: NSObject {
         
     }
     
+    func SwitchShopPostAPI(request:RequestSwitchShop,onComplition:@escaping (_ result:ResponseSwitchShop?, _ error:PlatformError?)-> ()){
+        makeRequest(Router.SwitchShopPost(request: request), callback: onComplition)
+        
+    }
+    
     func uploadSignature(request: RequestSignature,onComplition:@escaping (_ result:ResponseAsset?, _ error:PlatformError?)-> ()){
         upload(Router.uploadSignature(request: request), storeSign: request, handler: onComplition)
     }
     private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){
  
+        guard UtilPrintLogs.canPrintResponseLog else {
+            return
+        }
         var str: String = ""
         str.append("\n\n\n\n")
         str.append("=================================================================")
@@ -242,8 +250,7 @@ class WebServicesAPI: NSObject {
                     
                 }
             }catch {
-                //print("In RestWrapper.makeRequest \(error.localizedDescription)")
-                UtilPrintLogs.DLog(message:"In RestWrapper.makeRequest" , objectToPrint: error.localizedDescription)
+                UtilPrintLogs.responseLogs(message:DLogMessage.Request.rawValue , objectToPrint: error.localizedDescription)
             }
         }else {
             str.append("NonJson Response")
@@ -254,7 +261,7 @@ class WebServicesAPI: NSObject {
         str.append("\n")
         str.append("----------------------------------------------------")
         //print(str)
-        UtilPrintLogs.DLog(message: DLogMessage.Request.rawValue, objectToPrint: str)
+        UtilPrintLogs.responseLogs(message: DLogMessage.Request.rawValue, objectToPrint: str)
 
     }
 }

@@ -107,7 +107,11 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
             
             if requestQuantity > remainingProd.remainingQuantity {
 
-                KSToastView.ks_showToast("Requested quantity is Greater than remaining quantity for Product \(product.productName!)")
+                KSToastView.ks_showToast("\(NSLocalizedString("QtValidation", comment: "")) \(product.productName!)")
+                //shippingManifest?.selectedItems.removeAll()
+                return
+            } else if requestQuantity <= 0 {
+                KSToastView.ks_showToast("\(NSLocalizedString("QtValidation1", comment: "")) \(product.productName!)")
                 //shippingManifest?.selectedItems.removeAll()
                 return
             }

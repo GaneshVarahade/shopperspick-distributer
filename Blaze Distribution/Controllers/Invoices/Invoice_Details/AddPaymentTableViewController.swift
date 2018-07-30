@@ -78,12 +78,17 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     func setDefaultData() {
         if self.isfromDetails && (paymentModel != nil) {
             notesTextView.textColor = UIColor.black
-            debitCardTextField?.text = String(format: "%d", (paymentModel?.debitCardNo)!)
-            achDateTextField.text = paymentModel?.achDate
+            if let cardNo = paymentModel?.debitCardNo{
+                 debitCardTextField?.text = String(format: "%d",cardNo)
+            }else{
+                 debitCardTextField?.text = "Not Available"
+            }
+
+            achDateTextField.text = paymentModel?.achDate ?? "Not Available"
             paymentDateTextField.text = DateFormatterUtil.format(dateTime:Double(DateIntConvertUtil.convert(dateTime: (paymentModel?.paymentDate)!, type: DateIntConvertUtil.Seconds)) , format:"dd/MM/yyyy")
             referenceNoTextField.text = paymentModel?.referenceNumber
             amountTextField.text = String(format:"$%.1f",(paymentModel?.amount)!)
-            notesTextView.text = paymentModel?.notes
+            notesTextView.text = paymentModel?.notes ?? "Not Available"
             lblBalanceDue.text = "0";
         }else{
             //Set Due balance

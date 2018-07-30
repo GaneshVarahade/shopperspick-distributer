@@ -17,7 +17,8 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var createBtn: UIButton!
     @IBOutlet weak var inventoryTableView: UITableView!
-   
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var data : [Any]                     = []
     var inventoryData : [ModelInventoryTransfers] = []
     var productData : [ModelProduct]     = []
@@ -27,8 +28,23 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
     }
+    
+    func manageActivityIndicator(canShow:Bool){
+        if canShow{
+            self.activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+        }else{
+            self.activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.title = NSLocalizedString("InvetryTitle", comment: "")
+        //call method manage activity indicator
+        self.view.bringSubview(toFront: self.activityIndicator)
+        self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelInventoryTransfers.self).count == 0))
+        
         getData()
     }
     
@@ -39,49 +55,18 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getData()
-        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .SYNCDATA)
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
     }
     override func viewDidDisappear(_ animated: Bool) {
-        EventBus.sharedBus().unsubscribe(self, eventType: .SYNCDATA)
+        EventBus.sharedBus().unsubscribe(self, eventType: .FINISHSYNCDATA)
     }
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
+        self.manageActivityIndicator(canShow: false)
         getData()
     }
-    @IBAction func BtnLogoutPressed(_ sender: Any) {
-        self.showAlert(title: "", message:NSLocalizedString("confirmLogout", comment: ""), actions:[UIAlertActionStyle.cancel,UIAlertActionStyle.default], closure:{ action in
-            switch action {
-            case .default :
-                print("default")
-                
-                           //Delete All Table Data
-                            RealmManager().deleteAll(type: ModelInvoice.self)
-                            RealmManager().deleteAll(type: ModelInventoryTransfers.self)
-                            RealmManager().deleteAll(type: ModelPurchaseOrder.self)
-                            RealmManager().deleteAll(type: ModelTimesStampLog.self)
-                            RealmManager().deleteAll(type: ModelSignature.self)
-                            RealmManager().deleteAll(type: ModelSignatureAsset.self)
-                
-                            //pop to login view controller
-                            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
-                        UIApplication.shared.keyWindow?.rootViewController = viewController
-                
-            case .cancel :
-                print("cancel")
-                
-            case .destructive :
-                print("Destructive")
-            }
-            
-        })
-    }
-    
-    
-    
-    // MARK:- UISegmentController Valu Changed
-    
+ 
     @IBAction func segmentChanged(_ sender: Any) {
         
         if segmentControl.selectedSegmentIndex == 0 {
@@ -116,7 +101,6 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             data  = inventoryData
         }
         inventoryTableView.reloadData()
-        //print("----DataRead----- \(inventoryData.count)")
         UtilPrintLogs.DLog(message:"DataRead", objectToPrint: inventoryData.count)
     }
     
@@ -144,7 +128,7 @@ extension InventoryViewController{
             
             let temp                = data[indexPath.row] as! ModelProduct
             cell.nameLabel.text     = temp.name
-            cell.requestLabel.text  = String(format: "%.1f", temp.quantity)
+            cell.requestLabel.text  = String(format: "%.1f", temp.totalQuantity)
             cell.dateLabel.isHidden = true
             cell.btnErrorInvetry.isHidden = true
             
@@ -152,8 +136,6 @@ extension InventoryViewController{
             let tempi   = data[indexPath.row] as! ModelInventoryTransfers
             cell.nameLabel.text     = tempi.toInventoryName
             cell.requestLabel.text  = tempi.transferNo
-            //cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(tempi.modified)/1000,
-                                                               //format: DateFormatterUtil.mmddyyyy)
             cell.dateLabel.text     = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime: tempi.modified, type:DateIntConvertUtil.Seconds)),format: DateFormatterUtil.mmddyyyy)
             cell.dateLabel.isHidden = false
             
@@ -179,6 +161,22 @@ extension InventoryViewController{
         }
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 60))
+        let label = UILabel(frame: CGRect(x: 10, y: 20, width: tableView.frame.size.width - 10, height: 60))
+        label.text = "Sorry! No Records found."
+        label.textColor = UIColor.lightGray
+        label.textAlignment = NSTextAlignment.center
+        view.backgroundColor = UIColor.clear
+        view.addSubview(label)
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return (data.count==0 && !UserDefaults.standard.bool(forKey: "isSynchStart")) ? 60.0 : 0.0
+    }
+    
     @objc func btnInvetryErrorClicked(_ sender :UIButton){
         let index : Int = sender.tag
         let tempi   = data[index] as! ModelInventoryTransfers
@@ -197,6 +195,15 @@ extension InventoryViewController{
                 
             }}))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        if productFlag{
+          let objProdDetails = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVCSegue") as! ProductDetailsVC
+            objProdDetails.selectedProd = data[indexPath.row] as! ModelProduct
+            self.navigationController?.pushViewController(objProdDetails, animated: true)
+        }
+       
     }
     
 }
