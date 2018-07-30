@@ -161,6 +161,22 @@ extension InventoryViewController{
         }
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 60))
+        let label = UILabel(frame: CGRect(x: 10, y: 20, width: tableView.frame.size.width - 10, height: 60))
+        label.text = "Sorry! No Records found."
+        label.textColor = UIColor.lightGray
+        label.textAlignment = NSTextAlignment.center
+        view.backgroundColor = UIColor.clear
+        view.addSubview(label)
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return (data.count==0 && !UserDefaults.standard.bool(forKey: "isSynchStart")) ? 60.0 : 0.0
+    }
+    
     @objc func btnInvetryErrorClicked(_ sender :UIButton){
         let index : Int = sender.tag
         let tempi   = data[index] as! ModelInventoryTransfers
