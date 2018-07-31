@@ -185,6 +185,10 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.bulkGet(), callback: onComplition)
         
     }
+    func GetProductById(request:RequestProdutById,onComplition:@escaping (_ result:ResponseProduct?, _ error:PlatformError?)-> ()){
+        makeRequest(Router.getProductById(request: request), callback: onComplition)
+        
+    }
     
     func BulkPostAPI(request:RequestPostModel,onComplition:@escaping (_ result:ResponseBulkRequest?, _ error:PlatformError?)-> ()){
         makeRequest(Router.bulkPost(request: request), callback: onComplition)
