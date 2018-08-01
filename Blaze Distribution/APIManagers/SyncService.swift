@@ -425,6 +425,7 @@ public final class SyncService {
                     }
                 }
             }
+        
     }
     
     private func syncGetBulkData() {

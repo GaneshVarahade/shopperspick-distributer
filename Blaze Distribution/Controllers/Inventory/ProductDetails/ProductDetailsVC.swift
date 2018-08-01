@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import Realm
+import SKActivityIndicatorView
 
 class ProductDetailsVC: UIViewController,UITableViewDataSource{
     @IBOutlet weak var prodDetailsTable: UITableView!
@@ -21,12 +22,71 @@ class ProductDetailsVC: UIViewController,UITableViewDataSource{
         self.prodDetailsTable.estimatedRowHeight = 60.0
         //Get products by product id
         if let Productid = selectedProd.productId{
-            productList = RealmManager().readPredicate(type: ModelProduct.self, predicate: "productId = '\(Productid)'")
+            guard ReachabilityManager.shared.networkStatus() else {
+              getOfflineProductDetails(prodId: Productid)
+                return
+            }
+            apiGetLatestProductDetails(prodId: Productid)
         }
         //print(productList)
         // Do any additional setup after loading the view.
     }
-
+    
+    //MARK:- Helper Method
+    func getOfflineProductDetails(prodId:String?){
+          productList = RealmManager().readPredicate(type: ModelProduct.self, predicate: "productId = '\(prodId ?? "")'")
+        self.prodDetailsTable.reloadData()
+    }
+    
+    //Get product details updated info
+    func apiGetLatestProductDetails(prodId:String?){
+        SKActivityIndicator.show()
+        let requestGetProd = RequestProdutById()
+        requestGetProd.productId = prodId
+        WebServicesAPI.sharedInstance().GetProductById(request: requestGetProd) { (result:ResponseProduct?,error:PlatformError?) in
+            if error != nil{
+                SKActivityIndicator.dismiss()
+                //print(error?.message! ?? "Error")
+                UtilPrintLogs.DLog(message: DLogMessage.Error.rawValue, objectToPrint:error?.message! ?? "Error" )
+                self.getOfflineProductDetails(prodId: prodId)
+                return
+            }
+            SKActivityIndicator.dismiss()
+            self.productResultOperation(jsonData: result)
+            //print(result!)
+        }
+    }
+    
+    func productResultOperation(jsonData:ResponseProduct?){
+        //RealmManager.deleteAll(ModelProduct.self)
+        if let tempQuantity = jsonData?.quantities{
+//                    //Calcualte total quty.
+//                    var totoalQt:Int = 0
+//                    for qut in tempQuantity{
+//                        totoalQt += Int(qut.quantity ?? 0)
+//                    }
+            
+                    //Write product
+                    for qut in tempQuantity{
+                        let temp  = ModelProduct()
+                        temp.id = HexGenerator.sharedInstance().generate()
+                        temp.productId = jsonData?.id
+                        temp.name = jsonData?.name
+                        temp.companyLinkId = jsonData?.companyLinkId
+                        temp.shopId = qut.shopId
+                        temp.inventoryId = qut.inventoryId
+                        temp.quantity = qut.quantity ?? 0
+                       // temp.totalQuantity = Double(totoalQt)
+                        productList.append(temp)
+                    }
+            print(productList)
+            self.prodDetailsTable.reloadData()
+                }
+        else{
+            print("---Products nil---")
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -129,6 +129,7 @@
 		B942E46520D00B5300E474E1 /* ResponseQuantities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E46420D00B5300E474E1 /* ResponseQuantities.swift */; };
 		B942E46720D0103A00E474E1 /* ModelProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E46620D0103A00E474E1 /* ModelProduct.swift */; };
 		B942E46920D010D800E474E1 /* ModelQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942E46820D010D800E474E1 /* ModelQuantity.swift */; };
+		B94BDB1121104FC4007360A2 /* RequestProductById.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94BDB1021104FC4007360A2 /* RequestProductById.swift */; };
 		B95A8A2720B420F200F76A15 /* ShippingItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */; };
 		B95A8A2920B4220F00F76A15 /* AddPaymentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */; };
 		B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95A8A2B20B422F300F76A15 /* ItemsToShipViewController.swift */; };
@@ -350,6 +351,7 @@
 		B942E46420D00B5300E474E1 /* ResponseQuantities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseQuantities.swift; sourceTree = "<group>"; };
 		B942E46620D0103A00E474E1 /* ModelProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProduct.swift; sourceTree = "<group>"; };
 		B942E46820D010D800E474E1 /* ModelQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelQuantity.swift; sourceTree = "<group>"; };
+		B94BDB1021104FC4007360A2 /* RequestProductById.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestProductById.swift; sourceTree = "<group>"; };
 		B95A8A2620B420F100F76A15 /* ShippingItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingItemsViewController.swift; sourceTree = "<group>"; };
 		B95A8A2820B4220E00F76A15 /* AddPaymentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentTableViewController.swift; sourceTree = "<group>"; };
 		B95A8A2B20B422F300F76A15 /* ItemsToShipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsToShipViewController.swift; sourceTree = "<group>"; };
@@ -606,6 +608,7 @@
 		189F82B320C501B70054986E /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				B94BDB0E21104F1E007360A2 /* APIGetProductById */,
 				180E7C0D210738BE00943618 /* APISwitchShop */,
 				181F602F20F4F1A40071CA04 /* APIUploadSignature */,
 				181C388320EDFEEC00A567B3 /* APIPostBulkRequest */,
@@ -952,6 +955,22 @@
 				B942E46420D00B5300E474E1 /* ResponseQuantities.swift */,
 			);
 			path = ResponseProductModel;
+			sourceTree = "<group>";
+		};
+		B94BDB0E21104F1E007360A2 /* APIGetProductById */ = {
+			isa = PBXGroup;
+			children = (
+				B94BDB0F21104F7D007360A2 /* RequestModel */,
+			);
+			path = APIGetProductById;
+			sourceTree = "<group>";
+		};
+		B94BDB0F21104F7D007360A2 /* RequestModel */ = {
+			isa = PBXGroup;
+			children = (
+				B94BDB1021104FC4007360A2 /* RequestProductById.swift */,
+			);
+			path = RequestModel;
 			sourceTree = "<group>";
 		};
 		B95A8A2520B416A500F76A15 /* Shipping_Manifest */ = {
@@ -1609,6 +1628,7 @@
 				B9E5266620B2C38600127E43 /* ConfirmTransferTableViewCell.swift in Sources */,
 				182B921220C8394E0041915B /* ModelPurchaseOrderProductReceived.swift in Sources */,
 				B942E45C20CFC11400E474E1 /* ModelInvoiceItems.swift in Sources */,
+				B94BDB1121104FC4007360A2 /* RequestProductById.swift in Sources */,
 				B9CAC8E120AF1155008F1650 /* UIViewAnchorPoint.swift in Sources */,
 				B91809D820D27960001C336B /* InvoicePaymentsTableViewCell.swift in Sources */,
 				181F603120F4F1B90071CA04 /* RequestSignature.swift in Sources */,
