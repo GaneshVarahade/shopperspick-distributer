@@ -94,6 +94,7 @@
 		18FFC99920FC72A400BCAA6A /* ModelTimesStampLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFC99820FC72A400BCAA6A /* ModelTimesStampLog.swift */; };
 		18FFC99B20FC76CD00BCAA6A /* UtilWriteLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFC99A20FC76CD00BCAA6A /* UtilWriteLogs.swift */; };
 		2FD731EB83170AF88FAF96D0 /* Pods_Blaze_DistributionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22B1597E869879AC4DD12C3 /* Pods_Blaze_DistributionTests.framework */; };
+		5482A0BA210F772200735B87 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9266C4620AEC8FE0021356C /* Info.plist */; };
 		B910833420CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910833320CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift */; };
 		B91809D620D2792C001C336B /* InvoicePaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91809D520D2792C001C336B /* InvoicePaymentsViewController.swift */; };
 		B91809D820D27960001C336B /* InvoicePaymentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91809D720D27960001C336B /* InvoicePaymentsTableViewCell.swift */; };
@@ -313,7 +314,7 @@
 		B910833320CEA03400E03EDD /* ResponseReceiverCustomerCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseReceiverCustomerCompany.swift; sourceTree = "<group>"; };
 		B91809D520D2792C001C336B /* InvoicePaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoicePaymentsViewController.swift; sourceTree = "<group>"; };
 		B91809D720D27960001C336B /* InvoicePaymentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoicePaymentsTableViewCell.swift; sourceTree = "<group>"; };
-		B9266C3420AEC8FB0021356C /* Blaze Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blaze Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9266C3420AEC8FB0021356C /* BLAZE Distribution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BLAZE Distribution.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9266C3720AEC8FB0021356C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9266C3C20AEC8FB0021356C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B9266C4120AEC8FE0021356C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -749,7 +750,7 @@
 		B9266C3520AEC8FB0021356C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B9266C3420AEC8FB0021356C /* Blaze Distribution.app */,
+				B9266C3420AEC8FB0021356C /* BLAZE Distribution.app */,
 				B9266C4B20AEC8FE0021356C /* Blaze DistributionTests.xctest */,
 				B9266C5620AEC8FE0021356C /* Blaze DistributionUITests.xctest */,
 			);
@@ -1250,15 +1251,15 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B9266C3320AEC8FB0021356C /* Blaze Distribution */ = {
+		B9266C3320AEC8FB0021356C /* BLAZE Distribution */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B9266C5F20AEC8FE0021356C /* Build configuration list for PBXNativeTarget "Blaze Distribution" */;
+			buildConfigurationList = B9266C5F20AEC8FE0021356C /* Build configuration list for PBXNativeTarget "BLAZE Distribution" */;
 			buildPhases = (
+				1846DB8720B213860076BECD /* Run Config Script */,
 				50AFFD346B0686427D940793 /* [CP] Check Pods Manifest.lock */,
 				B9266C3020AEC8FB0021356C /* Sources */,
 				B9266C3120AEC8FB0021356C /* Frameworks */,
 				B9266C3220AEC8FB0021356C /* Resources */,
-				1846DB8720B213860076BECD /* Run Config Script */,
 				B9E5268820B2FD5F00127E43 /* ShellScript */,
 				E5FA8CC561E3EE8CE98C61AC /* [CP] Embed Pods Frameworks */,
 				67C712DE8CC37BB267467589 /* [CP] Copy Pods Resources */,
@@ -1267,9 +1268,9 @@
 			);
 			dependencies = (
 			);
-			name = "Blaze Distribution";
+			name = "BLAZE Distribution";
 			productName = "Blaze Distribution";
-			productReference = B9266C3420AEC8FB0021356C /* Blaze Distribution.app */;
+			productReference = B9266C3420AEC8FB0021356C /* BLAZE Distribution.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B9266C4A20AEC8FE0021356C /* Blaze DistributionTests */ = {
@@ -1340,7 +1341,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B9266C2F20AEC8FB0021356C /* Build configuration list for PBXProject "Blaze Distribution" */;
+			buildConfigurationList = B9266C2F20AEC8FB0021356C /* Build configuration list for PBXProject "BLAZE Distribution" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1353,7 +1354,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B9266C3320AEC8FB0021356C /* Blaze Distribution */,
+				B9266C3320AEC8FB0021356C /* BLAZE Distribution */,
 				B9266C4A20AEC8FE0021356C /* Blaze DistributionTests */,
 				B9266C5520AEC8FE0021356C /* Blaze DistributionUITests */,
 			);
@@ -1367,6 +1368,7 @@
 			files = (
 				182B920920C803A10041915B /* idealbulkrequestjson.txt in Resources */,
 				1846DBA420B21B5B0076BECD /* environment.json in Resources */,
+				5482A0BA210F772200735B87 /* Info.plist in Resources */,
 				1846DBA320B21B5B0076BECD /* environment-stage.json in Resources */,
 				B9AA85E420C95E3100751BF2 /* InvoiceTables.txt in Resources */,
 				18CD0BFC20C6B1C1007E8515 /* SingleInvoice.txt in Resources */,
@@ -1785,12 +1787,12 @@
 /* Begin PBXTargetDependency section */
 		B9266C4D20AEC8FE0021356C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B9266C3320AEC8FB0021356C /* Blaze Distribution */;
+			target = B9266C3320AEC8FB0021356C /* BLAZE Distribution */;
 			targetProxy = B9266C4C20AEC8FE0021356C /* PBXContainerItemProxy */;
 		};
 		B9266C5820AEC8FE0021356C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B9266C3320AEC8FB0021356C /* Blaze Distribution */;
+			target = B9266C3320AEC8FB0021356C /* BLAZE Distribution */;
 			targetProxy = B9266C5720AEC8FE0021356C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1921,7 +1923,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blaze Distribution.app/Blaze Distribution";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BLAZE Distribution.temp_caseinsensitive_rename.app/BLAZE Distribution.temp_caseinsensitive_rename";
 			};
 			name = Dev;
 		};
@@ -2037,7 +2039,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blaze Distribution.app/Blaze Distribution";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BLAZE Distribution.temp_caseinsensitive_rename.app/BLAZE Distribution.temp_caseinsensitive_rename";
 			};
 			name = Release;
 		};
@@ -2233,7 +2235,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blaze Distribution.app/Blaze Distribution";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BLAZE Distribution.temp_caseinsensitive_rename.app/BLAZE Distribution.temp_caseinsensitive_rename";
 			};
 			name = Debug;
 		};
@@ -2255,7 +2257,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blaze Distribution.app/Blaze Distribution";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BLAZE Distribution.temp_caseinsensitive_rename.app/BLAZE Distribution.temp_caseinsensitive_rename";
 			};
 			name = Stage;
 		};
@@ -2304,7 +2306,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B9266C2F20AEC8FB0021356C /* Build configuration list for PBXProject "Blaze Distribution" */ = {
+		B9266C2F20AEC8FB0021356C /* Build configuration list for PBXProject "BLAZE Distribution" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B9266C5D20AEC8FE0021356C /* Debug */,
@@ -2315,7 +2317,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		B9266C5F20AEC8FE0021356C /* Build configuration list for PBXNativeTarget "Blaze Distribution" */ = {
+		B9266C5F20AEC8FE0021356C /* Build configuration list for PBXNativeTarget "BLAZE Distribution" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B9266C6020AEC8FE0021356C /* Debug */,
