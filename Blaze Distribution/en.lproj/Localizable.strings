@@ -16,7 +16,7 @@
 "CreateTrans_selectShop" = "Please select shop first.";
 "CreateTrans_selectFromLoc" = "Please select From Location First";
 "CreateTrans_selectAllOpt" = "Please select all options to proceed";
-"CreateTrans_inventryValid" = "You can not transfer within same inventry, Please select diffrant location.";
+"CreateTrans_inventryValid" = "You can not transfer within same inventry, Please select different location.";
 
 //2. SignatureViewController
 "sig_Error" = "Error saving signature";
