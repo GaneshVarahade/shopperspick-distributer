@@ -12,6 +12,7 @@ import KSToastView
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginViewLeading: NSLayoutConstraint!
+    @IBOutlet weak var btnForgotPassword: UIButton!
     
     @IBOutlet weak var loginViewTrailing: NSLayoutConstraint!
     // MARK: - IBOutlets
@@ -60,8 +61,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - IBActions
     @IBAction func loginBtnPressed(_ sender: Any) {
-        SKActivityIndicator.show()
+        self.btnForgotPassword.isEnabled = false
+        self.btnForgotPassword.alpha = 0.4
         
+        SKActivityIndicator.show()
         let reqLogin:RequestLogin = RequestLogin()
         reqLogin.email    = txtEmail.text!
         reqLogin.password = txtPassword.text!
@@ -72,13 +75,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //print(UIDevice.current.identifierForVendor!.uuidString)
         UtilPrintLogs.DLog(message:"Login Info", objectToPrint: UIDevice.current.identifierForVendor!.uuidString)
         WebServicesAPI.sharedInstance().loginAPI(request: reqLogin, onComplition: {(result:ResponseLogin?, error:PlatformError?) in
-           
+            
             SKActivityIndicator.show()
             if error != nil {
+                self.btnForgotPassword.isEnabled = true
+                self.btnForgotPassword.alpha = 1.0
                 SKActivityIndicator.dismiss()
                 self.showAlert(title: "Error", message: error?.details ?? "Error", closure:{})
                 return
             }
+            
             self.saveData(jsonData: result)
             UtilityUserDefaults.sharedInstance().saveToken(strToken: (result?.accessToken)!)
            
@@ -89,8 +95,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func goHome(){
-        
-          self.performSegue(withIdentifier: "goHome", sender: self)
+        self.btnForgotPassword.isEnabled = true
+        self.btnForgotPassword.alpha = 1.0
+        self.performSegue(withIdentifier: "goHome", sender: self)
     }
     
     // MARK: - Helper Methods

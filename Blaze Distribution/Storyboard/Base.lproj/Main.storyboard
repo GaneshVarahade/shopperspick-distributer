@@ -275,6 +275,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="8Oh-zy-i02"/>
                     <connections>
+                        <outlet property="btnForgotPassword" destination="JGw-ch-ZHK" id="5Zt-eF-Ayc"/>
                         <outlet property="labelVersion" destination="rvl-wO-Ug8" id="0rJ-YF-8d0"/>
                         <outlet property="loginViewLeading" destination="PeV-NL-rcQ" id="NPK-bj-OCk"/>
                         <outlet property="loginViewTrailing" destination="co4-IE-jFy" id="Nad-RC-6Kw"/>
