@@ -48,15 +48,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func manageLayout(){
-        if deviceIdiom == .pad{
-            if UIDevice.current.orientation.isLandscape{
-                self.loginViewLeading.constant = 260
-                self.loginViewTrailing.constant = 260
-            }else {
-                self.loginViewTrailing.constant = 170
-                self.loginViewLeading.constant = 170
-            }
-        }
+        // ********** As app is suporting only portrait mode this code is commented for ladscape mode remove this comment **********
+//        if deviceIdiom == .pad{
+//            if UIDevice.current.orientation.isLandscape{
+//                self.loginViewLeading.constant = 260
+//                self.loginViewTrailing.constant = 260
+//            }else {
+//                self.loginViewTrailing.constant = 170
+//                self.loginViewLeading.constant = 170
+//            }
+//        }
     }
     
     // MARK: - IBActions

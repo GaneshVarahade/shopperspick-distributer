@@ -29,15 +29,17 @@ class ForgotPasswordViewController: UIViewController{
         manageLayout()
     }
     func manageLayout(){
-        if deviceIdiom == .pad{
-            if UIDevice.current.orientation.isLandscape{
-                self.forgotPasswordLeading.constant = 240
-                self.forgotPasswordTrailing.constant = 240
-            }else {
-               self.forgotPasswordTrailing.constant = 150
-               self.forgotPasswordLeading.constant = 150
-            }
-        }
+        // ********** As app is suporting only portrait mode this code is commented for ladscape mode remove this comment **********
+        
+//        if deviceIdiom == .pad{
+//            if UIDevice.current.orientation.isLandscape{
+//                self.forgotPasswordLeading.constant = 240
+//                self.forgotPasswordTrailing.constant = 240
+//            }else {
+//               self.forgotPasswordTrailing.constant = 150
+//               self.forgotPasswordLeading.constant = 150
+//            }
+//        }
     }
     
     // MARK:- UIButton Events
