@@ -22,6 +22,8 @@ enum Router : URLRequestConvertible {
     case sessionLogin(request: RequestLogin)
     //BulkAPI
     case bulkGet()
+    //get product by id
+    case getProductById(request: RequestProdutById)
     //BulkPostAPI
     case bulkPost(request: RequestPostModel)
     //SwitchShopPostAPI
@@ -64,6 +66,8 @@ enum Router : URLRequestConvertible {
             return (Method.POST,"api/v1/mgmt/session",encode(request),nil)
         case .bulkGet():
             return (Method.GET,"/api/v1/warehouse/mgmt/dataSync",nil,nil)
+        case .getProductById(let request):
+            return (Method.GET,"/api/v1/mgmt/products/\(request.productId ?? "")",nil,nil)
         case .bulkPost(let request):
             return (Method.PUT,"/api/v1/warehouse/mgmt/dataSync",encode(request),nil)
         case .SwitchShopPost(let request):

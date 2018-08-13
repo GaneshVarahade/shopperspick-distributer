@@ -128,9 +128,11 @@ extension InventoryViewController{
             
             let temp                = data[indexPath.row] as! ModelProduct
             cell.nameLabel.text     = temp.name
-            cell.requestLabel.text  = String(format: "%.1f", temp.quantity)
+            cell.requestLabel.text  = String(format: "%.1f", temp.totalQuantity)
             cell.dateLabel.isHidden = true
             cell.btnErrorInvetry.isHidden = true
+            cell.accessoryType = .disclosureIndicator
+            
             
         }else{
             let tempi   = data[indexPath.row] as! ModelInventoryTransfers
@@ -146,6 +148,7 @@ extension InventoryViewController{
             // Adda target to error button
             cell.btnErrorInvetry.addTarget(self, action: #selector(btnInvetryErrorClicked(_ :)), for: .touchUpInside)
             cell.btnErrorInvetry.tag = indexPath.row
+            cell.accessoryType = .none
             
         }
         
@@ -159,6 +162,22 @@ extension InventoryViewController{
         else {
             return 44
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 60))
+        let label = UILabel(frame: CGRect(x: 10, y: 20, width: tableView.frame.size.width - 10, height: 60))
+        label.text = "Sorry! No Records found."
+        label.textColor = UIColor.lightGray
+        label.textAlignment = NSTextAlignment.center
+        view.backgroundColor = UIColor.clear
+        view.addSubview(label)
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return (data.count==0 && !UserDefaults.standard.bool(forKey: "isSynchStart")) ? 60.0 : 0.0
     }
     
     @objc func btnInvetryErrorClicked(_ sender :UIButton){
@@ -179,6 +198,15 @@ extension InventoryViewController{
                 
             }}))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        if productFlag{
+          let objProdDetails = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVCSegue") as! ProductDetailsVC
+            objProdDetails.selectedProd = data[indexPath.row] as! ModelProduct
+            self.navigationController?.pushViewController(objProdDetails, animated: true)
+        }
+       
     }
     
 }

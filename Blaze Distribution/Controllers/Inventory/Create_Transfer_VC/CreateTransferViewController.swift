@@ -57,9 +57,8 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         
         //addTarget(self, action: #selector(textFieldDidChange(_ :)), for: UIControlEvents.editingChanged)
         
-        labelFromStore.isUserInteractionEnabled =  true
-        labelFromStore.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onclickFromStore)))
-        
+//        labelFromStore.isUserInteractionEnabled =  true
+//        labelFromStore.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onclickFromStore)))
         labelFromInventory.isUserInteractionEnabled =  true
         labelFromInventory.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onclickFromInventory)))
         
@@ -94,24 +93,24 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             loadData()
             
         }else if selectedOption == SelectedOption.fromStore {
-            
-            let shop = listFromShop[pickerView.selectedRow(inComponent: 0)]
-            
-            //selectedFromShop = shop
-            modelFromLocation.shop = shop
-            let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
-            
-            if let modelInventories = modelInventories {
-                listFromInventory =  modelInventories.inventory
-            }else{
-                listFromInventory = List<ModelInventory>()
-            }
-            // When from store change, reset all values
-            modelFromLocation.inventory = nil
-            modelToLocation.shop = nil
-            modelToLocation.inventory = nil
-            
-            loadData()
+//
+//            let shop = listFromShop[pickerView.selectedRow(inComponent: 0)]
+//
+//            //selectedFromShop = shop
+//            modelFromLocation.shop = shop
+//            let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
+//
+//            if let modelInventories = modelInventories {
+//                listFromInventory =  modelInventories.inventory
+//            }else{
+//                listFromInventory = List<ModelInventory>()
+//            }
+//            // When from store change, reset all values
+//            modelFromLocation.inventory = nil
+//            modelToLocation.shop = nil
+//            modelToLocation.inventory = nil
+//
+//            loadData()
             
         }else if selectedOption == SelectedOption.toStore {
             let shop = listToShop[pickerView.selectedRow(inComponent: 0)]
@@ -125,10 +124,17 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
             }else{
                 listToInventory = List<ModelInventory>()
             }
+            //Remove inventry object from to invetry if same shop is selected
+            if modelFromLocation.shop?.id == modelToLocation.shop?.id{
+                for (index,obj) in listFromInventory.enumerated(){
+                    if obj.id == self.modelFromLocation.inventory?.id{
+                        listToInventory.remove(at: index)
+                    }
+                }
+            }
             
             //Reset Inventory
             modelToLocation.inventory = nil
-            
             loadData()
         }
        //Make selected option none
@@ -142,6 +148,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         modelToLocation = ModelLocation()
         modelLogin = RealmManager().readList(type: LoginModel.self).first
         loadData()
+        self.setAssignedShop()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -151,18 +158,53 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         pickerView.selectRow(0, inComponent: 0, animated: true)
         pickerView.reloadAllComponents()
     }
- 
-    @objc private func onclickFromStore() {
-        
-        selectedOption = SelectedOption.fromStore
-        
+    func setAssignedShop(){
         listToShop = nil
         listFromInventory = nil
         listToInventory = nil
-        
         listFromShop = modelLogin?.shops
-        dummyTextField.becomeFirstResponder()
-        reloadPickerView()
+        //get assined shop id
+        var shop = ShopsModel()
+        if let assinedShop = modelLogin?.assignedShop{
+            //filter out assinged shop
+            for obj in listFromShop{
+                if obj.id == assinedShop.id{
+                  shop = obj
+                }
+            }
+            //let shop = listFromShop.filter(){$0.id == assinedShop.id}[0]
+            //selectedFromShop = shop
+           
+            modelFromLocation.shop = shop
+            let modelInventories: ModelInventories? = RealmManager().read(type: ModelInventories.self, primaryKey: shop.id!)
+            
+            if let modelInventories = modelInventories {
+                listFromInventory =  modelInventories.inventory
+            }else{
+                listFromInventory = List<ModelInventory>()
+            }
+            // When from store change, reset all values
+            modelFromLocation.inventory = nil
+            modelToLocation.shop = nil
+            modelToLocation.inventory = nil
+            loadData()
+        } else{
+            //there is no sho assined
+            labelFromStore.text = "Not found"
+        }
+       
+    }
+ 
+    @objc private func onclickFromStore() {
+//
+//        selectedOption = SelectedOption.fromStore
+//        listToShop = nil
+//        listFromInventory = nil
+//        listToInventory = nil
+//
+//        listFromShop = modelLogin?.shops
+//        dummyTextField.becomeFirstResponder()
+//        reloadPickerView()
         
     }
  
@@ -307,7 +349,7 @@ class CreateTransferViewController: UIViewController, UITextFieldDelegate {
         if modelFromLocation.shop == nil || modelToLocation.shop == nil || modelFromLocation.inventory == nil || modelToLocation.inventory == nil{
             showToast(NSLocalizedString("CreateTrans_selectAllOpt", comment: ""))
             return false
-        }else if modelFromLocation.shop?.id == modelToLocation.shop?.id{
+        }else if modelFromLocation.inventory?.id == modelToLocation.inventory?.id{
             showToast(NSLocalizedString("CreateTrans_inventryValid", comment: ""))
             return false
         }

@@ -46,7 +46,9 @@ class SettingsVC: UIViewController {
                 //pop to login view controller
                 let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let viewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
-                UIApplication.shared.keyWindow?.rootViewController = viewController
+                let navigation = UINavigationController(rootViewController:viewController)
+                navigation.navigationBar.isHidden = true
+                UIApplication.shared.keyWindow?.rootViewController = navigation
                 
             case .cancel :
                 print("cancel")
