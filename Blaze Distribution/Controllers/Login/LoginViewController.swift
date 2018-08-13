@@ -11,7 +11,9 @@ import SKActivityIndicatorView
 import KSToastView
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
-
+    @IBOutlet weak var loginViewLeading: NSLayoutConstraint!
+    
+    @IBOutlet weak var loginViewTrailing: NSLayoutConstraint!
     // MARK: - IBOutlets
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -24,15 +26,38 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         txtEmail.text       = "test@test.com"
         txtPassword.text    = "test"
         labelVersion.text   = Versionutils.getAppVersion()
+        
     }
     
+    //MARK - Layout Helper
     override func viewWillDisappear(_ animated: Bool) {
         EventBus.sharedBus().unsubscribe(self, eventType: EventBusEventType.FINISHSYNCDATA)
         if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
             statusbar.backgroundColor = nil
         }
     }
- 
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        manageLayout()
+        
+    }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        manageLayout()
+    }
+    
+    func manageLayout(){
+        if deviceIdiom == .pad{
+            if UIDevice.current.orientation.isLandscape{
+                self.loginViewLeading.constant = 260
+                self.loginViewTrailing.constant = 260
+            }else {
+                self.loginViewTrailing.constant = 170
+                self.loginViewLeading.constant = 170
+            }
+        }
+    }
+    
     // MARK: - IBActions
     @IBAction func loginBtnPressed(_ sender: Any) {
         SKActivityIndicator.show()

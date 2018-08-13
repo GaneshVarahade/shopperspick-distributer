@@ -10,11 +10,34 @@ import UIKit
 import KSToastView
 class ForgotPasswordViewController: UIViewController{
 
+    @IBOutlet weak var forgotPasswordLeading: NSLayoutConstraint!
+    @IBOutlet weak var forgotPasswordTrailing: NSLayoutConstraint!
     @IBOutlet weak var txtEmail: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //manageLayout()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        manageLayout()
+        
+    }
+    //MARK: - Layout Delegate
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        manageLayout()
+    }
+    func manageLayout(){
+        if deviceIdiom == .pad{
+            if UIDevice.current.orientation.isLandscape{
+                self.forgotPasswordLeading.constant = 240
+                self.forgotPasswordTrailing.constant = 240
+            }else {
+               self.forgotPasswordTrailing.constant = 150
+               self.forgotPasswordLeading.constant = 150
+            }
+        }
     }
     
     // MARK:- UIButton Events
