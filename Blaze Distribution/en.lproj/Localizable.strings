@@ -47,6 +47,7 @@
 
 //8. LookUpProductViewController
 "LookProd_Message" = "Sorry! No records found";
+"noProdSelected" = "Please add product in cart, to proceed further";
 
 //9. LookUpProductEnterQuantity
 "ProdQuat_Validation1" = "Please enter product quantity to proceed further";

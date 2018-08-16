@@ -10,6 +10,7 @@ import Foundation
 
 public class ResponsePurchaseOrderProduct: BaseResponseModel {
     public var id: String?
+    public var productId: String?
     
     public var created: Int?
     

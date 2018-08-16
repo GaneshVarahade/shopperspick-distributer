@@ -75,7 +75,7 @@ class LookUpProductEnterQuantity: UIViewController,UITextFieldDelegate{
         
         //set product model value
         self.lblProductName?.text = modelProudct.name
-        self.lblBatchName?.text = modelProudct.id
+        self.lblBatchName?.text = modelProudct.sku
         self.txtQuantity.text = String(format:"%.1f",modelProudct.quantity)
     }
     
@@ -93,7 +93,9 @@ class LookUpProductEnterQuantity: UIViewController,UITextFieldDelegate{
     
     //MARK: - Text Field Delegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return string.rangeOfCharacter(from: CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()+_= ")) == nil
+        let cs = NSCharacterSet(charactersIn: "0123456789.").inverted
+        let filtered = string.components(separatedBy: cs).joined(separator: "")
+        return (string == filtered)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool // called when 'return' key pressed. return false to ignore.

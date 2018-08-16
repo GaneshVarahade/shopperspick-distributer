@@ -27,6 +27,7 @@ public class ModelProduct:ModelBase{
         }
     }
     @objc public dynamic var name:String? = ""
+    @objc public dynamic var sku:String? = ""
     @objc public dynamic var companyLinkId:String? = ""
     @objc public  dynamic var quantity:Double = 0.0
     @objc public  dynamic var totalQuantity:Double = 0.0
@@ -40,6 +41,7 @@ public class ModelProduct:ModelBase{
     public override func copy(with zone: NSZone? = nil) -> Any {
         let modelProduct      = ModelProduct()
         modelProduct.id          = self.id
+        modelProduct.sku         = self.sku
         modelProduct.name        = self.name
         modelProduct.quantity    = self.quantity
         modelProduct.shopId      = self.shopId

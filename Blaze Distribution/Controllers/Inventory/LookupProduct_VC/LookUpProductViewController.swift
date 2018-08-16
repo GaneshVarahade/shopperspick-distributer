@@ -125,9 +125,13 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK: - Selector methods
     @objc func basketBtnPressed() {
-        let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BasketViewController") as! BasketViewController
-        obj.modelCreateTrasfer = self.modelCreateTransfer
-        self.navigationController?.pushViewController(obj, animated: true)
+        if self.modelCreateTransfer.slectedProducts.count == 0{
+            showToast(NSLocalizedString("noProdSelected", comment: ""))
+        }else{
+            let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BasketViewController") as! BasketViewController
+            obj.modelCreateTrasfer = self.modelCreateTransfer
+            self.navigationController?.pushViewController(obj, animated: true)
+        }
     }
     
     // MARK:- UITableView Datasource/Delegate
@@ -172,9 +176,14 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK: - UIButton Events
     @IBAction func continueBtnPressed(_ sender: Any) {
-        let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BasketViewController") as! BasketViewController
-        obj.modelCreateTrasfer = self.modelCreateTransfer
-        self.navigationController?.pushViewController(obj, animated: true)
+        //If no product selected show toast
+        if self.modelCreateTransfer.slectedProducts.count == 0{
+             showToast(NSLocalizedString("noProdSelected", comment: ""))
+        }else{
+            let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BasketViewController") as! BasketViewController
+            obj.modelCreateTrasfer = self.modelCreateTransfer
+            self.navigationController?.pushViewController(obj, animated: true)
+        }
     }
     
     @IBAction func findSearchBtnClicked(_ sender: Any) {

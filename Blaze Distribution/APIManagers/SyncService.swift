@@ -165,7 +165,7 @@ public final class SyncService {
                 for productReceived in model.productReceived {
                     let requestPurchaseOrderReceived: RequestPurchaseOrderProductReceived = RequestPurchaseOrderProductReceived()
                     requestPurchaseOrderReceived.id = productReceived.id
-                    requestPurchaseOrderReceived.productId = productReceived.id
+                    requestPurchaseOrderReceived.productId = productReceived.productId
                     requestPurchaseOrderReceived.name = productReceived.name
                     requestPurchaseOrderReceived.requestQuantity = productReceived.expected
                     requestPurchaseOrderReceived.receivedQuantity = productReceived.received
@@ -500,6 +500,7 @@ public final class SyncService {
                     for productReq in listProdReq {
                         let modelPOProduct = ModelPurchaseOrderProduct()
                         modelPOProduct.id   = productReq.id
+                        modelPOProduct.productId = productReq.productId
                         modelPOProduct.name = productReq.productName
                         modelPOProduct.quantity = productReq.requestQuantity ?? 0
                         modelPOProduct.batchId = productReq.batchId
@@ -733,6 +734,7 @@ public final class SyncService {
                         let temp  = ModelProduct()
                         temp.id = HexGenerator.sharedInstance().generate()
                         temp.productId = prod.id
+                        temp.sku = prod.sku
                         temp.name = prod.name
                         temp.companyLinkId = prod.companyLinkId
                         temp.shopId = qut.shopId
