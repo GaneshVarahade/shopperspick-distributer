@@ -489,6 +489,7 @@ public final class SyncService {
             if(canSkip == false){
                 let modelPurcahseOrder:ModelPurchaseOrder = ModelPurchaseOrder()
                 modelPurcahseOrder.id = respPurchaseOrder.id
+                modelPurcahseOrder.origin = respPurchaseOrder.parentPONumber ?? ""
                 modelPurcahseOrder.purchaseOrderNumber = respPurchaseOrder.poNumber
                 modelPurcahseOrder.isMetRc = respPurchaseOrder.metrc ?? false
                 modelPurcahseOrder.received = respPurchaseOrder.receivedDate ?? 0
