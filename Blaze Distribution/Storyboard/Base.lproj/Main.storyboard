@@ -978,7 +978,7 @@
                                 </constraints>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDx-iq-5y5" customClass="UIViewX" customModule="BLAZE_Distribution" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="768" height="110"/>
+                                <rect key="frame" x="0.0" y="64" width="768" height="160"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PpG-WB-GZy">
                                         <rect key="frame" x="234" y="0.0" width="300" height="46"/>
@@ -1002,18 +1002,36 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9io-of-S5Y">
                                         <rect key="frame" x="0.0" y="55" width="768" height="1"/>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="XIq-Xy-t91"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="gI6-cq-IVR">
+                                        <rect key="frame" x="0.0" y="60" width="768" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="esv-g1-fyk">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                            </constraint>
+                                        </constraints>
+                                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                        <scopeButtonTitles>
+                                            <string>Title</string>
+                                            <string>Title</string>
+                                        </scopeButtonTitles>
+                                        <connections>
+                                            <outlet property="delegate" destination="MOd-vj-yFP" id="iiV-mg-elp"/>
+                                        </connections>
+                                    </searchBar>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bkG-4V-3ds">
-                                        <rect key="frame" x="16" y="56" width="702" height="54"/>
+                                        <rect key="frame" x="16" y="120" width="702" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yea-Tx-CP6">
-                                                <rect key="frame" x="0.0" y="0.0" width="234" height="54"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="234" height="40"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1022,7 +1040,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REQUEST #" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QxF-Po-znx">
-                                                <rect key="frame" x="234" y="0.0" width="234" height="54"/>
+                                                <rect key="frame" x="234" y="0.0" width="234" height="40"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1031,7 +1049,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DATE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ja6-cc-FuN">
-                                                <rect key="frame" x="468" y="0.0" width="234" height="54"/>
+                                                <rect key="frame" x="468" y="0.0" width="234" height="40"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" red="0.96862745100000003" green="0.69019607839999997" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1046,16 +1064,19 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="9io-of-S5Y" secondAttribute="trailing" id="615-ZI-eB6"/>
                                     <constraint firstItem="9io-of-S5Y" firstAttribute="leading" secondItem="JDx-iq-5y5" secondAttribute="leading" id="Iqn-dp-6as"/>
-                                    <constraint firstItem="bkG-4V-3ds" firstAttribute="top" secondItem="9io-of-S5Y" secondAttribute="bottom" id="Rz5-iw-Bz6"/>
+                                    <constraint firstItem="gI6-cq-IVR" firstAttribute="top" secondItem="9io-of-S5Y" secondAttribute="top" constant="5" id="OW7-bp-4yh"/>
+                                    <constraint firstAttribute="trailing" secondItem="bkG-4V-3ds" secondAttribute="trailing" constant="50" id="S20-ZI-d3h"/>
                                     <constraint firstItem="PpG-WB-GZy" firstAttribute="centerX" secondItem="JDx-iq-5y5" secondAttribute="centerX" id="TxC-o9-i3m"/>
-                                    <constraint firstAttribute="height" constant="80" id="Ufc-bR-sMc">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="110"/>
+                                    <constraint firstAttribute="height" constant="130" id="Ufc-bR-sMc">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="160"/>
                                     </constraint>
                                     <constraint firstItem="PpG-WB-GZy" firstAttribute="top" secondItem="JDx-iq-5y5" secondAttribute="top" id="WMR-wV-K8S"/>
-                                    <constraint firstAttribute="bottom" secondItem="bkG-4V-3ds" secondAttribute="bottom" id="bH0-b9-G3a"/>
-                                    <constraint firstItem="bkG-4V-3ds" firstAttribute="leading" secondItem="JDx-iq-5y5" secondAttribute="leading" constant="16" id="kDh-8Y-PiB"/>
+                                    <constraint firstItem="gI6-cq-IVR" firstAttribute="leading" secondItem="JDx-iq-5y5" secondAttribute="leading" id="WPc-Rs-gfO"/>
+                                    <constraint firstItem="bkG-4V-3ds" firstAttribute="top" secondItem="gI6-cq-IVR" secondAttribute="bottom" id="ZMe-8K-Qx6"/>
+                                    <constraint firstAttribute="trailing" secondItem="gI6-cq-IVR" secondAttribute="trailing" id="mVU-Sn-Ytc"/>
                                     <constraint firstItem="9io-of-S5Y" firstAttribute="top" secondItem="PpG-WB-GZy" secondAttribute="bottom" constant="10" id="pM5-Uw-RJf"/>
-                                    <constraint firstAttribute="trailing" secondItem="bkG-4V-3ds" secondAttribute="trailing" constant="50" id="pYX-KE-Lu5"/>
+                                    <constraint firstAttribute="bottom" secondItem="bkG-4V-3ds" secondAttribute="bottom" id="tHm-Hk-n0x"/>
+                                    <constraint firstItem="bkG-4V-3ds" firstAttribute="leading" secondItem="JDx-iq-5y5" secondAttribute="leading" constant="16" id="vP0-hW-IXb"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
@@ -1087,7 +1108,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UlP-mR-xhf">
-                                <rect key="frame" x="0.0" y="184" width="768" height="719.5"/>
+                                <rect key="frame" x="0.0" y="234" width="768" height="669.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="InventoryTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" id="jjG-g1-Jmt" customClass="InventoryTableViewCell" customModule="BLAZE_Distribution" customModuleProvider="target">
@@ -1201,8 +1222,11 @@
                         <outlet property="inventoryTableView" destination="UlP-mR-xhf" id="kGh-yT-eYB"/>
                         <outlet property="nameLabel" destination="Yea-Tx-CP6" id="jsW-yg-Vdo"/>
                         <outlet property="requestLabel" destination="QxF-Po-znx" id="vvE-hU-O02"/>
+                        <outlet property="searchBar" destination="gI6-cq-IVR" id="Us1-Iv-AVV"/>
+                        <outlet property="searchBarHeight" destination="esv-g1-fyk" id="B7a-rn-BtR"/>
                         <outlet property="segmentControl" destination="PpG-WB-GZy" id="qoX-He-CnN"/>
                         <outlet property="topView" destination="JDx-iq-5y5" id="aNI-EM-AJJ"/>
+                        <outlet property="topViewHeight" destination="Ufc-bR-sMc" id="6ES-HR-iTw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hsf-uF-ZLd" userLabel="First Responder" sceneMemberID="firstResponder"/>

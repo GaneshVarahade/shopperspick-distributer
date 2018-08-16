@@ -8,8 +8,10 @@
 
 import UIKit
 import SKActivityIndicatorView
-class InventoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class InventoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate {
+    @IBOutlet weak var searchBarHeight: NSLayoutConstraint!
+    @IBOutlet weak var topViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var requestLabel: UILabel!
@@ -23,9 +25,11 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     var modelLogin: LoginModel?
     var inventoryData : [ModelInventoryTransfers] = []
     var productData : [ModelProduct]     = []
+    var filteredData:[Any] = []
     var productFlag:Bool                 = false
     
     override func viewDidLoad() {
+        setSearchBarUI()
         super.viewDidLoad()
         
     }
@@ -41,6 +45,9 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.searchBar.endEditing(true)
+        self.searchBar.text = ""
+        
         self.title = NSLocalizedString("InvetryTitle", comment: "")
         //call method manage activity indicator
         self.view.bringSubview(toFront: self.activityIndicator)
@@ -71,6 +78,8 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func segmentChanged(_ sender: Any) {
         
         if segmentControl.selectedSegmentIndex == 0 {
+            self.searchBar.endEditing(true)
+            self.searchBar.text = ""
             data.removeAll()
             nameLabel.isHidden    = false
             requestLabel.isHidden = false
@@ -82,6 +91,8 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             inventoryTableView.reloadData()
         }
         else {
+            self.searchBar.endEditing(true)
+            self.searchBar.text = ""
             data.removeAll()
             productFlag        = true
             dateLabel.isHidden = true
@@ -118,6 +129,60 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func createTransferBtnPressed(_ sender: Any) {
       
     }
+    
+    // MARK:- Utilities
+    func setSearchBarUI() {
+        self.searchBar.layer.borderWidth = 1;
+        self.searchBar.layer.borderColor = UIColor.white.cgColor
+        for s in self.searchBar.subviews[0].subviews {
+            if s is UITextField {
+                s.layer.borderWidth = 0.5
+                s.layer.borderColor = UIColor.gray.cgColor
+            }
+        }
+    }
+    
+    //MARK:- SearchBar Delegate
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+        filteredData.removeAll()
+        getData()
+        for dict in data {
+            let invName : NSString!
+            let invId: NSString!
+            if productFlag{
+                let temp  = dict as! ModelProduct
+                invName = temp.name! as NSString
+                if(invName.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location != NSNotFound){
+                   filteredData.append(dict)
+                    }
+            }else{
+                let temp  = dict as! ModelInventoryTransfers
+                invName = temp.toInventoryName! as NSString
+                invId = temp.transferNo! as NSString
+                
+                if(invName.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location != NSNotFound || invId.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location != NSNotFound){
+                    filteredData.append(dict)
+                }
+            }
+        }
+        //print(filtered)
+        if !(self.searchBar.text?.count==0)
+        {            data=filteredData
+        }else{
+            self.searchBar.endEditing(true)
+        }
+        //print(valueDataObj)
+        inventoryTableView.reloadData()
+    }
+    
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+        self.searchBar.endEditing(true)
+    }
+    
+    public func searchBarTextDidEndEditing(_ searchBar: UISearchBar){
+        self.searchBar.endEditing(true)
+    }
+
 }
 
 extension InventoryViewController{
