@@ -157,7 +157,7 @@ public final class SyncService {
                 requestPurchase.purchaseOrderNumber = model.purchaseOrderNumber
                 requestPurchase.isMetRc = model.isMetRc
                 requestPurchase.metrcId = model.metrcId
-                requestPurchase.status = model.status
+                requestPurchase.purchaseOrderStatus = model.status
                 requestPurchase.origin = model.origin
                 requestPurchase.received = model.received
                 requestPurchase.completedDate = model.completedDate

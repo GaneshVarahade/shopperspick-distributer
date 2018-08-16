@@ -20,6 +20,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var data : [Any]                     = []
+    var modelLogin: LoginModel?
     var inventoryData : [ModelInventoryTransfers] = []
     var productData : [ModelProduct]     = []
     var productFlag:Bool                 = false
@@ -94,7 +95,15 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
         inventoryData.reverse()
         
-        productData   = RealmManager().readList(type: ModelProduct.self,distinct:"productId")
+        //added filter to show products only from assigned shops
+        self.modelLogin = RealmManager().readList(type: LoginModel.self).first
+        if let assignedShopId = modelLogin?.assignedShop{
+            print(assignedShopId.id!)
+           //productData   = RealmManager().readList(type: ModelProduct.self,distinct:"productId")
+            productData = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"shopId = '\(assignedShopId.id ?? "")'")
+            
+        }
+        
         if productFlag{
             data  = productData
         }else{
