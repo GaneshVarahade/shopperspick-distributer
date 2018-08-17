@@ -12,10 +12,14 @@ import RealmSwift
 
 class SettingsVC: UIViewController {
 
+    @IBOutlet weak var lblCurrentShop: UILabel!
     @IBOutlet weak var btnViewLogs: UIButton!
     @IBOutlet weak var btnLogout: UIButton!
     @IBOutlet weak var btnSwitchShop: UIButton!
     @IBOutlet weak var btnViewLogsClicked: UIButton!
+    
+    //Propertise
+    var loginModel:LoginModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = NSLocalizedString("SettingTitle", comment: "")
@@ -27,6 +31,19 @@ class SettingsVC: UIViewController {
         
         let image1 = UIImage(named: "logOut")?.withRenderingMode(.alwaysTemplate)
         self.btnLogout.setImage(image1, for: .normal)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setCurrentShop()
+        
+    }
+    
+    func setCurrentShop(){
+        self.loginModel = RealmManager().readList(type: LoginModel.self).first
+        if let assinedModel = self.loginModel?.assignedShop{
+            lblCurrentShop.text = assinedModel.name
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {

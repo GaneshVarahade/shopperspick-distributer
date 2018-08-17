@@ -30,6 +30,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         setSearchBarUI()
+        self.inventoryTableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         super.viewDidLoad()
         
     }
