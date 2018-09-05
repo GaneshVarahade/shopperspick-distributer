@@ -131,6 +131,8 @@ extension InventoryViewController{
             cell.requestLabel.text  = String(format: "%.1f", temp.totalQuantity)
             cell.dateLabel.isHidden = true
             cell.btnErrorInvetry.isHidden = true
+            cell.accessoryType = .disclosureIndicator
+            
             
         }else{
             let tempi   = data[indexPath.row] as! ModelInventoryTransfers
@@ -146,6 +148,7 @@ extension InventoryViewController{
             // Adda target to error button
             cell.btnErrorInvetry.addTarget(self, action: #selector(btnInvetryErrorClicked(_ :)), for: .touchUpInside)
             cell.btnErrorInvetry.tag = indexPath.row
+            cell.accessoryType = .none
             
         }
         
