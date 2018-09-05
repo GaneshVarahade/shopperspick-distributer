@@ -44,8 +44,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         predicateArray = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R",
         "S","T","U","V","W","X","Y","Z"]
         setSearchBarUI()
-//        let rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "Basket"), style: .done, target: self, action: #selector(basketBtnPressed))
-//
+
         //let button = UIButton(type: .system)
         customBarbutton.setBackgroundImage(UIImage(named: "Basket"), for: (UIControlState.normal))
         customBarbutton.setTitle("12", for: UIControlState.normal)
@@ -85,6 +84,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         obj.isFromScanView = false
         self.navigationController?.pushViewController(obj, animated: true)
     }
+    
     func getData(){
         //productData   = RealmManager().readList(type: ModelProduct.self)
         productData = RealmManager().readPredicate(type: ModelProduct.self , predicate: "shopId = '\(modelCreateTransfer.fromLocation?.shop?.id ?? "")' && inventoryId = '\(modelCreateTransfer.fromLocation?.inventory?.id ?? "")' " )
@@ -113,29 +113,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
             filterDict[predicateString] = ProductA
         }
     }
-//    func filterArray(){
-//        ProductA.removeAll()
-//        ProductB.removeAll()
-//        ProductC.removeAll()
-//        for dict in productData{
-//            let productName = dict.name
-//            if productName?.first == "A" || productName?.first == "a"{
-//                ProductA.append(dict)
-//            };if productName?.first == "B" || productName?.first == "b"{
-//                ProductB.append(dict)
-//            };if productName?.first == "C" || productName?.first == "c"{
-//                ProductC.append(dict)
-//            }
-//        }
-//        filterDict["C"] = ProductC
-//        filterDict["B"] = ProductB
-//        filterDict["A"] = ProductA
-//        print(filterDict)
-//        print(Array(filterDict.keys))
-//        sectionNameList = Array(filterDict.keys)
-//    }
-    
-    
+
     func setSearchBarUI() {
         
         searchBar.layer.borderWidth = 1;
@@ -147,9 +125,13 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK: - Selector methods
     @objc func basketBtnPressed() {
-        let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BasketViewController") as! BasketViewController
-        obj.modelCreateTrasfer = self.modelCreateTransfer
-        self.navigationController?.pushViewController(obj, animated: true)
+        if self.modelCreateTransfer.slectedProducts.count == 0{
+            showToast(NSLocalizedString("noProdSelected", comment: ""))
+        }else{
+            let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BasketViewController") as! BasketViewController
+            obj.modelCreateTrasfer = self.modelCreateTransfer
+            self.navigationController?.pushViewController(obj, animated: true)
+        }
     }
     
     // MARK:- UITableView Datasource/Delegate
@@ -194,9 +176,14 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK: - UIButton Events
     @IBAction func continueBtnPressed(_ sender: Any) {
-        let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BasketViewController") as! BasketViewController
-        obj.modelCreateTrasfer = self.modelCreateTransfer
-        self.navigationController?.pushViewController(obj, animated: true)
+        //If no product selected show toast
+        if self.modelCreateTransfer.slectedProducts.count == 0{
+             showToast(NSLocalizedString("noProdSelected", comment: ""))
+        }else{
+            let obj = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BasketViewController") as! BasketViewController
+            obj.modelCreateTrasfer = self.modelCreateTransfer
+            self.navigationController?.pushViewController(obj, animated: true)
+        }
     }
     
     @IBAction func findSearchBtnClicked(_ sender: Any) {

@@ -35,14 +35,19 @@ class SignatureViewController: UIViewController {
         signatureView.layer.borderColor = UIColor.orange.cgColor
         
         if isAddManifest {
+            signatureView.isUserInteractionEnabled = true
+            agreeBtn.isHidden = false
+            clearBtn.isHidden = false
+            
             signatureImgView.isHidden = true
             agreeBtn.isEnabled = true
             clearBtn.isEnabled = true
         }
         else {
             signatureImgView.isHidden = false
-            agreeBtn.isEnabled = false
-            clearBtn.isEnabled = false
+            signatureView.isUserInteractionEnabled = false
+            agreeBtn.isHidden = true
+            clearBtn.isHidden = true
             if let signImg = StoreImage.getSavedImage(name: (modelShippingMen?.shippingManifestNo!)!) {
                 signatureImgView.image = signImg
             }

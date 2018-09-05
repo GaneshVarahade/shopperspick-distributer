@@ -10,6 +10,7 @@ import Foundation
 
 public class ResponsePurchaseOrderProduct: BaseResponseModel {
     public var id: String?
+    public var productId: String?
     
     public var created: Int?
     
@@ -48,6 +49,8 @@ public class ResponsePurchaseOrder: BaseResponseModel {
     public var metrc: Bool?
 
     public var purchaseOrderStatus: String?
+    
+    public var parentPONumber: String?
 
     public var origin: Bool?
 

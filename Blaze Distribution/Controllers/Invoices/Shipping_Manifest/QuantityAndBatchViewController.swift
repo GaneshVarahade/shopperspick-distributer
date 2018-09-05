@@ -56,6 +56,17 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
         return shippingManifest!.selectedItems.count
     }
     
+    func getBatchSkuByProdId(prodId:String?) -> String{
+        
+        let ProductObj = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"productId = '\(prodId ?? "")'")
+        if let Sku = ProductObj[0].sku{
+            return Sku
+        }else{
+           return "--"
+        }
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! QuantityBatchTableViewCell
@@ -65,7 +76,8 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
         if let remainingQuantity = product?.remainingQuantity {
             cell.quantityTextField.text = "\(remainingQuantity)"
         }
-        cell.batchTextField.text = product?.productId
+        cell.batchTextField.text = getBatchSkuByProdId(prodId: product?.productId )
+        //cell.batchTextField.text = product?.productId
         cell.batchTextField.tag = indexPath.row
         cell.quantityTextField.tag = indexPath.row
         
@@ -130,6 +142,12 @@ class QuantityAndBatchViewController: UIViewController, UITableViewDataSource, U
                 return
             }
         }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            let cs = NSCharacterSet(charactersIn: "0123456789.").inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
     }
 
 }

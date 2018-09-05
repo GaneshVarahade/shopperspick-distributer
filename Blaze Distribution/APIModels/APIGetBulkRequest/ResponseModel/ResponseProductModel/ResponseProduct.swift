@@ -17,6 +17,7 @@ public class ResponseProduct:BaseResponseModel{
     public var name:String?
     public var shopId:String?
     public var companyLinkId:String?
+    public var sku:String?
     public var quantities:[ResponseQuantities]?
     
 }

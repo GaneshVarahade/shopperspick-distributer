@@ -37,10 +37,7 @@ class ViewLogsVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     
     // MARK:- UITableView Datasource/Delegate
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return objModelLogs.count
@@ -67,11 +64,7 @@ class ViewLogsVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         return cell
     }
-    
-//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-//        return ["Invoice","Inventry","Transfer"]
-//    }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if deviceIdiom == .pad {
             return 90

@@ -51,6 +51,7 @@ class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         self.manageSubmitButton(canAllow: true)
     }
     
+    //Hide and show Submit button depends on data is synch or not
     func manageSubmitButton(canAllow:Bool){
         if canAllow{
             btnSubmit.isUserInteractionEnabled = true
@@ -131,6 +132,7 @@ class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         return UITableViewAutomaticDimension
     }
+    
     //MARK: - Helper
     @objc func checkboxClicked(_ sender: UIButton) {
         selectedShops.removeAll()

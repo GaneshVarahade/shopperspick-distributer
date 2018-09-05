@@ -11,7 +11,10 @@ import SKActivityIndicatorView
 import KSToastView
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
-
+    @IBOutlet weak var loginViewLeading: NSLayoutConstraint!
+    @IBOutlet weak var btnForgotPassword: UIButton!
+    
+    @IBOutlet weak var loginViewTrailing: NSLayoutConstraint!
     // MARK: - IBOutlets
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -24,19 +27,45 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         txtEmail.text       = "test@test.com"
         txtPassword.text    = "test"
         labelVersion.text   = Versionutils.getAppVersion()
+        
     }
     
+    //MARK - Layout Helper
     override func viewWillDisappear(_ animated: Bool) {
         EventBus.sharedBus().unsubscribe(self, eventType: EventBusEventType.FINISHSYNCDATA)
         if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
             statusbar.backgroundColor = nil
         }
     }
- 
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        manageLayout()
+        
+    }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        manageLayout()
+    }
+    
+    func manageLayout(){
+        // ********** As app is suporting only portrait mode this code is commented for ladscape mode remove this comment **********
+//        if deviceIdiom == .pad{
+//            if UIDevice.current.orientation.isLandscape{
+//                self.loginViewLeading.constant = 260
+//                self.loginViewTrailing.constant = 260
+//            }else {
+//                self.loginViewTrailing.constant = 170
+//                self.loginViewLeading.constant = 170
+//            }
+//        }
+    }
+    
     // MARK: - IBActions
     @IBAction func loginBtnPressed(_ sender: Any) {
-        SKActivityIndicator.show()
+        self.btnForgotPassword.isEnabled = false
+        self.btnForgotPassword.alpha = 0.4
         
+        SKActivityIndicator.show()
         let reqLogin:RequestLogin = RequestLogin()
         reqLogin.email    = txtEmail.text!
         reqLogin.password = txtPassword.text!
@@ -47,13 +76,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //print(UIDevice.current.identifierForVendor!.uuidString)
         UtilPrintLogs.DLog(message:"Login Info", objectToPrint: UIDevice.current.identifierForVendor!.uuidString)
         WebServicesAPI.sharedInstance().loginAPI(request: reqLogin, onComplition: {(result:ResponseLogin?, error:PlatformError?) in
-           
+            
             SKActivityIndicator.show()
             if error != nil {
+                self.btnForgotPassword.isEnabled = true
+                self.btnForgotPassword.alpha = 1.0
                 SKActivityIndicator.dismiss()
                 self.showAlert(title: "Error", message: error?.details ?? "Error", closure:{})
                 return
             }
+            
             self.saveData(jsonData: result)
             UtilityUserDefaults.sharedInstance().saveToken(strToken: (result?.accessToken)!)
            
@@ -64,8 +96,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func goHome(){
-        
-          self.performSegue(withIdentifier: "goHome", sender: self)
+        self.btnForgotPassword.isEnabled = true
+        self.btnForgotPassword.alpha = 1.0
+        self.performSegue(withIdentifier: "goHome", sender: self)
     }
     
     // MARK: - Helper Methods

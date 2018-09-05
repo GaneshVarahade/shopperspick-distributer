@@ -52,7 +52,7 @@ public class ModelPurchaseOrder:ModelBase{
     }
     
     open override class func primaryKey() -> String? {
-        return "purchaseOrderNumber"
+        return "id"
     }
     
 }

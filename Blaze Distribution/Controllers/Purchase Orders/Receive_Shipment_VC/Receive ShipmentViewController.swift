@@ -46,6 +46,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
         for dict in selectedPurchaseOrder {
             let modelpurchaseOrderProductRecive = ModelPurchaseOrderProductReceived()
             modelpurchaseOrderProductRecive.name = dict.name
+            modelpurchaseOrderProductRecive.productId = dict.productId
             modelpurchaseOrderProductRecive.id = dict.id
             modelpurchaseOrderProductRecive.expected = dict.quantity
             modelpurchaseOrderProductRecive.received = dict.expected
@@ -70,7 +71,9 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
     }
     //Text Field validation
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return string.rangeOfCharacter(from: CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()+_=")) == nil
+        let cs = NSCharacterSet(charactersIn: "0123456789.").inverted
+        let filtered = string.components(separatedBy: cs).joined(separator: "")
+        return (string == filtered)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
