@@ -16,9 +16,10 @@ class SettingsVC: UIViewController {
     @IBOutlet weak var btnViewLogs: UIButton!
     @IBOutlet weak var btnLogout: UIButton!
     @IBOutlet weak var btnSwitchShop: UIButton!
+    @IBOutlet weak var btnRefresh: UIButton!
     @IBOutlet weak var btnViewLogsClicked: UIButton!
     
-    //Propertise
+    // Propertise
     var loginModel:LoginModel?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,9 @@ class SettingsVC: UIViewController {
         
         let image1 = UIImage(named: "logOut")?.withRenderingMode(.alwaysTemplate)
         self.btnLogout.setImage(image1, for: .normal)
+        
+        let image2 = UIImage(named: "resync_icon")?.withRenderingMode(.alwaysTemplate)
+        self.btnRefresh.setImage(image2, for: .normal)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -77,6 +81,9 @@ class SettingsVC: UIViewController {
         })
     }
     
+    @IBAction func refreshButtonAction(_ sender: Any) {
+        SyncService.sharedInstance().syncData()
+    }
 
     /*
     // MARK: - Navigation

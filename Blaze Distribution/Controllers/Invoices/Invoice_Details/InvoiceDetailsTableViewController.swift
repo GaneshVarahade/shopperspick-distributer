@@ -60,15 +60,16 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         
         if let invoiceData = tempData {
             self.title = invoiceData.invoiceNumber
-            self.duePaymentLabel.text = "$\(invoiceData.balanceDue) \(NSLocalizedString("dueof", comment: "")) $\(invoiceData.total)"
+            invoiceData.balanceDue = 25.23652
+            invoiceData.total = 35.63589
+            self.duePaymentLabel.text = String(format: "$%.2f \(NSLocalizedString("dueof", comment: "")) $%.2f", invoiceData.balanceDue, invoiceData.total)
             fixedDetailsTableVC?.getDataForFixedInvoices(data:invoiceData)
             
             if invoiceData.invoiceStatus == InvoiceStatus.COMPLETED.rawValue {
                 completeInvoicButton.isHidden = true
             }
             
-        }else{
-            
+        } else {
             return
         }
     }

@@ -129,3 +129,102 @@ public extension UIImageView {
         self.kf.setImage(with: securedURL, placeholder: placeHolderImage, options: [.requestModifier(modifier),.transition(ImageTransition.fade(0.7))])
     }
 }
+
+extension UIView {
+    
+    @IBInspectable var setShadowcolor: UIColor? {
+        get {
+            return layer.shadowColor.map(UIColor.init)
+        }
+        set {
+            layer.shadowColor = newValue?.cgColor
+        }
+    }
+    
+    @IBInspectable var setShadowOpacity: Float {
+        get {
+            return layer.shadowOpacity
+        }
+        set {
+            layer.shadowOpacity = newValue
+        }
+    }
+    
+    @IBInspectable var setShadowOffSet: CGSize {
+        get {
+            return layer.shadowOffset
+        }
+        set {
+            layer.shadowOffset.height = newValue.height
+            layer.shadowOffset.width = newValue.width
+        }
+    }
+    
+    @IBInspectable var setShadowRadius: CGFloat {
+        get {
+            return layer.shadowRadius
+        }
+        set {
+            layer.shadowRadius = newValue
+        }
+    }
+    
+    @IBInspectable var setCornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+        }
+    }
+    
+    @IBInspectable var setBorderColor: UIColor? {
+        get {
+            return layer.borderColor.map(UIColor.init)
+        }
+        set {
+            layer.borderColor = newValue?.cgColor
+        }
+    }
+    
+    @IBInspectable var setBorderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
+    }
+    
+    func addBorder(edge: UIRectEdge, color: UIColor, margins: CGFloat) {
+        let border = UIView()
+        border.backgroundColor = color
+        border.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(border)
+        border.addConstraint(NSLayoutConstraint(item: border,
+                                                attribute: NSLayoutAttribute.height,
+                                                relatedBy: NSLayoutRelation.equal,
+                                                toItem: nil,
+                                                attribute: NSLayoutAttribute.height,
+                                                multiplier: 1, constant: 1))
+        self.addConstraint(NSLayoutConstraint(item: border,
+                                              attribute: NSLayoutAttribute.bottom,
+                                              relatedBy: NSLayoutRelation.equal,
+                                              toItem: self,
+                                              attribute: NSLayoutAttribute.bottom,
+                                              multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: border,
+                                              attribute: NSLayoutAttribute.leading,
+                                              relatedBy: NSLayoutRelation.equal,
+                                              toItem: self,
+                                              attribute: NSLayoutAttribute.leading,
+                                              multiplier: 1, constant: margins))
+        self.addConstraint(NSLayoutConstraint(item: border,
+                                              attribute: NSLayoutAttribute.trailing,
+                                              relatedBy: NSLayoutRelation.equal,
+                                              toItem: self,
+                                              attribute: NSLayoutAttribute.trailing,
+                                              multiplier: 1, constant: margins))
+    }
+
+}

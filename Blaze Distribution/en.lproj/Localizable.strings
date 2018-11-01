@@ -30,7 +30,7 @@
 
 //5. InvoiceDetailsTableViewController
 "InvDetail_Validation1" = "Payment not allowed for Draft and Cancelled Invoice";
-"InvDetail_Validation2" = "Sorry, this invoice is aleredy paid, and has no remaining due";
+"InvDetail_Validation2" = "Sorry, this invoice is already paid, and has no remaining due";
 "InvDetail_Validation3" = "Shipping manifest not allowed for Draft and Cancelled Invoice";
 
 //6. AddPaymentTableViewController

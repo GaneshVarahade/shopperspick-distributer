@@ -1,5 +1,5 @@
-framework module Pods_Blaze_Distribution {
-  umbrella header "Pods-Blaze Distribution-umbrella.h"
+framework module Pods_BLAZE_Distribution {
+  umbrella header "Pods-BLAZE Distribution-umbrella.h"
 
   export *
   module * { export * }

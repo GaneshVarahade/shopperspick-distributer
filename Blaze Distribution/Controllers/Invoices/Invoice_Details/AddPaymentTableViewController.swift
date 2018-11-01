@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 protocol AddPaymentDelegate {
     func getDataFromAddPayment(dataDict:ModelInvoice)
@@ -22,6 +23,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     @IBOutlet weak var lblBalanceDue: UILabel!
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var paymentTypeView: UIView!
+    @IBOutlet weak var paymentTypeLabel: UILabel!
     @IBOutlet weak var paymentDateView: UIView!
     @IBOutlet weak var referenceNoTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
@@ -34,6 +36,8 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     @IBOutlet weak var paymentDateTextField: UITextField!
     
     let datePicker = UIDatePicker()
+    let paymentTypePicker = UIPickerView()
+    let paymentTypes = ["Debit Card", "ACH Transfer"]
     
     
     override func viewDidLoad() {
@@ -51,6 +55,15 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
 //        referenceNoView.dropShadow()
 //        amountView.dropShadow()
 //        notesView.dropShadow()
+        
+        paymentTypePicker.translatesAutoresizingMaskIntoConstraints = false
+        paymentTypePicker.backgroundColor = .red
+        self.paymentTypePicker.delegate = self
+        view.addSubview(paymentTypePicker)
+        
+        paymentTypePicker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        paymentTypePicker.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        paymentTypePicker.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         debitCheckMarkImage.isHidden = true
         
@@ -78,9 +91,9 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     func setDefaultData() {
         if self.isfromDetails && (paymentModel != nil) {
             notesTextView.textColor = UIColor.black
-            if let cardNo = paymentModel?.debitCardNo{
+            if let cardNo = paymentModel?.debitCardNo {
                  debitCardTextField?.text = String(format: "%d",cardNo)
-            }else{
+            } else {
                  debitCardTextField?.text = "Not Available"
             }
 
@@ -90,7 +103,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             amountTextField.text = String(format:"$%.1f",(paymentModel?.amount)!)
             notesTextView.text = paymentModel?.notes ?? "Not Available"
             lblBalanceDue.text = "0";
-        }else{
+        } else {
             //Set Due balance
             if(invoiceObj != nil){
                  lblBalanceDue.text = String(format: "$%.1f",(invoiceObj?.balanceDue)!)
@@ -102,6 +115,11 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func paymentTypeButton(_ sender: Any) {
+        
+    }
+    
 
     // MARK: - Table view data source
 
@@ -212,6 +230,24 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         }
     }
     
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "AddPaymentCell", for: indexPath)
+//        if indexPath.row == 0 {
+//            tableView.allowsSelection = true
+//        } else {
+//            tableView.allowsSelection = false
+//        }
+////        cell.textLabel?.text = "Section \(indexPath.section) Row \(indexPath.row)"
+//        return cell
+//    }
+    
+    // MARK: - Table view Delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("did select row at index \(indexPath.row)")
+        
+    }
+    
     
     // MARK: - UITextView Delegate/DataSource
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -269,6 +305,8 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         }
         return true
     }
+    
+    
     
     // MARK:- Touch events
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -397,4 +435,26 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     }
     */
 
+}
+
+// MARK:- UIPickerView Delegate
+extension AddPaymentTableViewController: UIPickerViewDelegate {
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return paymentTypes.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        return paymentTypes[row]
+    }
+    
+    func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int) {
+        paymentTypeLabel.text = paymentTypes[row]
+        self.view.endEditing(true)
+    }
+    
 }

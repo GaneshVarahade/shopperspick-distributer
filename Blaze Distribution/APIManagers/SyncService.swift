@@ -37,16 +37,15 @@ public final class SyncService {
                 self.syncSignature()
                 
                 
-            }else if self.isPostBulkAvailable() {
+            } else if self.isPostBulkAvailable() {
                 
                self.syncPostBulkData()
                 
                 
-            }else{
+            } else {
                 self.syncGetBulkData()
                 //SKActivityIndicator.dismiss()
             }
-    
     }
     
     //Check whether signature is available to post
@@ -460,7 +459,7 @@ public final class SyncService {
         syncData()
     }
     
-    private func finishSync(){
+    private func finishSync() {
         //Remove object from default synch finish
         UserDefaults.standard.removeObject(forKey: "isSynchStart")
         
