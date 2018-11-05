@@ -227,7 +227,6 @@ public final class SyncService {
                         //                    if let achdate =  payment.achDate, achdate != ""{
                         //                         requestModelInvoicePayment.achDate = DateFormatterUtil.formatStringToInt(dateTime: achdate, format: DateFormatterUtil.mmddyyyy)
                         //                    }
-                        
                         requestModelInvoicePayment.paidDate = payment.paymentDate
                         requestModelInvoicePayment.referenceNo = payment.referenceNumber
                         requestModelInvoicePayment.amountPaid = payment.amount
@@ -613,8 +612,7 @@ public final class SyncService {
                             paymentTemp.notes           = payment.notes
                             model.paymentInfo.append(paymentTemp)
                         }
-                    }else{
-                        
+                    } else {
                         //  print("Payment info nil")
                     }
                     ///Mapping Shipping Manifests

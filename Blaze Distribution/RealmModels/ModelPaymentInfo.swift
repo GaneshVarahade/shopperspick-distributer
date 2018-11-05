@@ -9,14 +9,21 @@
 import Foundation
 import Realm
 import RealmSwift
-public enum PyamentType:String{
+public enum PyamentType:String {
     case Cash = "CASH"
     case Credit = "CREDIT"
     case Debit = "DEBITE"
     case Checqe = "CHECQ"
 }
-public class ModelPaymentInfo:ModelBase{
+
+public enum AddPaymentType:String {
+    case DEBIT = "DEBIT"
+    case ACH_TRANSFER = "ACH TRANSFER"
+}
+
+public class ModelPaymentInfo:ModelBase {
     
+    public var addPaymentType:AddPaymentType        =   AddPaymentType.DEBIT
     @objc public dynamic var debitCardNo:Int        =   0
     @objc public dynamic var achDate:String?         =   ""
     @objc public dynamic var paymentDate:Int        =   0
@@ -31,6 +38,7 @@ public class ModelPaymentInfo:ModelBase{
     public override func copy(with zone: NSZone? = nil) -> Any {
         let modelPaymentInfo             = ModelPaymentInfo()
         modelPaymentInfo.id              = self.id
+        modelPaymentInfo.addPaymentType  = self.addPaymentType
         modelPaymentInfo.debitCardNo     = self.debitCardNo
         modelPaymentInfo.achDate         = self.achDate
         modelPaymentInfo.paymentDate     = self.paymentDate

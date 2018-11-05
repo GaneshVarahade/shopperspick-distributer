@@ -16,7 +16,7 @@ protocol ShippingMenifestConfirmSelectedProductsDelegate {
 
 class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmSelectedProductsDelegate,validationProtocol,validateFieldsProtocol {
 
-    var manifestInfoViewController: ManifestInfoTableViewController?
+//    var manifestInfoViewController: ManifestInfoTableViewController?
     var invoiceDetailsDict: ModelInvoice?
     var isAddManifest = Bool()
     var modelShippingMen: ModelShipingMenifest?

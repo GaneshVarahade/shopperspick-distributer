@@ -64,12 +64,33 @@ public class ModelShipingMenifest:ModelBase {
         modelShipingMenifest.signatureAsset      = self.signatureAsset
         modelShipingMenifest.updated            = self.updated
         for item in self.selectedItems {
-            
             modelShipingMenifest.selectedItems.append(item.copy() as! ModelRemainingProduct)
-            
         }
-        
         return modelShipingMenifest
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(id, forKey: "id")
+        coder.encode(companyId, forKey: "companyId")
+        coder.encode(deliveryDate, forKey: "deliveryDate")
+        coder.encode(deliveryTime, forKey: "deliveryTime")
+        coder.encode(driverName, forKey: "driverName")
+        coder.encode(driverLicenseNumber, forKey: "driverLicenseNumber")
+        coder.encode(vehicleMake, forKey: "vehicleMake")
+        coder.encode(vehicleModel, forKey: "vehicleModel")
+        coder.encode(vehicleColor, forKey: "vehicleColor")
+        coder.encode(driverLicenPlate, forKey: "driverLicenPlate")
+        coder.encode(vehicleLicensePlate, forKey: "vehicleLicensePlate")
+        coder.encode(receiverCompany, forKey: "receiverCompany")
+        coder.encode(receiverType, forKey: "receiverType")
+        coder.encode(receiverContact, forKey: "receiverContact")
+        coder.encode(receiverLicense, forKey: "receiverLicense")
+        coder.encode(receiverAddress, forKey: "receiverAddress")
+        coder.encode(invoiceStatus, forKey: "invoiceStatus")
+        coder.encode(signatureAsset, forKey: "signatureAsset")
+        coder.encode(updated, forKey: "updated")
+        coder.encode(selectedItems, forKey: "selectedItems")
+        
     }
     
     public override var description: String {

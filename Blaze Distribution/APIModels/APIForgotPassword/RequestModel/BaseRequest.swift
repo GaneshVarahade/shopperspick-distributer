@@ -9,4 +9,5 @@
 import Foundation
 
 public protocol BaseRequest: Codable {
+    
 }

@@ -52,9 +52,12 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
+        // set custome left bar button
+        self.navigationItem.hidesBackButton = true
+        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ManifestInfoTableViewController.back(sender:)))
+        self.navigationItem.leftBarButtonItem = newBackButton
+        self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         self.disableDriversTextField()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,7 +96,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             modelShippingMen?.vehicleColor = licenNumber.vehicleColor
             modelShippingMen?.driverLicenPlate = licenNumber.vehicleLicensePlate
             modelShippingMen?.driverId = licenNumber.driverId
-        }else{
+        } else {
             return
         }
     
@@ -150,6 +153,29 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
 //        addressTextField.text = "\(modelInvoice.vendorCity ?? "-"), \(modelInvoice.vendorCountry ?? "-")"
 //
 //    }
+    
+    func getManifestInProgress() {
+        // retrieving a value for a key
+        if let data = UserDefaults.standard.data(forKey: (invoiceDetailsDict?.invoiceNumber)!),
+            let manifestData = NSKeyedUnarchiver.unarchiveObject(with: data) as? ModelShipingMenifest {
+        } else {
+        }
+    }
+    
+    func setmanifestInProgress() {
+        guard let data =  modelShippingMen else {
+            return
+        }
+        let encodedData = NSKeyedArchiver.archivedData(withRootObject: data)
+        UserDefaults.standard.set(encodedData, forKey: (invoiceDetailsDict?.invoiceNumber)!)
+    }
+    
+    @objc func back(sender: UIBarButtonItem) {
+        // Perform your custom actions
+        // Go back to the previous ViewController
+        _ = navigationController?.popViewController(animated: true)
+    }
+
     
     // MARK: - UI Update
     func setUI(manifestInfo: ModelShipingMenifest?) {
