@@ -53,9 +53,9 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         // set custome left bar button
-        self.navigationItem.hidesBackButton = true
-        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ManifestInfoTableViewController.back(sender:)))
-        self.navigationItem.leftBarButtonItem = newBackButton
+//        self.navigationItem.hidesBackButton = true
+//        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ManifestInfoTableViewController.back(sender:)))
+//        self.navigationItem.leftBarButtonItem = newBackButton
         self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         self.disableDriversTextField()
     }
@@ -158,11 +158,10 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         // retrieving a value for a key
         if let data = UserDefaults.standard.data(forKey: (invoiceDetailsDict?.invoiceNumber)!),
             let manifestData = NSKeyedUnarchiver.unarchiveObject(with: data) as? ModelShipingMenifest {
-        } else {
         }
     }
     
-    func setmanifestInProgress() {
+    func setManifestInProgress() {
         guard let data =  modelShippingMen else {
             return
         }
@@ -170,11 +169,17 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         UserDefaults.standard.set(encodedData, forKey: (invoiceDetailsDict?.invoiceNumber)!)
     }
     
-    @objc func back(sender: UIBarButtonItem) {
-        // Perform your custom actions
-        // Go back to the previous ViewController
-        _ = navigationController?.popViewController(animated: true)
-    }
+//    @objc func back(sender: UIBarButtonItem) {
+//        // Perform your custom actions
+//        // Go back to the previous ViewController
+//        self.navigationController?.popViewController(animated: true)
+////        for controller in (navigationController?.viewControllers)! {
+////            if let popController = controller as? InvoicesViewController {
+////                navigationController?.popToViewController(popController, animated: true)
+////                break
+////            }
+////        }
+//    }
 
     
     // MARK: - UI Update

@@ -90,7 +90,6 @@ public class ModelShipingMenifest:ModelBase {
         coder.encode(signatureAsset, forKey: "signatureAsset")
         coder.encode(updated, forKey: "updated")
         coder.encode(selectedItems, forKey: "selectedItems")
-        
     }
     
     public override var description: String {

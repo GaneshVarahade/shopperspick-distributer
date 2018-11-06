@@ -196,20 +196,14 @@ extension InventoryViewController{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = inventoryTableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
-        
-        
-        
-        if productFlag{
-            
+        if productFlag {
             let temp                = data[indexPath.row] as! ModelProduct
             cell.nameLabel.text     = temp.name
             cell.requestLabel.text  = String(format: "%.1f", temp.totalQuantity)
             cell.dateLabel.isHidden = true
             cell.btnErrorInvetry.isHidden = true
             cell.accessoryType = .disclosureIndicator
-            
-            
-        }else{
+        } else {
             let tempi   = data[indexPath.row] as! ModelInventoryTransfers
             cell.nameLabel.text     = tempi.toInventoryName
             cell.requestLabel.text  = tempi.transferNo
@@ -217,14 +211,13 @@ extension InventoryViewController{
             cell.dateLabel.isHidden = false
             
             cell.btnErrorInvetry.isHidden = true
-            if let error = tempi.putBulkError, error != ""{
+            if let error = tempi.putBulkError, error != "" {
                 cell.btnErrorInvetry.isHidden = false
             }
             // Adda target to error button
             cell.btnErrorInvetry.addTarget(self, action: #selector(btnInvetryErrorClicked(_ :)), for: .touchUpInside)
             cell.btnErrorInvetry.tag = indexPath.row
             cell.accessoryType = .none
-            
         }
         
         return cell
@@ -255,7 +248,7 @@ extension InventoryViewController{
         return (data.count==0 && !UserDefaults.standard.bool(forKey: "isSynchStart")) ? 60.0 : 0.0
     }
     
-    @objc func btnInvetryErrorClicked(_ sender :UIButton){
+    @objc func btnInvetryErrorClicked(_ sender :UIButton) {
         let index : Int = sender.tag
         let tempi   = data[index] as! ModelInventoryTransfers
         //Show Alert
@@ -276,10 +269,33 @@ extension InventoryViewController{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        if productFlag{
-          let objProdDetails = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVCSegue") as! ProductDetailsVC
+        if productFlag {
+            let objProdDetails = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVCSegue") as! ProductDetailsVC
             objProdDetails.selectedProd = data[indexPath.row] as! ModelProduct
             self.navigationController?.pushViewController(objProdDetails, animated: true)
+        } else {
+            let alertController = UIAlertController(title: nil, message: "Choose an Option", preferredStyle: .actionSheet)
+            let transferDetails = UIAlertAction(title: "Transfer Details", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+                //  perform action to view transfer Details
+            })
+            let pendingTransfers = UIAlertAction(title: "Accept Pending Transfers", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+                //  perform action to accept pending transfer
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+                //  Do something here upon cancellation.
+            })
+            alertController.addAction(transferDetails)
+            alertController.addAction(pendingTransfers)
+            alertController.addAction(cancelAction)
+            
+            if (UIDevice.current.userInterfaceIdiom == .pad) {
+                if let popoverController = alertController.popoverPresentationController {
+                    popoverController.sourceView = self.view
+                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                }
+            } else {
+                self.present(alertController, animated: true, completion: nil)
+            }
         }
        
     }
