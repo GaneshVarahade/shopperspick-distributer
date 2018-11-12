@@ -312,7 +312,7 @@ public final class SyncService {
                 DispatchQueue.global(qos: .userInitiated).async {
                     
                     // for inventoryTransferError object
-                    if let arrayInventory = result?.inventoryTransferError, arrayInventory.count > 0{
+                    if let arrayInventory = result?.inventoryTransferError, arrayInventory.count > 0 {
                         for obj in arrayInventory {
                             
                            //print(obj.request?.id ?? "",obj.error ?? "")

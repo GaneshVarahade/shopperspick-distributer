@@ -36,27 +36,16 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
         manifestInfoContainerView.isHidden = true
         itemsToShipContainerView.isHidden = false
         
-//        self.navigationItem.hidesBackButton = true
+        self.navigationItem.hidesBackButton = true
 //        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(back(sender:)))
-//        self.navigationItem.leftBarButtonItem = newBackButton
-
+        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: manifestDetailController, action: #selector(manifestDetailController?.back(sender:)))
+        self.navigationItem.leftBarButtonItem = newBackButton
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-//    @objc func back(sender: UIBarButtonItem) {
-//        // Perform your custom actions
-//        // Go back to the previous ViewController
-//        self.navigationController?.popViewController(animated: true)
-//        for controller in (navigationController?.viewControllers)! {
-//            if let popController = controller as? ManifestInfoTableViewController {
-//            }
-//        }
-//
-//    }
     
     @IBAction func segmentValueChanged(_ sender: Any) {
         if shippingSegmentControler.selectedSegmentIndex == 0 {
