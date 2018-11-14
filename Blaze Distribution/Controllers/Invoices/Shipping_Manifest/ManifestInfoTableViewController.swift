@@ -19,7 +19,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     // MARK: - Property
     var isAddManifest = Bool()
     var modelShippingMen: ModelShipingMenifest?
-    var inProgressShippingMen: ModelShipingMenifest?
+    var inProgressShippingMen: ModelInProgressShipingMenifest?
     let datePicker = UIDatePicker()
     let timePicker = UIDatePicker()
     var driverInfo :[ModelDriverInfo] = []
@@ -54,8 +54,6 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         super.viewDidLoad()
         self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         self.disableDriversTextField()
-        // get if the current manifest progress is saved
-        self.getManifestInProgress()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,6 +92,8 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             modelShippingMen?.vehicleColor = licenNumber.vehicleColor
             modelShippingMen?.driverLicenPlate = licenNumber.vehicleLicensePlate
             modelShippingMen?.driverId = licenNumber.driverId
+            
+            self.updateCurrentManifest()
         } else {
             return
         }
@@ -107,7 +107,10 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             addSignatureBtn.isHidden = true
         }
 
+        // set UI with maodel shipping manifest
         setUI(manifestInfo: modelShippingMen)
+        // get if the current manifest progress is saved
+        self.getManifestInProgress()
         setDataWithCurrentManifest(manifestInfo: inProgressShippingMen)
         
         let colorView = UIView()
@@ -162,9 +165,26 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
 //            inProgressShippingMen = modelShippingMen
 //        }
         
-        let inProgressManifests = RealmManager().readList(type: ModelShipingMenifest.self)
-//        let inProgressManifest = RealmManager().read(type: ModelShipingMenifest.self, primaryKey: (invoiceDetailsDict?.invoiceNumber)!)
-        print("in progress manifest >>>>>>>> \(String(describing: inProgressManifests))")
+        
+        let realm = try! Realm()
+        let objects = realm.objects(ModelInProgressShipingMenifest.self)
+        if !objects.isEmpty {
+            inProgressShippingMen = ModelInProgressShipingMenifest()
+            inProgressShippingMen = objects[0]
+        } else {
+            inProgressShippingMen = ModelInProgressShipingMenifest()
+        }
+        self.updateCurrentManifest()
+        print("in progress manifest >>>>>>>> \(String(describing: objects))")
+        
+//        let inProgressManifests = RealmManager().readList(type: ModelInProgressShipingMenifest.self)
+//        if !inProgressManifests.isEmpty {
+//            inProgressShippingMen = inProgressManifests[0]
+//        } else {
+//            inProgressShippingMen = ModelInProgressShipingMenifest()
+//        }
+//        self.updateCurrentManifest()
+//        print("in progress manifest >>>>>>>> \(String(describing: inProgressManifests))")
     }
     
     func setManifestInProgress() {
@@ -174,13 +194,24 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
 //        let encodedData = NSKeyedArchiver.archivedData(withRootObject: data)
 //        UserDefaults.standard.set(encodedData, forKey: "\(invoiceDetailsDict?.invoiceNumber ?? "default")")
         
-        RealmManager().write(table: data)
+//        RealmManager().write(table: data)
+        
+        
+        // Get the default Realm
+        let realm = try! Realm()
+        // Persist your data easily
+        try! realm.write {
+//            realm.add(data)
+            realm.add(data, update: false)
+        }
+
     }
     
     @objc func back(sender: UIBarButtonItem) {
         print("backkkkkk")
         // save data for in progress
-        inProgressShippingMen = modelShippingMen    // for signature and id
+        inProgressShippingMen?.shippingManifestNo = modelShippingMen?.shippingManifestNo    // for signature and id
+        inProgressShippingMen?.signatureAsset = modelShippingMen?.signatureAsset
         inProgressShippingMen?.shippingManifestNo = manifestNoTextField.text
         inProgressShippingMen?.deliveryDate = DateIntConvertUtil.convert(dateTime: Int(datePicker.date.timeIntervalSince1970), type: DateIntConvertUtil.Miliseconds)
         inProgressShippingMen?.deliveryTime = DateIntConvertUtil.convert(dateTime:Int(timePicker.date.timeIntervalSince1970) , type: DateIntConvertUtil.Miliseconds)
@@ -263,7 +294,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             driverLicencePlateTextField.text = manifestInfo.driverLicenPlate ?? "Not available"
             
             // Assine Image from asset
-            if let imageAsset : ModelSignatureAsset = manifestInfo.signatureAsset{
+            if let imageAsset : ModelSignatureAsset = manifestInfo.signatureAsset {
                 if let url = imageAsset.getNSURL(){
                     self.signatureImgView.imageFromSecureURL(url, placeHolder: "loadingImage")
                 }
@@ -306,6 +337,29 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             }
         }
         
+    }
+    
+    private func updateCurrentManifest() {
+        inProgressShippingMen?.shippingManifestNo = manifestNoTextField.text
+        inProgressShippingMen?.deliveryDate = (modelShippingMen?.deliveryDate)!
+        inProgressShippingMen?.deliveryTime = (modelShippingMen?.deliveryTime)!
+        
+        inProgressShippingMen?.receiverCompany = companyNameTextField.text
+        inProgressShippingMen?.receiverType = typeTextField.text
+        inProgressShippingMen?.receiverContact = contactTextField.text
+        inProgressShippingMen?.receiverLicense = licenceNoTextField.text
+        inProgressShippingMen?.receiverAddress = modelShippingMen?.receiverAddress
+        
+        inProgressShippingMen?.driverName = driverNameTextField.text
+        inProgressShippingMen?.driverLicenseNumber = driverLicenceTextField.text
+        inProgressShippingMen?.vehicleMake = driverMakeTextField.text
+        inProgressShippingMen?.vehicleModel = driverModelTextField.text
+        inProgressShippingMen?.vehicleColor = driverColorTextField.text
+        inProgressShippingMen?.driverLicenPlate = driverLicencePlateTextField.text
+        inProgressShippingMen?.driverId = modelShippingMen?.driverId
+        
+        inProgressShippingMen?.signatureAsset = modelShippingMen?.signatureAsset
+        inProgressShippingMen?.signaturePhoto = modelShippingMen?.signaturePhoto
     }
     
     private func disableDriversTextField(){
