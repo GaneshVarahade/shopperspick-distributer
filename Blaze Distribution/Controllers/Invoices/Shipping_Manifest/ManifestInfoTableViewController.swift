@@ -93,7 +93,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             modelShippingMen?.driverLicenPlate = licenNumber.vehicleLicensePlate
             modelShippingMen?.driverId = licenNumber.driverId
             
-            self.updateCurrentManifest()
+//            self.updateCurrentManifest()
         } else {
             return
         }
@@ -108,10 +108,10 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         }
 
         // set UI with maodel shipping manifest
-        setUI(manifestInfo: modelShippingMen)
+//        setUI(manifestInfo: modelShippingMen)
         // get if the current manifest progress is saved
         self.getManifestInProgress()
-        setDataWithCurrentManifest(manifestInfo: inProgressShippingMen)
+//        setDataWithCurrentManifest(manifestInfo: inProgressShippingMen)
         
         let colorView = UIView()
         colorView.backgroundColor = UIColor.clear
@@ -122,81 +122,30 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
 //        driverNameTextField.inputView = pickerView
 //        driverNameTextField.delegate = self
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.view.endEditing(true)
-//        if isAddManifest {
-//            //modelShippingMen?.deliveryDate = Int(Date().timeIntervalSince1970)
-//            modelShippingMen?.receiverCompany = companyNameTextField.text
-//            modelShippingMen?.receiverType = typeTextField.text
-//            modelShippingMen?.receiverContact = contactTextField.text
-//            modelShippingMen?.receiverLicense = licenceNoTextField.text
-//            let addressObj = ModelAddres()
-//            addressObj.address = addressTextField.text
-//            modelShippingMen?.receiverAddress = addressObj
-//            modelShippingMen?.driverName = driverNameTextField.text
-//            modelShippingMen?.driverLicenseNumber = driverLicenceTextField.text
-//            modelShippingMen?.vehicleMake = driverMakeTextField.text
-//            modelShippingMen?.vehicleModel = driverModelTextField.text
-//            modelShippingMen?.vehicleColor = driverColorTextField.text
-//            modelShippingMen?.driverLicenPlate = driverLicencePlateTextField.text
-//        }
-    }
-//    private func seuptReceiver(_ invoice: ModelInvoice?){
-//
-//        guard  let modelInvoice = invoice else {
-//            return
-//        }
-//
-//        companyNameTextField.text = modelInvoice.vendorCompany ?? "-/-"
-//        typeTextField.text = modelInvoice.vendorCompanyType ?? "-/-"
-//        contactTextField.text = modelInvoice.vendorPhone ?? "-/-"
-//        licenceNoTextField.text = modelInvoice.vendorLicenseNumber ?? "-/-"
-//        addressTextField.text = "\(modelInvoice.vendorCity ?? "-"), \(modelInvoice.vendorCountry ?? "-")"
-//
-//    }
+
     
     func getManifestInProgress() {
         // retrieving a value for a key
-//        if let data = UserDefaults.standard.data(forKey: "\(invoiceDetailsDict?.invoiceNumber ?? "default")"),
-//            let manifestData = NSKeyedUnarchiver.unarchiveObject(with: data) as? ModelShipingMenifest {
-//            inProgressShippingMen = manifestData
-//        } else {
-//            inProgressShippingMen = modelShippingMen
-//        }
-        
-        
+
         let realm = try! Realm()
         let objects = realm.objects(ModelInProgressShipingMenifest.self)
+        print(objects)
         if !objects.isEmpty {
-            inProgressShippingMen = ModelInProgressShipingMenifest()
-            inProgressShippingMen = objects[0]
+            setDataWithCurrentManifest(manifestInfo: objects[0])
+//            inProgressShippingMen = ModelInProgressShipingMenifest()
+//            inProgressShippingMen = objects[0]
         } else {
+            setUI(manifestInfo: modelShippingMen)
             inProgressShippingMen = ModelInProgressShipingMenifest()
         }
-        self.updateCurrentManifest()
         print("in progress manifest >>>>>>>> \(String(describing: objects))")
         
-//        let inProgressManifests = RealmManager().readList(type: ModelInProgressShipingMenifest.self)
-//        if !inProgressManifests.isEmpty {
-//            inProgressShippingMen = inProgressManifests[0]
-//        } else {
-//            inProgressShippingMen = ModelInProgressShipingMenifest()
-//        }
-//        self.updateCurrentManifest()
-//        print("in progress manifest >>>>>>>> \(String(describing: inProgressManifests))")
     }
     
     func setManifestInProgress() {
         guard let data = inProgressShippingMen else {
             return
         }
-//        let encodedData = NSKeyedArchiver.archivedData(withRootObject: data)
-//        UserDefaults.standard.set(encodedData, forKey: "\(invoiceDetailsDict?.invoiceNumber ?? "default")")
-        
-//        RealmManager().write(table: data)
-        
-        
         // Get the default Realm
         let realm = try! Realm()
         // Persist your data easily
@@ -204,38 +153,15 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
 //            realm.add(data)
             realm.add(data, update: false)
         }
-
     }
     
     @objc func back(sender: UIBarButtonItem) {
         print("backkkkkk")
-        // save data for in progress
-        inProgressShippingMen?.shippingManifestNo = modelShippingMen?.shippingManifestNo    // for signature and id
-        inProgressShippingMen?.signatureAsset = modelShippingMen?.signatureAsset
-        inProgressShippingMen?.shippingManifestNo = manifestNoTextField.text
-        inProgressShippingMen?.deliveryDate = DateIntConvertUtil.convert(dateTime: Int(datePicker.date.timeIntervalSince1970), type: DateIntConvertUtil.Miliseconds)
-        inProgressShippingMen?.deliveryTime = DateIntConvertUtil.convert(dateTime:Int(timePicker.date.timeIntervalSince1970) , type: DateIntConvertUtil.Miliseconds)
-        inProgressShippingMen?.receiverCompany = companyNameTextField.text
-        inProgressShippingMen?.receiverType = typeTextField.text
-        inProgressShippingMen?.receiverContact = contactTextField.text
-        inProgressShippingMen?.receiverLicense = licenceNoTextField.text
-        inProgressShippingMen?.receiverAddress?.address = addressTextField.text
-        if let licenNumber = self.selectedDriverInfo {
-            inProgressShippingMen?.driverName = licenNumber.driverName
-            inProgressShippingMen?.driverLicenseNumber = licenNumber.driverLicenseNumber
-            inProgressShippingMen?.vehicleMake = licenNumber.vehicleMake
-            inProgressShippingMen?.vehicleModel = licenNumber.vehicleModel
-            inProgressShippingMen?.vehicleColor = licenNumber.vehicleColor
-            inProgressShippingMen?.driverLicenPlate = licenNumber.vehicleLicensePlate
-            inProgressShippingMen?.driverId = licenNumber.driverId
-        }
-        // save to user default
+        // save data in process
         self.setManifestInProgress()
+        self.updateCurrentManifest()
         // pop after saving data for in progress
         self.navigationController?.popViewController(animated: true)
-        
-        
-        
         
         // Perform your custom actions
 //        if modelShippingMen == inProgressShippingMen {
@@ -340,26 +266,34 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     }
     
     private func updateCurrentManifest() {
-        inProgressShippingMen?.shippingManifestNo = manifestNoTextField.text
-        inProgressShippingMen?.deliveryDate = (modelShippingMen?.deliveryDate)!
-        inProgressShippingMen?.deliveryTime = (modelShippingMen?.deliveryTime)!
         
-        inProgressShippingMen?.receiverCompany = companyNameTextField.text
-        inProgressShippingMen?.receiverType = typeTextField.text
-        inProgressShippingMen?.receiverContact = contactTextField.text
-        inProgressShippingMen?.receiverLicense = licenceNoTextField.text
-        inProgressShippingMen?.receiverAddress = modelShippingMen?.receiverAddress
-        
-        inProgressShippingMen?.driverName = driverNameTextField.text
-        inProgressShippingMen?.driverLicenseNumber = driverLicenceTextField.text
-        inProgressShippingMen?.vehicleMake = driverMakeTextField.text
-        inProgressShippingMen?.vehicleModel = driverModelTextField.text
-        inProgressShippingMen?.vehicleColor = driverColorTextField.text
-        inProgressShippingMen?.driverLicenPlate = driverLicencePlateTextField.text
-        inProgressShippingMen?.driverId = modelShippingMen?.driverId
-        
-        inProgressShippingMen?.signatureAsset = modelShippingMen?.signatureAsset
-        inProgressShippingMen?.signaturePhoto = modelShippingMen?.signaturePhoto
+        let realm = try! Realm()
+        let objects = realm.objects(ModelInProgressShipingMenifest.self)
+        // Persist your data easily
+        if !objects.isEmpty {
+            try? realm.write {
+                print(objects[0])
+                objects[0].shippingManifestNo = modelShippingMen?.shippingManifestNo
+                objects[0].deliveryDate = DateIntConvertUtil.convert(dateTime: Int(datePicker.date.timeIntervalSince1970), type: DateIntConvertUtil.Miliseconds)
+                objects[0].deliveryTime = DateIntConvertUtil.convert(dateTime:Int(timePicker.date.timeIntervalSince1970) , type: DateIntConvertUtil.Miliseconds)
+                objects[0].receiverCompany = companyNameTextField.text
+                objects[0].receiverType = typeTextField.text
+                objects[0].receiverContact = contactTextField.text
+                objects[0].receiverLicense = licenceNoTextField.text
+                objects[0].receiverAddress = modelShippingMen?.receiverAddress
+                objects[0].driverName = driverNameTextField.text
+                objects[0].driverLicenseNumber = driverLicenceTextField.text
+                objects[0].vehicleMake = driverMakeTextField.text
+                objects[0].vehicleModel = driverModelTextField.text
+                objects[0].vehicleColor = driverColorTextField.text
+                objects[0].driverLicenPlate = driverLicencePlateTextField.text
+                objects[0].driverId = modelShippingMen?.driverId
+                objects[0].signatureAsset = modelShippingMen?.signatureAsset
+                objects[0].signaturePhoto = modelShippingMen?.signaturePhoto
+                realm.add(objects[0], update: true)
+                print(objects[0])
+            }
+        }
     }
     
     private func disableDriversTextField(){
@@ -436,66 +370,6 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             addressTextField.becomeFirstResponder()
             return
         }
-//        guard let driverName = modelShippingMen?.driverName, driverName != "" else {
-//            driverNameTextField.layer.borderWidth = 1
-//            driverNameTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 11, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverNameTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
-//        guard let driverLicence = modelShippingMen?.driverLicenseNumber, driverLicence != "" else {
-//            driverLicenceTextField.layer.borderWidth = 1
-//            driverLicenceTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 12, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverLicenceTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
-//        guard let vehicleMake = modelShippingMen?.vehicleMake, vehicleMake != "" else {
-//            driverMakeTextField.layer.borderWidth = 1
-//            driverMakeTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 13, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverMakeTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
-//        guard let vehicleModel = modelShippingMen?.vehicleModel, vehicleModel != "" else {
-//            driverModelTextField.layer.borderWidth = 1
-//            driverModelTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 14, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverModelTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
-//        guard let vehicleColor = modelShippingMen?.vehicleColor, vehicleColor != "" else {
-//            driverColorTextField.layer.borderWidth = 1
-//            driverColorTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 15, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverColorTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
-//        guard let driverLicenPlate = modelShippingMen?.driverLicenPlate, driverLicenPlate != "" else {
-//            driverLicencePlateTextField.layer.borderWidth = 1
-//            driverLicencePlateTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 16, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverLicencePlateTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
         guard signImg != nil else {
             signatureImgView.layer.borderWidth = 1
             signatureImgView.layer.borderColor = UIColor.red.cgColor

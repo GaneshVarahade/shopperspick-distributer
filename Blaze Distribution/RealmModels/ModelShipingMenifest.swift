@@ -99,13 +99,14 @@ public class ModelShipingMenifest:ModelBase {
 
 public class ModelInProgressShipingMenifest:ModelShipingMenifest {
     
+    @objc public dynamic var invoiceId:String?
     open override class func primaryKey() -> String? {
         return "id"
     }
     
     public override func copy(with zone: NSZone?) -> Any {
         
-        let modelShipingMenifest                 = ModelShipingMenifest()
+        let modelShipingMenifest                 = ModelInProgressShipingMenifest()
         modelShipingMenifest.id                  = self.id
         modelShipingMenifest.companyId           = self.companyId
         modelShipingMenifest.shippingManifestNo  = self.shippingManifestNo
@@ -128,6 +129,7 @@ public class ModelInProgressShipingMenifest:ModelShipingMenifest {
         modelShipingMenifest.invoiceStatus       = self.invoiceStatus
         modelShipingMenifest.signatureAsset      = self.signatureAsset
         modelShipingMenifest.updated            = self.updated
+        modelShipingMenifest.invoiceId          = self.invoiceId
         for item in self.selectedItems {
             modelShipingMenifest.selectedItems.append(item.copy() as! ModelRemainingProduct)
         }
@@ -154,6 +156,7 @@ public class ModelInProgressShipingMenifest:ModelShipingMenifest {
         aCoder.encode(invoiceStatus, forKey: "invoiceStatus")
         aCoder.encode(signatureAsset, forKey: "signatureAsset")
         aCoder.encode(updated, forKey: "updated")
+        aCoder.encode(invoiceId, forKey: "invoiceId")
         aCoder.encode(selectedItems, forKey: "selectedItems")
     }
     
