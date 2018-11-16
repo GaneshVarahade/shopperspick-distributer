@@ -26,6 +26,8 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     var selectedDriverInfo:ModelDriverInfo?
     var invoiceDetailsDict: ModelInvoice?
     var pickerView: UIPickerView = UIPickerView()
+    var isProgressUpdate = Bool()
+    var dateChange = false
     
     // MARK: - Outlets
     @IBOutlet weak var signatureImgView: UIImageView!
@@ -54,17 +56,19 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         super.viewDidLoad()
         self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         self.disableDriversTextField()
+        deliveryDateTextField.inputView = datePicker
+        datePicker.datePickerMode = .date
+        deliveryTimeTextField.inputView = timePicker
+        timePicker.datePickerMode = .time
+        self.getManifestInProgress()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         //Read Driver info list from database
         self.driverInfo = RealmManager().readList(type: ModelDriverInfo.self)
-        //print(self.modelShippingMen)
-        
         pickerView.delegate = self
         pickerView.dataSource = self
-        //driverNameTextField = UITextField(frame: CGRect.zero)
         driverNameTextField.inputView = pickerView
         driverNameTextField.delegate = self
         driverNameTextField?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(doneButtonTapped))
@@ -78,7 +82,6 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             let fullName = "\(licenNumber.driverName ?? "Not") \(licenNumber.driverLastName ?? "Available")"
         
             driverNameTextField.text = fullName
-            //driverNameTextField.text = licenNumber.driverName ?? "Not Available"
             driverLicenceTextField.text = licenNumber.driverLicenseNumber ?? "Not Available"
             driverMakeTextField.text = licenNumber.vehicleMake ?? "Not Available"
             driverModelTextField.text = licenNumber.vehicleModel ?? "Not Available"
@@ -92,8 +95,6 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             modelShippingMen?.vehicleColor = licenNumber.vehicleColor
             modelShippingMen?.driverLicenPlate = licenNumber.vehicleLicensePlate
             modelShippingMen?.driverId = licenNumber.driverId
-            
-//            self.updateCurrentManifest()
         } else {
             return
         }
@@ -103,16 +104,9 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     override func viewDidAppear(_ animated: Bool) {
         if !isAddManifest {
             disableAllFields()
-            //signatureBtn.isHidden = true
             addSignatureBtn.isHidden = true
         }
-
-        // set UI with maodel shipping manifest
-//        setUI(manifestInfo: modelShippingMen)
-        // get if the current manifest progress is saved
-        self.getManifestInProgress()
-//        setDataWithCurrentManifest(manifestInfo: inProgressShippingMen)
-        
+//        self.getManifestInProgress()
         let colorView = UIView()
         colorView.backgroundColor = UIColor.clear
         UITableViewCell.appearance().selectedBackgroundView = colorView
@@ -125,70 +119,45 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
 
     
     func getManifestInProgress() {
+        
         // retrieving a value for a key
-
         let realm = try! Realm()
         let objects = realm.objects(ModelInProgressShipingMenifest.self)
-        print(objects)
-        if !objects.isEmpty {
-            setDataWithCurrentManifest(manifestInfo: objects[0])
-//            inProgressShippingMen = ModelInProgressShipingMenifest()
-//            inProgressShippingMen = objects[0]
-        } else {
+        print(objects.count)
+        for object in objects {
+            isProgressUpdate = false
+            if object.invoiceId == self.invoiceDetailsDict?.invoiceNumber {
+                isProgressUpdate = true
+                setDataWithCurrentManifest(manifestInfo: object)
+                break
+            }
+        }
+        if isProgressUpdate == false {
             setUI(manifestInfo: modelShippingMen)
             inProgressShippingMen = ModelInProgressShipingMenifest()
         }
         print("in progress manifest >>>>>>>> \(String(describing: objects))")
         
     }
-    
-    func setManifestInProgress() {
-        guard let data = inProgressShippingMen else {
-            return
-        }
-        // Get the default Realm
-        let realm = try! Realm()
-        // Persist your data easily
-        try! realm.write {
-//            realm.add(data)
-            realm.add(data, update: false)
-        }
-    }
-    
+
     @objc func back(sender: UIBarButtonItem) {
         print("backkkkkk")
-        // save data in process
-        self.setManifestInProgress()
-        self.updateCurrentManifest()
-        // pop after saving data for in progress
-        self.navigationController?.popViewController(animated: true)
-        
-        // Perform your custom actions
-//        if modelShippingMen == inProgressShippingMen {
-//            self.navigationController?.popViewController(animated: true)
-//        } else {
-//            let alertController = UIAlertController(title: "Alert", message: "Do you want to save your current progress?", preferredStyle: .alert)
-//            let yesAction = UIAlertAction(title: "YES", style: .cancel) { (action:UIAlertAction) in
-//                self.setManifestInProgress()
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//            let noAction = UIAlertAction(title: "No, Thanks", style: .destructive) { (action:UIAlertAction) in
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//            alertController.addAction(yesAction)
-//            alertController.addAction(noAction)
-//            self.present(alertController, animated: true, completion: nil)
-//        }
+        let alertController = UIAlertController(title: "Alert", message: "Do you want to save your current progress?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "YES", style: .cancel) { (action:UIAlertAction) in
+            //save data in process
+            self.updateCurrentManifest()
+            self.navigationController?.popViewController(animated: true)
+        }
+        let noAction = UIAlertAction(title: "No, Thanks", style: .destructive) { (action:UIAlertAction) in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 
     // MARK: - UI Update
     func setUI(manifestInfo: ModelShipingMenifest?) {
-        
-        deliveryDateTextField.inputView = datePicker
-        datePicker.datePickerMode = .date
-        
-        deliveryTimeTextField.inputView = timePicker
-        timePicker.datePickerMode = .time
         
         guard let manifestInfo = manifestInfo else {
             return
@@ -229,7 +198,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         
     }
     
-    func setDataWithCurrentManifest(manifestInfo: ModelShipingMenifest?) {
+    func setDataWithCurrentManifest(manifestInfo: ModelInProgressShipingMenifest?) {
         guard let manifestInfo = manifestInfo else {
             return
         }
@@ -246,9 +215,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         addressTextField.text = "\(manifestInfo.receiverAddress?.address ?? "-"), \(manifestInfo.receiverAddress?.city ?? "-"), \(manifestInfo.receiverAddress?.country ?? "-")"
         
         deliveryDateTextField.text = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime:manifestInfo.deliveryDate , type: DateIntConvertUtil.Seconds)), format: DateFormatterUtil.mmddyyyy)
-        
         deliveryTimeTextField.text = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime:manifestInfo.deliveryTime , type: DateIntConvertUtil.Seconds)), format: DateFormatterUtil.hhmma)
-        
         driverNameTextField.text = manifestInfo.driverName
         driverLicenceTextField.text = manifestInfo.driverLicenseNumber ?? ""
         driverMakeTextField.text = manifestInfo.vehicleMake ?? ""
@@ -269,29 +236,59 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         
         let realm = try! Realm()
         let objects = realm.objects(ModelInProgressShipingMenifest.self)
-        // Persist your data easily
-        if !objects.isEmpty {
-            try? realm.write {
-                print(objects[0])
-                objects[0].shippingManifestNo = modelShippingMen?.shippingManifestNo
-                objects[0].deliveryDate = DateIntConvertUtil.convert(dateTime: Int(datePicker.date.timeIntervalSince1970), type: DateIntConvertUtil.Miliseconds)
-                objects[0].deliveryTime = DateIntConvertUtil.convert(dateTime:Int(timePicker.date.timeIntervalSince1970) , type: DateIntConvertUtil.Miliseconds)
-                objects[0].receiverCompany = companyNameTextField.text
-                objects[0].receiverType = typeTextField.text
-                objects[0].receiverContact = contactTextField.text
-                objects[0].receiverLicense = licenceNoTextField.text
-                objects[0].receiverAddress = modelShippingMen?.receiverAddress
-                objects[0].driverName = driverNameTextField.text
-                objects[0].driverLicenseNumber = driverLicenceTextField.text
-                objects[0].vehicleMake = driverMakeTextField.text
-                objects[0].vehicleModel = driverModelTextField.text
-                objects[0].vehicleColor = driverColorTextField.text
-                objects[0].driverLicenPlate = driverLicencePlateTextField.text
-                objects[0].driverId = modelShippingMen?.driverId
-                objects[0].signatureAsset = modelShippingMen?.signatureAsset
-                objects[0].signaturePhoto = modelShippingMen?.signaturePhoto
-                realm.add(objects[0], update: true)
-                print(objects[0])
+        for object in objects {
+            isProgressUpdate = false
+            if object.invoiceId == self.invoiceDetailsDict?.invoiceNumber {
+                isProgressUpdate = true
+                try! realm.write {
+                    object.shippingManifestNo = modelShippingMen?.shippingManifestNo
+                    if self.dateChange {
+                        object.deliveryDate = DateIntConvertUtil.convert(dateTime: Int(datePicker.date.timeIntervalSince1970), type: DateIntConvertUtil.Miliseconds)
+                        object.deliveryTime = DateIntConvertUtil.convert(dateTime:Int(timePicker.date.timeIntervalSince1970) , type: DateIntConvertUtil.Miliseconds)
+                    }
+                    object.receiverCompany = companyNameTextField.text
+                    object.receiverType = typeTextField.text
+                    object.receiverContact = contactTextField.text
+                    object.receiverLicense = licenceNoTextField.text
+                    object.receiverAddress = modelShippingMen?.receiverAddress
+                    object.driverName = driverNameTextField.text
+                    object.driverLicenseNumber = driverLicenceTextField.text
+                    object.vehicleMake = driverMakeTextField.text
+                    object.vehicleModel = driverModelTextField.text
+                    object.vehicleColor = driverColorTextField.text
+                    object.driverLicenPlate = driverLicencePlateTextField.text
+                    object.driverId = modelShippingMen?.driverId
+                    object.signatureAsset = modelShippingMen?.signatureAsset
+                    object.signaturePhoto = modelShippingMen?.signaturePhoto
+                    realm.add(object, update: true)
+                }
+                break
+            }
+        }
+        if isProgressUpdate == false {
+            try! realm.write {
+                let newObject = ModelInProgressShipingMenifest()
+                newObject.invoiceId = self.invoiceDetailsDict?.invoiceNumber
+                newObject.shippingManifestNo = modelShippingMen?.shippingManifestNo
+                newObject.deliveryDate = DateIntConvertUtil.convert(dateTime: Int(datePicker.date.timeIntervalSince1970), type: DateIntConvertUtil.Miliseconds)
+                newObject.deliveryTime = DateIntConvertUtil.convert(dateTime:Int(timePicker.date.timeIntervalSince1970) , type: DateIntConvertUtil.Miliseconds)
+                newObject.receiverCompany = companyNameTextField.text
+                newObject.receiverType = typeTextField.text
+                newObject.receiverContact = contactTextField.text
+                newObject.receiverLicense = licenceNoTextField.text
+                newObject.receiverAddress = modelShippingMen?.receiverAddress
+                newObject.driverName = driverNameTextField.text
+                newObject.driverLicenseNumber = driverLicenceTextField.text
+                newObject.vehicleMake = driverMakeTextField.text
+                newObject.vehicleModel = driverModelTextField.text
+                newObject.vehicleColor = driverColorTextField.text
+                newObject.driverLicenPlate = driverLicencePlateTextField.text
+                newObject.driverId = modelShippingMen?.driverId
+                newObject.signatureAsset = modelShippingMen?.signatureAsset
+                newObject.signaturePhoto = modelShippingMen?.signaturePhoto
+                print(newObject)
+                realm.create(ModelInProgressShipingMenifest.self, value: newObject, update: true)
+//                realm.add(newObject, update: false)
             }
         }
     }
@@ -386,6 +383,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         textField.layer.borderWidth = 0
         textField.borderStyle = .none
         if textField == deliveryDateTextField {
+            self.dateChange = true
             let formatter = DateFormatter()
             formatter.dateFormat = "MM/dd/yyyy"
             modelShippingMen?.deliveryDate = DateIntConvertUtil.convert(dateTime: Int(datePicker.date.timeIntervalSince1970), type: DateIntConvertUtil.Miliseconds)

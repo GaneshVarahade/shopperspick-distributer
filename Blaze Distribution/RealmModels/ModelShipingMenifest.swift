@@ -101,7 +101,7 @@ public class ModelInProgressShipingMenifest:ModelShipingMenifest {
     
     @objc public dynamic var invoiceId:String?
     open override class func primaryKey() -> String? {
-        return "id"
+        return "invoiceId"
     }
     
     public override func copy(with zone: NSZone?) -> Any {
