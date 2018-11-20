@@ -12,6 +12,7 @@ import Foundation
 public class DateFormatterUtil {
     
     public static let yyyyMMddHHmm:String = "yyyy-MM-dd HH:mm"
+    public static let yyyyMMdd_HHmm:String = "yyyy-MM-dd - HH:mm"
     public static let mmddyyyy:String = "MM/dd/yyyy"
     public static let hhmma:String = "hh:mm a"
     

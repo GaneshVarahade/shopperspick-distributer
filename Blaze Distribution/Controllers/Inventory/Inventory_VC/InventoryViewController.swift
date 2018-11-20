@@ -66,6 +66,10 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         getData()
         EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
     override func viewDidDisappear(_ animated: Bool) {
         EventBus.sharedBus().unsubscribe(self, eventType: .FINISHSYNCDATA)
     }
@@ -156,7 +160,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
                 if(invName.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location != NSNotFound){
                    filteredData.append(dict)
                     }
-            }else{
+            } else {
                 let temp  = dict as! ModelInventoryTransfers
                 invName = temp.toInventoryName! as NSString
                 invId = temp.transferNo! as NSString
@@ -189,10 +193,10 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
 extension InventoryViewController{
     
     // MARk:- UITableview DataSource/ Delegate
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = inventoryTableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
@@ -218,6 +222,10 @@ extension InventoryViewController{
             cell.btnErrorInvetry.addTarget(self, action: #selector(btnInvetryErrorClicked(_ :)), for: .touchUpInside)
             cell.btnErrorInvetry.tag = indexPath.row
             cell.accessoryType = .none
+            
+            
+            
+            print("status is >>> \(tempi.status ?? "no status")")
         }
         
         return cell
@@ -269,33 +277,33 @@ extension InventoryViewController{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+//        var alertStyle = UIAlertControllerStyle.actionSheet
+//        if (UIDevice.current.userInterfaceIdiom == .pad) {
+//            alertStyle = .alert
+//        }
         if productFlag {
             let objProdDetails = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVCSegue") as! ProductDetailsVC
             objProdDetails.selectedProd = data[indexPath.row] as! ModelProduct
             self.navigationController?.pushViewController(objProdDetails, animated: true)
         } else {
-            let alertController = UIAlertController(title: nil, message: "Choose an Option", preferredStyle: .actionSheet)
-            let transferDetails = UIAlertAction(title: "Transfer Details", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-                //  perform action to view transfer Details
-            })
-            let pendingTransfers = UIAlertAction(title: "Accept Pending Transfers", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-                //  perform action to accept pending transfer
-            })
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
-                //  Do something here upon cancellation.
-            })
-            alertController.addAction(transferDetails)
-            alertController.addAction(pendingTransfers)
-            alertController.addAction(cancelAction)
+            let objTransferDetails = self.storyboard?.instantiateViewController(withIdentifier: "TransferDetailsVCSegue") as! TransferDetailsViewController
+            objTransferDetails.inventoryTransferModel = data[indexPath.row] as! ModelInventoryTransfers
+            self.navigationController?.pushViewController(objTransferDetails, animated: true)
             
-            if (UIDevice.current.userInterfaceIdiom == .pad) {
-                if let popoverController = alertController.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                }
-            } else {
-                self.present(alertController, animated: true, completion: nil)
-            }
+//            let alertController = UIAlertController(title: nil, message: "Choose an Option", preferredStyle: alertStyle)
+//            let transferDetails = UIAlertAction(title: "Transfer Details", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+//                //  perform action to view transfer Details
+//            })
+//            let pendingTransfers = UIAlertAction(title: "Accept Pending Transfers", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+//                //  perform action to accept pending transfer
+//            })
+//            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+//                //  Do something here upon cancellation.
+//            })
+//            alertController.addAction(transferDetails)
+//            alertController.addAction(pendingTransfers)
+//            alertController.addAction(cancelAction)
+//            self.present(alertController, animated: true, completion: nil)
         }
        
     }

@@ -32,6 +32,8 @@ enum Router : URLRequestConvertible {
     case forgotPassword(request: RequestForgotPassword)
     //uploadSignatureApi
     case uploadSignature(request: RequestSignature)
+    // update transfer status
+    case updateTransferStatusById(request: RequestUpdateTransferStatus)
     
     
     //===========================================================================================
@@ -76,6 +78,8 @@ enum Router : URLRequestConvertible {
             return (Method.POST,"/api/v1/mgmt/password/reset",encode(request),nil)
         case.uploadSignature(let request):
             return (Method.POST,"/api/v1/mgmt/assets/photo",encode(request),nil)
+        case .updateTransferStatusById(let request):
+            return (Method.POST,"/api/v1/mgmt/inventory/\(request.transferId ?? "")/inventoryHistory",encode(request),nil)
         }
        
     }

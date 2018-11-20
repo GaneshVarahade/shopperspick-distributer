@@ -192,17 +192,20 @@ class WebServicesAPI: NSObject {
     
     func BulkPostAPI(request:RequestPostModel,onComplition:@escaping (_ result:ResponseBulkRequest?, _ error:PlatformError?)-> ()){
         makeRequest(Router.bulkPost(request: request), callback: onComplition)
-        
     }
     
     func SwitchShopPostAPI(request:RequestSwitchShop,onComplition:@escaping (_ result:ResponseSwitchShop?, _ error:PlatformError?)-> ()){
         makeRequest(Router.SwitchShopPost(request: request), callback: onComplition)
-        
     }
     
     func uploadSignature(request: RequestSignature,onComplition:@escaping (_ result:ResponseAsset?, _ error:PlatformError?)-> ()){
         upload(Router.uploadSignature(request: request), storeSign: request, handler: onComplition)
     }
+    
+    func updateTransferDetailStatus(request: RequestUpdateTransferStatus,onComplition:@escaping (_ result:ResponseUpdateTransferStatus?, _ error:PlatformError?)-> ()){
+        makeRequest(Router.updateTransferStatusById(request: request), callback: onComplition)
+    }
+    
     private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){
  
         guard UtilPrintLogs.canPrintResponseLog else {
