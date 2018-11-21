@@ -107,22 +107,22 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             inventoryTableView.reloadData()
         }
     }
-    func getData(){
+    func getData() {
+//        https://api.dev.blaze.me/api/v1/mgmt/inventory/inventoryHistory?status=PENDING
         inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
         inventoryData.reverse()
         
-        //added filter to show products only from assigned shops
+        // added filter to show products only from assigned shops
         self.modelLogin = RealmManager().readList(type: LoginModel.self).first
-        if let assignedShopId = modelLogin?.assignedShop{
+        if let assignedShopId = modelLogin?.assignedShop {
             print(assignedShopId.id!)
-           //productData   = RealmManager().readList(type: ModelProduct.self,distinct:"productId")
+           // productData   = RealmManager().readList(type: ModelProduct.self,distinct:"productId")
             productData = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"shopId = '\(assignedShopId.id ?? "")'")
-            
         }
         
-        if productFlag{
+        if productFlag {
             data  = productData
-        }else{
+        } else {
             data  = inventoryData
         }
         inventoryTableView.reloadData()

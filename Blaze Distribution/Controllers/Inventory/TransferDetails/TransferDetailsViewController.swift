@@ -7,15 +7,22 @@
 //
 
 import UIKit
+import RealmSwift
+import Realm
 import SKActivityIndicatorView
 
 class TransferDetailsViewController: UIViewController {
     
+    @IBOutlet weak var createdByLabel: UILabel!
+    @IBOutlet weak var createdNameLabel: UILabel!
     @IBOutlet weak var transferDateLabel: UILabel!
     @IBOutlet weak var fromShopLabel: UILabel!
     @IBOutlet weak var toShopLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var selectedProductsLabel: UILabel!
+    @IBOutlet weak var acceptButton: UIButton!
+    @IBOutlet weak var statusUpdateAlertLabel: UILabel!
+    @IBOutlet weak var denyButton: UIButton!
     @IBOutlet weak var buttonsHeightConstraint: NSLayoutConstraint!
     
     var inventoryTransferModel = ModelInventoryTransfers()
@@ -27,7 +34,9 @@ class TransferDetailsViewController: UIViewController {
         self.title = "#\(inventoryTransferModel.transferNo ?? "")"
         print("inventory transfer >>>> \(inventoryTransferModel)")
 
+        // call custom functions for UI and Data
         self.addTempProductsForDev()
+        self.setFonts()
         self.setDetails()
     }
 
@@ -36,7 +45,26 @@ class TransferDetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func setDetails() {
+    private func setFonts() {
+        let fontSize = self.view.frame.size.height * 0.02
+        createdByLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
+        createdNameLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
+        transferDateLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
+        fromShopLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
+        toShopLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
+        statusLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
+        selectedProductsLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
+        statusUpdateAlertLabel.font = UIFont.init(name: statusUpdateAlertLabel.font.fontName, size: self.view.frame.size.height * 0.015)
+        
+        acceptButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: fontSize)
+        denyButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: fontSize)
+    }
+    
+    private func setDetails() {
+        createdNameLabel.text = "Unknown"
+        if let createdByEmployee = inventoryTransferModel.createdByEmployeeName {
+            createdNameLabel.text = createdByEmployee
+        }
         transferDateLabel.text = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime: inventoryTransferModel.modified, type:DateIntConvertUtil.Seconds)),format: DateFormatterUtil.yyyyMMdd_HHmm)
         fromShopLabel.text = "Not Available"
         toShopLabel.text = "Not Available"
@@ -64,25 +92,30 @@ class TransferDetailsViewController: UIViewController {
             self.statusLabel.text = status
         }
         // hide buttons if transfer is already accepted
-        buttonsHeightConstraint.constant = self.view.frame.size.height * 0.1
-        if inventoryTransferModel.status == "ACCEPTED" || inventoryTransferModel.status == "DENIED" {
+        buttonsHeightConstraint.constant = self.view.frame.size.height * 0.07
+        if inventoryTransferModel.status == InvetoryTransferStatus.Accepted.rawValue || inventoryTransferModel.status == InvetoryTransferStatus.Declined.rawValue {
             buttonsHeightConstraint.constant = 0
+        } else {
+            // when status is pending check if already updated
+            if inventoryTransferModel.isStatusUpdated {
+                buttonsHeightConstraint.constant = 0
+                statusUpdateAlertLabel.isHidden = false
+            }
         }
-        
     }
     
-    func addTempProductsForDev() {
+    private func addTempProductsForDev() {
         let modelCartProduct = ModelCartProduct()
         modelCartProduct.name = "product 1"
         modelCartProduct.quantity = 25
         let modelCartProduct1 = ModelCartProduct()
         modelCartProduct1.name = "product 2"
         modelCartProduct1.quantity = 678
-        inventoryTransferModel.slectedProducts.append(modelCartProduct)
-        inventoryTransferModel.slectedProducts.append(modelCartProduct1)
+//        inventoryTransferModel.slectedProducts.append(modelCartProduct)
+//        inventoryTransferModel.slectedProducts.append(modelCartProduct1)
     }
     
-    func updateTransferStatus(status:Bool) {
+    private func updateTransferStatus(status:Bool) {
         let request = RequestUpdateTransferStatus()
         request.transferId = self.inventoryTransferModel.id
         request.status = status
@@ -92,21 +125,39 @@ class TransferDetailsViewController: UIViewController {
                 SKActivityIndicator.dismiss()
             }
             guard error == nil else {
-                self.showAlert(title: "Error", message: error?.details ?? "Error", closure:{})
+                self.showAlert(title: "Error", message: error?.message ?? "Error", closure:{})
                 return
             }
+            // refresh data
+            SyncService.sharedInstance().syncData()
             // update status
             DispatchQueue.main.async {
-                var statusString = "ACCEPTED"
-                if status == false {
-                    statusString = "DENIED"
-                }
-                self.inventoryTransferModel.status = statusString
+                // update DB for this transfer
+                self.updateTransferModelInDB(status: true)
+                // get updated status
+                let statusString = result?.status
+                // update UI
                 self.statusLabel.text = statusString
                 self.buttonsHeightConstraint.constant = 0
+                self.statusUpdateAlertLabel.isHidden = false
                 UIView.animate(withDuration: 0.3, animations: {
                     self.view.layoutIfNeeded()
                 })
+            }
+        }
+    }
+    
+    private func updateTransferModelInDB(status:Bool) {
+        // get tranfer models and update
+        let realm = try! Realm()
+        let inventoryData = realm.objects(ModelInventoryTransfers.self)
+        for transfer in inventoryData {
+            if transfer.id == self.inventoryTransferModel.id {
+                try! realm.write {
+                    transfer.isStatusUpdated = status
+                    realm.add(transfer, update: true)
+                }
+                break
             }
         }
     }
@@ -119,7 +170,6 @@ class TransferDetailsViewController: UIViewController {
         // update with status
         self.updateTransferStatus(status: status)
     }
-    
 
 }
 
@@ -130,7 +180,7 @@ extension TransferDetailsViewController: UITableViewDelegate,UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.size.height * 0.08
+        return self.view.frame.size.height * 0.06
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

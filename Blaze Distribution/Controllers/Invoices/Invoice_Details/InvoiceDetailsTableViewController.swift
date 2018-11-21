@@ -60,8 +60,8 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         
         if let invoiceData = tempData {
             self.title = invoiceData.invoiceNumber
-            invoiceData.balanceDue = 25.23652
-            invoiceData.total = 35.63589
+//            invoiceData.balanceDue = 25.23652
+//            invoiceData.total = 35.63589
             self.duePaymentLabel.text = String(format: "$%.2f \(NSLocalizedString("dueof", comment: "")) $%.2f", invoiceData.balanceDue, invoiceData.total)
             fixedDetailsTableVC?.getDataForFixedInvoices(data:invoiceData)
             

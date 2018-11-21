@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import SKActivityIndicatorView
 
 class SettingsVC: UIViewController {
 
@@ -82,6 +83,7 @@ class SettingsVC: UIViewController {
     }
     
     @IBAction func refreshButtonAction(_ sender: Any) {
+        SKActivityIndicator.show()
         SyncService.sharedInstance().syncData()
     }
 

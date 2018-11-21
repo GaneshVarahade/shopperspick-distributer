@@ -119,7 +119,6 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
 
     
     func getManifestInProgress() {
-        
         // retrieving a value for a key
         let realm = try! Realm()
         let objects = realm.objects(ModelInProgressShipingMenifest.self)
@@ -136,12 +135,9 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             setUI(manifestInfo: modelShippingMen)
             inProgressShippingMen = ModelInProgressShipingMenifest()
         }
-        print("in progress manifest >>>>>>>> \(String(describing: objects))")
-        
     }
 
     @objc func back(sender: UIBarButtonItem) {
-        print("backkkkkk")
         let alertController = UIAlertController(title: "Alert", message: "Do you want to save your current progress?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "YES", style: .cancel) { (action:UIAlertAction) in
             //save data in process

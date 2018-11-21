@@ -24,6 +24,7 @@ public class ResponseInventoryTransfers: BaseResponseModel {
     public var toShopName:String?
     public var fromInventoryName:String?
     public var toInventoryName:String?
+    public var createdByEmployeeName:String?
     public var status:String?
     public var completeTransfer:Bool?
 }

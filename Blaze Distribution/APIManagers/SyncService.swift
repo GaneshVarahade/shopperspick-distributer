@@ -20,32 +20,23 @@ public final class SyncService {
     
     //POST,GET Data related operations
     public func syncData() {
+        /// If Data is already syncing, then return from here
+        guard !self.isUpdating else{
+            return
+        }
+        /// If network is not available then return
+        guard ReachabilityManager.shared.networkStatus() else {
+            return
+        }
+        self.isUpdating = true
+        if self.isSignatureAvailable() {
+            self.syncSignature()
+        } else if self.isPostBulkAvailable() {
+            self.syncPostBulkData()
+        } else {
+            self.syncGetBulkData()
+        }
         
-            /// If Data is already syncing, then return from here
-            guard !self.isUpdating else{
-                return
-            }
-            
-            /// If network is not available then return
-            guard ReachabilityManager.shared.networkStatus() else {
-                return
-            }
-            self.isUpdating = true
-            
-            if self.isSignatureAvailable() {
-                
-                self.syncSignature()
-                
-                
-            } else if self.isPostBulkAvailable() {
-                
-               self.syncPostBulkData()
-                
-                
-            } else {
-                self.syncGetBulkData()
-                //SKActivityIndicator.dismiss()
-            }
     }
     
     //Check whether signature is available to post
@@ -189,6 +180,7 @@ public final class SyncService {
                 requestInventry.fromInventoryId = model.fromInventoryId
                 requestInventry.toInventoryId = model.toInventoryId
                 requestInventry.completeTransfer = model.completeTransfer
+                requestInventry.createdByEmployeeName = model.createdByEmployeeName
                 
                 
                 for productInCart in model.slectedProducts {
@@ -425,35 +417,29 @@ public final class SyncService {
                 if let arrayPurchaseOrders = result?.purchaseOrder?.values {
                     self.savePurchaseOrder(arrayPurchaseOrders)
                 }
-                
                 if let arrayInvoices = result?.invoice?.values {
                     self.saveDataInvoice(jsonData: arrayInvoices)
                 }
-                
                 if let arayTransfers = result?.inventoryTransfers?.values {
                     self.saveDataInventory(jsonData: arayTransfers)
                 }
-            
                 if let arrayProducts = result?.product?.values{
                     self.saveDataProduct(jsonData: arrayProducts)
                 }
                 if let arrayInventory = result?.inventories{
-                    
                     self.saveInventory(jsonData: arrayInventory)
                 }
-                
                 if let driverInfo = result?.employees?.values {
                     self.saveDriverData(driverInfo)
-                }else{
+                } else {
                     self.saveDriverData([])
                 }
-                
                 self.finishSync()
             }
         }
     }
     
-     private func resync() {
+    private func resync() {
         isUpdating = false
         syncData()
     }
@@ -702,6 +688,7 @@ public final class SyncService {
                     tempInventory.completeTransfer = value.completeTransfer ?? false
                     tempInventory.toShopName = value.toShopName
                     tempInventory.toInventoryName = value.toInventoryName
+                    tempInventory.createdByEmployeeName = value.createdByEmployeeName
                     tempInventory.status = value.status
                     
                     RealmManager().write(table: tempInventory)
