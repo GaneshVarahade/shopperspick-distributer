@@ -68,7 +68,6 @@ public final class SyncService {
     private func syncSignature() {
         //Get image one by one from ModelSignature
         let arrayModelSignature = getModelSignature()
-        //print("arrayModelSignature.count : \(arrayModelSignature.count)")
         if arrayModelSignature.count <= 0 {
             self.resync()
         }

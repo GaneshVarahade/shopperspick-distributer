@@ -28,7 +28,7 @@ public class ModelInventoryTransfers: ModelBase {
     @objc public dynamic var fromInventoryName:String? = ""
     @objc public dynamic var toInventoryName:String?   = ""
     @objc public  dynamic var completeTransfer:Bool    = false
-    @objc public  dynamic var isStatusUpdated:Bool       = false
+    @objc public  dynamic var isStatusUpdated:Bool     = false
     @objc public dynamic var status:String?            = ""
     @objc public dynamic var putBulkError:String?      = ""
     @objc public dynamic var createdByEmployeeName:String?         = ""

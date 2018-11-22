@@ -39,6 +39,11 @@ class TransferDetailsViewController: UIViewController {
         self.setFonts()
         self.setDetails()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        EventBus.sharedBus().unsubscribe(self, eventType: EventBusEventType.FINISHSYNCDATA)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -129,7 +134,9 @@ class TransferDetailsViewController: UIViewController {
                 return
             }
             // refresh data
+            SKActivityIndicator.show()
             SyncService.sharedInstance().syncData()
+            EventBus.sharedBus().subscribe(self, selector: #selector(self.goHome), eventType: EventBusEventType.FINISHSYNCDATA)
             // update status
             DispatchQueue.main.async {
                 // update DB for this transfer
@@ -144,6 +151,14 @@ class TransferDetailsViewController: UIViewController {
                     self.view.layoutIfNeeded()
                 })
             }
+        }
+    }
+    
+    @objc func goHome(){
+        print("syncing done")
+        self.statusLabel.text = inventoryTransferModel.status
+        if inventoryTransferModel.status != InvetoryTransferStatus.Pending.rawValue {
+            self.statusUpdateAlertLabel.isHidden = true
         }
     }
     
