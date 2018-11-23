@@ -55,6 +55,7 @@ public class ModelInventoryTransfers: ModelBase {
         modelInventoryTransfers.fromInventoryId   = self.fromInventoryId
         modelInventoryTransfers.toInventoryId     = self.toInventoryId
         modelInventoryTransfers.completeTransfer  = self.completeTransfer
+        modelInventoryTransfers.isStatusUpdated  = self.isStatusUpdated
         modelInventoryTransfers.createdByEmployeeName  = self.createdByEmployeeName
         modelInventoryTransfers.putBulkError      = self.putBulkError
         

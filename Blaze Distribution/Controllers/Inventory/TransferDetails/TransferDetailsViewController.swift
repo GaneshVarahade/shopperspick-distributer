@@ -30,7 +30,6 @@ class TransferDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-//        self.title = NSLocalizedString("TransferDetailsTitle", comment: "")
         self.title = "#\(inventoryTransferModel.transferNo ?? "")"
         print("inventory transfer >>>> \(inventoryTransferModel)")
 
@@ -48,6 +47,17 @@ class TransferDetailsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func addTempProductsForDev() {
+        let modelCartProduct = ModelCartProduct()
+        modelCartProduct.name = "product 1"
+        modelCartProduct.quantity = 25
+        let modelCartProduct1 = ModelCartProduct()
+        modelCartProduct1.name = "product 2"
+        modelCartProduct1.quantity = 678
+        //        inventoryTransferModel.slectedProducts.append(modelCartProduct)
+        //        inventoryTransferModel.slectedProducts.append(modelCartProduct1)
     }
     
     private func setFonts() {
@@ -109,17 +119,6 @@ class TransferDetailsViewController: UIViewController {
         }
     }
     
-    private func addTempProductsForDev() {
-        let modelCartProduct = ModelCartProduct()
-        modelCartProduct.name = "product 1"
-        modelCartProduct.quantity = 25
-        let modelCartProduct1 = ModelCartProduct()
-        modelCartProduct1.name = "product 2"
-        modelCartProduct1.quantity = 678
-//        inventoryTransferModel.slectedProducts.append(modelCartProduct)
-//        inventoryTransferModel.slectedProducts.append(modelCartProduct1)
-    }
-    
     private func updateTransferStatus(status:Bool) {
         let request = RequestUpdateTransferStatus()
         request.transferId = self.inventoryTransferModel.id
@@ -134,9 +133,8 @@ class TransferDetailsViewController: UIViewController {
                 return
             }
             // refresh data
-            SKActivityIndicator.show()
             SyncService.sharedInstance().syncData()
-            EventBus.sharedBus().subscribe(self, selector: #selector(self.goHome), eventType: EventBusEventType.FINISHSYNCDATA)
+            EventBus.sharedBus().subscribe(self, selector: #selector(self.onSyncingFinish), eventType: EventBusEventType.FINISHSYNCDATA)
             // update status
             DispatchQueue.main.async {
                 // update DB for this transfer
@@ -154,7 +152,7 @@ class TransferDetailsViewController: UIViewController {
         }
     }
     
-    @objc func goHome(){
+    @objc func onSyncingFinish(){
         print("syncing done")
         self.statusLabel.text = inventoryTransferModel.status
         if inventoryTransferModel.status != InvetoryTransferStatus.Pending.rawValue {
@@ -171,6 +169,7 @@ class TransferDetailsViewController: UIViewController {
                 try! realm.write {
                     transfer.isStatusUpdated = status
                     realm.add(transfer, update: true)
+                    realm.refresh()
                 }
                 break
             }

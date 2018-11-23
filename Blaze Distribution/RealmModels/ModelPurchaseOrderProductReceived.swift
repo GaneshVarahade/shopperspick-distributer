@@ -17,7 +17,6 @@ public class ModelPurchaseOrderProductReceived:ModelBase{
     @objc public dynamic var received:Double = 0
     public override func copy(with zone:NSZone? = nil) -> Any {
         let modelProductReceived = ModelPurchaseOrderProductReceived()
-        
         modelProductReceived.id       = self.id
         modelProductReceived.productId = self.productId
         modelProductReceived.name     = self.name
