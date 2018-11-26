@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+
 public class RequestGetBulkAPI:BaseRequest{
    
     

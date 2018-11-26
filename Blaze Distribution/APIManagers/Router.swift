@@ -34,7 +34,10 @@ enum Router : URLRequestConvertible {
     case uploadSignature(request: RequestSignature)
     // update transfer status
     case updateTransferStatusById(request: RequestUpdateTransferStatus)
-    
+    // prepare invoice
+    case prepareInvoice(request: RequestCreateInvoice)
+    // prepare invoice
+    case createInvoice(request: RequestCreateInvoice)
     
     //===========================================================================================
     // MARK: URLRequestConvertible
@@ -58,11 +61,9 @@ enum Router : URLRequestConvertible {
         return try Alamofire.URLEncoding.default.encode(request, with: params)
     }
     
-    
     func getRouterInfo () -> (Method,String,Data?,[String:Any]?) {
         
         switch(self) {
-            
         // SESSIONS
         case .sessionLogin(let request):
             return (Method.POST,"api/v1/mgmt/session",encode(request),nil)
@@ -80,10 +81,15 @@ enum Router : URLRequestConvertible {
             return (Method.POST,"/api/v1/mgmt/assets/photo",encode(request),nil)
         case .updateTransferStatusById(let request):
             return (Method.POST,"/api/v1/mgmt/inventory/\(request.transferId ?? "")/inventoryHistory",encode(request),nil)
+        case .prepareInvoice(let request):
+            return (Method.POST,"/api/v1/warehouse/mgmt/invoice/prepareInvoice",encode(request),nil)
+        case .createInvoice(let request):
+            return (Method.POST,"/api/v1/warehouse/mgmt/invoice",encode(request),nil)
         }
        
     }
-    func encode <T: BaseRequest>(_ requestObj: T) -> Data?{
+    
+    func encode <T: BaseRequest>(_ requestObj: T) -> Data? {
         return try? JSONEncoder().encode(requestObj)
     }
 }

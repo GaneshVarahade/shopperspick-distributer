@@ -26,7 +26,7 @@ public protocol BaseResponseModel1:Decodable{
 }
 
 
-public class ResponseUpdateTransferStatus: BaseResponseModel1  {
+public class ResponseUpdateTransferStatus: BaseResponseModel  {
     public var id: String?
     public var created: Int?
     public var modified: Int?
