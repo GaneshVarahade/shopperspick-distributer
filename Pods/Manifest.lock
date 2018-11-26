@@ -8,11 +8,11 @@ PODS:
   - KSToastView (0.5.7)
   - QRCodeReader.swift (8.2.0)
   - ReachabilitySwift (4.1.0)
-  - Realm (3.6.0):
-    - Realm/Headers (= 3.6.0)
-  - Realm/Headers (3.6.0)
-  - RealmSwift (3.6.0):
-    - Realm (= 3.6.0)
+  - Realm (3.7.6):
+    - Realm/Headers (= 3.7.6)
+  - Realm/Headers (3.7.6)
+  - RealmSwift (3.7.6):
+    - Realm (= 3.7.6)
   - SKActivityIndicatorView (0.1.0)
 
 DEPENDENCIES:
@@ -24,8 +24,22 @@ DEPENDENCIES:
   - KSToastView
   - QRCodeReader.swift
   - ReachabilitySwift
-  - RealmSwift
+  - RealmSwift (~> 3.7.1)
   - SKActivityIndicatorView
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Crashlytics
+    - Fabric
+    - IQKeyboardManagerSwift
+    - Kingfisher
+    - KSToastView
+    - QRCodeReader.swift
+    - ReachabilitySwift
+    - Realm
+    - RealmSwift
+    - SKActivityIndicatorView
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
@@ -36,10 +50,10 @@ SPEC CHECKSUMS:
   KSToastView: aeb0ca50b44e9568b6f95b2d1ec53a3f016b50fc
   QRCodeReader.swift: 003eb32f18a5a675b936ec82ba0ff368cddbff45
   ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
-  Realm: 08b464b462d4f31bbd4ba5f5a1c8722ef0a700b7
-  RealmSwift: 973e1499c44ab571f894c2c908e2db450be280c3
+  Realm: 9eaecad54712d6246d08ba34c10f354e4715d7d3
+  RealmSwift: 1fe08b4ebaeeaacf17f9ba0343f7b25c9fc31fa6
   SKActivityIndicatorView: f46936f760d33eb8235333242269bf01cc9248ae
 
-PODFILE CHECKSUM: 26852bded599335c21c1db2ad0760c8e67454cc6
+PODFILE CHECKSUM: 465d0fa7e655f49e016e714977b338c7233700f9
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

@@ -66,6 +66,10 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         getData()
         EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
     override func viewDidDisappear(_ animated: Bool) {
         EventBus.sharedBus().unsubscribe(self, eventType: .FINISHSYNCDATA)
     }
@@ -103,22 +107,22 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             inventoryTableView.reloadData()
         }
     }
-    func getData(){
+    func getData() {
+//        https://api.dev.blaze.me/api/v1/mgmt/inventory/inventoryHistory?status=PENDING
         inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
         inventoryData.reverse()
         
-        //added filter to show products only from assigned shops
+        // added filter to show products only from assigned shops
         self.modelLogin = RealmManager().readList(type: LoginModel.self).first
-        if let assignedShopId = modelLogin?.assignedShop{
+        if let assignedShopId = modelLogin?.assignedShop {
             print(assignedShopId.id!)
-           //productData   = RealmManager().readList(type: ModelProduct.self,distinct:"productId")
+           // productData   = RealmManager().readList(type: ModelProduct.self,distinct:"productId")
             productData = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"shopId = '\(assignedShopId.id ?? "")'")
-            
         }
         
-        if productFlag{
+        if productFlag {
             data  = productData
-        }else{
+        } else {
             data  = inventoryData
         }
         inventoryTableView.reloadData()
@@ -156,7 +160,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
                 if(invName.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location != NSNotFound){
                    filteredData.append(dict)
                     }
-            }else{
+            } else {
                 let temp  = dict as! ModelInventoryTransfers
                 invName = temp.toInventoryName! as NSString
                 invId = temp.transferNo! as NSString
@@ -189,27 +193,21 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
 extension InventoryViewController{
     
     // MARk:- UITableview DataSource/ Delegate
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = inventoryTableView.dequeueReusableCell(withIdentifier: "cell") as! InventoryTableViewCell
-        
-        
-        
-        if productFlag{
-            
+        if productFlag {
             let temp                = data[indexPath.row] as! ModelProduct
             cell.nameLabel.text     = temp.name
             cell.requestLabel.text  = String(format: "%.1f", temp.totalQuantity)
             cell.dateLabel.isHidden = true
             cell.btnErrorInvetry.isHidden = true
             cell.accessoryType = .disclosureIndicator
-            
-            
-        }else{
+        } else {
             let tempi   = data[indexPath.row] as! ModelInventoryTransfers
             cell.nameLabel.text     = tempi.toInventoryName
             cell.requestLabel.text  = tempi.transferNo
@@ -217,7 +215,7 @@ extension InventoryViewController{
             cell.dateLabel.isHidden = false
             
             cell.btnErrorInvetry.isHidden = true
-            if let error = tempi.putBulkError, error != ""{
+            if let error = tempi.putBulkError, error != "" {
                 cell.btnErrorInvetry.isHidden = false
             }
             // Adda target to error button
@@ -225,6 +223,9 @@ extension InventoryViewController{
             cell.btnErrorInvetry.tag = indexPath.row
             cell.accessoryType = .none
             
+            
+            
+            print("status is >>> \(tempi.status ?? "no status")")
         }
         
         return cell
@@ -255,7 +256,7 @@ extension InventoryViewController{
         return (data.count==0 && !UserDefaults.standard.bool(forKey: "isSynchStart")) ? 60.0 : 0.0
     }
     
-    @objc func btnInvetryErrorClicked(_ sender :UIButton){
+    @objc func btnInvetryErrorClicked(_ sender :UIButton) {
         let index : Int = sender.tag
         let tempi   = data[index] as! ModelInventoryTransfers
         //Show Alert
@@ -276,10 +277,33 @@ extension InventoryViewController{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        if productFlag{
-          let objProdDetails = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVCSegue") as! ProductDetailsVC
+//        var alertStyle = UIAlertControllerStyle.actionSheet
+//        if (UIDevice.current.userInterfaceIdiom == .pad) {
+//            alertStyle = .alert
+//        }
+        if productFlag {
+            let objProdDetails = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVCSegue") as! ProductDetailsVC
             objProdDetails.selectedProd = data[indexPath.row] as! ModelProduct
             self.navigationController?.pushViewController(objProdDetails, animated: true)
+        } else {
+            let objTransferDetails = self.storyboard?.instantiateViewController(withIdentifier: "TransferDetailsVCSegue") as! TransferDetailsViewController
+            objTransferDetails.inventoryTransferModel = data[indexPath.row] as! ModelInventoryTransfers
+            self.navigationController?.pushViewController(objTransferDetails, animated: true)
+            
+//            let alertController = UIAlertController(title: nil, message: "Choose an Option", preferredStyle: alertStyle)
+//            let transferDetails = UIAlertAction(title: "Transfer Details", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+//                //  perform action to view transfer Details
+//            })
+//            let pendingTransfers = UIAlertAction(title: "Accept Pending Transfers", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+//                //  perform action to accept pending transfer
+//            })
+//            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+//                //  Do something here upon cancellation.
+//            })
+//            alertController.addAction(transferDetails)
+//            alertController.addAction(pendingTransfers)
+//            alertController.addAction(cancelAction)
+//            self.present(alertController, animated: true, completion: nil)
         }
        
     }

@@ -1,4 +1,4 @@
-                                //
+//
 //  ManifestInfoTableViewController.swift
 //  blaze
 //
@@ -14,18 +14,20 @@ protocol validateFieldsProtocol {
     func validateFields()
 }
                                 
-class ManifestInfoTableViewController: UITableViewController, signatureDelegate, UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
+class ManifestInfoTableViewController: UITableViewController, signatureDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: - Property
     var isAddManifest = Bool()
     var modelShippingMen: ModelShipingMenifest?
+    var inProgressShippingMen: ModelInProgressShipingMenifest?
     let datePicker = UIDatePicker()
     let timePicker = UIDatePicker()
     var driverInfo :[ModelDriverInfo] = []
     var selectedDriverInfo:ModelDriverInfo?
     var invoiceDetailsDict: ModelInvoice?
     var pickerView: UIPickerView = UIPickerView()
-    
+    var isProgressUpdate = Bool()
+    var dateChange = false
     
     // MARK: - Outlets
     @IBOutlet weak var signatureImgView: UIImageView!
@@ -52,20 +54,21 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
+        self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         self.disableDriversTextField()
-
+        deliveryDateTextField.inputView = datePicker
+        datePicker.datePickerMode = .date
+        deliveryTimeTextField.inputView = timePicker
+        timePicker.datePickerMode = .time
+        self.getManifestInProgress()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         //Read Driver info list from database
         self.driverInfo = RealmManager().readList(type: ModelDriverInfo.self)
-        //print(self.modelShippingMen)
-        
         pickerView.delegate = self
         pickerView.dataSource = self
-        //driverNameTextField = UITextField(frame: CGRect.zero)
         driverNameTextField.inputView = pickerView
         driverNameTextField.delegate = self
         driverNameTextField?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(doneButtonTapped))
@@ -74,12 +77,11 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     @objc func doneButtonTapped() {
         //save selected driver info
         self.selectedDriverInfo = self.driverInfo[self.pickerView.selectedRow(inComponent: 0)]
-        if let licenNumber = self.selectedDriverInfo{
+        if let licenNumber = self.selectedDriverInfo {
             //set value to text field
             let fullName = "\(licenNumber.driverName ?? "Not") \(licenNumber.driverLastName ?? "Available")"
         
             driverNameTextField.text = fullName
-            //driverNameTextField.text = licenNumber.driverName ?? "Not Available"
             driverLicenceTextField.text = licenNumber.driverLicenseNumber ?? "Not Available"
             driverMakeTextField.text = licenNumber.vehicleMake ?? "Not Available"
             driverModelTextField.text = licenNumber.vehicleModel ?? "Not Available"
@@ -93,7 +95,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             modelShippingMen?.vehicleColor = licenNumber.vehicleColor
             modelShippingMen?.driverLicenPlate = licenNumber.vehicleLicensePlate
             modelShippingMen?.driverId = licenNumber.driverId
-        }else{
+        } else {
             return
         }
     
@@ -102,12 +104,9 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     override func viewDidAppear(_ animated: Bool) {
         if !isAddManifest {
             disableAllFields()
-            //signatureBtn.isHidden = true
             addSignatureBtn.isHidden = true
         }
-
-        setUI(manifestInfo: modelShippingMen)
-        
+//        self.getManifestInProgress()
         let colorView = UIView()
         colorView.backgroundColor = UIColor.clear
         UITableViewCell.appearance().selectedBackgroundView = colorView
@@ -117,48 +116,44 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
 //        driverNameTextField.inputView = pickerView
 //        driverNameTextField.delegate = self
     }
+
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.view.endEditing(true)
-//        if isAddManifest {
-//            //modelShippingMen?.deliveryDate = Int(Date().timeIntervalSince1970)
-//            modelShippingMen?.receiverCompany = companyNameTextField.text
-//            modelShippingMen?.receiverType = typeTextField.text
-//            modelShippingMen?.receiverContact = contactTextField.text
-//            modelShippingMen?.receiverLicense = licenceNoTextField.text
-//            let addressObj = ModelAddres()
-//            addressObj.address = addressTextField.text
-//            modelShippingMen?.receiverAddress = addressObj
-//            modelShippingMen?.driverName = driverNameTextField.text
-//            modelShippingMen?.driverLicenseNumber = driverLicenceTextField.text
-//            modelShippingMen?.vehicleMake = driverMakeTextField.text
-//            modelShippingMen?.vehicleModel = driverModelTextField.text
-//            modelShippingMen?.vehicleColor = driverColorTextField.text
-//            modelShippingMen?.driverLicenPlate = driverLicencePlateTextField.text
-//        }
+    func getManifestInProgress() {
+        // retrieving a value for a key
+        let realm = try! Realm()
+        let objects = realm.objects(ModelInProgressShipingMenifest.self)
+        print(objects.count)
+        for object in objects {
+            isProgressUpdate = false
+            if object.invoiceId == self.invoiceDetailsDict?.invoiceNumber {
+                isProgressUpdate = true
+                setDataWithCurrentManifest(manifestInfo: object)
+                break
+            }
+        }
+        if isProgressUpdate == false {
+            setUI(manifestInfo: modelShippingMen)
+            inProgressShippingMen = ModelInProgressShipingMenifest()
+        }
     }
-//    private func seuptReceiver(_ invoice: ModelInvoice?){
-//
-//        guard  let modelInvoice = invoice else {
-//            return
-//        }
-//
-//        companyNameTextField.text = modelInvoice.vendorCompany ?? "-/-"
-//        typeTextField.text = modelInvoice.vendorCompanyType ?? "-/-"
-//        contactTextField.text = modelInvoice.vendorPhone ?? "-/-"
-//        licenceNoTextField.text = modelInvoice.vendorLicenseNumber ?? "-/-"
-//        addressTextField.text = "\(modelInvoice.vendorCity ?? "-"), \(modelInvoice.vendorCountry ?? "-")"
-//
-//    }
-    
+
+    @objc func back(sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "Alert", message: "Do you want to save your current progress?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "YES", style: .cancel) { (action:UIAlertAction) in
+            //save data in process
+            self.updateCurrentManifest()
+            self.navigationController?.popViewController(animated: true)
+        }
+        let noAction = UIAlertAction(title: "No, Thanks", style: .destructive) { (action:UIAlertAction) in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+
     // MARK: - UI Update
     func setUI(manifestInfo: ModelShipingMenifest?) {
-        
-        deliveryDateTextField.inputView = datePicker
-        datePicker.datePickerMode = .date
-        
-        deliveryTimeTextField.inputView = timePicker
-        timePicker.datePickerMode = .time
         
         guard let manifestInfo = manifestInfo else {
             return
@@ -182,8 +177,6 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             
             deliveryTimeTextField.text = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime:manifestInfo.deliveryTime , type: DateIntConvertUtil.Seconds)), format: DateFormatterUtil.hhmma)
             
-            //"\(manifestInfo.deliveryDate)"
-            //deliveryTimeTextField.text = "-/-"
             driverNameTextField.text = manifestInfo.driverName
             driverLicenceTextField.text = manifestInfo.driverLicenseNumber ?? "Not available"
             driverMakeTextField.text = manifestInfo.vehicleMake ?? "Not available"
@@ -191,9 +184,8 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             driverColorTextField.text = manifestInfo.vehicleColor ?? "Not available"
             driverLicencePlateTextField.text = manifestInfo.driverLicenPlate ?? "Not available"
             
-            
-            //Assine Image from asset
-            if let imageAsset : ModelSignatureAsset = manifestInfo.signatureAsset{
+            // Assine Image from asset
+            if let imageAsset : ModelSignatureAsset = manifestInfo.signatureAsset {
                 if let url = imageAsset.getNSURL(){
                     self.signatureImgView.imageFromSecureURL(url, placeHolder: "loadingImage")
                 }
@@ -201,6 +193,102 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         }
         
     }
+    
+    func setDataWithCurrentManifest(manifestInfo: ModelInProgressShipingMenifest?) {
+        guard let manifestInfo = manifestInfo else {
+            return
+        }
+        if let signImg = StoreImage.getSavedImage(name: manifestInfo.shippingManifestNo!) {
+            //signatureBtn.setImage(signImg, for: .normal)
+            signatureImgView.image = signImg
+            signatureImgView.layer.borderWidth = 0
+        }
+        manifestNoTextField.text = manifestInfo.shippingManifestNo
+        companyNameTextField.text = manifestInfo.receiverCompany
+        typeTextField.text = manifestInfo.receiverType
+        contactTextField.text = manifestInfo.receiverContact ?? "-/-"
+        licenceNoTextField.text = manifestInfo.receiverLicense ?? "-/-"
+        addressTextField.text = "\(manifestInfo.receiverAddress?.address ?? "-"), \(manifestInfo.receiverAddress?.city ?? "-"), \(manifestInfo.receiverAddress?.country ?? "-")"
+        
+        deliveryDateTextField.text = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime:manifestInfo.deliveryDate , type: DateIntConvertUtil.Seconds)), format: DateFormatterUtil.mmddyyyy)
+        deliveryTimeTextField.text = DateFormatterUtil.format(dateTime: Double(DateIntConvertUtil.convert(dateTime:manifestInfo.deliveryTime , type: DateIntConvertUtil.Seconds)), format: DateFormatterUtil.hhmma)
+        driverNameTextField.text = manifestInfo.driverName
+        driverLicenceTextField.text = manifestInfo.driverLicenseNumber ?? ""
+        driverMakeTextField.text = manifestInfo.vehicleMake ?? ""
+        driverModelTextField.text = manifestInfo.vehicleModel ?? ""
+        driverColorTextField.text = manifestInfo.vehicleColor ?? ""
+        driverLicencePlateTextField.text = manifestInfo.driverLicenPlate ?? ""
+        
+        // Assine Image from asset
+        if let imageAsset : ModelSignatureAsset = manifestInfo.signatureAsset{
+            if let url = imageAsset.getNSURL(){
+                self.signatureImgView.imageFromSecureURL(url, placeHolder: "loadingImage")
+            }
+        }
+        
+    }
+    
+    private func updateCurrentManifest() {
+        
+        let realm = try! Realm()
+        let objects = realm.objects(ModelInProgressShipingMenifest.self)
+        for object in objects {
+            isProgressUpdate = false
+            if object.invoiceId == self.invoiceDetailsDict?.invoiceNumber {
+                isProgressUpdate = true
+                try! realm.write {
+                    object.shippingManifestNo = modelShippingMen?.shippingManifestNo
+                    if self.dateChange {
+                        object.deliveryDate = DateIntConvertUtil.convert(dateTime: Int(datePicker.date.timeIntervalSince1970), type: DateIntConvertUtil.Miliseconds)
+                        object.deliveryTime = DateIntConvertUtil.convert(dateTime:Int(timePicker.date.timeIntervalSince1970) , type: DateIntConvertUtil.Miliseconds)
+                    }
+                    object.receiverCompany = companyNameTextField.text
+                    object.receiverType = typeTextField.text
+                    object.receiverContact = contactTextField.text
+                    object.receiverLicense = licenceNoTextField.text
+                    object.receiverAddress = modelShippingMen?.receiverAddress
+                    object.driverName = driverNameTextField.text
+                    object.driverLicenseNumber = driverLicenceTextField.text
+                    object.vehicleMake = driverMakeTextField.text
+                    object.vehicleModel = driverModelTextField.text
+                    object.vehicleColor = driverColorTextField.text
+                    object.driverLicenPlate = driverLicencePlateTextField.text
+                    object.driverId = modelShippingMen?.driverId
+                    object.signatureAsset = modelShippingMen?.signatureAsset
+                    object.signaturePhoto = modelShippingMen?.signaturePhoto
+                    realm.add(object, update: true)
+                }
+                break
+            }
+        }
+        if isProgressUpdate == false {
+            try! realm.write {
+                let newObject = ModelInProgressShipingMenifest()
+                newObject.invoiceId = self.invoiceDetailsDict?.invoiceNumber
+                newObject.shippingManifestNo = modelShippingMen?.shippingManifestNo
+                newObject.deliveryDate = DateIntConvertUtil.convert(dateTime: Int(datePicker.date.timeIntervalSince1970), type: DateIntConvertUtil.Miliseconds)
+                newObject.deliveryTime = DateIntConvertUtil.convert(dateTime:Int(timePicker.date.timeIntervalSince1970) , type: DateIntConvertUtil.Miliseconds)
+                newObject.receiverCompany = companyNameTextField.text
+                newObject.receiverType = typeTextField.text
+                newObject.receiverContact = contactTextField.text
+                newObject.receiverLicense = licenceNoTextField.text
+                newObject.receiverAddress = modelShippingMen?.receiverAddress
+                newObject.driverName = driverNameTextField.text
+                newObject.driverLicenseNumber = driverLicenceTextField.text
+                newObject.vehicleMake = driverMakeTextField.text
+                newObject.vehicleModel = driverModelTextField.text
+                newObject.vehicleColor = driverColorTextField.text
+                newObject.driverLicenPlate = driverLicencePlateTextField.text
+                newObject.driverId = modelShippingMen?.driverId
+                newObject.signatureAsset = modelShippingMen?.signatureAsset
+                newObject.signaturePhoto = modelShippingMen?.signaturePhoto
+                print(newObject)
+                realm.create(ModelInProgressShipingMenifest.self, value: newObject, update: true)
+//                realm.add(newObject, update: false)
+            }
+        }
+    }
+    
     private func disableDriversTextField(){
         driverLicenceTextField.isUserInteractionEnabled = false
         driverMakeTextField.isUserInteractionEnabled = false
@@ -210,7 +298,6 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     }
     
     private func disableAllFields(){
-        
         //signatureBtn.isEnabled = false
         manifestNoTextField.isUserInteractionEnabled = false
         deliveryDateTextField.isUserInteractionEnabled = false
@@ -276,66 +363,6 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             addressTextField.becomeFirstResponder()
             return
         }
-//        guard let driverName = modelShippingMen?.driverName, driverName != "" else {
-//            driverNameTextField.layer.borderWidth = 1
-//            driverNameTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 11, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverNameTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
-//        guard let driverLicence = modelShippingMen?.driverLicenseNumber, driverLicence != "" else {
-//            driverLicenceTextField.layer.borderWidth = 1
-//            driverLicenceTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 12, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverLicenceTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
-//        guard let vehicleMake = modelShippingMen?.vehicleMake, vehicleMake != "" else {
-//            driverMakeTextField.layer.borderWidth = 1
-//            driverMakeTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 13, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverMakeTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
-//        guard let vehicleModel = modelShippingMen?.vehicleModel, vehicleModel != "" else {
-//            driverModelTextField.layer.borderWidth = 1
-//            driverModelTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 14, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverModelTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
-//        guard let vehicleColor = modelShippingMen?.vehicleColor, vehicleColor != "" else {
-//            driverColorTextField.layer.borderWidth = 1
-//            driverColorTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 15, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverColorTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
-//        guard let driverLicenPlate = modelShippingMen?.driverLicenPlate, driverLicenPlate != "" else {
-//            driverLicencePlateTextField.layer.borderWidth = 1
-//            driverLicencePlateTextField.layer.borderColor = UIColor.red.cgColor
-//            DispatchQueue.main.async {
-//                let indexPath = IndexPath(row: 16, section: 0)
-//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                self.driverLicencePlateTextField.becomeFirstResponder()
-//            }
-//            return
-//        }
         guard signImg != nil else {
             signatureImgView.layer.borderWidth = 1
             signatureImgView.layer.borderColor = UIColor.red.cgColor
@@ -347,12 +374,12 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         }
     }
     
-    
     // MARK: - UITextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.layer.borderWidth = 0
         textField.borderStyle = .none
         if textField == deliveryDateTextField {
+            self.dateChange = true
             let formatter = DateFormatter()
             formatter.dateFormat = "MM/dd/yyyy"
             modelShippingMen?.deliveryDate = DateIntConvertUtil.convert(dateTime: Int(datePicker.date.timeIntervalSince1970), type: DateIntConvertUtil.Miliseconds)
@@ -412,7 +439,6 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
 //        else if textField == driverModelTextField {
 //            if isAddManifest {
 //                modelShippingMen?.vehicleModel = driverModelTextField.text
-//
 //            }
 //        }
 //        else if textField == driverColorTextField {
@@ -434,8 +460,8 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             return true
         }
     }
+    
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -589,7 +615,6 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         }
     }
      
-    
     // MARK:- Sign Delegate
     func getSignatureImg(signImg: UIImage) {
         //self.signatureBtn.setImage(signImg, for: .normal)
@@ -601,9 +626,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         return modelShippingMen!
     }
     
-    
     // MARK: - UINavigation
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "addSignatureSegue" {
@@ -614,10 +637,11 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         }
     }
     
-    //MARK - PickerView Delegate
+    // MARK - PickerView Delegate
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+    
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return driverInfo.count
     }
@@ -631,6 +655,5 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         self.selectedDriverInfo = driverInfo[row]
         //print("\(modelLogin?.shops[row].name ?? "No Shop Name")")
     }
-    
     
 }

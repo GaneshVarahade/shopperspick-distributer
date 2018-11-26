@@ -21,6 +21,7 @@ public class RequestInventry: BaseRequest {
       public   var fromInventoryName:String? = ""
       public   var toInventoryName:String?   = ""
       public   var status:String?   = ""
+      public   var createdByEmployeeName:String?   = ""
       public   var completeTransfer:Bool                = false
       public var transferLogs   = [RequestCartProduct]()
 }

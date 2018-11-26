@@ -10,13 +10,16 @@ import Foundation
 import Realm
 import RealmSwift
 
-public class ModelBase:Object, NSCopying {
+public class ModelBase:Object, NSCopying, Codable {
+    
     public func copy(with zone: NSZone? = nil) -> Any {
         fatalError("Subclass need to implement this method")
     }
     
-    
-    
+    public func encode(with aCoder: NSCoder) {
+        fatalError("Subclass need to implement this method")
+    }
+
     convenience init(id:String?, companyId:String?){
         self.init()
         self.id         = id

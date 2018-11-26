@@ -16,7 +16,7 @@ protocol ShippingMenifestConfirmSelectedProductsDelegate {
 
 class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmSelectedProductsDelegate,validationProtocol,validateFieldsProtocol {
 
-    var manifestInfoViewController: ManifestInfoTableViewController?
+//    var manifestInfoViewController: ManifestInfoTableViewController?
     var invoiceDetailsDict: ModelInvoice?
     var isAddManifest = Bool()
     var modelShippingMen: ModelShipingMenifest?
@@ -36,6 +36,10 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
         manifestInfoContainerView.isHidden = true
         itemsToShipContainerView.isHidden = false
         
+        self.navigationItem.hidesBackButton = true
+//        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(back(sender:)))
+        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: manifestDetailController, action: #selector(manifestDetailController?.back(sender:)))
+        self.navigationItem.leftBarButtonItem = newBackButton
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,7 +55,6 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
         else {
             manifestInfoContainerView.isHidden = true
             itemsToShipContainerView.isHidden = false
-            
         }
     }
     

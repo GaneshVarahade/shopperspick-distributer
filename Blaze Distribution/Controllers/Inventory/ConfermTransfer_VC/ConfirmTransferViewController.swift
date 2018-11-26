@@ -55,7 +55,6 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
     // MARK:- UITableViewDelegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.selectedCartProduct?.count ?? 0
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -91,7 +90,7 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             let modelOpenTransfer: ModelInventoryTransfers = ModelInventoryTransfers()
             // Asign all data
             modelOpenTransfer.id = HexGenerator.sharedInstance().generate()
-            modelOpenTransfer.status = InvetryTransferStatus.Pending.rawValue
+            modelOpenTransfer.status = InvetoryTransferStatus.Pending.rawValue
             modelOpenTransfer.fromShopName = self.modelCreateTransfer.fromLocation?.shop?.name
             modelOpenTransfer.toShopName = self.modelCreateTransfer.toLocation?.shop?.name
             modelOpenTransfer.fromInventoryName = self.modelCreateTransfer.fromLocation?.inventory?.name
@@ -111,12 +110,10 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             modelOpenTransfer.fromInventoryId = self.modelCreateTransfer.fromLocation?.inventory?.id
             modelOpenTransfer.toInventoryId = self.modelCreateTransfer.toLocation?.inventory?.id
             modelOpenTransfer.completeTransfer = true
-            RealmManager().write(table: modelOpenTransfer)
             
+            RealmManager().write(table: modelOpenTransfer)
             //write log
             UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.Inventry.rawValue , objectId: modelOpenTransfer.id, lastSynch:nil)
-            
-            
             SyncService.sharedInstance().syncData()
             
             showAlert(title: "Message", message: "Saved Successfully!", closure: {

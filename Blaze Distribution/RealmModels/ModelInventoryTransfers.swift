@@ -10,7 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-public enum InvetryTransferStatus:String {
+public enum InvetoryTransferStatus:String {
     case Pending = "PENDING"
     case Declined = "DECLINED"
     case Accepted = "ACCEPTED"
@@ -22,14 +22,16 @@ public class ModelInventoryTransfers: ModelBase {
     @objc public dynamic var fromShopId:String?        = ""
     @objc public dynamic var toShopId:String?          = ""
     @objc public dynamic var fromInventoryId:String?   = ""
-    @objc public dynamic var toInventoryId:String?   = ""
+    @objc public dynamic var toInventoryId:String?     = ""
     @objc public dynamic var fromShopName:String?      = ""
     @objc public dynamic var toShopName:String?        = ""
     @objc public dynamic var fromInventoryName:String? = ""
     @objc public dynamic var toInventoryName:String?   = ""
-    @objc public  dynamic var completeTransfer:Bool                = false
-    @objc public dynamic var status:String?   = ""
-    @objc public dynamic var putBulkError:String?         = ""
+    @objc public  dynamic var completeTransfer:Bool    = false
+    @objc public  dynamic var isStatusUpdated:Bool     = false
+    @objc public dynamic var status:String?            = ""
+    @objc public dynamic var putBulkError:String?      = ""
+    @objc public dynamic var createdByEmployeeName:String?         = ""
     public var slectedProducts = List<ModelCartProduct>()
     
     open override class func primaryKey() -> String? {
@@ -53,6 +55,8 @@ public class ModelInventoryTransfers: ModelBase {
         modelInventoryTransfers.fromInventoryId   = self.fromInventoryId
         modelInventoryTransfers.toInventoryId     = self.toInventoryId
         modelInventoryTransfers.completeTransfer  = self.completeTransfer
+        modelInventoryTransfers.isStatusUpdated  = self.isStatusUpdated
+        modelInventoryTransfers.createdByEmployeeName  = self.createdByEmployeeName
         modelInventoryTransfers.putBulkError      = self.putBulkError
         
         for prod in self.slectedProducts{

@@ -38,7 +38,7 @@ public class ModelShipingMenifest:ModelBase {
         return "id"
     }
    
-    public override func copy(with zone: NSZone?) -> Any { 
+    public override func copy(with zone: NSZone?) -> Any {
 
         let modelShipingMenifest                 = ModelShipingMenifest()
         modelShipingMenifest.id                  = self.id
@@ -64,15 +64,107 @@ public class ModelShipingMenifest:ModelBase {
         modelShipingMenifest.signatureAsset      = self.signatureAsset
         modelShipingMenifest.updated            = self.updated
         for item in self.selectedItems {
-            
             modelShipingMenifest.selectedItems.append(item.copy() as! ModelRemainingProduct)
-            
         }
-        
         return modelShipingMenifest
+    }
+    
+    public override func encode(with aCoder: NSCoder) {
+        aCoder.encode(id, forKey: "id")
+        aCoder.encode(companyId, forKey: "companyId")
+        aCoder.encode(deliveryDate, forKey: "deliveryDate")
+        aCoder.encode(deliveryTime, forKey: "deliveryTime")
+        aCoder.encode(driverName, forKey: "driverName")
+        aCoder.encode(driverLicenseNumber, forKey: "driverLicenseNumber")
+        aCoder.encode(vehicleMake, forKey: "vehicleMake")
+        aCoder.encode(vehicleModel, forKey: "vehicleModel")
+        aCoder.encode(vehicleColor, forKey: "vehicleColor")
+        aCoder.encode(driverLicenPlate, forKey: "driverLicenPlate")
+        aCoder.encode(vehicleLicensePlate, forKey: "vehicleLicensePlate")
+        aCoder.encode(receiverCompany, forKey: "receiverCompany")
+        aCoder.encode(receiverType, forKey: "receiverType")
+        aCoder.encode(receiverContact, forKey: "receiverContact")
+        aCoder.encode(receiverLicense, forKey: "receiverLicense")
+        aCoder.encode(receiverAddress, forKey: "receiverAddress")
+        aCoder.encode(invoiceStatus, forKey: "invoiceStatus")
+        aCoder.encode(signatureAsset, forKey: "signatureAsset")
+        aCoder.encode(updated, forKey: "updated")
+        aCoder.encode(selectedItems, forKey: "selectedItems")
+    }
+
+    public override var description: String {
+        return "shippingManifestNo: \(shippingManifestNo), signatureAsset: \(signatureAsset)"
+    }
+}
+
+public class ModelInProgressShipingMenifest:ModelShipingMenifest {
+    
+    @objc public dynamic var invoiceId:String?
+    open override class func primaryKey() -> String? {
+        return "invoiceId"
+    }
+    
+    public override func copy(with zone: NSZone?) -> Any {
+        
+        let modelShipingMenifest                 = ModelInProgressShipingMenifest()
+        modelShipingMenifest.id                  = self.id
+        modelShipingMenifest.companyId           = self.companyId
+        modelShipingMenifest.shippingManifestNo  = self.shippingManifestNo
+        modelShipingMenifest.deliveryDate        = self.deliveryDate
+        modelShipingMenifest.deliveryTime        = self.deliveryTime
+        modelShipingMenifest.driverId            = self.driverId
+        modelShipingMenifest.driverName          = self.driverName
+        modelShipingMenifest.driverLicenseNumber = self.driverLicenseNumber
+        modelShipingMenifest.vehicleMake         = self.vehicleMake
+        modelShipingMenifest.vehicleModel        = self.vehicleModel
+        modelShipingMenifest.vehicleColor        = self.vehicleColor
+        modelShipingMenifest.signaturePhoto      = self.signaturePhoto
+        modelShipingMenifest.driverLicenPlate    = self.driverLicenPlate
+        modelShipingMenifest.vehicleLicensePlate = self.vehicleLicensePlate
+        modelShipingMenifest.receiverCompany     = self.receiverCompany
+        modelShipingMenifest.receiverType        = self.receiverType
+        modelShipingMenifest.receiverContact     = self.receiverContact
+        modelShipingMenifest.receiverLicense     = self.receiverLicense
+        modelShipingMenifest.receiverAddress     = self.receiverAddress
+        modelShipingMenifest.invoiceStatus       = self.invoiceStatus
+        modelShipingMenifest.signatureAsset      = self.signatureAsset
+        modelShipingMenifest.updated            = self.updated
+        modelShipingMenifest.invoiceId          = self.invoiceId
+        for item in self.selectedItems {
+            modelShipingMenifest.selectedItems.append(item.copy() as! ModelRemainingProduct)
+        }
+        return modelShipingMenifest
+    }
+    
+    public override func encode(with aCoder: NSCoder) {
+        aCoder.encode(id, forKey: "id")
+        aCoder.encode(companyId, forKey: "companyId")
+        aCoder.encode(deliveryDate, forKey: "deliveryDate")
+        aCoder.encode(deliveryTime, forKey: "deliveryTime")
+        aCoder.encode(driverName, forKey: "driverName")
+        aCoder.encode(driverLicenseNumber, forKey: "driverLicenseNumber")
+        aCoder.encode(vehicleMake, forKey: "vehicleMake")
+        aCoder.encode(vehicleModel, forKey: "vehicleModel")
+        aCoder.encode(vehicleColor, forKey: "vehicleColor")
+        aCoder.encode(driverLicenPlate, forKey: "driverLicenPlate")
+        aCoder.encode(vehicleLicensePlate, forKey: "vehicleLicensePlate")
+        aCoder.encode(receiverCompany, forKey: "receiverCompany")
+        aCoder.encode(receiverType, forKey: "receiverType")
+        aCoder.encode(receiverContact, forKey: "receiverContact")
+        aCoder.encode(receiverLicense, forKey: "receiverLicense")
+        aCoder.encode(receiverAddress, forKey: "receiverAddress")
+        aCoder.encode(invoiceStatus, forKey: "invoiceStatus")
+        aCoder.encode(signatureAsset, forKey: "signatureAsset")
+        aCoder.encode(updated, forKey: "updated")
+        aCoder.encode(invoiceId, forKey: "invoiceId")
+        aCoder.encode(selectedItems, forKey: "selectedItems")
     }
     
     public override var description: String {
         return "shippingManifestNo: \(shippingManifestNo), signatureAsset: \(signatureAsset)"
     }
 }
+
+
+
+

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 public class ResponseSwitchShop: BaseResponseModel  {
     public var id: String?
     public var created: Int?

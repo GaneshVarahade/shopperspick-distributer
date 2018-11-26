@@ -19,5 +19,4 @@ public class RequestModelInvoicePaymentInfo: BaseRequest {
       public   var amountPaid:Double          = 0.0
       public   var notes:pyamentNotes?         
       public   var paymentType:String          = ""
-    
 }

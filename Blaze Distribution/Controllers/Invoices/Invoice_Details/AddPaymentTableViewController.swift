@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 protocol AddPaymentDelegate {
     func getDataFromAddPayment(dataDict:ModelInvoice)
@@ -27,14 +28,19 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var notesView: UIView!
     @IBOutlet weak var debitCheckMarkImage: UIImageView!
+    @IBOutlet weak var debitLabel: UILabel!
+    @IBOutlet weak var achTransferLabel: UILabel!
+    @IBOutlet weak var paymentTypeTextField: UITextField!
     
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var debitCardTextField: UITextField!
     @IBOutlet weak var achDateTextField: UITextField!
     @IBOutlet weak var paymentDateTextField: UITextField!
     
+    var paymentType = AddPaymentType.DEBIT
+    let paymentTypes = ["Debit Card", "ACH Transfer"]
     let datePicker = UIDatePicker()
-    
+    let paymentTypePicker = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,11 +58,15 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
 //        amountView.dropShadow()
 //        notesView.dropShadow()
         
+        self.paymentTypePicker.delegate = self
+        self.paymentTypePicker.dataSource = self
+        
         debitCheckMarkImage.isHidden = true
         
         notesTextView.text = "Enter your notes here..."
         notesTextView.textColor = UIColor.lightGray
         
+        paymentTypeTextField.inputView = paymentTypePicker
         achDateTextField.inputView = datePicker
         paymentDateTextField.inputView = datePicker
         datePicker.datePickerMode = .date
@@ -66,6 +76,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     }
     
     func  manageTextfield() {
+        paymentTypeTextField.isUserInteractionEnabled = isfromDetails ? false : true
         debitCardTextField.isUserInteractionEnabled = isfromDetails ? false : true
         achDateTextField.isUserInteractionEnabled = isfromDetails ? false : true
         paymentDateTextField.isUserInteractionEnabled = isfromDetails ? false : true
@@ -78,31 +89,60 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     func setDefaultData() {
         if self.isfromDetails && (paymentModel != nil) {
             notesTextView.textColor = UIColor.black
-            if let cardNo = paymentModel?.debitCardNo{
-                 debitCardTextField?.text = String(format: "%d",cardNo)
-            }else{
-                 debitCardTextField?.text = "Not Available"
+            // check payment method if set or set by default
+            if let paymentType = paymentModel?.addPaymentType {
+                self.paymentType = paymentType
             }
 
+            if let cardNo = paymentModel?.debitCardNo {
+                debitCardTextField?.text = String(format: "%d",cardNo)
+            } else {
+                debitCardTextField?.text = "Not Available"
+            }
             achDateTextField.text = paymentModel?.achDate ?? "Not Available"
             paymentDateTextField.text = DateFormatterUtil.format(dateTime:Double(DateIntConvertUtil.convert(dateTime: (paymentModel?.paymentDate)!, type: DateIntConvertUtil.Seconds)) , format:"dd/MM/yyyy")
             referenceNoTextField.text = paymentModel?.referenceNumber
             amountTextField.text = String(format:"$%.1f",(paymentModel?.amount)!)
             notesTextView.text = paymentModel?.notes ?? "Not Available"
             lblBalanceDue.text = "0";
-        }else{
+        } else {
             //Set Due balance
             if(invoiceObj != nil){
                  lblBalanceDue.text = String(format: "$%.1f",(invoiceObj?.balanceDue)!)
             }
         }
+        self.setAddPaymentType(addPaymentType: self.paymentType)
+    }
+    
+    func setAddPaymentType(addPaymentType:AddPaymentType) {
+        switch addPaymentType {
+        case .DEBIT:
+            // show for debit card
+            self.showDebitPaymentType(show: true)
+        case .ACH_TRANSFER:
+            // Hide debit card
+            self.showDebitPaymentType(show: false)
+        }
+    }
+    
+    private func showDebitPaymentType(show:Bool) {
+        debitCardTextField.isHidden = !show
+        debitLabel.isHidden = !show
+        if (debitCardTextField.text?.count)! >= 12 && show {
+            debitCheckMarkImage.isHidden = false
+        } else {
+            debitCheckMarkImage.isHidden = true
+        }
+        // hide ACH transfer
+        achTransferLabel.isHidden = show
+        achDateTextField.isHidden = show
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -212,6 +252,24 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         }
     }
     
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "AddPaymentCell", for: indexPath)
+//        if indexPath.row == 0 {
+//            tableView.allowsSelection = true
+//        } else {
+//            tableView.allowsSelection = false
+//        }
+////        cell.textLabel?.text = "Section \(indexPath.section) Row \(indexPath.row)"
+//        return cell
+//    }
+    
+    // MARK: - Table view Delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("did select row at index \(indexPath.row)")
+        
+    }
+    
     
     // MARK: - UITextView Delegate/DataSource
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -237,11 +295,13 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             let formatter = DateFormatter()
             formatter.dateFormat = "dd/MM/yyyy"
             textField.text = formatter.string(from: datePicker.date)
+        } else if textField == paymentTypeTextField {
+            
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == achDateTextField || textField == paymentDateTextField{
+        if textField == achDateTextField || textField == paymentDateTextField {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd/MM/yyyy"
             textField.text = formatter.string(from: datePicker.date)
@@ -269,6 +329,8 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         }
         return true
     }
+    
+    
     
     // MARK:- Touch events
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -324,15 +386,34 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     
     @IBAction func submitBtnPressed(_ sender: Any) {
         
-        guard let debitCardNo = debitCardTextField.text, debitCardNo != "" else {
-            self.showToast(NSLocalizedString("AddPay_Validation1", comment: ""))
-            return
+        // check data for selected payment type
+        var debitCardNo = ""
+        var achDate = ""
+        if self.paymentType == .DEBIT {
+            guard let cardNo = debitCardTextField.text, cardNo != "" else {
+                self.showToast(NSLocalizedString("AddPay_Validation1", comment: ""))
+                return
+            }
+            debitCardNo = cardNo
+        } else {
+            guard let date = achDateTextField.text, date != "" else {
+                self.showToast(NSLocalizedString("AddPay_Validation2", comment: ""))
+                return
+            }
+            achDate = date
         }
         
-        guard let achDate = achDateTextField.text, achDate != "" else {
-            self.showToast(NSLocalizedString("AddPay_Validation2", comment: ""))
-            return
-        }
+        
+        // If both card no. and ACH transfer date are required
+//        guard let debitCardNo = debitCardTextField.text, debitCardNo != "" else {
+//            self.showToast(NSLocalizedString("AddPay_Validation1", comment: ""))
+//            return
+//        }
+//
+//        guard let achDate = achDateTextField.text, achDate != "" else {
+//            self.showToast(NSLocalizedString("AddPay_Validation2", comment: ""))
+//            return
+//        }
         
         guard let paymentDate = paymentDateTextField.text, paymentDate != "" else {
             self.showToast(NSLocalizedString("AddPay_Validation3", comment: ""))
@@ -365,6 +446,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         
         let modelPaymanetInfo:ModelPaymentInfo = ModelPaymentInfo()
         modelPaymanetInfo.id = HexGenerator.sharedInstance().generate()
+        modelPaymanetInfo.addPaymentType = self.paymentType
         modelPaymanetInfo.debitCardNo = Int(debitCardNo)!
         modelPaymanetInfo.achDate = achDate
         modelPaymanetInfo.paymentDate = DateFormatterUtil.formatStringToInt(dateTime: paymentDateTextField.text!, format: "dd/MM/yyyy")
@@ -397,4 +479,36 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     }
     */
 
+}
+
+// MARK:- UIPickerView Delegate
+extension AddPaymentTableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return paymentTypes.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return paymentTypes[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        paymentTypeTextField.text = paymentTypes[row]
+        switch row {
+        case 0:
+            self.paymentType = .DEBIT
+            self.setAddPaymentType(addPaymentType: self.paymentType)
+        case 1:
+            self.paymentType = .ACH_TRANSFER
+            self.setAddPaymentType(addPaymentType: self.paymentType)
+        default:
+            break
+        }
+//        self.view.endEditing(true)
+    }
+    
 }

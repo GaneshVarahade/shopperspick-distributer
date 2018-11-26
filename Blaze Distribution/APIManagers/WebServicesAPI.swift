@@ -72,6 +72,60 @@ class WebServicesAPI: NSObject {
         }
     }
     
+    fileprivate func makeRequest1<T:BaseResponseModel1>(_ request:Router, callback:@escaping (_ result:T?,_ error:PlatformError?)-> Void ){
+        
+        self.printRequest(urlData: request.getRouterInfo(), nil)
+        
+        Alamofire.request(request)
+            .responseJSON { (response:DataResponse<Any>) in
+                let data = response.result.value
+                
+                if let res = response.response {
+                    
+                    self.printRequest(urlData: request.getRouterInfo(), data)
+                    
+                    do {
+                        let headers = res.allHeaderFields
+                        if let tokenHeader:String = headers["X-Auth-Token"] as? String {
+                            UtilityUserDefaults.sharedInstance().saveToken(strToken: tokenHeader)
+                        }
+                        print("RESPONSE StatusCode:",res.statusCode)
+                        if (res.statusCode == 200 || res.statusCode == 204) {
+                            
+                            let res2  = try? JSONDecoder().decode(T.self, from:response.data!)
+                            callback(res2,nil)
+                            
+                            
+                        } else if (data != nil) {
+                            
+                            let errorRes = try JSONDecoder().decode(PlatformError.self, from:response.data!)
+                            callback(nil, errorRes)
+                            
+                        } else {
+                            let pError = PlatformError()
+                            pError.message = "Network error"
+                            pError.errorCode = res.statusCode
+                            callback(nil, pError)
+                        }
+                    }catch {
+                        let pError = PlatformError()
+                        pError.message = "Exception while Parsing Json Response"
+                        pError.errorCode = res.statusCode
+                        callback(nil, pError)
+                    }
+                    
+                    
+                    
+                } else {
+                    let pError = PlatformError()
+                    pError.message = "Network error"
+                    pError.errorCode = 500
+                    callback(nil, pError)
+                }
+                
+        }
+    }
+    
     //========================
     fileprivate func upload<T:BaseResponseModel>(_ request:Router, storeSign: RequestSignature,handler:@escaping (_ result:T?,_ error:PlatformError?)->()) {
 
@@ -192,17 +246,20 @@ class WebServicesAPI: NSObject {
     
     func BulkPostAPI(request:RequestPostModel,onComplition:@escaping (_ result:ResponseBulkRequest?, _ error:PlatformError?)-> ()){
         makeRequest(Router.bulkPost(request: request), callback: onComplition)
-        
     }
     
     func SwitchShopPostAPI(request:RequestSwitchShop,onComplition:@escaping (_ result:ResponseSwitchShop?, _ error:PlatformError?)-> ()){
         makeRequest(Router.SwitchShopPost(request: request), callback: onComplition)
-        
     }
     
     func uploadSignature(request: RequestSignature,onComplition:@escaping (_ result:ResponseAsset?, _ error:PlatformError?)-> ()){
         upload(Router.uploadSignature(request: request), storeSign: request, handler: onComplition)
     }
+    
+    func updateTransferDetailStatus(request: RequestUpdateTransferStatus,onComplition:@escaping (_ result:ResponseUpdateTransferStatus?, _ error:PlatformError?)-> ()){
+        makeRequest1(Router.updateTransferStatusById(request: request), callback: onComplition)
+    }
+    
     private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){
  
         guard UtilPrintLogs.canPrintResponseLog else {

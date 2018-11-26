@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_Blaze_DistributionVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_Blaze_DistributionVersionString[];
+FOUNDATION_EXPORT double Pods_BLAZE_DistributionVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_BLAZE_DistributionVersionString[];
 
