@@ -18,7 +18,8 @@ class WebServicesAPI: NSObject {
         }
         return webServiceAPI
     }
-    fileprivate func makeRequest<T:BaseResponseModel>(_ request:Router, callback:@escaping (_ result:T?,_ error:PlatformError?)-> Void ){
+    
+    fileprivate func makeRequest<T:BaseResponseModel>(_ request:Router, callback:@escaping (_ result:T?,_ error:PlatformError?)-> Void) {
         
         self.printRequest(urlData: request.getRouterInfo(), nil)
         
@@ -47,60 +48,6 @@ class WebServicesAPI: NSObject {
                             let errorRes = try JSONDecoder().decode(PlatformError.self, from:response.data!)
                             callback(nil, errorRes)
                       
-                        } else {
-                            let pError = PlatformError()
-                            pError.message = "Network error"
-                            pError.errorCode = res.statusCode
-                            callback(nil, pError)
-                        }
-                    }catch {
-                        let pError = PlatformError()
-                        pError.message = "Exception while Parsing Json Response"
-                        pError.errorCode = res.statusCode
-                        callback(nil, pError)
-                    }
-                    
-                    
-                    
-                } else {
-                    let pError = PlatformError()
-                    pError.message = "Network error"
-                    pError.errorCode = 500
-                    callback(nil, pError)
-                }
-                
-        }
-    }
-    
-    fileprivate func makeRequest1<T:BaseResponseModel1>(_ request:Router, callback:@escaping (_ result:T?,_ error:PlatformError?)-> Void ){
-        
-        self.printRequest(urlData: request.getRouterInfo(), nil)
-        
-        Alamofire.request(request)
-            .responseJSON { (response:DataResponse<Any>) in
-                let data = response.result.value
-                
-                if let res = response.response {
-                    
-                    self.printRequest(urlData: request.getRouterInfo(), data)
-                    
-                    do {
-                        let headers = res.allHeaderFields
-                        if let tokenHeader:String = headers["X-Auth-Token"] as? String {
-                            UtilityUserDefaults.sharedInstance().saveToken(strToken: tokenHeader)
-                        }
-                        print("RESPONSE StatusCode:",res.statusCode)
-                        if (res.statusCode == 200 || res.statusCode == 204) {
-                            
-                            let res2  = try? JSONDecoder().decode(T.self, from:response.data!)
-                            callback(res2,nil)
-                            
-                            
-                        } else if (data != nil) {
-                            
-                            let errorRes = try JSONDecoder().decode(PlatformError.self, from:response.data!)
-                            callback(nil, errorRes)
-                            
                         } else {
                             let pError = PlatformError()
                             pError.message = "Network error"
@@ -257,7 +204,15 @@ class WebServicesAPI: NSObject {
     }
     
     func updateTransferDetailStatus(request: RequestUpdateTransferStatus,onComplition:@escaping (_ result:ResponseUpdateTransferStatus?, _ error:PlatformError?)-> ()){
-        makeRequest1(Router.updateTransferStatusById(request: request), callback: onComplition)
+        makeRequest(Router.updateTransferStatusById(request: request), callback: onComplition)
+    }
+    
+    func prepareInvoice(request: RequestCreateInvoice,onComplition:@escaping (_ result:ResponseCreateInvoice?, _ error:PlatformError?)-> ()) {
+        makeRequest(Router.prepareInvoice(request: request), callback: onComplition)
+    }
+    
+    func createInvoice(request: RequestCreateInvoice,onComplition:@escaping (_ result:ResponseCreateInvoice?, _ error:PlatformError?)-> ()) {
+        makeRequest(Router.createInvoice(request: request), callback: onComplition)
     }
     
     private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){

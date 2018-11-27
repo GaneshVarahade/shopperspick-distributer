@@ -95,6 +95,8 @@
 		18FFC99B20FC76CD00BCAA6A /* UtilWriteLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFC99A20FC76CD00BCAA6A /* UtilWriteLogs.swift */; };
 		2FD731EB83170AF88FAF96D0 /* Pods_Blaze_DistributionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22B1597E869879AC4DD12C3 /* Pods_Blaze_DistributionTests.framework */; };
 		7813C76F08A5D74F5131CD4D /* Pods_BLAZE_Distribution.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBBD0B656E5D36AD27393B /* Pods_BLAZE_Distribution.framework */; };
+		8D7DF4B321ABD7E200CA89AD /* RequestCreateInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DF4B221ABD7E200CA89AD /* RequestCreateInvoice.swift */; };
+		8D7DF4B521ABD7F300CA89AD /* ResponseCreateInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DF4B421ABD7F300CA89AD /* ResponseCreateInvoice.swift */; };
 		8D98F1D621A3E68100BECEBA /* TransferDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D98F1D521A3E68100BECEBA /* TransferDetailsViewController.swift */; };
 		8D98F1DB21A44F3300BECEBA /* ResponseUpdateTransferStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D98F1DA21A44F3300BECEBA /* ResponseUpdateTransferStatus.swift */; };
 		8D98F1DD21A44F8600BECEBA /* RequestUpdateTransferStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D98F1DC21A44F8600BECEBA /* RequestUpdateTransferStatus.swift */; };
@@ -311,6 +313,8 @@
 		78D9705729020550A4A15762 /* Pods-BLAZE Distribution.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLAZE Distribution.release.xcconfig"; path = "Pods/Target Support Files/Pods-BLAZE Distribution/Pods-BLAZE Distribution.release.xcconfig"; sourceTree = "<group>"; };
 		7BD414FACE98F6854EA2F12E /* Pods-Blaze Distribution.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.stage.xcconfig"; sourceTree = "<group>"; };
 		7D3EDAA332915944029EF3A9 /* Pods-Blaze DistributionUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionUITests/Pods-Blaze DistributionUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8D7DF4B221ABD7E200CA89AD /* RequestCreateInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCreateInvoice.swift; sourceTree = "<group>"; };
+		8D7DF4B421ABD7F300CA89AD /* ResponseCreateInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCreateInvoice.swift; sourceTree = "<group>"; };
 		8D98F1D521A3E68100BECEBA /* TransferDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.swift; sourceTree = "<group>"; };
 		8D98F1DA21A44F3300BECEBA /* ResponseUpdateTransferStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseUpdateTransferStatus.swift; sourceTree = "<group>"; };
 		8D98F1DC21A44F8600BECEBA /* RequestUpdateTransferStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUpdateTransferStatus.swift; sourceTree = "<group>"; };
@@ -619,6 +623,7 @@
 		189F82B320C501B70054986E /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				8D7DF4AD21ABD78500CA89AD /* APIInvoice */,
 				8D98F1D721A44F1100BECEBA /* APITransferUpdateStatus */,
 				B94BDB0E21104F1E007360A2 /* APIGetProductById */,
 				180E7C0D210738BE00943618 /* APISwitchShop */,
@@ -726,6 +731,31 @@
 				18F3F61620E52977002B37C3 /* PurchaseOrderAddShipment_VC.swift */,
 			);
 			path = PurchaseOrderReciveShipment;
+			sourceTree = "<group>";
+		};
+		8D7DF4AD21ABD78500CA89AD /* APIInvoice */ = {
+			isa = PBXGroup;
+			children = (
+				8D7DF4AE21ABD78500CA89AD /* RequestModel */,
+				8D7DF4AF21ABD78500CA89AD /* ResponseModel */,
+			);
+			path = APIInvoice;
+			sourceTree = "<group>";
+		};
+		8D7DF4AE21ABD78500CA89AD /* RequestModel */ = {
+			isa = PBXGroup;
+			children = (
+				8D7DF4B221ABD7E200CA89AD /* RequestCreateInvoice.swift */,
+			);
+			path = RequestModel;
+			sourceTree = "<group>";
+		};
+		8D7DF4AF21ABD78500CA89AD /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				8D7DF4B421ABD7F300CA89AD /* ResponseCreateInvoice.swift */,
+			);
+			path = ResponseModel;
 			sourceTree = "<group>";
 		};
 		8D98F1D421A3E3A500BECEBA /* TransferDetails */ = {
@@ -1592,6 +1622,7 @@
 				182427AE20EE57B7009BBF08 /* RequestModelInvoicePaymentInfo.swift in Sources */,
 				B9AA85E220C925B800751BF2 /* LoginModel.swift in Sources */,
 				B92A65AC20AF303500CDA4CC /* InvoicesTableViewCell.swift in Sources */,
+				8D7DF4B521ABD7F300CA89AD /* ResponseCreateInvoice.swift in Sources */,
 				B9D45A1120CA741600E4E0E8 /* RequestForgotPassword.swift in Sources */,
 				B92A65A820AF209200CDA4CC /* ShippingManifestViewController.swift in Sources */,
 				B9E5266620B2C38600127E43 /* ConfirmTransferTableViewCell.swift in Sources */,
@@ -1717,6 +1748,7 @@
 				B95A8A2C20B422F300F76A15 /* ItemsToShipViewController.swift in Sources */,
 				B9D45A0920CA566C00E4E0E8 /* ResponseVendor.swift in Sources */,
 				182427B020EE5F8F009BBF08 /* RequestModelShipingMainfest.swift in Sources */,
+				8D7DF4B321ABD7E200CA89AD /* RequestCreateInvoice.swift in Sources */,
 				18EE27BA20C962AB002A329B /* ResponseInventoryTransfers.swift in Sources */,
 				1846DBA820B21B5B0076BECD /* DistributionConfig.swift in Sources */,
 				B9E5268120B2DF9200127E43 /* PurchaseOrderTableViewCell.swift in Sources */,

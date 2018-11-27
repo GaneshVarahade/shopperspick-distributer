@@ -193,7 +193,7 @@ public final class SyncService {
             }
             
             
-            //For Model Invoice
+            // For Model Invoice
             for model in modelInvoice {
                 //print("modelInvoice")
                 let requestInvoice: RequestInvoice = RequestInvoice()

@@ -14,7 +14,7 @@ protocol ShippingMenifestConfirmDelegate {
 
 class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDetailsDelegate,AddPaymentDelegate,InvoicePaymentsDetailsDelegate, ShippingItemsDelegate,ShippingMenifestConfirmDelegate {
     
-    func confirmShippingMenifest(modelShipping: ModelShipingMenifest){
+    func confirmShippingMenifest(modelShipping: ModelShipingMenifest) {
         
         for obj in modelShipping.selectedItems {
             

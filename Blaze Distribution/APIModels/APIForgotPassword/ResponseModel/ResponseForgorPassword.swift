@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ResponseForgotPassword:BaseResponseModel{
+public class ResponseForgotPassword:BaseResponseModel {
     public var id: String?
     public var created: Int?
     public var modified: Int?

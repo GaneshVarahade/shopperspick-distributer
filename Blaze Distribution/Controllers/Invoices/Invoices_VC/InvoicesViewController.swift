@@ -345,3 +345,44 @@ extension InvoicesViewController{
     }
     
 }
+
+// MARK:- Temp Code for prepare invoice
+
+extension InvoicesViewController {
+    
+    private func prepareInvoice() {
+        let request = RequestCreateInvoice()
+        
+        SKActivityIndicator.show()
+        WebServicesAPI.sharedInstance().prepareInvoice(request: request) { (result:ResponseCreateInvoice?, _ error:PlatformError?) in
+            DispatchQueue.main.async {
+                SKActivityIndicator.dismiss()
+            }
+            guard error == nil else {
+                self.showAlert(title: "Error", message: error?.message ?? "Error", closure:{})
+                return
+            }
+            print("response is >> \(String(describing: result))")
+        }
+    }
+    
+    private func createInvoice() {
+        let request = RequestCreateInvoice()
+        
+        SKActivityIndicator.show()
+        WebServicesAPI.sharedInstance().createInvoice(request: request) { (result:ResponseCreateInvoice?, _ error:PlatformError?) in
+            DispatchQueue.main.async {
+                SKActivityIndicator.dismiss()
+            }
+            guard error == nil else {
+                self.showAlert(title: "Error", message: error?.message ?? "Error", closure:{})
+                return
+            }
+            print("response is >> \(String(describing: result))")
+        }
+    }
+}
+
+
+
+
