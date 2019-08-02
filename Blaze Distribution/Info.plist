@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.0.7.Stage</string>
 	<key>CFBundleVersion</key>
-	<string>235</string>
+	<string>236</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

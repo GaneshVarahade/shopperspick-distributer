@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import IQKeyboardManagerSwift
 import Fabric
-import Crashlytics
+//import Crashlytics
 public let deviceIdiom = UIScreen.main.traitCollection.userInterfaceIdiom
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // MARK: - Network Rechability Cheking in Real time
         ReachabilityManager.shared.startMonitoring()
         
-        Crashlytics().debugMode = true
-        Fabric.with([Crashlytics.self])
+        //Crashlytics().debugMode = true
+        //Fabric.with([Crashlytics.self])
         return true
     }
     func applicationWillResignActive(_ application: UIApplication) {

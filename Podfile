@@ -19,9 +19,9 @@ target 'BLAZE Distribution' do
       
       pod 'Kingfisher'
       
-      pod 'Fabric'
+      # pod 'Fabric'
       
-      pod 'Crashlytics', '~>  3.10'
+      # pod 'Crashlytics', '~>  3.10'
       
       pod 'RealmSwift', '~> 3.7.1'
       
