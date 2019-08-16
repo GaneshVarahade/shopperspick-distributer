@@ -17,8 +17,8 @@ public enum DLogMessage : String{
     case Error = "Error"
 }
 public class UtilPrintLogs {
-    private static let canPrintLog : Bool = false
-    public static let canPrintResponseLog : Bool = false
+    private static let canPrintLog : Bool = true
+    public static let canPrintResponseLog : Bool = true
     
     public static func DLog(message:String?, objectToPrint : Any?){
         if canPrintLog{
