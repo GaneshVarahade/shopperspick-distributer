@@ -57,7 +57,7 @@ class ScanLookUpViewController: UIViewController,QRCodeReaderViewControllerDeleg
         // Or by using the closure pattern
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
             //print(result)
-            UtilPrintLogs.DLog(message: "Scan result", objectToPrint: result)
+            UtilPrintLogs.requestLogs(message: "Scan result", objectToPrint: result)
         }
         // Presents the readerVC as modal form sheet
         readerVC.modalPresentationStyle = .formSheet

@@ -47,7 +47,7 @@ class ProductDetailsVC: UIViewController,UITableViewDataSource{
             if error != nil{
                 SKActivityIndicator.dismiss()
                 //print(error?.message! ?? "Error")
-                UtilPrintLogs.DLog(message: DLogMessage.Error.rawValue, objectToPrint:error?.message! ?? "Error" )
+                UtilPrintLogs.requestLogs(message: DLogMessage.Error.rawValue, objectToPrint:error?.message! ?? "Error" )
                 self.getOfflineProductDetails(prodId: prodId)
                 return
             }

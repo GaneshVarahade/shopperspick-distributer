@@ -63,7 +63,6 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        getData()
         EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
     }
     
@@ -110,6 +109,10 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     func getData() {
 //        https://api.dev.blaze.me/api/v1/mgmt/inventory/inventoryHistory?status=PENDING
         inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
+        for item:ModelInventoryTransfers in inventoryData{
+            UtilPrintLogs.DLog(message: DLogMessage.InventryData.value(), objectToPrint: "id: "+item.id!
+                + " | transerNo: "+item.transferNo!)
+        }
         inventoryData.reverse()
         
         // added filter to show products only from assigned shops
@@ -126,7 +129,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             data  = inventoryData
         }
         inventoryTableView.reloadData()
-        UtilPrintLogs.DLog(message:"DataRead", objectToPrint: inventoryData.count)
+        UtilPrintLogs.requestLogs(message:"DataRead", objectToPrint: inventoryData.count)
     }
     
     

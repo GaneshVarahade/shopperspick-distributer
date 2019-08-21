@@ -27,4 +27,5 @@ public class ResponseInventoryTransfers: BaseResponseModel {
     public var createdByEmployeeName:String?
     public var status:String?
     public var completeTransfer:Bool?
+    public var oldId:String?
 }

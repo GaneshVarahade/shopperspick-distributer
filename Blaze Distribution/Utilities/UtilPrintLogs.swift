@@ -15,13 +15,26 @@ public enum DLogMessage : String{
     case Request = "Print Request"
     case Response = "Response Data"
     case Error = "Error"
+    
+    func  value() -> String{
+            return self.rawValue
+    }
 }
 public class UtilPrintLogs {
     private static let canPrintLog : Bool = true
-    public static let canPrintResponseLog : Bool = true
+    public static let canPrintRequestLog : Bool = true
+    public static let canPrintResponseLog : Bool = false
+    
     
     public static func DLog(message:String?, objectToPrint : Any?){
         if canPrintLog{
+            print("-------------\(message ?? "")----------------")
+            print(objectToPrint ?? "")
+        }
+    }
+    
+    public static func requestLogs(message:String?, objectToPrint : Any?){
+        if canPrintRequestLog{
             if message == DLogMessage.Request.rawValue{
                 print("-------------\(message ?? "")----------------")
                 print(objectToPrint ?? "")

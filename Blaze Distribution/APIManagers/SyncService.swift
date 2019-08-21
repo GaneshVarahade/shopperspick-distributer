@@ -407,7 +407,7 @@ public final class SyncService {
         WebServicesAPI.sharedInstance().BulkAPI(request: RequestGetBulkAPI()) { (result:ResponseBulkRequest?,error:PlatformError?) in
             if error != nil{
                 //print(error?.message! ?? "Error")
-                UtilPrintLogs.DLog(message: DLogMessage.Error.rawValue, objectToPrint:error?.message! ?? "Error" )
+                UtilPrintLogs.requestLogs(message: DLogMessage.Error.rawValue, objectToPrint:error?.message! ?? "Error" )
                 self.finishSync()
                 return
             }
@@ -513,7 +513,7 @@ public final class SyncService {
             RealmManager().write(table: model)
         }
         //print(RealmManager().readList(type: ModelDriverInfo.self))
-        UtilPrintLogs.DLog(message:"DriverInfo", objectToPrint:RealmManager().readList(type: ModelDriverInfo.self))
+        UtilPrintLogs.requestLogs(message:"DriverInfo", objectToPrint:RealmManager().readList(type: ModelDriverInfo.self))
     }
     
     fileprivate func saveDataInvoice(jsonData: [ResponseInvoice]?){
@@ -659,19 +659,42 @@ public final class SyncService {
     
     fileprivate func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
         
-        let inventryErrorObject = RealmManager().readPredicate(type: ModelInventoryTransfers.self, predicate: "putBulkError != ''")
+        //let inventryErrorObject = RealmManager().readPredicate(type: ModelInventoryTransfers.self, predicate: "putBulkError != ''")
         if let values = jsonData{
             
             for value in values{
                 var canSkip : Bool = false
-                if inventryErrorObject.count != 0{
-                    for obj in inventryErrorObject{
-                        if obj.id == value.id{
-                            canSkip = true
-                        }
-                    }
-                }
+//                if inventryErrorObject.count != 0{
+//                    for obj in inventryErrorObject{
+//                        if obj.id == value.id{
+//                            canSkip = true
+//                        }
+//                    }
+//                }
                 
+
+                let items =  RealmManager().readPredicate(type: ModelInventoryTransfers.self,
+                                             predicate: "id = '\(value.id!)'")
+                if(items.count > 0){
+                    //Check if items exist with same id
+                    //If yes, there should be only one item, because id is Unique
+                    //Check if there is putBulkError in in this item
+                    //If there is putBulkError then skip this item
+                    let existingInventoryItem = items[0]
+                    if(!TextHelpers.isEmpty(existingInventoryItem.putBulkError)){
+                        canSkip = true
+                    }
+                }else if let oldId = value.oldId, !TextHelpers.isEmpty(oldId){
+                    //If item does not exist with same id
+                    //This means it is a new item or new entry of existing item on server
+                    //If it is new entry of existing item, we will get oldId
+                    //If oldId exist, delete this oldId object to avoid duplicacy
+                    RealmManager().deletePredicate(type: ModelInventoryTransfers.self,
+                                                   predicate: "id = '\(oldId)'")
+                }
+
+                
+ 
                 //Check Skip condition
                 if canSkip == false {
                     let tempInventory = ModelInventoryTransfers()
@@ -689,15 +712,15 @@ public final class SyncService {
                     tempInventory.toInventoryName = value.toInventoryName
                     tempInventory.createdByEmployeeName = value.createdByEmployeeName
                     tempInventory.status = value.status
-                    
+
                     RealmManager().write(table: tempInventory)
                 }
             }
         }else{
-            UtilPrintLogs.DLog(message:"Inventory is nil....", objectToPrint: nil)
+            UtilPrintLogs.requestLogs(message:"Inventory is nil....", objectToPrint: nil)
             //print("Inventory is nil....")
         }
-        UtilPrintLogs.DLog(message:"---Inventory Data Save---", objectToPrint: nil)
+        UtilPrintLogs.requestLogs(message:"---Inventory Data Save---", objectToPrint: nil)
         //print("---Inventory Data Save---")
     }
     
@@ -729,7 +752,7 @@ public final class SyncService {
                     }
                     
                     //print(RealmManager().readList(type: ModelProduct.self))
-                    UtilPrintLogs.DLog(message:DLogMessage.ProductData.rawValue, objectToPrint: RealmManager().readList(type: ModelProduct.self))
+                    UtilPrintLogs.requestLogs(message:DLogMessage.ProductData.rawValue, objectToPrint: RealmManager().readList(type: ModelProduct.self))
                 }
             }
         }else{
@@ -758,7 +781,7 @@ public final class SyncService {
                 }
             }
              RealmManager().write(table: model)
-            UtilPrintLogs.DLog(message:"---ResponseInventories Save---", objectToPrint: nil)
+            UtilPrintLogs.requestLogs(message:"---ResponseInventories Save---", objectToPrint: nil)
              //print("---ResponseInventories Save---")
         }
     }

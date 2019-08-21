@@ -104,7 +104,7 @@ open class DistributionConfig:NSObject {
             }
         } catch let error as NSError {
             //print(error)
-            UtilPrintLogs.DLog(message:DLogMessage.Error.rawValue, objectToPrint:error)
+            UtilPrintLogs.requestLogs(message:DLogMessage.Error.rawValue, objectToPrint:error)
         }
         
     }

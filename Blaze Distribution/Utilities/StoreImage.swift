@@ -18,7 +18,7 @@ public class StoreImage {
             return true
         } catch {
             //print(error.localizedDescription)
-            UtilPrintLogs.DLog(message:DLogMessage.Error.rawValue, objectToPrint:error.localizedDescription )
+            UtilPrintLogs.requestLogs(message:DLogMessage.Error.rawValue, objectToPrint:error.localizedDescription )
             return false
         }
     }

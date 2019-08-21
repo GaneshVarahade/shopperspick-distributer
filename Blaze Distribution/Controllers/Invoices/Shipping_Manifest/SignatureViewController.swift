@@ -97,7 +97,7 @@ class SignatureViewController: UIViewController {
         objSignature.updated = true
         RealmManager().write(table: objSignature)
         //print(RealmManager().readList(type: ModelSignature.self))
-        UtilPrintLogs.DLog(message:"Signature saved info", objectToPrint: RealmManager().readList(type: ModelSignature.self))
+        UtilPrintLogs.requestLogs(message:"Signature saved info", objectToPrint: RealmManager().readList(type: ModelSignature.self))
     }
     @IBAction func clearSignatureBtnPressed(_ sender: Any) {
         signatureView.clear()
