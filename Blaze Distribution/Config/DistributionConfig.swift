@@ -50,9 +50,10 @@ open class DistributionConfig:NSObject {
         do {
             if let jsonArray = try JSONSerialization.jsonObject(with: data!, options : .allowFragments) as? [String:Any]{
                 
-                // Override
+                // Override STAGE
                 if let env = jsonArray["env"] as! String? {
-                    environment.type = EnvironmentType(rawValue: env)!
+                   // environment.type = EnvironmentType(rawValue: env)!
+                    environment.type = EnvironmentType.STAGE
                     
                     switch(environment.type) {
                     case EnvironmentType.DEBUG:
@@ -80,7 +81,8 @@ open class DistributionConfig:NSObject {
                 
                 if let server = jsonArray["server"] as! String? {
                     
-                    let serverType = SERVERTYPE(rawValue: server)!
+                   // let serverType = SERVERTYPE(rawValue: server)!
+                    let serverType = SERVERTYPE.STAGESERVER
                     
                     switch(serverType) {
                     case SERVERTYPE.LOCALSERVER:
