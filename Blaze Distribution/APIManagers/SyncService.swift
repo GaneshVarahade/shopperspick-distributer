@@ -168,6 +168,7 @@ public final class SyncService {
                 //print("modelInventryTransfer")
                 let requestInventry: RequestInventry = RequestInventry()
                 requestInventry.id = model.id
+                requestInventry.oldId = model.id
                 requestInventry.transferNo = model.transferNo
                 requestInventry.fromShopId = model.fromShopId
                 requestInventry.toShopId = model.toShopId
