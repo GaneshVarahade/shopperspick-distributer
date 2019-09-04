@@ -30,7 +30,7 @@ class LookupPOsViewController: UIViewController, UITableViewDataSource, UITableV
         for s in poSearchBar.subviews[0].subviews {
             if s is UITextField {
                 s.layer.borderWidth = 0.5
-                s.layer.borderColor = UIColor.gray.cgColor
+                s.layer.borderColor = UIColor.APPGreenColor.cgColor
             }
         }
     }

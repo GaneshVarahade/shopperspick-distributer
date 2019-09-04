@@ -145,7 +145,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         for s in self.searchBar.subviews[0].subviews {
             if s is UITextField {
                 s.layer.borderWidth = 0.5
-                s.layer.borderColor = UIColor.gray.cgColor
+                s.layer.borderColor = UIColor.APPGreenColor.cgColor
             }
         }
     }

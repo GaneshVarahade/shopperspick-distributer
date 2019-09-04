@@ -59,6 +59,11 @@ class ForgotPasswordViewController: UIViewController{
                     if let err = error{
                         
                         KSToastView.ks_showToast(err.message)
+                    }else{
+                        //KSToastView.ks_showToast("Password reset mail has been sent on your email id, Please check")
+                        self.showAlert(title: NSLocalizedString("Warning", comment: ""), message: "Password reset mail has been sent on your email id, Please check", closure: {
+                            self.navigationController?.popViewController(animated: true)
+                        })
                     }
                 }
             }else{

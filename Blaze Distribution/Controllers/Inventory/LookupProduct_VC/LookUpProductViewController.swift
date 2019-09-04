@@ -117,7 +117,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
     func setSearchBarUI() {
         
         searchBar.layer.borderWidth = 1;
-        searchBar.layer.borderColor = UIColor.white.cgColor
+        searchBar.layer.borderColor = UIColor.APPGreenColor.cgColor
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.backgroundColor = UIColor(red:0.88, green:0.88, blue:0.88, alpha:1.0)
     }
