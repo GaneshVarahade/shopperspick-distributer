@@ -189,10 +189,12 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
 //            validateDelegate?.doValidateFields()
 //            return
 //        }
-        guard let img = signImg else {
-            validateDelegate?.doValidateFields()
-            return
-        }
+        
+        
+//        guard let img = signImg else {
+//            validateDelegate?.doValidateFields()
+//            return
+//        }
         
         confirmShippingDelegate?.confirmSelectedProducts(modelSelectedProducts: self.modelShippingMenifest.selectedItems)
         self.navigationController?.popViewController(animated: true)

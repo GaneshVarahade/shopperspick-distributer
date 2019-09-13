@@ -190,7 +190,7 @@ class TransferDetailsViewController: UIViewController {
 extension TransferDetailsViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return inventoryTransferModel.slectedProducts.count
+        return inventoryTransferModel.transferLogs.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -204,8 +204,8 @@ extension TransferDetailsViewController: UITableViewDelegate,UITableViewDataSour
         // create a new cell if needed or reuse an old one
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         // set the text from the data model
-        let product = self.inventoryTransferModel.slectedProducts[indexPath.row]
-        cell.textLabel?.text = "\(product.name ?? "") - \(product.quantity)g"
+        let product = self.inventoryTransferModel.transferLogs[indexPath.row]
+        cell.textLabel?.text = "Prod Name: \(product.prepackageName ) , Prod Id: \(product.productId ?? "") , Qty: \(product.transferAmount)"
         tableView.separatorStyle = .none
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = UIColor.init(white: 0.97, alpha: 1)

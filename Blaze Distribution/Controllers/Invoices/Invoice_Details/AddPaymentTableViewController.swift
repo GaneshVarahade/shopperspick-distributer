@@ -447,7 +447,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         let modelPaymanetInfo:ModelPaymentInfo = ModelPaymentInfo()
         modelPaymanetInfo.id = HexGenerator.sharedInstance().generate()
         modelPaymanetInfo.addPaymentType = self.paymentType
-        modelPaymanetInfo.debitCardNo = Int(debitCardNo)!
+        modelPaymanetInfo.debitCardNo = Int(debitCardNo) ?? 000000
         modelPaymanetInfo.achDate = achDate
         modelPaymanetInfo.paymentDate = DateFormatterUtil.formatStringToInt(dateTime: paymentDateTextField.text!, format: "dd/MM/yyyy")
         modelPaymanetInfo.referenceNumber = referenceNo

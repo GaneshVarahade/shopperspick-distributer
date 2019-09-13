@@ -33,6 +33,7 @@ public class ModelInventoryTransfers: ModelBase {
     @objc public dynamic var putBulkError:String?      = ""
     @objc public dynamic var createdByEmployeeName:String?         = ""
     public var slectedProducts = List<ModelCartProduct>()
+    public var transferLogs = List<ModelTransferLogs>()
     
     open override class func primaryKey() -> String? {
         return "id"
@@ -62,7 +63,31 @@ public class ModelInventoryTransfers: ModelBase {
         for prod in self.slectedProducts{
             modelInventoryTransfers.slectedProducts.append(prod.copy() as! ModelCartProduct)
         }
+        for prod in self.transferLogs{
+            modelInventoryTransfers.transferLogs.append(prod.copy() as! ModelTransferLogs)
+        }
         
         return modelInventoryTransfers
+    }
+}
+
+
+public class ModelTransferLogs:ModelBase{
+    
+    @objc public dynamic var productId:String?     = ""
+    @objc public dynamic var transferAmount:Double  = 0
+    @objc public dynamic var prepackageName:String  = ""
+    
+    open override class func primaryKey() -> String? {
+        return "id"
+    }
+    public override func copy(with zone: NSZone? = nil) -> Any {
+        let modelProduct      = ModelTransferLogs()
+        modelProduct.id = self.id
+        modelProduct.productId     = self.productId
+        modelProduct.transferAmount  = self.transferAmount
+        modelProduct.prepackageName = self.prepackageName
+        
+        return modelProduct
     }
 }

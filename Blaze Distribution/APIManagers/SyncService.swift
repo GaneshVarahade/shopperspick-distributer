@@ -713,6 +713,18 @@ public final class SyncService {
                     tempInventory.toInventoryName = value.toInventoryName
                     tempInventory.createdByEmployeeName = value.createdByEmployeeName
                     tempInventory.status = value.status
+                    
+                    if let translog = value.transferLogs{
+                        for product in translog{
+                            let invModel = ModelTransferLogs()
+                            invModel.id = HexGenerator.sharedInstance().generate()
+                            invModel.productId = product.productId
+                            invModel.transferAmount = product.transferAmount ?? 00
+                            invModel.prepackageName = product.prepackageName ?? "__"
+                            tempInventory.transferLogs.append(invModel)
+                        }
+                    }
+                    
 
                     RealmManager().write(table: tempInventory)
                 }
@@ -749,6 +761,7 @@ public final class SyncService {
                         temp.inventoryId = qut.inventoryId
                         temp.quantity = qut.quantity ?? 0
                         temp.totalQuantity = Double(totoalQt)
+                        
                         RealmManager().write(table: temp)
                     }
                     

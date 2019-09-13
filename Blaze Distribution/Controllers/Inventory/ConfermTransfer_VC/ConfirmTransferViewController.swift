@@ -109,7 +109,7 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             modelOpenTransfer.toShopId = self.modelCreateTransfer.toLocation?.shop?.id
             modelOpenTransfer.fromInventoryId = self.modelCreateTransfer.fromLocation?.inventory?.id
             modelOpenTransfer.toInventoryId = self.modelCreateTransfer.toLocation?.inventory?.id
-            modelOpenTransfer.completeTransfer = true
+            modelOpenTransfer.completeTransfer = false
             
             RealmManager().write(table: modelOpenTransfer)
             //write log
