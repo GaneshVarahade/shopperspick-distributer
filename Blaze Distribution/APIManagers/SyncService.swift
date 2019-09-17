@@ -30,7 +30,7 @@ public final class SyncService {
         }
         self.isUpdating = true
         if self.isSignatureAvailable() {
-            self.syncSignature()
+            //self.syncSignature()
         } else if self.isPostBulkAvailable() {
             self.syncPostBulkData()
         } else {

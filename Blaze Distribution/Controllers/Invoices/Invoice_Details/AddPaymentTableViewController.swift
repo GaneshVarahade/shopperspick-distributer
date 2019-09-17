@@ -312,6 +312,11 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if textField == debitCardTextField {
+                let allowedCharacters = CharacterSet(charactersIn:"0123456789")//Here change this characters based on your requirement
+                let characterSet = CharacterSet(charactersIn: string)
+               // return allowedCharacters.isSuperset(of: characterSet)
+            
+            
             let maxLength = 12
             let currentString: NSString = textField.text! as NSString
             let newString: NSString =
@@ -320,7 +325,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             if newString.length >= maxLength { debitCheckMarkImage.isHidden = false } else {
                 debitCheckMarkImage.isHidden = true
             }
-            return newString.length <= maxLength
+            return newString.length <= maxLength && allowedCharacters.isSuperset(of: characterSet)
         }
         else if textField == amountTextField {
             let cs = NSCharacterSet(charactersIn: "0123456789.").inverted

@@ -98,7 +98,7 @@ class TransferDetailsViewController: UIViewController {
             }
         }
         // selected products label
-        if self.inventoryTransferModel.slectedProducts.isEmpty {
+        if self.inventoryTransferModel.transferLogs.isEmpty {
             self.selectedProductsLabel.text = "No Selected Products"
         }
         // update transfer status
@@ -205,7 +205,17 @@ extension TransferDetailsViewController: UITableViewDelegate,UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         // set the text from the data model
         let product = self.inventoryTransferModel.transferLogs[indexPath.row]
-        cell.textLabel?.text = "Prod Name: \(product.prepackageName ) , Prod Id: \(product.productId ?? "") , Qty: \(product.transferAmount)"
+        
+        //get product name
+        var productName = "__"
+        let productData = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"productId = '\(product.productId ?? "")'")
+        if productData.count > 0{
+            productName = productData[0].name ?? ""
+        }
+        
+//        cell.textLabel?.text = "Prod Name: \(productName) , Prod Id: \(product.productId ?? "") , Qty: \(product.transferAmount)"
+        cell.textLabel?.text = "Name: \(productName) , Qty: \(product.transferAmount)"
+        
         tableView.separatorStyle = .none
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
