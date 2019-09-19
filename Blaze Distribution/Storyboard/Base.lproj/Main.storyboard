@@ -4837,7 +4837,7 @@
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                             </variation>
                                                         </label>
-                                                        <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04b-Fa-hch">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04b-Fa-hch">
                                                             <rect key="frame" x="344" y="0.0" width="70" height="49.666666666666664"/>
                                                             <color key="backgroundColor" red="0.039215686270000001" green="0.51764705879999995" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <accessibility key="accessibilityConfiguration">
@@ -4952,7 +4952,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uul-EZ-czv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9406" y="1067"/>
+            <point key="canvasLocation" x="9406" y="1084"/>
         </scene>
         <!--Add Product View Controller-->
         <scene sceneID="A6t-e5-rEo">

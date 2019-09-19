@@ -60,7 +60,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         datePicker.datePickerMode = .date
         deliveryTimeTextField.inputView = timePicker
         timePicker.datePickerMode = .time
-        self.getManifestInProgress()
+        //self.getManifestInProgress()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +72,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         driverNameTextField.inputView = pickerView
         driverNameTextField.delegate = self
         driverNameTextField?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(doneButtonTapped))
+        self.getManifestInProgress()
     }
     
     @objc func doneButtonTapped() {
