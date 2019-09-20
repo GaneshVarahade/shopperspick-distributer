@@ -38,7 +38,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     @IBOutlet weak var paymentDateTextField: UITextField!
     
     var paymentType = AddPaymentType.DEBIT
-    let paymentTypes = ["Debit Card", "ACH Transfer"]
+    let paymentTypes = ["Debit Card", "ACH Transfer","Credit Card","Cash","Cheque"]
     let datePicker = UIDatePicker()
     let paymentTypePicker = UIPickerView()
     
@@ -87,7 +87,9 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     }
     
     func setDefaultData() {
+        self.btnSubmit.isHidden = false
         if self.isfromDetails && (paymentModel != nil) {
+            self.btnSubmit.isHidden = true
             notesTextView.textColor = UIColor.black
             // check payment method if set or set by default
             if let paymentType = paymentModel?.addPaymentType {
@@ -118,11 +120,26 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         switch addPaymentType {
         case .DEBIT:
             // show for debit card
+            debitLabel.text = "Debit"
             self.showDebitPaymentType(show: true)
         case .ACH_TRANSFER:
             // Hide debit card
             self.showDebitPaymentType(show: false)
+        case .CASH:
+            self.otherpaymentmethods()
+        case .CREDIT:
+            debitLabel.text = "Credit"
+            self.showDebitPaymentType(show: true)
+        case .CHEQUE:
+            self.otherpaymentmethods()
         }
+    }
+    
+    private func otherpaymentmethods(){
+        debitCardTextField.isHidden = true
+        debitLabel.isHidden = true
+        achTransferLabel.isHidden = true
+        achDateTextField.isHidden = true
     }
     
     private func showDebitPaymentType(show:Bool) {
@@ -394,13 +411,13 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         // check data for selected payment type
         var debitCardNo = ""
         var achDate = ""
-        if self.paymentType == .DEBIT {
+        if self.paymentType == .DEBIT || self.paymentType == .CREDIT {
             guard let cardNo = debitCardTextField.text, cardNo != "" else {
                 self.showToast(NSLocalizedString("AddPay_Validation1", comment: ""))
                 return
             }
             debitCardNo = cardNo
-        } else {
+        } else if self.paymentType == .ACH_TRANSFER{
             guard let date = achDateTextField.text, date != "" else {
                 self.showToast(NSLocalizedString("AddPay_Validation2", comment: ""))
                 return
@@ -509,6 +526,15 @@ extension AddPaymentTableViewController: UIPickerViewDelegate, UIPickerViewDataS
             self.setAddPaymentType(addPaymentType: self.paymentType)
         case 1:
             self.paymentType = .ACH_TRANSFER
+            self.setAddPaymentType(addPaymentType: self.paymentType)
+        case 2:
+            self.paymentType = .CREDIT
+            self.setAddPaymentType(addPaymentType: self.paymentType)
+        case 3:
+            self.paymentType = .CASH
+            self.setAddPaymentType(addPaymentType: self.paymentType)
+        case 4:
+            self.paymentType = .CHEQUE
             self.setAddPaymentType(addPaymentType: self.paymentType)
         default:
             break

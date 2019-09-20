@@ -14,6 +14,9 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var lookUpBtn: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    //Refresh control
+    var refreshControl = UIRefreshControl()
+    
     //Initialize QRCodeScanner
     lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
@@ -26,10 +29,23 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         //Hide keyboard while table view scroll
+        if #available(iOS 10.0, *) {
+            poTableView.refreshControl = refreshControl
+        } else {
+            poTableView.addSubview(refreshControl)
+        }
+        //Add target to ui refresh controller
+       
+        
+        refreshControl.addTarget(self, action: #selector(RefreshControllTapped), for: .valueChanged)
         isBackFromScanView = false
         poTableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         getPurchaseOrdersReceiving()
         setSearchBarUI()
+    }
+    
+    @objc func RefreshControllTapped(){
+        SyncService.sharedInstance().syncData()
     }
 
     func manageActivityIndicator(canShow:Bool){
@@ -53,8 +69,14 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
-         self.manageActivityIndicator(canShow: false)
-        getPurchaseOrdersReceiving()
+        self.manageActivityIndicator(canShow: false)
+        if poSegmentController.selectedSegmentIndex == 0{
+            getPurchaseOrdersReceiving()
+        }else{
+            getPurchaseOrdersCompleted()
+        }
+        refreshControl.endRefreshing()
+        poTableView.reloadData()
     }
     
     func getPurchaseOrdersReceiving(){
@@ -75,6 +97,11 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //call method manage activity indicator
+        //Load data
+        self.view.endEditing(true)
+        self.poSearchBar.text = ""
+        SyncService.sharedInstance().syncData()
+        
         self.view.bringSubview(toFront: self.activityIndicator)
         self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelPurchaseOrder.self).count == 0))
         

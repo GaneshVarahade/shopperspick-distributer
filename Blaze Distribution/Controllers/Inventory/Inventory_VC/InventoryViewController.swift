@@ -27,8 +27,17 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     var productData : [ModelProduct]     = []
     var filteredData:[Any] = []
     var productFlag:Bool                 = false
+    var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
+        //Setup refresh controll
+        //Hide keyboard while table view scroll
+        if #available(iOS 10.0, *) {
+            inventoryTableView.refreshControl = refreshControl
+        } else {
+            inventoryTableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(refreshControllBtnTapped), for: .valueChanged)
         setSearchBarUI()
         self.inventoryTableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         super.viewDidLoad()
@@ -46,6 +55,11 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        //call sync service
+        self.view.endEditing(true)
+        self.searchBar.text = ""
+        SyncService.sharedInstance().syncData()
+        
         self.searchBar.endEditing(true)
         self.searchBar.text = ""
         
@@ -55,6 +69,10 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelInventoryTransfers.self).count == 0))
         
         getData()
+    }
+    
+    @objc func refreshControllBtnTapped(){
+      SyncService.sharedInstance().syncData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -75,6 +93,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
+        refreshControl.endRefreshing()
         self.manageActivityIndicator(canShow: false)
         getData()
     }

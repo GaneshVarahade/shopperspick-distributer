@@ -32,14 +32,27 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var scanInvoiceBtn: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //for refresh control
+        if #available(iOS 10.0, *) {
+            invoiceTableView.refreshControl = refreshControl
+        } else {
+            invoiceTableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action:#selector(refreshButtonTapped), for: .valueChanged)
+        
         self.tabBarController?.selectedIndex = 1
         invoiceTableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         setSearchBarUI()
     }
     
+    @objc func refreshButtonTapped(){
+        SyncService.sharedInstance().syncData()
+    }
+        
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getData()
@@ -61,12 +74,19 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
+        refreshControl.endRefreshing()
         self.manageActivityIndicator(canShow: false)
         getData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //call data synch API
+         self.view.endEditing(true)
+         self.invoicesSearchBar.text = ""
+         SyncService.sharedInstance().syncData()
+        
         //call method manage activity indicator
         self.view.bringSubview(toFront: self.activityIndicator)
         self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelInvoice.self).count == 0))

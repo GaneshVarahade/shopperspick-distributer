@@ -13,12 +13,15 @@ public enum PyamentType:String {
     case Cash = "CASH"
     case Credit = "CREDIT"
     case Debit = "DEBITE"
-    case Checqe = "CHECQ"
+    case Checqe = "CHEQUE"
 }
 
 public enum AddPaymentType:String {
     case DEBIT = "DEBIT"
-    case ACH_TRANSFER = "ACH TRANSFER"
+    case ACH_TRANSFER = "ACH_TRANSFER"
+    case CASH = "CASH"
+    case CHEQUE = "CHEQUE"
+    case CREDIT = "CREDIT"
 }
 
 public class ModelPaymentInfo:ModelBase {
