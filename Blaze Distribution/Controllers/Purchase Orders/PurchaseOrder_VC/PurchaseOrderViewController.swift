@@ -216,13 +216,14 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
             let poNumber : String! = dict.purchaseOrderNumber
             if poNumber.lowercased() == ScannedText.lowercased(){
                 arrayFilteredModelPurchaseOrders.append(dict)
-                performSegue(withIdentifier: "goPurchaseOrderDetail", sender: self)
+//                performSegue(withIdentifier: "goPurchaseOrderDetail", sender: self)
             }
         }
         if arrayFilteredModelPurchaseOrders.count == 0 {
             showToast(NSLocalizedString("PO_Message", comment: ""))
         }else{
             arrayModelPurchaseOrders = arrayFilteredModelPurchaseOrders
+            performSegue(withIdentifier: "goPurchaseOrderDetail", sender: self)
             poTableView.reloadData()
         }
        

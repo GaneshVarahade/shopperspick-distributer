@@ -31,7 +31,6 @@ extension Bundle {
 extension UIViewController {
     
     public func showToast(_ message: String? ) {
-    
         KSToastView.ks_showToast(message)
         
     }

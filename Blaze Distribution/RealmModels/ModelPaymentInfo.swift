@@ -28,7 +28,7 @@ public class ModelPaymentInfo:ModelBase {
     
     public var addPaymentType:AddPaymentType        =   AddPaymentType.DEBIT
     @objc public dynamic var debitCardNo:Int        =   0
-    @objc public dynamic var achDate:String?         =   ""
+    @objc public dynamic var achDate:String?        =   ""
     @objc public dynamic var paymentDate:Int        =   0
     @objc public dynamic var referenceNumber:String = ""
     @objc public dynamic var amount:Double          = 0.0

@@ -18,7 +18,6 @@ public class ResponseInvoiceItems:BaseResponseModel{
     public var batchId:String?
     public var productId:String?
     public var quantity:Double = 0.0
-    
-    
+    public var orderItemId:String?
     
 }

@@ -135,6 +135,7 @@ public final class SyncService {
             let modelInventryTransfer = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true && putBulkError = ''")
             let modelInvoice = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true && putBulkError = ''")
  
+        
             
             let requestModel = RequestPostModel()
             
@@ -196,6 +197,7 @@ public final class SyncService {
             
             // For Model Invoice
             for model in modelInvoice {
+                
                 //print("modelInvoice")
                 let requestInvoice: RequestInvoice = RequestInvoice()
                 requestInvoice.id = model.id
@@ -282,6 +284,19 @@ public final class SyncService {
                         for selectedItem in shiping.selectedItems {
                             let requestSelectedItemsShipping: RequestShippingMainfestSelectedItem = RequestShippingMainfestSelectedItem()
                             requestSelectedItemsShipping.productId = selectedItem.productId
+                            
+                            var orderItemId = ""
+                            if (model.items.count > 0){
+                                for items in model.items{
+                                    if let itemId = selectedItem.productId{
+                                        if items.productId == itemId{
+                                            orderItemId = items.orderItemId ?? ""
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            requestSelectedItemsShipping.orderItemId = orderItemId
                             //requestSelectedItemsShipping.productName = selectedItem.productName
                             //requestSelectedItemsShipping.remainingQuantity = selectedItem.remainingQuantity
                             requestSelectedItemsShipping.quantity = selectedItem.requestQuantity
@@ -576,6 +591,7 @@ public final class SyncService {
                             let itemTemp = ModelInvoiceItems()
                             itemTemp.id  = HexGenerator.sharedInstance().generate()
                             itemTemp.productId = item.productId
+                            itemTemp.orderItemId = item.orderItemId
                             itemTemp.productName = item.productName
                             itemTemp.batchId    = item.batchId
                             itemTemp.quantity = item.quantity

@@ -12,6 +12,7 @@ public class ModelInvoiceItems: ModelBase{
     @objc public dynamic var  productId:String? = ""
     @objc public dynamic var  batchId:String? = ""
     @objc public dynamic var  productName:String? = ""
+    @objc public dynamic var  orderItemId:String? = ""
     @objc public dynamic var  quantity:Double = 0.0
     open override class func primaryKey() -> String? {
         return "id"
@@ -23,6 +24,7 @@ public class ModelInvoiceItems: ModelBase{
         modelInvoiceItems.batchId     = self.batchId
         modelInvoiceItems.productName = self.productName
         modelInvoiceItems.quantity    = self.quantity
+        modelInvoiceItems.orderItemId = self.orderItemId
         return modelInvoiceItems
     }
 }
