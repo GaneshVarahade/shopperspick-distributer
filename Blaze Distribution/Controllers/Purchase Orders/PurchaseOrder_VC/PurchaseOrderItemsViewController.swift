@@ -27,7 +27,16 @@ class PurchaseOrderItemsViewController: UIViewController, UITableViewDelegate, U
          
         
     }
-
+   
+    func getBatchSkuByProdId(prodId:String?) -> String{
+        
+        let ProductObj = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"productId = '\(prodId ?? "")'")
+        if let Sku = ProductObj[0].sku{
+            return Sku
+        }else{
+            return "--"
+        }
+    }
     
     // MARK: - UITableView Delegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,7 +50,7 @@ class PurchaseOrderItemsViewController: UIViewController, UITableViewDelegate, U
         
         //cell.productNameBtn.setTitle(modelProduct.name, for: .normal)
         cell.lblProductName.text = modelProduct.name ?? "--"
-        cell.batchNoLabel.text = modelProduct.batchId
+        cell.batchNoLabel.text = getBatchSkuByProdId(prodId: modelProduct.productId ?? "")
         cell.noUnits.text = "\(modelProduct.quantity)"
         
         return cell

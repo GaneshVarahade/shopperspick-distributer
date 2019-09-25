@@ -90,6 +90,16 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
+    func getBatchSkuByProdId(prodId:String?) -> String{
+        
+        let ProductObj = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"productId = '\(prodId ?? "")'")
+        if let Sku = ProductObj[0].sku{
+            return Sku
+        }else{
+            return "--"
+        }
+    }
+    
     // MARK: - UITableviewDelegate/Datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return modelShippingMenifest!.selectedItems.count
@@ -102,7 +112,7 @@ class ItemsToShipViewController: UIViewController, UITableViewDelegate, UITableV
         
         //cell.productNameBtn.setTitle(product.productName, for: .normal)
         cell.lblProductName.text = product.productName ?? "--"
-        cell.batchNoLabel.text = product.productId ?? "--"
+        cell.batchNoLabel.text = getBatchSkuByProdId(prodId: product.productId ?? "")
         cell.noUnits.text = "\(product.requestQuantity)"
         
         return cell

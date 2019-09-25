@@ -26,6 +26,16 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
         AQLog.debug()
     }
     
+    func getBatchSkuByProdId(prodId:String?) -> String{
+        
+        let ProductObj = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"productId = '\(prodId ?? "")'")
+        if let Sku = ProductObj[0].sku{
+            return Sku
+        }else{
+            return "--"
+        }
+    }
+    
     // MARK: - UITableView Delegate/DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return invoiceItemList.count
@@ -36,7 +46,7 @@ class InvoiceItemsViewController: UIViewController, UITableViewDelegate, UITable
 
         //cell.productNameBtn.setTitle(invoiceItemList[indexPath.row].productName, for: UIControlState.normal)
         cell.lblProductName.text = invoiceItemList[indexPath.row].productName ?? "--"
-        cell.batchNoLabel.text = invoiceItemList[indexPath.row].batchId ?? "000"
+        cell.batchNoLabel.text = self.getBatchSkuByProdId(prodId: invoiceItemList[indexPath.row].productId ?? "634")
         cell.noUnits.text = String(invoiceItemList[indexPath.row].quantity)
 
         return cell

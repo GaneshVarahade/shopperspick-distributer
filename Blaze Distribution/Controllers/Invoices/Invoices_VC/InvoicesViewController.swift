@@ -85,7 +85,7 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         //call data synch API
          self.view.endEditing(true)
          self.invoicesSearchBar.text = ""
-         SyncService.sharedInstance().syncData()
+         //SyncService.sharedInstance().syncData()
         
         //call method manage activity indicator
         self.view.bringSubview(toFront: self.activityIndicator)

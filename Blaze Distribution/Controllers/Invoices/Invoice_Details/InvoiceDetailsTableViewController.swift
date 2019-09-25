@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SKActivityIndicatorView
 
 protocol ShippingMenifestConfirmDelegate {
     func confirmShippingMenifest(modelShipping: ModelShipingMenifest)
@@ -117,10 +118,63 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.Invoices.rawValue , objectId: tempData.id, lastSynch:nil)
         
         RealmManager().read(type: ModelInvoice.self, primaryKey: tempData.invoiceNumber!)
-        SyncService.sharedInstance().syncData()
-        self.navigationController?.popViewController(animated: true)
+        
+        let sigmodel = getModelSignature()
+        if sigmodel.count > 0{
+            
+            //Create request for signature
+                    let arrayModelSignature = sigmodel
+                    let requestSignature = RequestSignature()
+                    var modelSign = ModelSignature()
+                    modelSign = arrayModelSignature[0]
+                    requestSignature.name = modelSign.name
+                    requestSignature.invoiceId = modelSign.invoiceId
+                    requestSignature.shippingMainfestId = modelSign.shippingMainfestId
+            
+            SKActivityIndicator.show()
+            SyncService.sharedInstance().postInvoiceWithSignature(requestSignature: requestSignature, sigId: modelSign.id!) { (error : PlatformError?) in
+                if error != nil{
+                    SKActivityIndicator.dismiss()
+                    self.showAlert(title: "Message", message: "Error while upload image", closure: {})
+                }else{
+                    SyncService.sharedInstance().callPostAPI(completion: { (error1 :PlatformError?) in
+                        if error1 != nil{
+                            SKActivityIndicator.dismiss()
+                            self.showAlert(title: "Message", message: NSLocalizedString("ServerError", comment: ""), closure: {})
+                        }else{
+                            SKActivityIndicator.dismiss()
+                            SyncService.sharedInstance().syncData()
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    })
+                    
+                }
+            }
+        }else{
+            SyncService.sharedInstance().callPostAPI(completion: { (error1 :PlatformError?) in
+                if error1 != nil{
+                    SKActivityIndicator.dismiss()
+                    self.showAlert(title: "Message", message: NSLocalizedString("ServerError", comment: ""), closure: {})
+                }else{
+                    SKActivityIndicator.dismiss()
+                    SyncService.sharedInstance().syncData()
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
+        }
+        //SyncService.sharedInstance().syncData()
+        
+        
+       
     }
     
+    private func getModelSignature() ->[ModelSignature] {
+        return RealmManager().readPredicate(type: ModelSignature.self, predicate: "updated = true")
+    }
+    
+    private func isManifestAvailable() -> Bool{
+        return true
+    }
     // MARK: - Navigation
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "addPaymentSegue" {

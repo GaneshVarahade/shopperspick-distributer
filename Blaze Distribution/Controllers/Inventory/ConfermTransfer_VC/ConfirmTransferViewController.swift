@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import SKActivityIndicatorView
 
 class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var lblFromStore: UILabel!
@@ -114,12 +115,22 @@ class ConfirmTransferViewController: UIViewController, UITableViewDelegate, UITa
             RealmManager().write(table: modelOpenTransfer)
             //write log
             UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.Inventry.rawValue , objectId: modelOpenTransfer.id, lastSynch:nil)
-            SyncService.sharedInstance().syncData()
+            //SyncService.sharedInstance().syncData()
+            SKActivityIndicator.show()
+            SyncService.sharedInstance().callPostAPI { (error : PlatformError?) in
+                if error != nil{
+                    SKActivityIndicator.dismiss()
+                    self.showAlert(title: "Message", message: error?.message ?? NSLocalizedString("ServerError", comment: ""), closure: {})
+                }else{
+                    SKActivityIndicator.dismiss()
+                    SyncService.sharedInstance().syncData()
+                    self.showAlert(title: "Message", message: "Saved Successfully!", closure: {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    })
+                    self.modelCreateTransfer = nil
+                }
+            }
             
-            showAlert(title: "Message", message: "Saved Successfully!", closure: {
-                self.navigationController?.popToRootViewController(animated: true)
-            })
-            modelCreateTransfer = nil
         }
     }
 

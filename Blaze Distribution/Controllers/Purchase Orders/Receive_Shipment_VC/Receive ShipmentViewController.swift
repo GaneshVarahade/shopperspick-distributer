@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SKActivityIndicatorView
 class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var listTableView: UITableView!
@@ -57,16 +58,28 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
         modelPurchaseOrder.status = PurchaseOrderStatus.Closed.rawValue
         modelPurchaseOrder.updated = true
         RealmManager().write(table: modelPurchaseOrder)
-        SyncService.sharedInstance().syncData()
+        //SyncService.sharedInstance().syncData()
         
-        //write Logs
-        //write log
-        UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.PurchaseOrderes.rawValue , objectId: modelPurchaseOrder.id, lastSynch:nil)
-        
-        showAlert(title: NSLocalizedString("Done", comment: ""), message: NSLocalizedString("Saved Successfully!", comment: ""), closure: {
-            self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
-        })
-        
+        SKActivityIndicator.show()
+        SyncService.sharedInstance().callPostAPI { (error : PlatformError?) in
+            if error != nil{
+                SKActivityIndicator.dismiss()
+                self.showAlert(title: "Message", message: error?.message ?? NSLocalizedString("ServerError", comment: ""), closure:{})
+                
+            }else{
+                //write Logs
+                //write log
+                SKActivityIndicator.dismiss()
+                UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.PurchaseOrderes.rawValue , objectId: self.modelPurchaseOrder.id, lastSynch:nil)
+                
+                self.showAlert(title: NSLocalizedString("Done", comment: ""), message: NSLocalizedString("Saved Successfully!", comment: ""), closure: {
+                    SyncService.sharedInstance().syncData()
+                    self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
+                })
+                
+            }
+        }
+    
         //print(modelPurchaseOrder.productReceived)
     }
     //Text Field validation

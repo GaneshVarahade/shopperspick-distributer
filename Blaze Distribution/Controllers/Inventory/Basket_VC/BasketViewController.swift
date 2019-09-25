@@ -22,7 +22,15 @@ class BasketViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Do any additional setup after loading the view.
         self.title = NSLocalizedString("BsketVcTitle", comment: "")
     }
-
+    func getBatchSkuByProdId(prodId:String?) -> String{
+        
+        let ProductObj = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"productId = '\(prodId ?? "")'")
+        if let Sku = ProductObj[0].sku{
+            return Sku
+        }else{
+            return "--"
+        }
+    }
     // MARK:- UITableviewDatasource/Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.selectedCartProd?.count ?? 0
@@ -32,7 +40,7 @@ class BasketViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! BasketTableViewCell
         cell.productNameLabel.text = self.selectedCartProd[indexPath.row].name
         cell.productUnits.text = String(format: "%.1f", self.selectedCartProd[indexPath.row].quantity)
-        cell.productID.text = self.selectedCartProd[indexPath.row].batchId
+        cell.productID.text = getBatchSkuByProdId(prodId: self.selectedCartProd[indexPath.row].batchId ?? "")
         return cell
     }
     

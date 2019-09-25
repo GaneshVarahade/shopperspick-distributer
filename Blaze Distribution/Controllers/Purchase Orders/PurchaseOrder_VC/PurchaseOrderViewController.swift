@@ -100,7 +100,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
         //Load data
         self.view.endEditing(true)
         self.poSearchBar.text = ""
-        SyncService.sharedInstance().syncData()
+        //SyncService.sharedInstance().syncData()
         
         self.view.bringSubview(toFront: self.activityIndicator)
         self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelPurchaseOrder.self).count == 0))
@@ -280,10 +280,14 @@ extension PurchaseOrderViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! PurchaseOrderTableViewCell
         cell.poNoLabel.text = modelPurcahseOrder.purchaseOrderNumber
         if modelPurcahseOrder.isMetRc {
-            cell.metricImg.image = UIImage.init(named: "okGreen")
+           // cell.metricImg.image = UIImage.init(named: "okGreen")
+            cell.metricLabel.textColor = UIColor.APPGreenColor
+            cell.metricLabel.text = "YES"
         }
         else {
-            cell.metricImg.image = UIImage()
+           // cell.metricImg.image = UIImage()
+            cell.metricLabel.textColor = UIColor.red
+            cell.metricLabel.text = "NO"
         }
         
         //Error btn

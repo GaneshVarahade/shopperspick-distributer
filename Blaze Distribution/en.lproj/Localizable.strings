@@ -97,5 +97,6 @@
 "ReceiveShipTitle" = "Received Products";
 "LookUpPoTitle" = "Lookup PO#";
 "PoTitle" = "Purchase Orders";
+"ServerError" = "Something went wrong at server";
 
 // -------Label text---------

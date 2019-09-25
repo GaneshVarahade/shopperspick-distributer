@@ -58,7 +58,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         //call sync service
         self.view.endEditing(true)
         self.searchBar.text = ""
-        SyncService.sharedInstance().syncData()
+        //SyncService.sharedInstance().syncData()
         
         self.searchBar.endEditing(true)
         self.searchBar.text = ""
@@ -114,6 +114,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             inventoryTableView.reloadData()
         }
         else {
+            SyncService.sharedInstance().syncData()
             self.searchBar.endEditing(true)
             self.searchBar.text = ""
             data.removeAll()

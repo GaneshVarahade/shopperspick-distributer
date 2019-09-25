@@ -38,6 +38,16 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
+    func getBatchSkuByProdId(prodId:String?) -> String{
+        
+        let ProductObj = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"productId = '\(prodId ?? "")'")
+        if let Sku = ProductObj[0].sku{
+            return Sku
+        }else{
+            return "--"
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return remainingItemList.count
     }
@@ -49,7 +59,7 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.productNameBtn.tag = indexPath.row
         //cell.productNameBtn.setTitle("\(product.productName!)", for: .normal)
         cell.lblProductName.text = product.productName ?? "--"
-        cell.batchNoLabel.text = product.productId
+        cell.batchNoLabel.text = getBatchSkuByProdId(prodId: product.productId ?? "")
         cell.noUnits.text = "\(product.remainingQuantity)"
         if !product.isSelected {
             cell.productNameBtn.setImage(UIImage(named: "checkbox_unselected"), for: .normal)
