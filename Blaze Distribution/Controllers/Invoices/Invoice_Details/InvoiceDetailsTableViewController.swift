@@ -173,7 +173,21 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
     }
     
     private func isManifestAvailable() -> Bool{
-        return true
+        var available = true
+        if let manifest = tempData?.remainingProducts{
+            if manifest.count  > 0{
+                for item in manifest{
+                    if(Int(item.remainingQuantity) == 0){
+                        available = false
+                    }
+                }
+            }else{
+               available = false
+            }
+        }else{
+            available = false
+        }
+        return available
     }
     // MARK: - Navigation
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -189,6 +203,9 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         }else  if identifier == "addManifestInfoSegue" {
             if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoiceStatus == "COMPLETED"){
                 showToast(NSLocalizedString("InvDetail_Validation3", comment: ""))
+                return false
+            }else if (!isManifestAvailable()){
+                showToast("No remainig product found to ship for this invoice.")
                 return false
             }
         }

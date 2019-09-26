@@ -5,7 +5,7 @@ let API_DEV_URL = "http://qa.shopperspick.io:8092"
 let API_STAGE_URL = "http://qa.shopperspick.io:8092"
 let API_PROD_URL = ""
 
-
+//shopperspick
 //let API_LOCAL_URL = "http://192.168.7.115:8092"
 //let API_DEV_URL = "http://192.168.7.115:8092"
 //let API_STAGE_URL = "http://192.168.7.115:8092"
