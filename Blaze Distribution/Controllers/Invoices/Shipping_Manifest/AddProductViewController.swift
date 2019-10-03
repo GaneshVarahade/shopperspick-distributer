@@ -41,8 +41,12 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
     func getBatchSkuByProdId(prodId:String?) -> String{
         
         let ProductObj = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"productId = '\(prodId ?? "")'")
-        if let Sku = ProductObj[0].sku{
-            return Sku
+        if ProductObj.count > 0{
+            if let Sku = ProductObj[0].sku{
+                return Sku
+            }else{
+                return "--"
+            }
         }else{
             return "--"
         }

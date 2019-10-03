@@ -231,7 +231,7 @@ extension UIView {
 
 extension UIColor{
     static let APPGreenColor = UIColor(hex :"0A8441")
-    
+   
     //Hex color
     convenience init(hex: String) {
         let scanner = Scanner(string: hex)
