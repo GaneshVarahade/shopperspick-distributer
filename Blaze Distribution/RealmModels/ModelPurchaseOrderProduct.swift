@@ -22,6 +22,11 @@ public class ModelPurchaseOrderProduct:ModelBase {
     @objc public dynamic var totalCost:Double = 0
     @objc public dynamic var unitPrice:Double = 0
     
+    @objc public var discount:Double = 0
+    @objc public var exciseTax:Double = 0
+    @objc public var totalExciseTax:Double = 0
+    @objc public var totalCultivationTax:Double = 0
+    
     public override func copy(with zone: NSZone? = nil) -> Any {
         
         let modelProduct      = ModelPurchaseOrderProduct()
@@ -33,6 +38,11 @@ public class ModelPurchaseOrderProduct:ModelBase {
         modelProduct.expected = self.quantity
         modelProduct.unitPrice = self.unitPrice
         modelProduct.totalCost = self.totalCost
+        
+        modelProduct.discount = self.discount
+        modelProduct.exciseTax = self.exciseTax
+        modelProduct.totalExciseTax = self.totalExciseTax
+        modelProduct.totalCultivationTax = self.totalCultivationTax
         return modelProduct
     }
     

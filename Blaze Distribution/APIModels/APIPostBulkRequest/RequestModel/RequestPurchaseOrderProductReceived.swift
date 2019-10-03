@@ -16,4 +16,10 @@ public class RequestPurchaseOrderProductReceived: BaseRequest {
     public var receivedQuantity:Double = 0
     public var unitPrice:Double = 0
     public var totalCost:Double = 0
+    
+    public var discount:Double = 0
+    public var exciseTax:Double = 0
+    public var totalExciseTax:Double = 0
+    public var totalCultivationTax:Double = 0
+    
 }

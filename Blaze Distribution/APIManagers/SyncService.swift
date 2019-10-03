@@ -235,10 +235,10 @@ public final class SyncService {
                 requestPurchaseOrderReceived.totalCost = productReceived.totalCost
                 requestPurchaseOrderReceived.unitPrice = productReceived.unitPrice
                 
-//                requestPurchaseOrderReceived.discount = productReceived.discount
-//                requestPurchaseOrderReceived.exciseTax = productReceived.exciseTax
-//                requestPurchaseOrderReceived.totalExciseTax = productReceived.totalExciseTax
-//                requestPurchaseOrderReceived.totalCultivationTax = productReceived.totalCultivationTax
+                requestPurchaseOrderReceived.discount = productReceived.discount
+                requestPurchaseOrderReceived.exciseTax = productReceived.exciseTax
+                requestPurchaseOrderReceived.totalExciseTax = productReceived.totalExciseTax
+                requestPurchaseOrderReceived.totalCultivationTax = productReceived.totalCultivationTax
 
 
                 requestPurchase.poProductRequestList.append(requestPurchaseOrderReceived)
@@ -876,6 +876,13 @@ public final class SyncService {
                         modelPOProduct.batchId = productReq.batchId
                         modelPOProduct.unitPrice = productReq.unitPrice ?? 0
                         modelPOProduct.totalCost = productReq.totalCost ?? 0
+                        
+                        modelPOProduct.discount = productReq.discount ?? 0
+                        modelPOProduct.exciseTax = productReq.exciseTax ?? 0
+                        modelPOProduct.totalExciseTax = productReq.totalExciseTax ?? 0
+                        modelPOProduct.totalCultivationTax = productReq.totalCultivationTax ?? 0
+                        
+                
                         modelPurcahseOrder.productInShipment.append(modelPOProduct)
                     }
                 }

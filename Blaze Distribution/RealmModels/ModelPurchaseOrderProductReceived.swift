@@ -17,6 +17,13 @@ public class ModelPurchaseOrderProductReceived:ModelBase{
     @objc public dynamic var received:Double = 0
     @objc public dynamic var totalCost:Double = 0
     @objc public dynamic var unitPrice:Double = 0
+    
+    @objc public var discount:Double = 0
+    @objc public var exciseTax:Double = 0
+    @objc public var totalExciseTax:Double = 0
+    @objc public var totalCultivationTax:Double = 0
+    
+    
     public override func copy(with zone:NSZone? = nil) -> Any {
         let modelProductReceived = ModelPurchaseOrderProductReceived()
         modelProductReceived.id       = self.id
@@ -27,6 +34,11 @@ public class ModelPurchaseOrderProductReceived:ModelBase{
         modelProductReceived.updated = self.updated
         modelProductReceived.totalCost = self.totalCost
         modelProductReceived.unitPrice = self.unitPrice
+        
+        modelProductReceived.discount = self.discount
+        modelProductReceived.exciseTax = self.exciseTax
+        modelProductReceived.totalExciseTax = self.totalExciseTax
+        modelProductReceived.totalCultivationTax = self.totalCultivationTax
         
         return modelProductReceived
     }

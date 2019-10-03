@@ -53,6 +53,13 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
             modelpurchaseOrderProductRecive.received = dict.expected
             modelpurchaseOrderProductRecive.totalCost = dict.totalCost
             modelpurchaseOrderProductRecive.unitPrice = dict.unitPrice
+            
+            modelpurchaseOrderProductRecive.discount = dict.discount
+            modelpurchaseOrderProductRecive.exciseTax = dict.exciseTax
+            modelpurchaseOrderProductRecive.totalExciseTax = dict.totalExciseTax
+            modelpurchaseOrderProductRecive.totalCultivationTax = dict.totalCultivationTax
+            
+            
             modelPurchaseOrder.productReceived.append(modelpurchaseOrderProductRecive)
         }
         

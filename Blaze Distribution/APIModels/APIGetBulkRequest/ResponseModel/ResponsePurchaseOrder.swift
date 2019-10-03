@@ -32,6 +32,13 @@ public class ResponsePurchaseOrderProduct: BaseResponseModel {
     
     public var totalCost: Double?
     
+    public var discount:Double?
+    
+    public var exciseTax:Double?
+    
+    public var totalExciseTax:Double?
+    
+    public var totalCultivationTax:Double?
     
 }
 
