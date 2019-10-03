@@ -232,6 +232,8 @@ public final class SyncService {
                 requestPurchaseOrderReceived.name = productReceived.name
                 requestPurchaseOrderReceived.requestQuantity = productReceived.expected
                 requestPurchaseOrderReceived.receivedQuantity = productReceived.received
+                requestPurchaseOrderReceived.totalCost = productReceived.totalCost
+                requestPurchaseOrderReceived.unitPrice = productReceived.unitPrice
                 requestPurchase.poProductRequestList.append(requestPurchaseOrderReceived)
             }
             requestModel.purchaseOrder.append(requestPurchase)
@@ -865,6 +867,8 @@ public final class SyncService {
                         modelPOProduct.name = productReq.productName
                         modelPOProduct.quantity = productReq.requestQuantity ?? 0
                         modelPOProduct.batchId = productReq.batchId
+                        modelPOProduct.unitPrice = productReq.unitPrice ?? 0
+                        modelPOProduct.totalCost = productReq.totalCost ?? 0
                         modelPurcahseOrder.productInShipment.append(modelPOProduct)
                     }
                 }

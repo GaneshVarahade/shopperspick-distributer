@@ -19,6 +19,8 @@ public class ModelPurchaseOrderProduct:ModelBase {
     @objc public dynamic var batchId:String?  = ""
     @objc public dynamic var quantity:Double = 0
     @objc public dynamic var expected:Double = 0
+    @objc public dynamic var totalCost:Double = 0
+    @objc public dynamic var unitPrice:Double = 0
     
     public override func copy(with zone: NSZone? = nil) -> Any {
         
@@ -29,6 +31,8 @@ public class ModelPurchaseOrderProduct:ModelBase {
         modelProduct.batchId  = self.batchId
         modelProduct.quantity = self.quantity
         modelProduct.expected = self.quantity
+        modelProduct.unitPrice = self.unitPrice
+        modelProduct.totalCost = self.totalCost
         return modelProduct
     }
     

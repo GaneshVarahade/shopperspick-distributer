@@ -28,6 +28,10 @@ public class ResponsePurchaseOrderProduct: BaseResponseModel {
     
     public var requestQuantity: Double?
     
+    public var unitPrice: Double?
+    
+    public var totalCost: Double?
+    
     
 }
 

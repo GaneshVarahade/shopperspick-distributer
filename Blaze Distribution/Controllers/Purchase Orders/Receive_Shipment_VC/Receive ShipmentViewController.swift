@@ -51,6 +51,8 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
             modelpurchaseOrderProductRecive.id = dict.id
             modelpurchaseOrderProductRecive.expected = dict.quantity
             modelpurchaseOrderProductRecive.received = dict.expected
+            modelpurchaseOrderProductRecive.totalCost = dict.totalCost
+            modelpurchaseOrderProductRecive.unitPrice = dict.unitPrice
             modelPurchaseOrder.productReceived.append(modelpurchaseOrderProductRecive)
         }
         

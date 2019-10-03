@@ -14,4 +14,6 @@ public class RequestPurchaseOrderProductReceived: BaseRequest {
     public var name:String?     = ""
     public var requestQuantity:Double = 0
     public var receivedQuantity:Double = 0
+    public var unitPrice:Double = 0
+    public var totalCost:Double = 0
 }
