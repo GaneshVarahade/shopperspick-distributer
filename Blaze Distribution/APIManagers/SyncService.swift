@@ -229,11 +229,18 @@ public final class SyncService {
                 let requestPurchaseOrderReceived: RequestPurchaseOrderProductReceived = RequestPurchaseOrderProductReceived()
                 requestPurchaseOrderReceived.id = productReceived.id
                 requestPurchaseOrderReceived.productId = productReceived.productId
-                requestPurchaseOrderReceived.name = productReceived.name
+                requestPurchaseOrderReceived.productName = productReceived.name
                 requestPurchaseOrderReceived.requestQuantity = productReceived.expected
                 requestPurchaseOrderReceived.receivedQuantity = productReceived.received
                 requestPurchaseOrderReceived.totalCost = productReceived.totalCost
                 requestPurchaseOrderReceived.unitPrice = productReceived.unitPrice
+                
+//                requestPurchaseOrderReceived.discount = productReceived.discount
+//                requestPurchaseOrderReceived.exciseTax = productReceived.exciseTax
+//                requestPurchaseOrderReceived.totalExciseTax = productReceived.totalExciseTax
+//                requestPurchaseOrderReceived.totalCultivationTax = productReceived.totalCultivationTax
+
+
                 requestPurchase.poProductRequestList.append(requestPurchaseOrderReceived)
             }
             requestModel.purchaseOrder.append(requestPurchase)
