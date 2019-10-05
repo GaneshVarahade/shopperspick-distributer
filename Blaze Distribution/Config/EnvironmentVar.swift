@@ -1,8 +1,8 @@
 import Foundation
 
-let API_LOCAL_URL = "http://qa.zencanna.io:8092"
-let API_DEV_URL = "http://qa.zencanna.io:8092"
-let API_STAGE_URL = "http://qa.zencanna.io:8092"
+let API_LOCAL_URL = "http://app.zencanna.io:8092"
+let API_DEV_URL = "http://app.zencanna.io:8092"
+let API_STAGE_URL = "http://app.zencanna.io:8092"
 let API_PROD_URL = ""
 
 //let API_LOCAL_URL = "http://qa.shopperspick.io:8092"

@@ -1508,7 +1508,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "BUILD_VERSION=\"0.0.7\"\nENV_STR=\"\"\n\necho \"Build ${BUILD_VERSION}\"\necho \"PROJECT_DIR ${PROJECT_DIR}\"\necho \"configuration: ${CONFIGURATION}\"\n\ntouch \"${PROJECT_DIR}/Blaze Distribution/Config/environment-override.json\"\ntouch \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\n\nREQUIRED_HTTPS=\"false\"\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n# same version when scheme is Debug\necho \"Do something really debug-like\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-debug.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Dev\" ]; then\necho \"Do something really Development\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-dev.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Stage\" ]; then\necho \"Do something really Stage\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-stage.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\necho \"Do something really Release\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-prod.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\n# For extension in Build Version Name\nif [ \"${CONFIGURATION}\" = \"Dev\"  ] || [ \"${CONFIGURATION}\" = \"Stage\"  ] || [ \"${CONFIGURATION}\" = \"Debug\"  ]\nthen ENV_STR=\".${CONFIGURATION}\"\nfi\n\n\n#update version\nbuildNumber=$(git rev-list --count HEAD)\nbuildVersion=\"$BUILD_VERSION$ENV_STR\"\necho \"buildVersion: ${buildVersion}\"\necho \"buildNumber ${buildNumber}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $buildVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n#/usr/libexec/PlistBuddy -c \"Set :NSAppTransportSecurity:NSAllowsArbitraryLoads $REQUIRED_HTTPS\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+			shellScript = "BUILD_VERSION=\"0.0.7\"\nENV_STR=\"\"\n\necho \"Build ${BUILD_VERSION}\"\necho \"PROJECT_DIR ${PROJECT_DIR}\"\necho \"configuration: ${CONFIGURATION}\"\n\ntouch \"${PROJECT_DIR}/Blaze Distribution/Config/environment-override.json\"\ntouch \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\n\nREQUIRED_HTTPS=\"false\"\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n# same version when scheme is Debug\necho \"Do something really debug-like\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-debug.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Dev\" ]; then\necho \"Do something really Development\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-dev.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Stage\" ]; then\necho \"Do something really Stage\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-stage.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\necho \"Do something really Release\"\ncp -rf \"${PROJECT_DIR}/Blaze Distribution/Config/environment-prod.json\" \"${PROJECT_DIR}/Blaze Distribution/Config/environment.json\"\nREQUIRED_HTTPS=\"true\"\nfi\n\n# For extension in Build Version Name\nif [ \"${CONFIGURATION}\" = \"Dev\"  ] || [ \"${CONFIGURATION}\" = \"Stage\"  ] || [ \"${CONFIGURATION}\" = \"Debug\"  ]\nthen ENV_STR=\".${CONFIGURATION}\"\nfi\n\n\n#update version\n#buildNumber=$(git rev-list --count HEAD)\n#buildVersion=\"$BUILD_VERSION$ENV_STR\"\n#echo \"buildVersion: ${buildVersion}\"\n#echo \"buildNumber ${buildNumber}\"\n#/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n#/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $buildVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n#/usr/libexec/PlistBuddy -c \"Set :NSAppTransportSecurity:NSAllowsArbitraryLoads $REQUIRED_HTTPS\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
 		501329DEFA3BF50C2121BCEC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1879,13 +1879,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 94AWUYGT5Q;
+				DEVELOPMENT_TEAM = UCDUTTBK96;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shopperspick.distribution;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zenwork.zencannaDist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1995,13 +1996,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 94AWUYGT5Q;
+				DEVELOPMENT_TEAM = UCDUTTBK96;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shopperspick.distribution;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zenwork.zencannaDist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2172,13 +2174,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 94AWUYGT5Q;
+				DEVELOPMENT_TEAM = UCDUTTBK96;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shopperspick.distribution;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zenwork.zencannaDist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2191,13 +2194,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 94AWUYGT5Q;
+				DEVELOPMENT_TEAM = UCDUTTBK96;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shopperspick.distribution;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zenwork.zencannaDist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
