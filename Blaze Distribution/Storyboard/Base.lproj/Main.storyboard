@@ -4259,6 +4259,9 @@
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter company name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aKX-gY-HYi">
                                                     <rect key="frame" x="128" y="7" width="270" height="30"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" notEnabled="YES"/>
+                                                    </accessibility>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="zeJ-Uc-43d">
                                                             <variation key="heightClass=regular-widthClass=regular" constant="35"/>
@@ -4306,6 +4309,9 @@
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter company type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v75-zn-swL">
                                                     <rect key="frame" x="128" y="7" width="270" height="30"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" notEnabled="YES"/>
+                                                    </accessibility>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Qqb-hW-5sU">
                                                             <variation key="heightClass=regular-widthClass=regular" constant="35"/>
@@ -4353,6 +4359,9 @@
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter contact no." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ani-n8-tMI">
                                                     <rect key="frame" x="128" y="7" width="270" height="30"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" notEnabled="YES"/>
+                                                    </accessibility>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="eNV-GR-Eey">
                                                             <variation key="heightClass=regular-widthClass=regular" constant="35"/>
@@ -4400,6 +4409,9 @@
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter licence no." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tfH-7S-IeD">
                                                     <rect key="frame" x="128" y="7" width="270" height="30"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" notEnabled="YES"/>
+                                                    </accessibility>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="OAe-7W-H4F">
                                                             <variation key="heightClass=regular-widthClass=regular" constant="35"/>
@@ -4447,6 +4459,9 @@
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yNV-vo-nQW">
                                                     <rect key="frame" x="128" y="7" width="270" height="30"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" notEnabled="YES"/>
+                                                    </accessibility>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="6IO-sm-6cj">
                                                             <variation key="heightClass=regular-widthClass=regular" constant="35"/>

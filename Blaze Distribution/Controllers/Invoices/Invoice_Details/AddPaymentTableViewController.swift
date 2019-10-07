@@ -38,6 +38,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     @IBOutlet weak var paymentDateTextField: UITextField!
     
     var paymentType = AddPaymentType.DEBIT
+    var selectedPaymentType : String = "DEBIT"
     let paymentTypes = ["Debit Card", "ACH Transfer","Credit Card","Cash","Cheque"]
     let datePicker = UIDatePicker()
     let paymentTypePicker = UIPickerView()
@@ -92,12 +93,29 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             self.btnSubmit.isHidden = true
             notesTextView.textColor = UIColor.black
             // check payment method if set or set by default
-            if let paymentType = paymentModel?.addPaymentType {
-                self.paymentType = paymentType
+            if let payment = paymentModel?.paymentType {
+                self.selectedPaymentType = payment
+                if payment == AddPaymentType.CASH.rawValue{
+                    self.paymentType = AddPaymentType.CASH
+                }else if payment == AddPaymentType.DEBIT.rawValue{
+                    self.paymentType = AddPaymentType.DEBIT
+                }else if payment == AddPaymentType.CREDIT.rawValue{
+                    self.paymentType = AddPaymentType.CREDIT
+                }else if payment == AddPaymentType.ACH_TRANSFER.rawValue{
+                    self.paymentType = AddPaymentType.ACH_TRANSFER
+                }else if payment == AddPaymentType.CHEQUE.rawValue{
+                    self.paymentType = AddPaymentType.CHEQUE
+                }
+                
             }
 
             if let cardNo = paymentModel?.debitCardNo {
-                debitCardTextField?.text = String(format: "%d",cardNo)
+                if (cardNo == 0){
+                     debitCardTextField?.text = "Not Available"
+                }else{
+                     debitCardTextField?.text = String(format: "%d",cardNo)
+                }
+               
             } else {
                 debitCardTextField?.text = "Not Available"
             }
@@ -107,6 +125,8 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             amountTextField.text = String(format:"$%.1f",(paymentModel?.amount)!)
             notesTextView.text = paymentModel?.notes ?? "Not Available"
             lblBalanceDue.text = "0";
+            paymentTypeTextField.text = paymentModel?.paymentType
+            
         } else {
             //Set Due balance
             if(invoiceObj != nil){
@@ -469,6 +489,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         let modelPaymanetInfo:ModelPaymentInfo = ModelPaymentInfo()
         modelPaymanetInfo.id = HexGenerator.sharedInstance().generate()
         modelPaymanetInfo.addPaymentType = self.paymentType
+        modelPaymanetInfo.paymentType = self.selectedPaymentType
         modelPaymanetInfo.debitCardNo = Int(debitCardNo) ?? 000000
         modelPaymanetInfo.achDate = achDate
         modelPaymanetInfo.paymentDate = DateFormatterUtil.formatStringToInt(dateTime: paymentDateTextField.text!, format: "dd/MM/yyyy")
@@ -523,18 +544,23 @@ extension AddPaymentTableViewController: UIPickerViewDelegate, UIPickerViewDataS
         switch row {
         case 0:
             self.paymentType = .DEBIT
+            self.selectedPaymentType = AddPaymentType.DEBIT.rawValue
             self.setAddPaymentType(addPaymentType: self.paymentType)
         case 1:
             self.paymentType = .ACH_TRANSFER
+            self.selectedPaymentType = AddPaymentType.ACH_TRANSFER.rawValue
             self.setAddPaymentType(addPaymentType: self.paymentType)
         case 2:
             self.paymentType = .CREDIT
+            self.selectedPaymentType = AddPaymentType.CREDIT.rawValue
             self.setAddPaymentType(addPaymentType: self.paymentType)
         case 3:
             self.paymentType = .CASH
+            self.selectedPaymentType = AddPaymentType.CASH.rawValue
             self.setAddPaymentType(addPaymentType: self.paymentType)
         case 4:
             self.paymentType = .CHEQUE
+            self.selectedPaymentType = AddPaymentType.CHEQUE.rawValue
             self.setAddPaymentType(addPaymentType: self.paymentType)
         default:
             break

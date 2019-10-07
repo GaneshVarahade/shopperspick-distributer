@@ -306,7 +306,7 @@ public final class SyncService {
                     requestModelInvoicePayment.paidDate = payment.paymentDate
                     requestModelInvoicePayment.referenceNo = payment.referenceNumber
                     requestModelInvoicePayment.amountPaid = payment.amount
-                    requestModelInvoicePayment.paymentType = payment.addPaymentType.rawValue
+                    requestModelInvoicePayment.paymentType = payment.paymentType
                     let notesModel: pyamentNotes = pyamentNotes()
                     notesModel.message = payment.notes
                     requestModelInvoicePayment.notes = notesModel
@@ -992,6 +992,7 @@ public final class SyncService {
                             paymentTemp.referenceNumber = payment.referenceNo ?? ""
                             paymentTemp.amount          = payment.amountPaid!
                             paymentTemp.notes           = payment.notes
+                            paymentTemp.paymentType     = payment.paymentType ?? ""
                             model.paymentInfo.append(paymentTemp)
                         }
                     } else {

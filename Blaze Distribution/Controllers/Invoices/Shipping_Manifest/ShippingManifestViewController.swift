@@ -32,9 +32,9 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        shippingSegmentControler.selectedSegmentIndex = 1
-        manifestInfoContainerView.isHidden = true
-        itemsToShipContainerView.isHidden = false
+        shippingSegmentControler.selectedSegmentIndex = 0
+        manifestInfoContainerView.isHidden = false
+        itemsToShipContainerView.isHidden = true
         
         self.navigationItem.hidesBackButton = true
 //        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(back(sender:)))
