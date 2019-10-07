@@ -33,6 +33,7 @@ public class ModelShipingMenifest:ModelBase {
     
     var receiverAddress:ModelAddres?
     var selectedItems = List<ModelRemainingProduct>()
+    var productMetrcInfoList = List<ModelProductMetrcInfo>()
     
     open override class func primaryKey() -> String? {
         return "id"
@@ -65,6 +66,9 @@ public class ModelShipingMenifest:ModelBase {
         modelShipingMenifest.updated            = self.updated
         for item in self.selectedItems {
             modelShipingMenifest.selectedItems.append(item.copy() as! ModelRemainingProduct)
+        }
+        for item in self.productMetrcInfoList {
+            modelShipingMenifest.productMetrcInfoList.append(item.copy() as! ModelProductMetrcInfo)
         }
         return modelShipingMenifest
     }

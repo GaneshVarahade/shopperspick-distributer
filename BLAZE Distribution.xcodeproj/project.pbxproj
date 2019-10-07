@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04DA2C9C234B5EFB00314472 /* newRequestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DA2C9B234B5EFB00314472 /* newRequestResponse.swift */; };
 		1804748320FBB520006E1570 /* ViewLogsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804748220FBB520006E1570 /* ViewLogsVC.swift */; };
 		1804748520FBBB48006E1570 /* ViewLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804748420FBBB48006E1570 /* ViewLogCell.swift */; };
 		18051EE520EA3C0A005BF274 /* LookUpProductEnterQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18051EE420EA3C09005BF274 /* LookUpProductEnterQuantity.swift */; };
@@ -217,6 +218,7 @@
 
 /* Begin PBXFileReference section */
 		0258B61748E9715829B0B522 /* Pods-Blaze DistributionTests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze DistributionTests.stage.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze DistributionTests/Pods-Blaze DistributionTests.stage.xcconfig"; sourceTree = "<group>"; };
+		04DA2C9B234B5EFB00314472 /* newRequestResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newRequestResponse.swift; sourceTree = "<group>"; };
 		04E6270EEDE3C4B2293D8C0D /* Pods-BLAZE Distribution.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLAZE Distribution.stage.xcconfig"; path = "Pods/Target Support Files/Pods-BLAZE Distribution/Pods-BLAZE Distribution.stage.xcconfig"; sourceTree = "<group>"; };
 		0938C2F5672F799D7AB60923 /* Pods-Blaze Distribution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blaze Distribution.dev.xcconfig"; path = "Pods/Target Support Files/Pods-Blaze Distribution/Pods-Blaze Distribution.dev.xcconfig"; sourceTree = "<group>"; };
 		0CA4FB091849380A277A6ACA /* Pods-BLAZE Distribution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLAZE Distribution.dev.xcconfig"; path = "Pods/Target Support Files/Pods-BLAZE Distribution/Pods-BLAZE Distribution.dev.xcconfig"; sourceTree = "<group>"; };
@@ -459,6 +461,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04DA2C9A234B5ECB00314472 /* NewRequestResponse */ = {
+			isa = PBXGroup;
+			children = (
+				04DA2C9B234B5EFB00314472 /* newRequestResponse.swift */,
+			);
+			path = NewRequestResponse;
+			sourceTree = "<group>";
+		};
 		07DD372DF41856923936F1A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -839,6 +849,7 @@
 		B9266C3620AEC8FB0021356C /* Blaze Distribution */ = {
 			isa = PBXGroup;
 			children = (
+				04DA2C9A234B5ECB00314472 /* NewRequestResponse */,
 				182B920A20C807DE0041915B /* TextFilesForReference */,
 				B9266C6D20AED04E0021356C /* APIManagers */,
 				189F82B320C501B70054986E /* APIModels */,
@@ -1740,6 +1751,7 @@
 				B9AA85E620C973B200751BF2 /* ResponseShippingManifests.swift in Sources */,
 				182427A820EE3E49009BBF08 /* RequestInventry.swift in Sources */,
 				1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */,
+				04DA2C9C234B5EFB00314472 /* newRequestResponse.swift in Sources */,
 				B9E5266C20B2CF0E00127E43 /* PurchaseOrderDetailsTableViewController.swift in Sources */,
 				1824279F20EE1652009BBF08 /* RequestPurchaseOrder.swift in Sources */,
 				B92A65B020AF3FD800CDA4CC /* InvoiceDetailsTableViewController.swift in Sources */,

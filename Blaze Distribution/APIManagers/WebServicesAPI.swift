@@ -186,6 +186,18 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.bulkGet(), callback: onComplition)
         
     }
+    
+    func getAllInventory(request:RequestGetAllInventory,onComplition:@escaping (_ result:ResponseGetAllInvetory?, _ error:PlatformError?)-> ()){
+        makeRequest(Router.getAllInvontry(), callback: onComplition)
+        
+    }
+    
+    func getAllBtachesByProdId(request:RequestGetallBatches,onComplition:@escaping (_ result:ResponseGetAllBatches?, _ error:PlatformError?)-> ()){
+        makeRequest(Router.getAllBatchesByProdId(request: request), callback: onComplition)
+        
+    }
+    
+    
     func GetProductById(request:RequestProdutById,onComplition:@escaping (_ result:ResponseProduct?, _ error:PlatformError?)-> ()){
         makeRequest(Router.getProductById(request: request), callback: onComplition)
         

@@ -31,4 +31,53 @@ public class ResponseShippingManifests:BaseResponseModel{
     public var vehicleModel:String?
     public var vehicleLicensePlate:String?
     public var signaturePhoto:ResposeSignaturePhoto?
+    public var productMetrcInfo:[ResponseProductMetricInfo]?
+}
+
+public class ResponseProductMetricInfo : BaseResponseModel{
+    public var id: String?
+    
+    public var created: Int?
+    
+    public var modified: Int?
+    
+    public var deleted: Bool?
+    
+    public var updated: Bool?
+    
+    public var companyId: String?
+    
+    public var productId : String?
+    
+    public var orderItemId : String?
+    
+    public var quantity : Double?
+    
+    public var batchDetails : [ResponseBatchDetails]?
+}
+
+public class ResponseBatchDetails : BaseResponseModel{
+    public var id: String?
+    
+    public var created: Int?
+    
+    public var modified: Int?
+    
+    public var deleted: Bool?
+    
+    public var updated: Bool?
+    
+    public var companyId: String?
+    
+    public var batchId :  String?
+    
+    public var batchSku : String?
+    
+    public var metrcLabel : String?
+    
+    public var quantity : Double?
+    
+    public var prepackageItemId : String?
+    public var overrideInventoryId : String?
+    
 }

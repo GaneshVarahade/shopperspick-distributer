@@ -73,3 +73,50 @@ public class ModelSignatureAsset:ModelBase{
     }
 }
 
+
+public class ModelProductMetrcInfo:ModelBase{
+    @objc public dynamic var productId:String? = ""
+    @objc public dynamic var orderItemId:String? = ""
+    @objc public dynamic var quantity:Double  =  0
+     var batchDetailsList = List<ModelBatchDetails>()
+    open override class func primaryKey() -> String? {
+        return "id"
+    }
+    public override func copy(with zone: NSZone? = nil) -> Any {
+        let modelMetricInfo          = ModelProductMetrcInfo()
+        modelMetricInfo.id           = self.productId
+        modelMetricInfo.productId    = self.productId
+        modelMetricInfo.orderItemId  = self.orderItemId
+        modelMetricInfo.quantity     = self.quantity
+        for item in self.batchDetailsList {
+            modelMetricInfo.batchDetailsList.append(item.copy() as! ModelBatchDetails)
+        }
+        return modelMetricInfo
+}
+
+}
+
+public class ModelBatchDetails:ModelBase{
+    @objc public dynamic var batchId:String? = ""
+    @objc public dynamic var batchSku:String? = ""
+    @objc public dynamic var metrcLabel:String? = ""
+    @objc public dynamic var prepackageItemId:String? = ""
+    @objc public dynamic var overrideInventoryId:String? = ""
+    @objc public dynamic var quantity:Double  =  0
+    
+    open override class func primaryKey() -> String? {
+        return "id"
+    }
+    public override func copy(with zone: NSZone? = nil) -> Any {
+        let modelBatchDetails          = ModelBatchDetails()
+        modelBatchDetails.id         = self.batchId
+        modelBatchDetails.batchId    = self.batchId
+        modelBatchDetails.batchSku    = self.batchSku
+        modelBatchDetails.metrcLabel  = self.metrcLabel
+        modelBatchDetails.prepackageItemId     = self.prepackageItemId
+        modelBatchDetails.overrideInventoryId  = self.overrideInventoryId
+        modelBatchDetails.quantity     = self.quantity
+        return modelBatchDetails
+    }
+    
+}

@@ -383,6 +383,13 @@ public final class SyncService {
                         //requestSelectedItemsShipping.remainingQuantity = selectedItem.remainingQuantity
                         requestSelectedItemsShipping.quantity = selectedItem.requestQuantity
                         //requestSelectedItemsShipping.isSelected = selectedItem.isSelected
+                        
+//                        //for batch
+//                        for batch in selectedItem{
+//                            let batchRequest = RequestBatchDetails()
+//                            bat
+//                        }
+                        
                         requestModelShippingMainfest.productMetrcInfo.append(requestSelectedItemsShipping)
                     }
                     
@@ -1032,6 +1039,37 @@ public final class SyncService {
                                 signature.key       = sigAsset.key
                                 
                                 shipMen.signatureAsset = signature
+                            }
+                            
+                            //For remaining product info
+                            if let prodMetrictInfo = ship.productMetrcInfo{
+                                
+                                for prodInfo in prodMetrictInfo{
+                                    //Write product metric info
+                                    let objProdInfo = ModelProductMetrcInfo()
+                                    objProdInfo.id = prodInfo.productId
+                                    objProdInfo.productId = prodInfo.productId
+                                    objProdInfo.orderItemId = prodInfo.orderItemId
+                                    objProdInfo.quantity = prodInfo.quantity ?? 0
+                                    
+                                    if let batchDetails = prodInfo.batchDetails{
+                                        for batch in batchDetails{
+                                            //Write batch details
+                                            let objbatch = ModelBatchDetails()
+                                            objbatch.id = batch.batchId
+                                            objbatch.batchId = batch.batchId
+                                            objbatch.batchSku = batch.batchSku
+                                            objbatch.metrcLabel = batch.metrcLabel
+                                            objbatch.prepackageItemId = batch.prepackageItemId
+                                            objbatch.overrideInventoryId = batch.overrideInventoryId
+                                            objbatch.quantity = batch.quantity ?? 0
+                                            
+                                            objProdInfo.batchDetailsList.append(objbatch)
+                                        }
+                                    }
+                                   shipMen.productMetrcInfoList.append(objProdInfo)
+                                }
+                             
                             }
                             
                             if let add = ship.receiverAddress?.address{

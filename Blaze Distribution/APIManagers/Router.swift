@@ -22,6 +22,11 @@ enum Router : URLRequestConvertible {
     case sessionLogin(request: RequestLogin)
     //BulkAPI
     case bulkGet()
+    
+    //Get all batches by product id
+    case getAllBatchesByProdId(request : RequestGetallBatches)
+    //get all inventorise
+    case getAllInvontry()
     //get product by id
     case getProductById(request: RequestProdutById)
     //BulkPostAPI
@@ -44,8 +49,11 @@ enum Router : URLRequestConvertible {
     func asURLRequest() throws -> URLRequest {
         let (method, path, requestJson, params): (Method, String, Data?, [String:Any]?) = getRouterInfo()
         
-        let URL = Foundation.URL(string: Router.baseURLString)!
-        var request = URLRequest(url: URL.appendingPathComponent(path))
+        let urlstring1 =  Router.baseURLString+path
+        let urlString = urlstring1.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        
+        let URL = Foundation.URL(string: urlString!)!
+        var request = URLRequest(url: URL)
         request.httpMethod = method.rawValue 
         if let requestJson = requestJson {
                 let jsonData = requestJson
@@ -66,7 +74,7 @@ enum Router : URLRequestConvertible {
         switch(self) {
         // SESSIONS
         case .sessionLogin(let request):
-            return (Method.POST,"api/v1/mgmt/session",encode(request),nil)
+            return (Method.POST,"/api/v1/mgmt/session",encode(request),nil)
         case .bulkGet():
             return (Method.GET,"/api/v1/warehouse/mgmt/dataSync",nil,nil)
         case .getProductById(let request):
@@ -85,6 +93,12 @@ enum Router : URLRequestConvertible {
             return (Method.POST,"/api/v1/warehouse/mgmt/invoice/prepareInvoice",encode(request),nil)
         case .createInvoice(let request):
             return (Method.POST,"/api/v1/warehouse/mgmt/invoice",encode(request),nil)
+        
+        case .getAllInvontry():
+            return (Method.GET,"/api/v1/mgmt/inventory",nil,nil)
+            
+        case .getAllBatchesByProdId(let request):
+            return (Method.GET,"/api/v1/mgmt/batch/list?productId=\(request.productId ?? "")",nil,nil)
         }
        
     }

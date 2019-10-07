@@ -43,6 +43,6 @@ public class RequestModelShipingMainfest: BaseRequest {
     
       public var shipperInformation :RequestShipperInformation?
       public var receiverInformation : RequestReceiverInformation?
-      public   var productMetrcInfo = [RequestShippingMainfestSelectedItem]()
+      public var productMetrcInfo = [RequestShippingMainfestSelectedItem]()
 }
 
