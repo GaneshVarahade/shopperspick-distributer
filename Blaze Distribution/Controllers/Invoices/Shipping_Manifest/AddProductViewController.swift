@@ -37,22 +37,7 @@ class AddProductViewController: UIViewController, UITableViewDelegate, UITableVi
             invoiceItemsTableView.estimatedRowHeight = 60.0
         }
         
-        //This is tempcall
-        let onjrequest = RequestGetAllInventory()
-        WebServicesAPI.sharedInstance().getAllInventory(request: onjrequest) {
-            (response : ResponseGetAllInvetory?,error : PlatformError?) in
-            
-        }
-        
-        let requestObj = RequestGetallBatches()
-        requestObj.productId = "5d861945dc4f2a042097be64"
-            WebServicesAPI.sharedInstance().getAllBtachesByProdId(request: requestObj, onComplition: { (
-                response : ResponseGetAllBatches?, error : PlatformError?) in
-                print(response)
-                let keyArr : Array = response!.values!
-                
-            
-            })
+       
     }
 
     func getBatchSkuByProdId(prodId:String?) -> String{

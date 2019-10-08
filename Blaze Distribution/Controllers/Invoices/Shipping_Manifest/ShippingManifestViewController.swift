@@ -23,7 +23,7 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
     var shippiingMenifestConfirm: ShippingMenifestConfirmDelegate?
     
     var manifestDetailController:ManifestInfoTableViewController?
-    var itemsToShipController:ItemsToShipViewController?
+    var itemsToShipController:CreateManifestItemSelectionVC?
     
     @IBOutlet weak var shippingSegmentControler: UISegmentedControl!
     @IBOutlet weak var itemsToShipContainerView: UIView!
@@ -87,14 +87,15 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
             manifestDetailController?.modelShippingMen = self.modelShippingMen
             manifestDetailController?.invoiceDetailsDict = self.invoiceDetailsDict
             
-        }else if segue.identifier == "invoiceItemsSegue" {
+        }else if segue.identifier == "ManifestItemSelection" {
             
-            itemsToShipController = segue.destination as! ItemsToShipViewController
-            itemsToShipController?.validateDelegate = self
+            itemsToShipController = segue.destination as! CreateManifestItemSelectionVC
+            //itemsToShipController?.validateDelegate = self
             itemsToShipController?.isAddManifest = isAddManifest
+            itemsToShipController?.modelInvoice = invoiceDetailsDict
             itemsToShipController?.modelShippingMenifest = self.modelShippingMen
-            itemsToShipController?.remainingItemsList = (invoiceDetailsDict?.remainingProducts)!
-            itemsToShipController?.confirmShippingDelegate = self
+            //itemsToShipController?.remainingItemsList = (invoiceDetailsDict?.remainingProducts)!
+            //itemsToShipController?.confirmShippingDelegate = self
         }
     }
     
