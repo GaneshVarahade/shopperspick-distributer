@@ -78,7 +78,9 @@ public class ModelProductMetrcInfo:ModelBase{
     @objc public dynamic var productId:String? = ""
     @objc public dynamic var orderItemId:String? = ""
     @objc public dynamic var quantity:Double  =  0
-     var batchDetailsList = List<ModelBatchDetails>()
+    
+    
+    var batchDetailsList = List<ModelBatchDetails>()
     open override class func primaryKey() -> String? {
         return "id"
     }
@@ -88,6 +90,7 @@ public class ModelProductMetrcInfo:ModelBase{
         modelMetricInfo.productId    = self.productId
         modelMetricInfo.orderItemId  = self.orderItemId
         modelMetricInfo.quantity     = self.quantity
+        
         for item in self.batchDetailsList {
             modelMetricInfo.batchDetailsList.append(item.copy() as! ModelBatchDetails)
         }
@@ -104,6 +107,13 @@ public class ModelBatchDetails:ModelBase{
     @objc public dynamic var overrideInventoryId:String? = ""
     @objc public dynamic var quantity:Double  =  0
     
+    @objc public dynamic var SelectedBatchName:String? = ""
+    @objc public dynamic var SelectedInvName:String? = ""
+    @objc public dynamic var BatchActualQty:Double  =  0
+    @objc public dynamic var UserEnterQty:Double  =  0
+    @objc public dynamic var isSaved:Bool  =  false
+    
+    
     open override class func primaryKey() -> String? {
         return "id"
     }
@@ -116,6 +126,12 @@ public class ModelBatchDetails:ModelBase{
         modelBatchDetails.prepackageItemId     = self.prepackageItemId
         modelBatchDetails.overrideInventoryId  = self.overrideInventoryId
         modelBatchDetails.quantity     = self.quantity
+        
+        modelBatchDetails.SelectedBatchName = self.SelectedBatchName
+        modelBatchDetails.SelectedInvName = self.SelectedInvName
+        modelBatchDetails.BatchActualQty = self.BatchActualQty
+        modelBatchDetails.UserEnterQty = self.UserEnterQty
+        modelBatchDetails.isSaved = self.isSaved
         return modelBatchDetails
     }
     

@@ -22,6 +22,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     var invoiceSelectedItemList = List<ModelRemainingProduct>()
     var inventoryObject : ResponseGetAllInvetory!
     var batchObjectList : [Batchobject] = []
+    var objproductMetrcInfoList = List<ModelProductMetrcInfo>()
     
     //Onjcets
     var pickerView: UIPickerView = UIPickerView()
@@ -30,6 +31,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initialSetUp()
         self.getAllInventorise()
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -48,6 +50,15 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
         // Do any additional setup after loading the view.
     }
     
+    func initialSetUp(){
+        for item in invoiceSelectedItemList{
+            let obj = ModelProductMetrcInfo()
+            obj.productId = item.productId
+            obj.orderItemId = item.orderItemId
+            objproductMetrcInfoList.append(obj)
+        }
+    }
+    
     func getAllInventorise(){
         //This is tempcall
         let onjrequest = RequestGetAllInventory()
@@ -63,7 +74,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     
     func fetchBatcList(productId : String, invID : String){
 
-        self.batchObjectList.removeAll()
+                self.batchObjectList.removeAll()
                 let requestObj = RequestGetallBatches()
                 requestObj.productId = productId
                 SKActivityIndicator.show()
@@ -80,6 +91,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
                                     let key = mapobject?.keys
                                     if key!.count > 0{
                                         for item in key!{
+                                            if item == invID{
                                             let invqty = mapobject?[item]
                                             if invqty! > 0{
                                                 let objbatch = Batchobject()
@@ -92,6 +104,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
                                                 self.batchObjectList.append(objbatch)
                                                 
                                             }
+                                          }
                                         }
                                     }
                                 }
@@ -140,12 +153,26 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     //MARK:- Textfield delegate
     @objc func InventoryPickerButtonTapped(_ sender : MyCustomTextField){
         let tag = sender.section
-        
-        
+        let invobj = invoiceSelectedItemList[tag!]
+        let selectedInvObj = inventoryObject.values![pickerView.selectedRow(inComponent: 0)]
+        invobj.SelectedInventoryName = selectedInvObj.name
+        invobj.SelectedInventoryId = selectedInvObj.id
+        invobj.SelectedBatchName = ""
+        invobj.SelectedBatchId = ""
+        manifestDetailsTable.reloadData()
+    
     }
     @objc func BatchPickerButtonTapped(_ sender : MyCustomTextField){
+        if batchObjectList.count > 0{
         let tag = sender.section
-        
+        let invobj = invoiceSelectedItemList[tag!]
+        let selectedBatch = batchObjectList[pickerView.selectedRow(inComponent: 0)]
+        invobj.SelectedBatchName = selectedBatch.batchDate
+        invobj.SelectedBatchId = selectedBatch.batchId
+        invobj.SelectedBatchSKU = selectedBatch.batchSku
+        invobj.SelectedBatchQty = selectedBatch.inventoryQty!
+        manifestDetailsTable.reloadData()
+        }
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
@@ -162,21 +189,192 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
             let section = textF.section
             productId = invoiceSelectedItemList[section!].productId ?? ""
             
-            var selectedInventoryId = "5d52826cdc4f2a7d6e0a22fc"
-            self.fetchBatcList(productId: productId, invID: selectedInventoryId)
-            
+            //get selected inventory id
+            let selectedInventoryId = invoiceSelectedItemList[textF.section!].SelectedInventoryId
+            if selectedInventoryId == ""{
+                self.showAlert(title: "Distribution", message: "Please select inventory first", closure: {})
+                return false
+            }else{
+               self.fetchBatcList(productId: productId, invID: selectedInventoryId ?? "")
+            }
+
             return true
         }else{
             return true
         }
     }
     
-    //MARK:- Button Actions
-    @IBAction func btnConfirmAllTapped(_ sender: Any) {
-    }
-    @IBAction func btnaddBatchTapped(_ sender: Any) {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//       if textField.tag != INVENTORYTEXTFIELD && textField.tag != BATCHTEXTFIELD{
+//         if textField.text == ""{
+//            return true
+//          }
+////            let cs = NSCharacterSet(charactersIn: "0123456789.").inverted
+////            let filtered = string.components(separatedBy: cs).joined(separator: "")
+////            return (string == filtered)
+//            return   self.isValidAmount(textfield: textField as! MyCustomTextField)
+//        }
+        return true
     }
     
+    func isValidAmount(textfield : MyCustomTextField) -> Bool{
+        let userenteredQty = Double(textfield.text!)
+        let section = textfield.section
+        let row = textfield.row!
+        
+        //get product total selected Qty
+        var ProductRequestQty : Double = 0
+        let objMetricinfo = invoiceSelectedItemList[section!]
+        ProductRequestQty = objMetricinfo.remainingQuantity
+        
+        var batchActualQty : Double = 0
+        let listmetr = objproductMetrcInfoList[section!].batchDetailsList[row]
+        batchActualQty = listmetr.BatchActualQty
+        
+        if Int(userenteredQty!) <= Int(ProductRequestQty) && Int(userenteredQty!) <= Int(batchActualQty){
+            listmetr.UserEnterQty = userenteredQty!
+            return true
+        }else{
+            return false
+        }
+       
+    }
+    
+    
+    //MARK:- Button Actions
+    @IBAction func btnSaveItemTapped(_ sender: myCustombutton) {
+        let section = sender.section!
+        let row = sender.row!
+        var userEnterQty : Int = 0
+        var qtyInCart : Int = 0
+        var actualBatchQty : Int = 0
+        var batchfinalQty : Int = 0
+        
+        var actualorederQty : Int = 0
+        
+        let objMetricInfo = objproductMetrcInfoList[section]
+        let itemObject = objMetricInfo.batchDetailsList[row]
+        var objReaminProd = invoiceSelectedItemList[section]
+        
+        actualorederQty = Int(objReaminProd.remainingQuantity)
+        
+        qtyInCart = Int(objMetricInfo.quantity)
+        userEnterQty = Int(itemObject.UserEnterQty)
+        actualBatchQty = Int(itemObject.BatchActualQty)
+        batchfinalQty = Int(itemObject.quantity)
+        
+        if userEnterQty != 0{
+            actualorederQty = actualorederQty - userEnterQty
+            
+            actualBatchQty = actualBatchQty - userEnterQty
+            qtyInCart = qtyInCart + userEnterQty
+            batchfinalQty = batchfinalQty + userEnterQty
+            
+            objMetricInfo.quantity = Double(qtyInCart)
+            itemObject.quantity = Double(batchfinalQty)
+            itemObject.BatchActualQty = Double(actualBatchQty)
+            objReaminProd.remainingQuantity = Double(actualorederQty)
+            itemObject.isSaved = true
+            manifestDetailsTable.reloadData()
+            
+        }else{
+            self.showAlert(title: "Message", message: "Please enter qty to save this item", closure: {})
+        }
+        
+        
+        
+    }
+    
+    func canconfirmmanifest()->Bool{
+        for item in objproductMetrcInfoList{
+            if item.batchDetailsList.count > 0{
+                return true
+            }
+        }
+        return false
+    }
+    
+    @IBAction func btnConfirmAllTapped(_ sender: Any) {
+        if canconfirmmanifest(){
+            print(modelShippingMenifest)
+            
+        }else{
+            self.showAlert(title: "Message", message: "No batches added, please add batch to proceed further", closure:{})
+        }
+    }
+    @IBAction func btnaddBatchTapped(_ sender: Any) {
+        let button = sender as! UIButton
+        if validateBatchandInv(tag: button.tag){
+            var remainingProdInfoObj = invoiceSelectedItemList[button.tag]
+            if Int(remainingProdInfoObj.remainingQuantity) != 0{
+                if self.isSameBatchAndInventory(tag: button.tag){
+            for item in objproductMetrcInfoList{
+                if item.productId == remainingProdInfoObj.productId{
+                    let objBatchDetails = ModelBatchDetails()
+                    objBatchDetails.batchId = remainingProdInfoObj.SelectedBatchId
+                    objBatchDetails.batchSku = remainingProdInfoObj.SelectedBatchSKU
+                    objBatchDetails.BatchActualQty = remainingProdInfoObj.SelectedBatchQty
+                    objBatchDetails.overrideInventoryId = remainingProdInfoObj.SelectedInventoryId
+                    objBatchDetails.SelectedBatchName = remainingProdInfoObj.SelectedBatchName
+                    objBatchDetails.SelectedInvName = remainingProdInfoObj.SelectedInventoryName
+                    item.batchDetailsList.append(objBatchDetails)
+                }
+            }
+            manifestDetailsTable.reloadData()
+                }else{
+                    self.showAlert(title: "Message", message: "Same record is previously added, please select diffrent batch", closure: {})
+                }
+                    
+            }
+             else{
+                self.showAlert(title: "Message", message: "No remaining qty found for product", closure: {})
+            }
+            
+        }else{
+            self.showAlert(title: "Message", message: "Please select inventory and batch", closure: {})
+        }
+        
+    }
+    
+    func isSameBatchAndInventory(tag : Int) -> Bool{
+        let obj = invoiceSelectedItemList[tag]
+        let selectedInvId = obj.SelectedInventoryId
+        let selectedBatchId = obj.SelectedBatchId
+
+        let objprodmetric = objproductMetrcInfoList[tag]
+        let list = objprodmetric.batchDetailsList
+        if list.count == 0{
+            return true
+        }else{
+            
+            for item in list{
+                if item.overrideInventoryId == selectedInvId && item.batchId  == selectedBatchId{
+                   return false
+                }
+                
+            }
+        }
+        
+        return true
+    }
+    
+    func validateBatchandInv(tag : Int) -> Bool{
+        let obj = invoiceSelectedItemList[tag]
+        if obj.SelectedInventoryId != "" && obj.SelectedBatchId != ""{
+            return true
+        }
+        return false
+    }
+    
+    @IBAction func textChange(_ sender: MyCustomTextField) {
+        if sender.text != ""{
+        if !self.isValidAmount(textfield: sender){
+           sender.text = ""
+        }
+    }
+  }
+
 }
 
 extension CreateManifestDetailsVC : UITableViewDelegate,UITableViewDataSource{
@@ -187,7 +385,7 @@ extension CreateManifestDetailsVC : UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return objproductMetrcInfoList[section].batchDetailsList.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -195,11 +393,14 @@ extension CreateManifestDetailsVC : UITableViewDelegate,UITableViewDataSource{
             let prodHeaderCell = self.manifestDetailsTable.dequeueReusableCell(withIdentifier: "SMHeaderProductCell") as! SMHeaderProductCell
              let remainigItem = invoiceSelectedItemList[indexPath.section]
             //Tags
+            prodHeaderCell.btnAdd.tag = indexPath.section
 
             //Data
             prodHeaderCell.lblProductName.text = remainigItem.productName
             prodHeaderCell.lblOrderedQty.text = "\(remainigItem.requestQuantity)"
             prodHeaderCell.lblRemainingQty.text = "\(remainigItem.remainingQuantity)"
+            prodHeaderCell.txtSelectBatch.text = "\(remainigItem.SelectedBatchName ?? "")"
+            prodHeaderCell.txtSelectInventory.text = "\(remainigItem.SelectedInventoryName ?? "")"
             
             prodHeaderCell.txtSelectBatch.delegate = self
             prodHeaderCell.txtSelectInventory.delegate = self
@@ -216,9 +417,26 @@ extension CreateManifestDetailsVC : UITableViewDelegate,UITableViewDataSource{
             return prodHeaderCell
         }else{
             let prodHeaderDetailCell = self.manifestDetailsTable.dequeueReusableCell(withIdentifier: "SMDetaildProductCell") as! SMDetaildProductCell
-            prodHeaderDetailCell.txtActualQty.row = indexPath.row
+            prodHeaderDetailCell.txtActualQty.row = indexPath.row - 1
             prodHeaderDetailCell.txtActualQty.section = indexPath.section
+            prodHeaderDetailCell.btnSaveItem.section = indexPath.section
+            prodHeaderDetailCell.btnSaveItem.row = indexPath.row - 1
+            
+            //set data
+            let objbatchDetailList = objproductMetrcInfoList[indexPath.section].batchDetailsList
+            prodHeaderDetailCell.lblBatchName.text = objbatchDetailList[indexPath.row - 1].SelectedBatchName
+            prodHeaderDetailCell.lblInventoryName.text = objbatchDetailList[indexPath.row - 1].SelectedInvName
+            prodHeaderDetailCell.lblAvailabelBatchQty.text = "\(objbatchDetailList[indexPath.row - 1].BatchActualQty)"
             prodHeaderDetailCell.setupUI()
+        
+            //hide show cell
+            prodHeaderDetailCell.isUserInteractionEnabled = true
+            prodHeaderDetailCell.containtView.alpha = 1.0
+            if objbatchDetailList[indexPath.row - 1].isSaved{
+                prodHeaderDetailCell.isUserInteractionEnabled = false
+                prodHeaderDetailCell.containtView.alpha = 0.4
+            }
+            
             return prodHeaderDetailCell
         }
     }
@@ -243,4 +461,9 @@ class Batchobject {
     var inventoryQty : Double?
     var batchDate : String?
     var batchSku : String?
+}
+
+class myCustombutton : UIButton{
+    var row : Int?
+    var section : Int?
 }

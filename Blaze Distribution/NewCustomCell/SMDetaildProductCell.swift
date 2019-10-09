@@ -25,6 +25,8 @@ class SMDetaildProductCell: UITableViewCell {
     @IBOutlet weak var lblAvailabelBatchQty: UILabel!
     //@IBOutlet weak var txtActualQty: UITextField!
     @IBOutlet weak var txtActualQty: MyCustomTextField!
+    @IBOutlet weak var btnSaveItem: myCustombutton!
+    @IBOutlet weak var containtView: UIView!
     
     
     
@@ -32,5 +34,7 @@ class SMDetaildProductCell: UITableViewCell {
         self.txtActualQty.layer.borderColor = UIColor.APPGreenColor.cgColor
         self.txtActualQty.layer.borderWidth = 1.0
         self.txtActualQty.layer.cornerRadius = 5.0
+        
+        self.btnSaveItem.layer.cornerRadius = 5.0
     }
 }

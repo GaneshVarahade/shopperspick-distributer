@@ -18,8 +18,11 @@ public class ModelRemainingProduct: ModelBase{
     
     @objc public dynamic var SelectedInventoryId:String? = ""
     @objc public dynamic var SelectedInventoryName:String? = ""
+    @objc public dynamic var SelectedBatchSKU:String? = ""
     @objc public dynamic var SelectedBatchId:String? = ""
-     @objc public dynamic var SelectedBatchName:String? = ""
+    @objc public dynamic var SelectedBatchName:String? = ""
+    @objc public dynamic var SelectedBatchQty:Double = 0
+    
     
     @objc public dynamic var isSelected:Bool = false
     
@@ -40,6 +43,8 @@ public class ModelRemainingProduct: ModelBase{
         modelRemainingProduct.SelectedInventoryName = self.SelectedInventoryName
         modelRemainingProduct.SelectedBatchId = self.SelectedBatchId
         modelRemainingProduct.SelectedBatchName =  self.SelectedBatchName
+        modelRemainingProduct.SelectedBatchSKU = self.SelectedBatchSKU
+        modelRemainingProduct.SelectedBatchQty = self.SelectedBatchQty
         return modelRemainingProduct
     }
 }
