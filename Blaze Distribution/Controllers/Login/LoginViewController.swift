@@ -24,8 +24,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        //txtEmail.text       = "test@test.com"
-        //txtPassword.text    = "test"
+        txtEmail.text       = "test@test.com"
+        txtPassword.text    = "test"
         labelVersion.text   = Versionutils.getAppVersion()
         
     }

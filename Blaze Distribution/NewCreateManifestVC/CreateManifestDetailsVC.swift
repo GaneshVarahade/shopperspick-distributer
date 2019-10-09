@@ -21,7 +21,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     var modelShippingMenifest: ModelShipingMenifest!
     var invoiceSelectedItemList = List<ModelRemainingProduct>()
     var inventoryObject : ResponseGetAllInvetory!
-    var batchObjectList : [Batchobject]!
+    var batchObjectList : [Batchobject] = []
     
     //Onjcets
     var pickerView: UIPickerView = UIPickerView()
@@ -61,26 +61,49 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
         }
     }
     
-    func fetchBatcList(productId : String, invID : String) -> [Batchobject]{
+    func fetchBatcList(productId : String, invID : String){
+
         self.batchObjectList.removeAll()
                 let requestObj = RequestGetallBatches()
                 requestObj.productId = productId
+                SKActivityIndicator.show()
                 WebServicesAPI.sharedInstance().getAllBtachesByProdId(request: requestObj, onComplition: { (
                     response : ResponseGetAllBatches?, error : PlatformError?) in
 //                    print(response)
 //                    let keyArr : Array = response!.values!
+                    SKActivityIndicator.dismiss()
                     if error == nil{
                         if let arrValue = response!.values{
-                            for item in arrValue{
-                                let invMap = item
+                            for itemBatch in arrValue{
+                               let mapobject = itemBatch.batchQuantityMap
+                                if mapobject != nil{
+                                    let key = mapobject?.keys
+                                    if key!.count > 0{
+                                        for item in key!{
+                                            let invqty = mapobject?[item]
+                                            if invqty! > 0{
+                                                let objbatch = Batchobject()
+                                                objbatch.batchId = itemBatch.id
+                                                objbatch.batchSku = itemBatch.sku
+                                                objbatch.inventoryQty = Double(invqty!)
+                                                objbatch.orderInventoryId = item
+                                                let batchDate = DateFormatterUtil.format(dateTime: Double(itemBatch.created! / 1000), format: DateFormatterUtil.mmddyyyy)
+                                                objbatch.batchDate = "\(itemBatch.sku ?? "")-\(batchDate)"
+                                                self.batchObjectList.append(objbatch)
+                                                
+                                            }
+                                        }
+                                    }
+                                }
                                 
                             }
                             
                         }
                     }
+                    self.pickerView.reloadAllComponents()
              })
         
-        return batchObjectList
+        
     }
     //MARK:- PickerViewDelegate
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -88,11 +111,19 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.inventoryObject.values?.count ?? 0
+        if pickerView.tag == INVENTORYTEXTFIELD{
+           return self.inventoryObject.values?.count ?? 0
+        }else{
+           return self.batchObjectList.count ?? 0
+        }
     }
     
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.inventoryObject.values![row].name
+         if pickerView.tag == INVENTORYTEXTFIELD{
+              return self.inventoryObject.values![row].name
+         }else{
+              return self.batchObjectList[row].batchDate
+        }
     }
     
 
@@ -107,10 +138,13 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     */
     
     //MARK:- Textfield delegate
-    @objc func InventoryPickerButtonTapped(){
+    @objc func InventoryPickerButtonTapped(_ sender : MyCustomTextField){
+        let tag = sender.section
+        
         
     }
-    @objc func BatchPickerButtonTapped(){
+    @objc func BatchPickerButtonTapped(_ sender : MyCustomTextField){
+        let tag = sender.section
         
     }
     
@@ -123,8 +157,15 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
             return true
         }else if textF.tag == BATCHTEXTFIELD{
             //call batch API
+            pickerView.tag = BATCHTEXTFIELD
+            var productId = ""
+            let section = textF.section
+            productId = invoiceSelectedItemList[section!].productId ?? ""
             
-            return false
+            var selectedInventoryId = "5d52826cdc4f2a7d6e0a22fc"
+            self.fetchBatcList(productId: productId, invID: selectedInventoryId)
+            
+            return true
         }else{
             return true
         }
@@ -141,11 +182,12 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
 extension CreateManifestDetailsVC : UITableViewDelegate,UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        
         return invoiceSelectedItemList.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -164,11 +206,11 @@ extension CreateManifestDetailsVC : UITableViewDelegate,UITableViewDataSource{
             
             prodHeaderCell.txtSelectInventory.inputView = pickerView
             prodHeaderCell.txtSelectInventory.section = indexPath.section
-            prodHeaderCell.txtSelectInventory.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(InventoryPickerButtonTapped))
+            prodHeaderCell.txtSelectInventory.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(InventoryPickerButtonTapped(_:)))
 
             prodHeaderCell.txtSelectBatch.inputView = pickerView
             prodHeaderCell.txtSelectBatch.section = indexPath.section
-            prodHeaderCell.txtSelectBatch.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(BatchPickerButtonTapped))
+            prodHeaderCell.txtSelectBatch.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(BatchPickerButtonTapped(_:)))
            
             prodHeaderCell.setUI()
             return prodHeaderCell
