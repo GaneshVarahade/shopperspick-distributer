@@ -11,6 +11,7 @@ import Foundation
 public class UtilityUserDefaults {
     
     public static let TOKEN:String = "TOKEN"
+    public static let MANIFESTID:String = "MANIFESTID"
     private static var util:UtilityUserDefaults!
     private init(){}
     
@@ -27,6 +28,15 @@ public class UtilityUserDefaults {
     }
     public func getToken() -> String?{
         return UserDefaults.standard.string(forKey: UtilityUserDefaults.TOKEN)
+        
+    }
+    
+    public func saveManifestId(manifestId:String){
+        UserDefaults.standard.set(manifestId, forKey: UtilityUserDefaults.MANIFESTID)
+        UserDefaults.standard.synchronize()
+    }
+    public func getManifestId() -> String?{
+        return UserDefaults.standard.string(forKey: UtilityUserDefaults.MANIFESTID)
         
     }
 }

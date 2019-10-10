@@ -11,6 +11,10 @@ import RealmSwift
 import Realm
 import SKActivityIndicatorView
 
+protocol newProtocolConfirmManifest {
+    func newShippingManifest(objShip:ModelShipingMenifest)
+}
+
 class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate {
     
     @IBOutlet weak var manifestDetailsTable: UITableView!
@@ -23,6 +27,8 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     var inventoryObject : ResponseGetAllInvetory!
     var batchObjectList : [Batchobject] = []
     var objproductMetrcInfoList = List<ModelProductMetrcInfo>()
+    
+    var confirmManifetsDetailDelegate : newProtocolConfirmManifest!
     
     //Onjcets
     var pickerView: UIPickerView = UIPickerView()
@@ -99,8 +105,9 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
                                                 objbatch.batchSku = itemBatch.sku
                                                 objbatch.inventoryQty = Double(invqty!)
                                                 objbatch.orderInventoryId = item
+                                                let qty = "\( Double(invqty!))"
                                                 let batchDate = DateFormatterUtil.format(dateTime: Double(itemBatch.created! / 1000), format: DateFormatterUtil.mmddyyyy)
-                                                objbatch.batchDate = "\(itemBatch.sku ?? "")-\(batchDate)"
+                                                objbatch.batchDate = "\(itemBatch.sku ?? "") - \(qty)"
                                                 self.batchObjectList.append(objbatch)
                                                 
                                             }
@@ -297,12 +304,53 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     
     @IBAction func btnConfirmAllTapped(_ sender: Any) {
         if canconfirmmanifest(){
-            print(modelShippingMenifest)
-            
+            if isalllineitemsaved(){
+                self.showAlert(title: "Message", message:"Are you sure you want to finalize the shipping manifest, It can't be edited after that?", actions:[UIAlertActionStyle.cancel,UIAlertActionStyle.default], closure:{ action in
+                    switch action {
+                    case .default :
+                        print("default")
+                        print(self.modelShippingMenifest)
+                        self.modelShippingMenifest.updated = true
+                        self.modelShippingMenifest.productMetrcInfoList = self.objproductMetrcInfoList
+                        self.confirmManifetsDetailDelegate.newShippingManifest(objShip: self.modelShippingMenifest)
+                        
+                            for controller in self.navigationController!.viewControllers{
+                                                        if controller.isKind(of: InvoiceDetailsTableViewController.self){
+                                                            self.navigationController!.popToViewController(controller, animated: true)
+                                                    }
+                                            }
+                        
+                    case .cancel :
+                        print("cancel")
+                        
+                    case .destructive :
+                        print("Destructive")
+                    }
+                    
+                })
+                
+            }else{
+                self.showAlert(title: "Message", message: "Please make sure you saved all added product", closure: {})
+            }
+
         }else{
             self.showAlert(title: "Message", message: "No batches added, please add batch to proceed further", closure:{})
-        }
+        } 
     }
+    
+    func isalllineitemsaved()->Bool{
+        var saved = true
+        for item in objproductMetrcInfoList{
+            for obj in item.batchDetailsList{
+                if obj.isSaved == false{
+                    saved = false
+                }
+            }
+        }
+        
+        return saved
+    }
+    
     @IBAction func btnaddBatchTapped(_ sender: Any) {
         let button = sender as! UIButton
         if validateBatchandInv(tag: button.tag){
@@ -427,6 +475,7 @@ extension CreateManifestDetailsVC : UITableViewDelegate,UITableViewDataSource{
             prodHeaderDetailCell.lblBatchName.text = objbatchDetailList[indexPath.row - 1].SelectedBatchName
             prodHeaderDetailCell.lblInventoryName.text = objbatchDetailList[indexPath.row - 1].SelectedInvName
             prodHeaderDetailCell.lblAvailabelBatchQty.text = "\(objbatchDetailList[indexPath.row - 1].BatchActualQty)"
+            prodHeaderDetailCell.txtActualQty.text = "\(objbatchDetailList[indexPath.row - 1].UserEnterQty)"
             prodHeaderDetailCell.setupUI()
         
             //hide show cell

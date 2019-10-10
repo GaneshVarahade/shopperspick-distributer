@@ -14,7 +14,7 @@ public class RequestShippingMainfestSelectedItem: BaseRequest {
       //public   var productName:String? = ""
      // public   var remainingQuantity:Double = 0.0
       public var quantity:Double = 0.0
-      public var batchDetails:[RequestBatchDetails]?
+      public var batchDetails = [RequestBatchDetails]()
      // public   var isSelected:Bool = false
 }
 

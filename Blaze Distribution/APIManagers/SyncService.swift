@@ -362,35 +362,55 @@ public final class SyncService {
                     requestModelShippingMainfest.receiverInformation = requestReciverInfo
                     
                     //add shiping selected items
-                    //Payment info list
-                    for selectedItem in shiping.selectedItems {
-                        let requestSelectedItemsShipping: RequestShippingMainfestSelectedItem = RequestShippingMainfestSelectedItem()
-                        requestSelectedItemsShipping.productId = selectedItem.productId
-                        
-                        var orderItemId = ""
-                        if (model.items.count > 0){
-                            for items in model.items{
-                                if let itemId = selectedItem.productId{
-                                    if items.productId == itemId{
-                                        orderItemId = items.orderItemId ?? ""
-                                    }
-                                }
-                            }
-                        }
-                        
-                        requestSelectedItemsShipping.orderItemId = orderItemId
-                        //requestSelectedItemsShipping.productName = selectedItem.productName
-                        //requestSelectedItemsShipping.remainingQuantity = selectedItem.remainingQuantity
-                        requestSelectedItemsShipping.quantity = selectedItem.requestQuantity
-                        //requestSelectedItemsShipping.isSelected = selectedItem.isSelected
-                        
-//                        //for batch
-//                        for batch in selectedItem{
-//                            let batchRequest = RequestBatchDetails()
-//                            bat
+//                    //Payment info list
+//                    for selectedItem in shiping.selectedItems {
+//                        let requestSelectedItemsShipping: RequestShippingMainfestSelectedItem = RequestShippingMainfestSelectedItem()
+//                        requestSelectedItemsShipping.productId = selectedItem.productId
+//
+//                        var orderItemId = ""
+//                        if (model.items.count > 0){
+//                            for items in model.items{
+//                                if let itemId = selectedItem.productId{
+//                                    if items.productId == itemId{
+//                                        orderItemId = items.orderItemId ?? ""
+//                                    }
+//                                }
+//                            }
 //                        }
+//
+//                        requestSelectedItemsShipping.orderItemId = orderItemId
+//                        requestSelectedItemsShipping.quantity = selectedItem.requestQuantity
+                    
+                    for selecteProdMetric in shiping.productMetrcInfoList{
+                        let objrequestprodinfo = RequestShippingMainfestSelectedItem()
+                            objrequestprodinfo.productId = selecteProdMetric.productId
                         
-                        requestModelShippingMainfest.productMetrcInfo.append(requestSelectedItemsShipping)
+                            var orderItemId = ""
+                            if (model.items.count > 0){
+                                for items in model.items{
+                                    if let itemId = selecteProdMetric.productId{
+                                        if items.productId == itemId{
+                                           orderItemId = items.orderItemId ?? ""
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                        
+                            objrequestprodinfo.orderItemId = orderItemId
+                            objrequestprodinfo.quantity = selecteProdMetric.quantity
+                        
+                        for item in selecteProdMetric.batchDetailsList{
+                             let objbatch = RequestBatchDetails()
+                                 objbatch.batchId = item.batchId
+                                 objbatch.batchSku = item.batchSku
+                                 objbatch.metrcLabel = item.metrcLabel
+                                 objbatch.quantity = item.quantity
+                                 objbatch.prepackageItemId = item.prepackageItemId
+                                 objbatch.overrideInventoryId = item.overrideInventoryId
+                                 objrequestprodinfo.batchDetails.append(objbatch)
+                         }
+                    
+                        requestModelShippingMainfest.productMetrcInfo.append(objrequestprodinfo)
                     }
                     
                     requestInvoice.addShippingManifestRequest.append(requestModelShippingMainfest)
@@ -404,7 +424,6 @@ public final class SyncService {
         
         WebServicesAPI.sharedInstance().BulkPostAPI(request: requestModel) {
             (result:ResponseBulkRequest?,error:PlatformError?) in
-            
             //DispatchQueue.global(qos: .userInitiated).async {
                 
                 // for inventoryTransferError object
@@ -1047,7 +1066,7 @@ public final class SyncService {
                                 for prodInfo in prodMetrictInfo{
                                     //Write product metric info
                                     let objProdInfo = ModelProductMetrcInfo()
-                                    objProdInfo.id = prodInfo.productId
+                                    objProdInfo.id = HexGenerator.sharedInstance().generate()
                                     objProdInfo.productId = prodInfo.productId
                                     objProdInfo.orderItemId = prodInfo.orderItemId
                                     objProdInfo.quantity = prodInfo.quantity ?? 0
@@ -1056,7 +1075,7 @@ public final class SyncService {
                                         for batch in batchDetails{
                                             //Write batch details
                                             let objbatch = ModelBatchDetails()
-                                            objbatch.id = batch.batchId
+                                            objbatch.id = HexGenerator.sharedInstance().generate()
                                             objbatch.batchId = batch.batchId
                                             objbatch.batchSku = batch.batchSku
                                             objbatch.metrcLabel = batch.metrcLabel

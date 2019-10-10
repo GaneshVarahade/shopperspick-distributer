@@ -139,18 +139,18 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     }
 
     @objc func back(sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: "Alert", message: "Do you want to save your current progress?", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "YES", style: .cancel) { (action:UIAlertAction) in
-            //save data in process
-            self.updateCurrentManifest()
+//        let alertController = UIAlertController(title: "Alert", message: "Do you want to save your current progress?", preferredStyle: .alert)
+//        let yesAction = UIAlertAction(title: "YES", style: .cancel) { (action:UIAlertAction) in
+//            //save data in process
+//            self.updateCurrentManifest()
             self.navigationController?.popViewController(animated: true)
-        }
-        let noAction = UIAlertAction(title: "No, Thanks", style: .destructive) { (action:UIAlertAction) in
-            self.navigationController?.popViewController(animated: true)
-        }
-        alertController.addAction(yesAction)
-        alertController.addAction(noAction)
-        self.present(alertController, animated: true, completion: nil)
+//        }
+//        let noAction = UIAlertAction(title: "No, Thanks", style: .destructive) { (action:UIAlertAction) in
+//            self.navigationController?.popViewController(animated: true)
+//        }
+//        alertController.addAction(yesAction)
+//        alertController.addAction(noAction)
+//        self.present(alertController, animated: true, completion: nil)
     }
 
     // MARK: - UI Update

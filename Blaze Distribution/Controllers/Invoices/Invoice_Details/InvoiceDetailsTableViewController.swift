@@ -108,63 +108,63 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
     
     @IBAction func onCompleteInvoicePressed(sender: Any){
         
-        guard let tempData = tempData else {
-            return
-        }
-        tempData.updated = true
-        tempData.putBulkError = ""
-        RealmManager().write(table: tempData)
-        //Write timeStamp
-        UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.Invoices.rawValue , objectId: tempData.id, lastSynch:nil)
-        
-        RealmManager().read(type: ModelInvoice.self, primaryKey: tempData.invoiceNumber!)
-        
-        let sigmodel = getModelSignature()
-        if sigmodel.count > 0{
-            
-            //Create request for signature
-                    let arrayModelSignature = sigmodel
-                    let requestSignature = RequestSignature()
-                    var modelSign = ModelSignature()
-                    modelSign = arrayModelSignature[0]
-                    requestSignature.name = modelSign.name
-                    requestSignature.invoiceId = modelSign.invoiceId
-                    requestSignature.shippingMainfestId = modelSign.shippingMainfestId
-            
-            SKActivityIndicator.show()
-            SyncService.sharedInstance().postInvoiceWithSignature(requestSignature: requestSignature, sigId: modelSign.id!) { (error : PlatformError?) in
-                if error != nil{
-                    SKActivityIndicator.dismiss()
-                    self.showAlert(title: "Message", message: "Error while upload image", closure: {})
-                }else{
-                    SyncService.sharedInstance().callPostAPI(completion: { (error1 :PlatformError?) in
-                        if error1 != nil{
-                            SKActivityIndicator.dismiss()
-                            self.showAlert(title: "Message", message: NSLocalizedString("ServerError", comment: ""), closure: {})
-                        }else{
-                            SKActivityIndicator.dismiss()
-                            SyncService.sharedInstance().syncData()
-                            self.navigationController?.popViewController(animated: true)
-                        }
-                    })
-                    
-                }
-            }
-        }else{
-            SyncService.sharedInstance().callPostAPI(completion: { (error1 :PlatformError?) in
-                if error1 != nil{
-                    SKActivityIndicator.dismiss()
-                    self.showAlert(title: "Message", message: NSLocalizedString("ServerError", comment: ""), closure: {})
-                }else{
-                    SKActivityIndicator.dismiss()
-                    SyncService.sharedInstance().syncData()
-                    self.navigationController?.popViewController(animated: true)
-                }
-            })
-        }
-        //SyncService.sharedInstance().syncData()
-        
-        
+//        guard let tempData = tempData else {
+//            return
+//        }
+//        tempData.updated = true
+//        tempData.putBulkError = ""
+//        RealmManager().write(table: tempData)
+//        //Write timeStamp
+//        UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.Invoices.rawValue , objectId: tempData.id, lastSynch:nil)
+//
+//        RealmManager().read(type: ModelInvoice.self, primaryKey: tempData.invoiceNumber!)
+//
+//        let sigmodel = getModelSignature()
+//        if sigmodel.count > 0{
+//
+//            //Create request for signature
+//                    let arrayModelSignature = sigmodel
+//                    let requestSignature = RequestSignature()
+//                    var modelSign = ModelSignature()
+//                    modelSign = arrayModelSignature[0]
+//                    requestSignature.name = modelSign.name
+//                    requestSignature.invoiceId = modelSign.invoiceId
+//                    requestSignature.shippingMainfestId = modelSign.shippingMainfestId
+//
+//            SKActivityIndicator.show()
+//            SyncService.sharedInstance().postInvoiceWithSignature(requestSignature: requestSignature, sigId: modelSign.id!) { (error : PlatformError?) in
+//                if error != nil{
+//                    SKActivityIndicator.dismiss()
+//                    self.showAlert(title: "Message", message: "Error while upload image", closure: {})
+//                }else{
+//                    SyncService.sharedInstance().callPostAPI(completion: { (error1 :PlatformError?) in
+//                        if error1 != nil{
+//                            SKActivityIndicator.dismiss()
+//                            self.showAlert(title: "Message", message: NSLocalizedString("ServerError", comment: ""), closure: {})
+//                        }else{
+//                            SKActivityIndicator.dismiss()
+//                            SyncService.sharedInstance().syncData()
+//                            self.navigationController?.popViewController(animated: true)
+//                        }
+//                    })
+//
+//                }
+//            }
+//        }else{
+//            SyncService.sharedInstance().callPostAPI(completion: { (error1 :PlatformError?) in
+//                if error1 != nil{
+//                    SKActivityIndicator.dismiss()
+//                    self.showAlert(title: "Message", message: NSLocalizedString("ServerError", comment: ""), closure: {})
+//                }else{
+//                    SKActivityIndicator.dismiss()
+//                    SyncService.sharedInstance().syncData()
+//                    self.navigationController?.popViewController(animated: true)
+//                }
+//            })
+//        }
+//        //SyncService.sharedInstance().syncData()
+//
+//
        
     }
     
@@ -253,7 +253,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
         else if segue.identifier == "addManifestInfoSegue" {
             let obj = segue.destination as! ShippingManifestViewController
             obj.invoiceDetailsDict = tempData
-            obj.shippiingMenifestConfirm = self
+            obj.newShipDelaget = self
             
             if let sender = sender as? ModelShipingMenifest {
                 obj.isAddManifest = false
@@ -379,9 +379,12 @@ extension InvoiceDetailsTableViewController{
     }
     
     func getDataFromAddPayment(dataDict: ModelInvoice) {
+        
         tempData = dataDict
         paymentItemsVC?.getDataForInvoicePayments(dataDict: tempData!)
         self.tableView.reloadData()
+        self.saveData()
+//        self.showAlert(title: "Message", message: "Click Complete Shipment/Payment button to complete this payment", closure: {})
 
     }
     func getDataFromShippingList(dataDict: ModelInvoice?){
@@ -392,4 +395,89 @@ extension InvoiceDetailsTableViewController{
         shippingItemsVC?.shippingList(shippingData: dataDict.shippingManifests)
         self.tableView.reloadData()
     }
+    
+    
+    func saveData(){
+        guard let tempData = tempData else {
+            return
+        }
+        tempData.updated = true
+        tempData.putBulkError = ""
+        RealmManager().write(table: tempData)
+        //Write timeStamp
+        UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.Invoices.rawValue , objectId: tempData.id, lastSynch:nil)
+        
+        RealmManager().read(type: ModelInvoice.self, primaryKey: tempData.invoiceNumber!)
+        
+        let sigmodel = getModelSignature()
+        if sigmodel.count > 0{
+            
+            //Create request for signature
+            let arrayModelSignature = sigmodel
+            let requestSignature = RequestSignature()
+            var modelSign = ModelSignature()
+            modelSign = arrayModelSignature[0]
+            requestSignature.name = modelSign.name
+            requestSignature.invoiceId = modelSign.invoiceId
+            requestSignature.shippingMainfestId = modelSign.shippingMainfestId
+            
+            SKActivityIndicator.show()
+            SyncService.sharedInstance().postInvoiceWithSignature(requestSignature: requestSignature, sigId: modelSign.id!) { (error : PlatformError?) in
+                if error != nil{
+                    SKActivityIndicator.dismiss()
+                    self.showAlert(title: "Message", message: "Error while upload image", closure: {})
+                }else{
+                    SyncService.sharedInstance().callPostAPI(completion: { (error1 :PlatformError?) in
+                        if error1 != nil{
+                            SKActivityIndicator.dismiss()
+                            self.showAlert(title: "Message", message: NSLocalizedString("ServerError", comment: ""), closure: {})
+                        }else{
+                            SKActivityIndicator.dismiss()
+                            SyncService.sharedInstance().syncData()
+                            self.showAlert(title: "Message", message: "Submitted successfully", closure: {
+                                 self.navigationController?.popViewController(animated: true)
+                            })
+                            
+                        }
+                    })
+                    
+                }
+            }
+        }else{
+            SyncService.sharedInstance().callPostAPI(completion: { (error1 :PlatformError?) in
+                if error1 != nil{
+                    SKActivityIndicator.dismiss()
+                    self.showAlert(title: "Message", message: NSLocalizedString("ServerError", comment: ""), closure: {})
+                }else{
+                    SKActivityIndicator.dismiss()
+                    SyncService.sharedInstance().syncData()
+                    self.showAlert(title: "Message", message: "Submitted successfully", closure: {
+                        self.navigationController?.popViewController(animated: true)
+                    })
+                }
+            })
+        }
+        //SyncService.sharedInstance().syncData()
+        
+    }
 }
+
+extension InvoiceDetailsTableViewController : newConfirmFinalProtocol{
+    func confirmShip(objShip: ModelShipingMenifest) {
+        print("in final vc")
+        for obj in objShip.selectedItems {
+            
+            for product in (tempData?.remainingProducts)! {
+                if obj.productId == product.productId {
+                    product.remainingQuantity -= obj.requestQuantity
+                }
+            }
+        }
+        tempData?.shippingManifests.append(objShip)
+        saveData()
+//        self.showAlert(title: "Message", message: "Click Complete Shipment/Payment button to complete this Shipping manifest", closure: {})
+    }
+
+}
+
+
