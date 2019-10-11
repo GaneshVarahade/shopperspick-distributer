@@ -4013,7 +4013,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VJf-EL-dZA" customClass="UIViewX" customModule="BLAZE_Distribution" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="1" width="414" height="51.666666666666664"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manifest Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9zx-CB-KAm">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Manifest Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9zx-CB-KAm">
                                                             <rect key="frame" x="16" y="5" width="382" height="41.666666666666664"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                             <color key="textColor" red="0.039215686270000001" green="0.51764705879999995" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -4528,7 +4528,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fLP-cF-XbJ" customClass="UIViewX" customModule="BLAZE_Distribution" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="1" width="414" height="49.666666666666664"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receiver Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4HH-5p-eGW">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Receiver Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4HH-5p-eGW">
                                                             <rect key="frame" x="16" y="5" width="382" height="39.666666666666664"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                             <color key="textColor" red="0.039215686270000001" green="0.51764705879999995" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -4828,7 +4828,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LzR-Ot-Zta" customClass="UIViewX" customModule="BLAZE_Distribution" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="1" width="414" height="49.666666666666664"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Driver Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ysi-D0-iLg">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Driver Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ysi-D0-iLg">
                                                             <rect key="frame" x="16" y="5" width="382" height="39.666666666666664"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                             <color key="textColor" red="0.039215686270000001" green="0.51764705879999995" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -5185,7 +5185,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Yg-aJ-wes" customClass="UIViewX" customModule="BLAZE_Distribution" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="1" width="414" height="49.666666666666664"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWY-QD-jBQ">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Signature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWY-QD-jBQ">
                                                             <rect key="frame" x="16" y="5" width="328" height="39.666666666666664"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                             <color key="textColor" red="0.039215686270000001" green="0.51764705879999995" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>

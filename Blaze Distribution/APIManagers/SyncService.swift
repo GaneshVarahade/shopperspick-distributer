@@ -354,7 +354,10 @@ public final class SyncService {
                     
                     //separate Shipping and reciving data
                     let requestSipperInfo : RequestShipperInformation = RequestShipperInformation()
-                    requestSipperInfo.companyId = model.companyId
+                    requestSipperInfo.companyId = shiping.shippercompanyId
+                    requestSipperInfo.customerCompanyId = shiping.shippercustomerCompanyId
+                    requestSipperInfo.companyContactId = shiping.shippercompanyContactId
+                    
                     requestModelShippingMainfest.shipperInformation = requestSipperInfo
                     
                     let requestReciverInfo : RequestReceiverInformation = RequestReceiverInformation()
@@ -1108,6 +1111,13 @@ public final class SyncService {
                                 shipMen.receiverAddress?.address = add.address
                                 shipMen.receiverAddress?.state   = add.state
                             }
+                            
+                            if let add = ship.shipperInformation{
+                                shipMen.shippercompanyId     = add.companyId
+                                shipMen.shippercustomerCompanyId    = add.customerCompanyId
+                                shipMen.shippercompanyContactId = add.companyContactId
+                            }
+                            
                             model.shippingManifests.append(shipMen)
                         }
                     }

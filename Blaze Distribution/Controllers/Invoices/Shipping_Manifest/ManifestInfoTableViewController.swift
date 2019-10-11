@@ -92,6 +92,17 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             SKActivityIndicator.dismiss()
             if error == nil{
                 self.listallVendor = response?.values ?? []
+                
+                if !self.isAddManifest{
+                    if self.listallVendor.count > 0{
+                        for item in self.listallVendor{
+                            if item.id == self.selectedvendorId{
+                                //self.selectedvendorId  = item.id
+                                self.vendorDone(objvendor: item)
+                            }
+                        }
+                    }
+                }
             }else{
             
             }
@@ -136,23 +147,31 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         self.getManifestInProgress()
     }
     
+    func vendorDone(objvendor : AllVendor){
+        txtShipCompanyName.text = objvendor.name
+        txtShipCompanyType.text = objvendor.companyType ?? ""
+        txtShipLocense.text = objvendor.licenseNumber ?? ""
+        lblShipAddress.text = objvendor.address?.address ?? ""
+    }
+    
+    func companyContactDone(objcompany : AllCompanyContact){
+        txtShipContactName.text = "\(objcompany.firstName ?? "") \(objcompany.lastName ?? "")"
+        txtShipPhone.text = objcompany.phoneNumber
+    }
     @objc func vendorDoneBtnTapped(){
-        
         let selectedVendorObj = listallVendor[self.pickerView.selectedRow(inComponent: 0)]
         selectedvendorId = selectedVendorObj.id
-        txtShipCompanyName.text = selectedVendorObj.name
-        txtShipCompanyType.text = selectedVendorObj.companyType ?? ""
-        txtShipLocense.text = selectedVendorObj.licenseNumber ?? ""
-        lblShipAddress.text = selectedVendorObj.address?.address ?? ""
+        modelShippingMen?.shippercustomerCompanyId = selectedVendorObj.id
+        modelShippingMen?.shippercompanyId = ""
+        self.vendorDone(objvendor: selectedVendorObj)
         getContactListByVendor(vendorId: selectedvendorId)
     }
     
     @objc func companyContactDoneBtnTapped(){
         let contactObj = listcompanyDetail[self.pickerView.selectedRow(inComponent: 0)]
         selectedCustContactId = contactObj.id
-        txtShipContactName.text = "\(contactObj.firstName ?? "") \(contactObj.lastName ?? "")"
-        txtShipPhone.text = contactObj.phoneNumber
-        
+        modelShippingMen?.shippercompanyContactId = contactObj.id
+        self.companyContactDone(objcompany: contactObj)
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
@@ -264,11 +283,49 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     }
 
     // MARK: - UI Update
+    func setupshipperInfo(obj: ModelShipingMenifest){
+        if obj.shippercustomerCompanyId != nil && obj.shippercustomerCompanyId != ""{
+            self.selectedvendorId = obj.shippercustomerCompanyId
+//            if listallVendor.count > 0{
+//                for item in listallVendor{
+//                    if item.id == obj.shippercustomerCompanyId{
+//                        self.selectedvendorId  = item.id
+//                        //self.vendorDone(objvendor: item)
+//                    }
+//                }
+//            }
+        }
+    
+        if obj.shippercompanyContactId != nil && obj.shippercompanyContactId != ""{
+            SKActivityIndicator.show()
+            let req = RequestGetCompanyContact()
+            req.customerCompanyId = selectedvendorId
+            WebServicesAPI.sharedInstance().getCompanyContactList(request: req) { (response:ResponseGetCompanyContact?, error : PlatformError?) in
+                SKActivityIndicator.dismiss()
+                if error == nil{
+                    if (response?.values!.count)! > 0{
+                        for item in (response?.values!)!{
+                            if item.id == obj.shippercompanyContactId{
+                                self.companyContactDone(objcompany: item)
+                            }
+                        }
+                    }
+                
+                }else{
+                    self.showAlert(title: "Message", message: "No contacts found", closure: {})
+                }
+                
+            }
+        }
+    }
+    
     func setUI(manifestInfo: ModelShipingMenifest?) {
         
         guard let manifestInfo = manifestInfo else {
             return
         }
+        
+        self.setupshipperInfo(obj: manifestInfo)
         
         if let signImg = StoreImage.getSavedImage(name: manifestInfo.shippingManifestNo!) {
             //signatureBtn.setImage(signImg, for: .normal)

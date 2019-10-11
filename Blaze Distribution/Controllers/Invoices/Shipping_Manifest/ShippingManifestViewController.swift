@@ -67,7 +67,7 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
                     manifestInfoContainerView.isHidden = false
                     itemsToShipContainerView.isHidden = true
                     shippingSegmentControler.selectedSegmentIndex = 0
-                    self.showAlert(title: "Message", message: "Please fill all information to proceed further", closure:{})
+                    self.showAlert(title: "Message", message: "Please fill mandetory info to proceed further", closure:{})
                 }
             }else{
                 manifestInfoContainerView.isHidden = true

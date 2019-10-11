@@ -8,5 +8,7 @@
 
 import Foundation
 public class RequestShipperInformation: BaseRequest {
-    public   var companyId:String? = ""
+    public var companyId:String? = ""
+    public var customerCompanyId:String? = ""
+    public var companyContactId:String? = ""
 }

@@ -29,6 +29,13 @@ public class ModelShipingMenifest:ModelBase {
     @objc public dynamic var receiverContact:String?     
     @objc public dynamic var receiverLicense:String?  
     @objc public dynamic var invoiceStatus:String?
+    
+    @objc public dynamic var shippercompanyContactId : String? = ""
+    @objc public dynamic var shippercompanyId : String? = ""
+    @objc public dynamic var shippercustomerCompanyId : String? = ""
+    
+    
+    
     @objc public dynamic var signatureAsset:ModelSignatureAsset?
     
     var receiverAddress:ModelAddres?
@@ -63,6 +70,11 @@ public class ModelShipingMenifest:ModelBase {
         modelShipingMenifest.receiverAddress     = self.receiverAddress
         modelShipingMenifest.invoiceStatus       = self.invoiceStatus
         modelShipingMenifest.signatureAsset      = self.signatureAsset
+        
+        modelShipingMenifest.shippercompanyContactId = self.shippercompanyContactId
+        modelShipingMenifest.shippercompanyId = self.shippercompanyId
+        modelShipingMenifest.shippercustomerCompanyId = self.shippercustomerCompanyId
+        
         modelShipingMenifest.updated            = self.updated
         for item in self.selectedItems {
             modelShipingMenifest.selectedItems.append(item.copy() as! ModelRemainingProduct)

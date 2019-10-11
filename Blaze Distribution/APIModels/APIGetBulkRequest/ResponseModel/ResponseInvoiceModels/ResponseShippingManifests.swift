@@ -31,9 +31,27 @@ public class ResponseShippingManifests:BaseResponseModel{
     public var vehicleModel:String?
     public var vehicleLicensePlate:String?
     public var signaturePhoto:ResposeSignaturePhoto?
+    public var shipperInformation:ResponseShipperInfo?
     public var productMetrcInfo:[ResponseProductMetricInfo]?
 }
 
+
+public class ResponseShipperInfo : BaseResponseModel{
+    public var id: String?
+    
+    public var created: Int?
+    
+    public var modified: Int?
+    
+    public var deleted: Bool?
+    
+    public var updated: Bool?
+    
+    public var companyId: String?
+    public var customerCompanyId: String?
+    public var companyContactId: String?
+
+}
 public class ResponseProductMetricInfo : BaseResponseModel{
     public var id: String?
     
