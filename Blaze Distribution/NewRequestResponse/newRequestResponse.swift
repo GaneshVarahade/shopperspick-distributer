@@ -87,3 +87,100 @@ public class ResponseGetAllBatches : BaseResponseModel{
     public var shopId : String?
     public var values : [getbatches]?
 }
+
+
+public class RequestGetAllVendor : BaseRequest{
+   
+}
+public class ResponseGetAllVendor : BaseResponseModel{
+    public var id: String?
+    public var created: Int?
+    public var modified: Int?
+    public var deleted: Bool?
+    public var updated: Bool?
+    public var companyId: String?
+    public var values : [AllVendor]?
+
+}
+
+public class AllVendor : BaseResponseModel{
+    public var id: String?
+    
+    public var created: Int?
+    
+    public var modified: Int?
+    
+    public var deleted: Bool?
+    
+    public var updated: Bool?
+    
+    public var companyId: String?
+    
+    
+    public var companyType : String?
+    public var name :  String?
+    public var licenseNumber : String?
+    public var address : companyAddress?
+    
+    
+}
+
+public class companyAddress : BaseResponseModel{
+    public var id: String?
+    
+    public var created: Int?
+    
+    public var modified: Int?
+    
+    public var deleted: Bool?
+    
+    public var updated: Bool?
+    
+    public var companyId: String?
+    
+    public var address: String?
+    
+}
+
+
+//For company contact
+public class RequestGetCompanyContact : BaseRequest{
+    public var customerCompanyId : String?
+}
+
+public class ResponseGetCompanyContact : BaseResponseModel {
+    public var id: String?
+    
+    public var created: Int?
+    
+    public var modified: Int?
+    
+    public var deleted: Bool?
+    
+    public var updated: Bool?
+    
+    public var companyId: String?
+    
+    public var values : [AllCompanyContact]?
+
+}
+
+public class AllCompanyContact : BaseResponseModel{
+    public var id: String?
+    
+    public var created: Int?
+    
+    public var modified: Int?
+    
+    public var deleted: Bool?
+    
+    public var updated: Bool?
+    
+    public var companyId: String?
+    
+    
+    public var phoneNumber : String?
+    public var firstName : String?
+    public var lastName : String?
+
+}

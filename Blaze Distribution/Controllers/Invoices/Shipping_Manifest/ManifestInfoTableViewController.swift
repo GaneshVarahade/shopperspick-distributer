@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import Realm
+import SKActivityIndicatorView
                                
 protocol validateFieldsProtocol {
     func validateFields()
@@ -28,6 +29,26 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     var pickerView: UIPickerView = UIPickerView()
     var isProgressUpdate = Bool()
     var dateChange = false
+    
+    var listallVendor : [AllVendor] = []
+    var listcompanyDetail : [AllCompanyContact] = []
+    
+    let PICKERVENDOR = 1001
+    let PICKERCOMPANY = 1002
+    
+    var selectedvendorId : String? = ""
+    var selectedCompanyId : String? = ""
+    var selectedCustContactId : String? = ""
+    
+    //Shipper info object
+    @IBOutlet weak var txtShipCompanyName: UITextField!
+    @IBOutlet weak var txtShipContactName: UITextField!
+    @IBOutlet weak var txtShipCompanyType: UITextField!
+    @IBOutlet weak var txtShipLocense: UITextField!
+    @IBOutlet weak var txtShipPhone: UITextField!
+    @IBOutlet weak var lblShipAddress: UILabel!
+    
+    
     
     // MARK: - Outlets
     @IBOutlet weak var signatureImgView: UIImageView!
@@ -56,11 +77,40 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         super.viewDidLoad()
         self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         self.disableDriversTextField()
+        self.callgetAllVendorApi()
         deliveryDateTextField.inputView = datePicker
         datePicker.datePickerMode = .date
         deliveryTimeTextField.inputView = timePicker
         timePicker.datePickerMode = .time
         //self.getManifestInProgress()
+    }
+    
+    func callgetAllVendorApi(){
+        SKActivityIndicator.show()
+        let req = RequestGetAllVendor()
+        WebServicesAPI.sharedInstance().getAllVendor(request: req) { (response : ResponseGetAllVendor?,error : PlatformError?) in
+            SKActivityIndicator.dismiss()
+            if error == nil{
+                self.listallVendor = response?.values ?? []
+            }else{
+            
+            }
+        }
+    }
+    
+    func getContactListByVendor(vendorId : String?){
+        SKActivityIndicator.show()
+        let req = RequestGetCompanyContact()
+        req.customerCompanyId = vendorId
+        WebServicesAPI.sharedInstance().getCompanyContactList(request: req) { (response:ResponseGetCompanyContact?, error : PlatformError?) in
+            SKActivityIndicator.dismiss()
+            if error == nil{
+                self.listcompanyDetail = response?.values ?? []
+            }else{
+                self.showAlert(title: "Message", message: "No contacts found", closure: {})
+            }
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,7 +122,66 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         driverNameTextField.inputView = pickerView
         driverNameTextField.delegate = self
         driverNameTextField?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(doneButtonTapped))
+        
+        //for vendor text field
+        txtShipCompanyName.inputView = pickerView
+        txtShipCompanyName.delegate = self
+        txtShipCompanyName?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(vendorDoneBtnTapped))
+        
+        //for companyContact field
+        txtShipContactName.inputView = pickerView
+        txtShipContactName.delegate = self
+        txtShipContactName?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(companyContactDoneBtnTapped))
+        
         self.getManifestInProgress()
+    }
+    
+    @objc func vendorDoneBtnTapped(){
+        
+        let selectedVendorObj = listallVendor[self.pickerView.selectedRow(inComponent: 0)]
+        selectedvendorId = selectedVendorObj.id
+        txtShipCompanyName.text = selectedVendorObj.name
+        txtShipCompanyType.text = selectedVendorObj.companyType ?? ""
+        txtShipLocense.text = selectedVendorObj.licenseNumber ?? ""
+        lblShipAddress.text = selectedVendorObj.address?.address ?? ""
+        getContactListByVendor(vendorId: selectedvendorId)
+    }
+    
+    @objc func companyContactDoneBtnTapped(){
+        let contactObj = listcompanyDetail[self.pickerView.selectedRow(inComponent: 0)]
+        selectedCustContactId = contactObj.id
+        txtShipContactName.text = "\(contactObj.firstName ?? "") \(contactObj.lastName ?? "")"
+        txtShipPhone.text = contactObj.phoneNumber
+        
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
+        if textField.tag == PICKERVENDOR{
+            pickerView.tag = PICKERVENDOR
+            if listallVendor.count == 0{
+                self.view.endEditing(true)
+                self.showAlert(title: "Message", message: "No vendor found", closure: {})
+                return false
+            }
+            return true
+        }
+        if textField.tag == PICKERCOMPANY{
+            pickerView.tag = PICKERCOMPANY
+            if self.selectedvendorId == ""{
+                self.view.endEditing(true)
+                self.showAlert(title: "Message", message: "Please select company name first", closure: {})
+                return false
+            }
+            
+            if listcompanyDetail.count == 0{
+                self.view.endEditing(true)
+                self.showAlert(title: "Message", message: "No contact found", closure: {})
+                return false
+            }
+            return true
+        }
+        pickerView.tag = 1
+        return true
     }
     
     @objc func doneButtonTapped() {
@@ -471,11 +580,11 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 19
+        return 26
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 19 {
+        if indexPath.row == 26 {
             self.performSegue(withIdentifier: "addSignatureSegue", sender: nil)
         }
     }
@@ -593,14 +702,14 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
                 else {
                     return 45
             }
-            case 17:
+            case 24:
                 if deviceIdiom == .pad {
                     return 70
                 }
                 else {
                     return 60
             }
-            case 18:
+            case 25:
                 if deviceIdiom == .pad {
                     return 200
                 }
@@ -645,18 +754,35 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     }
     
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView.tag == PICKERVENDOR{
+           return listallVendor.count
+            
+        }else if pickerView.tag == PICKERCOMPANY{
+           return listcompanyDetail.count
+            
+        }
         return driverInfo.count
     }
     
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        if pickerView.tag == PICKERVENDOR{
+            return "\(listallVendor[row].name ?? "")"
+            
+        }else if pickerView.tag == PICKERCOMPANY{
+            return "\(listcompanyDetail[row].firstName ?? "") \(listcompanyDetail[row].lastName ?? "")"
+            
+        }
         return "\(driverInfo[row].driverName ?? "Not") \(driverInfo[row].driverLastName ?? "Available")"
         //return driverInfo[row].driverName ?? ""
     }
     
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView.tag != PICKERVENDOR && pickerView.tag != PICKERCOMPANY{
         if driverInfo.count > 0{
             self.selectedDriverInfo = driverInfo[row]
         }
+      }
        //print("\(modelLogin?.shops[row].name ?? "No Shop Name")")
     }
     

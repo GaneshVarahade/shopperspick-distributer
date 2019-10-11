@@ -192,6 +192,16 @@ class WebServicesAPI: NSObject {
         
     }
     
+    func getAllVendor(request:RequestGetAllVendor,onComplition:@escaping (_ result:ResponseGetAllVendor?, _ error:PlatformError?)-> ()){
+        makeRequest(Router.getAllVendor(request: request), callback: onComplition)
+        
+    }
+    
+    func getCompanyContactList(request:RequestGetCompanyContact,onComplition:@escaping (_ result:ResponseGetCompanyContact?, _ error:PlatformError?)-> ()){
+        makeRequest(Router.getCompanyContactList(request: request), callback: onComplition)
+        
+    }
+    
     func getAllBtachesByProdId(request:RequestGetallBatches,onComplition:@escaping (_ result:ResponseGetAllBatches?, _ error:PlatformError?)-> ()){
         makeRequest(Router.getAllBatchesByProdId(request: request), callback: onComplition)
         
