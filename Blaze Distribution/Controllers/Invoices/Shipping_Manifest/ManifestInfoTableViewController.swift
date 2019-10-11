@@ -77,6 +77,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     
     @objc func doneButtonTapped() {
         //save selected driver info
+        if self.driverInfo.count > 0{
         self.selectedDriverInfo = self.driverInfo[self.pickerView.selectedRow(inComponent: 0)]
         if let licenNumber = self.selectedDriverInfo {
             //set value to text field
@@ -99,7 +100,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         } else {
             return
         }
-    
+      }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -653,8 +654,10 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     }
     
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.selectedDriverInfo = driverInfo[row]
-        //print("\(modelLogin?.shops[row].name ?? "No Shop Name")")
+        if driverInfo.count > 0{
+            self.selectedDriverInfo = driverInfo[row]
+        }
+       //print("\(modelLogin?.shops[row].name ?? "No Shop Name")")
     }
     
 }

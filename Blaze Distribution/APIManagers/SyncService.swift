@@ -425,11 +425,11 @@ public final class SyncService {
         WebServicesAPI.sharedInstance().BulkPostAPI(request: requestModel) {
             (result:ResponseBulkRequest?,error:PlatformError?) in
             //DispatchQueue.global(qos: .userInitiated).async {
-                
+            
                 // for inventoryTransferError object
                 if let arrayInventory = result?.inventoryTransferError, arrayInventory.count > 0 {
                     for obj in arrayInventory {
-                        
+                    
                         //print(obj.request?.id ?? "",obj.error ?? "")
                         let modelInvetry = RealmManager().read(type: ModelInventoryTransfers.self, primaryKey: (obj.request?.id)!)
                         modelInvetry?.putBulkError = obj.error ?? ""
@@ -437,6 +437,10 @@ public final class SyncService {
                         RealmManager().write(table: modelInvetry!)
                         // print(RealmManager().read(type: ModelInventoryTransfers.self, primaryKey: (obj.request?.id)!))
                     }
+                    
+                    let objerror = PlatformError()
+                    objerror.message = arrayInventory[0].error
+                    completion(error)
                     
                 }else{
                     let modelInventryTransfer2 = realmManager.readPredicate(type: ModelInventoryTransfers.self, predicate: "updated = true && putBulkError = ''")
@@ -470,6 +474,9 @@ public final class SyncService {
                         RealmManager().write(table: modelInvoice!)
                         //print(RealmManager().read(type: ModelInvoice.self, primaryKey: (obj.request?.id)!))
                     }
+                    let objerror = PlatformError()
+                    objerror.message = arrayInvoice[0].error
+                    completion(error)
                     
                 }else{
                     let modelInvoice2 = realmManager.readPredicate(type: ModelInvoice.self, predicate: "updated = true && putBulkError = ''")
@@ -504,6 +511,10 @@ public final class SyncService {
                         RealmManager().write(table: modelPo!)
                         // print( RealmManager().read(type: ModelPurchaseOrder.self, primaryKey: (obj.request?.id)!))
                     }
+                    
+                    let objerror = PlatformError()
+                    objerror.message = arrayPo[0].error
+                    completion(error)
                     
                 }else{
                     let modelPurchaseOrders2 = realmManager.readPredicate(type: ModelPurchaseOrder.self, predicate: "updated = true && putBulkError = ''")
@@ -871,14 +882,14 @@ public final class SyncService {
         let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "putBulkError != ''")
         
         for respPurchaseOrder in arrayPurchase {
-            var canSkip : Bool = false
-            if poErrorObject.count != 0{
-                for obj in poErrorObject{
-                    if obj.id == respPurchaseOrder.id{
-                        canSkip = true
-                    }
-                }
-            }
+            let canSkip : Bool = false
+//            if poErrorObject.count != 0{
+//                for obj in poErrorObject{
+//                    if obj.id == respPurchaseOrder.id{
+//                        canSkip = true
+//                    }
+//                }
+//            }
             
             //Check skip condition
             if(canSkip == false){
@@ -942,14 +953,14 @@ public final class SyncService {
         if let values = jsonData{
             
             for valu in values{
-                var canSkip : Bool = false
-                if invoiceErrorObject.count != 0{
-                    for obj in invoiceErrorObject{
-                        if obj.id == valu.id{
-                            canSkip = true
-                        }
-                    }
-                }
+                let canSkip : Bool = false
+//                if invoiceErrorObject.count != 0{
+//                    for obj in invoiceErrorObject{
+//                        if obj.id == valu.id{
+//                            canSkip = true
+//                        }
+//                    }
+//                }
                //Cehck Skip Condition
                 if (canSkip == false){
                     let model: ModelInvoice = ModelInvoice()

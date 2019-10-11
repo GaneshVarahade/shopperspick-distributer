@@ -430,7 +430,7 @@ extension InvoiceDetailsTableViewController{
                     SyncService.sharedInstance().callPostAPI(completion: { (error1 :PlatformError?) in
                         if error1 != nil{
                             SKActivityIndicator.dismiss()
-                            self.showAlert(title: "Message", message: NSLocalizedString("ServerError", comment: ""), closure: {})
+                            self.showAlert(title: "Message", message: error1?.message ?? "Server error", closure: {})
                         }else{
                             SKActivityIndicator.dismiss()
                             SyncService.sharedInstance().syncData()
@@ -447,7 +447,7 @@ extension InvoiceDetailsTableViewController{
             SyncService.sharedInstance().callPostAPI(completion: { (error1 :PlatformError?) in
                 if error1 != nil{
                     SKActivityIndicator.dismiss()
-                    self.showAlert(title: "Message", message: NSLocalizedString("ServerError", comment: ""), closure: {})
+                    self.showAlert(title: "Message", message: error1?.message ?? "Server error", closure: {})
                 }else{
                     SKActivityIndicator.dismiss()
                     SyncService.sharedInstance().syncData()
