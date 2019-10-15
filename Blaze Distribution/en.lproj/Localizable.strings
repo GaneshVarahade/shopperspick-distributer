@@ -34,7 +34,7 @@
 "InvDetail_Validation3" = "Shipping manifest not allowed for Draft and Cancelled Invoice";
 
 //6. AddPaymentTableViewController
-"AddPay_Validation1" = "Please enter debit card number";
+"AddPay_Validation1" = "Please enter card number";
 "AddPay_Validation2" = "Please select ACH Date";
 "AddPay_Validation3" = "Please select Payment Date";
 "AddPay_Validation4" = "Please enter reference number";

@@ -184,3 +184,21 @@ public class AllCompanyContact : BaseResponseModel{
     public var lastName : String?
 
 }
+
+class ResponseProductByBatchSku : BaseResponseModel{
+    var id: String?
+    
+    var created: Int?
+    
+    var modified: Int?
+    
+    var deleted: Bool?
+    
+    var updated: Bool?
+    
+    var companyId: String?
+}
+
+class RequestProductByBatchSku : BaseRequest{
+    var batchSku : String?
+}

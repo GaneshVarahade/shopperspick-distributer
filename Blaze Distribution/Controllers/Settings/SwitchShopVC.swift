@@ -146,10 +146,10 @@ class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     //MARK: - Button Actions
     @IBAction func btnSubmitClicked(_ sender: Any) {
         
-            guard !UtilRealmData.hasData() else {
-                showAlert(title: "Warning!", message:NSLocalizedString("hasOfflineDataError", comment: ""), closure:{})
-                return
-            }
+//            guard !UtilRealmData.hasData() else {
+//                showAlert(title: "Warning!", message:NSLocalizedString("hasOfflineDataError", comment: ""), closure:{})
+//                return
+//            }
         
             guard !(assineShopId == selectedShops[0].id) else {
                 showToast(NSLocalizedString("sameShopValidation", comment: ""))

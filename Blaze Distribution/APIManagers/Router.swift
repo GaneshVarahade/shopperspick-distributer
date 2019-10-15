@@ -47,6 +47,8 @@ enum Router : URLRequestConvertible {
     case getAllVendor(request: RequestGetAllVendor)
     //get company contact name
     case getCompanyContactList(request: RequestGetCompanyContact)
+    //get product by sku
+    case getProductByBatchSKU(request: RequestProductByBatchSku)
     
     //===========================================================================================
     // MARK: URLRequestConvertible
@@ -103,13 +105,16 @@ enum Router : URLRequestConvertible {
             
         case .getAllBatchesByProdId(let request):
             return (Method.GET,"/api/v1/mgmt/batch/list?productId=\(request.productId ?? "")",nil,nil)
-            
         case .getAllVendor(let request):
             return (Method.GET,"/api/v1/mgmt/vendors?companyType=&limit=1000&start=0&term=&type=BOTH&vendorId=&currentTimeStamp=",nil,nil)
-            
         case .getCompanyContactList(let request):
             return (Method.GET,"/api/v1/mgmt/customerCompany/contact/list?start=0&limit=0&customerCompanyId=\(request.customerCompanyId ?? "")",nil,nil)
+            
+        case .getProductByBatchSKU(let request):
+            return (Method.GET,"/api/v1/mgmt/products/productByBatchSKU?batchSKU=\(request.batchSku ?? "")",nil,nil)
+            
         }
+        
        
     }
     

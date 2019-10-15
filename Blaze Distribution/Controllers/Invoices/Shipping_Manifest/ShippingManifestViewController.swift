@@ -92,18 +92,18 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
         if self.modelShippingMen?.deliveryTime == 0 {
             canship = false
         }
-         if self.modelShippingMen?.receiverCompany == ""{
-            canship = false
-        }
-        if self.modelShippingMen?.receiverType == ""{
-            canship = false
-        }
-        if self.modelShippingMen?.receiverContact == ""{
-            canship = false
-        }
-        if  self.modelShippingMen?.receiverLicense == ""{
-            canship = false
-        }
+//         if self.modelShippingMen?.receiverCompany == ""{
+//            canship = false
+//        }
+//        if self.modelShippingMen?.receiverType == ""{
+//            canship = false
+//        }
+//        if self.modelShippingMen?.receiverContact == ""{
+//            canship = false
+//        }
+//        if  self.modelShippingMen?.receiverLicense == ""{
+//            canship = false
+//        }
         if self.modelShippingMen?.receiverAddress?.address == "" {
             canship = false
         }

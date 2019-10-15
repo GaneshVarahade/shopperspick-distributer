@@ -97,7 +97,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    Initializes the code reader with the QRCode metadata type object.
    */
   public convenience override init() {
-    self.init(metadataObjectTypes: [AVMetadataObject.ObjectType.qr], captureDevicePosition: .back)
+    self.init(metadataObjectTypes: [AVMetadataObject.ObjectType.qr,.ean8,.ean13,.pdf417,.code39,.code128,.code93], captureDevicePosition: .back)
   }
 
   /**

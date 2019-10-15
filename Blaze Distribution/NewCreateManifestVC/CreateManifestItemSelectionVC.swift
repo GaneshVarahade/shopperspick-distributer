@@ -35,8 +35,8 @@ class CreateManifestItemSelectionVC: UIViewController {
 //        self.lblHeaderRemainingQty.text = "Remaining Qty"
         if !isAddManifest{
              self.btnContinue.isHidden = true
-//            self.lblHeaderRemainingQty.text = "Shipped Qty"
-            //metricprodInfoList = modelShippingMenifest.productMetrcInfoList
+            self.lblHeaderRemainingQty.text = "Shipped Qty"
+            metricprodInfoList = modelShippingMenifest.productMetrcInfoList
         }
         
     }
@@ -67,12 +67,19 @@ class CreateManifestItemSelectionVC: UIViewController {
         let button = sender as! UIButton
         if button.imageView?.image == UIImage(named: "checkbox_unselected"){
             //For select
+            //print("before crash1")
             button.setImage(UIImage(named: "Checkbox"), for: .normal)
             invoiceSelectedItemList.append(remainingItemsList[button.tag])
         }else{
             //for unselect
+            //print("before crash")
             button.setImage(UIImage(named: "checkbox_unselected"), for: .normal)
-            invoiceSelectedItemList.remove(at: button.tag)
+            let obj = remainingItemsList[button.tag]
+            for (index,item) in invoiceSelectedItemList.enumerated(){
+                if item.productId == obj.productId{
+                    invoiceSelectedItemList.remove(at: index)
+                }
+            }
         }
         
     }
@@ -81,16 +88,16 @@ class CreateManifestItemSelectionVC: UIViewController {
 
 extension CreateManifestItemSelectionVC : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //if isAddManifest{
+        if isAddManifest{
         return remainingItemsList.count
-//        }else{
-//        return metricprodInfoList.count
-//        }
+        }else{
+        return metricprodInfoList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.manifestItemTableView.dequeueReusableCell(withIdentifier: "Cell") as! ManifestItemSelectionCell
-       // if isAddManifest{
+        if isAddManifest{
          cell.btnCheckBox.tag = indexPath.row
          cell.btnCheckBox.setImage(UIImage(named: "checkbox_unselected"), for: .normal)
         if invoiceSelectedItemList.count > 0{
@@ -101,12 +108,12 @@ extension CreateManifestItemSelectionVC : UITableViewDelegate,UITableViewDataSou
         cell.lblProductName.text = remainingItemsList[indexPath.row].productName ?? "--"
         cell.lblRemainingQty.text = "\(remainingItemsList[indexPath.row].remainingQuantity)"
         cell.lblRequestedQty.text = "\(remainingItemsList[indexPath.row].requestQuantity)"
-//        }else{
-//            cell.btnCheckBox.isHidden = true
-//            cell.lblProductName.text = getProductNameAndOrdereQty(prodId: metricprodInfoList[indexPath.row].productId ?? "").name
-//            cell.lblRemainingQty.text = "\(metricprodInfoList[indexPath.row].quantity)"
-//            cell.lblRequestedQty.text = getProductNameAndOrdereQty(prodId: metricprodInfoList[indexPath.row].productId ?? "").orderQty
-//        }
+        }else{
+            cell.btnCheckBox.isHidden = true
+            cell.lblProductName.text = getProductNameAndOrdereQty(prodId: metricprodInfoList[indexPath.row].productId ?? "").name
+            cell.lblRemainingQty.text = "\(metricprodInfoList[indexPath.row].quantity)"
+            cell.lblRequestedQty.text = getProductNameAndOrdereQty(prodId: metricprodInfoList[indexPath.row].productId ?? "").orderQty
+        }
         return cell
     }
     
@@ -115,9 +122,9 @@ extension CreateManifestItemSelectionVC : UITableViewDelegate,UITableViewDataSou
     }
     
     func getProductNameAndOrdereQty(prodId : String) ->(name : String,orderQty : String){
-        for obj in remainingItemsList{
+        for obj in modelInvoice.items{
             if obj.productId == prodId{
-                return(obj.productName!,"\(obj.requestQuantity)")
+                return(obj.productName!,"\(obj.quantity)")
             }
         }
         return("","")

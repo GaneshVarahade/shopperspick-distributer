@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import  AVFoundation
 import QRCodeReader
+import SKActivityIndicatorView
 
 class ScanLookUpViewController: UIViewController,QRCodeReaderViewControllerDelegate {
     var modelProduct:[ModelProduct] = []
@@ -19,7 +20,7 @@ class ScanLookUpViewController: UIViewController,QRCodeReaderViewControllerDeleg
     //Initialize QRCodeScanner
     lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
-            $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
+            $0.reader = QRCodeReader(metadataObjectTypes: [.qr,.ean8,.ean13,.pdf417,.code39,.code128,.code93], captureDevicePosition: .back)
         }
         
         return QRCodeReaderViewController(builder: builder)
@@ -100,22 +101,36 @@ class ScanLookUpViewController: UIViewController,QRCodeReaderViewControllerDeleg
          var selecteModelProd: ModelProduct!
         //var found : Bool = false
         if scannedString.isEmpty == false {
-            for dict in self.modelProduct{
-                let prodId : String = dict.id!
-                if prodId.lowercased() == scannedString.lowercased(){
-                    selecteModelProd = dict
-                    //found = true
+            SKActivityIndicator.show()
+            let req = RequestProductByBatchSku()
+            req.batchSku = scannedString
+            
+            WebServicesAPI.sharedInstance().getProductByBatchSku(request: req) { (response:ResponseProductByBatchSku?
+                , error:PlatformError?) in
+                SKActivityIndicator.dismiss()
+                if error == nil{
+                                for dict in self.modelProduct{
+                                    let prodId : String = dict.productId!
+                                    if prodId.lowercased() == (response?.id ?? "" ).lowercased(){
+                                        selecteModelProd = dict
+                                        //found = true
+                                    }
+                                }
+                                if !(selecteModelProd == nil) {
+                                    let obj = self.storyboard?.instantiateViewController(withIdentifier: "LookUpProductEnterQuantitySegue") as! LookUpProductEnterQuantity
+                                    obj.modelCreateTransfer = self.modelCreateTransfer
+                                    obj.modelProudct = selecteModelProd
+                                    obj.isFromScanView = true
+                                    self.navigationController?.pushViewController(obj, animated: true)
+                                }else{
+                                     self.showToast(NSLocalizedString("ScanProd_Message", comment: ""))
+                                }
+                    
+                }else{
+                    self.showAlert(title: "Message", message: "No product found for this batch", closure: {})
                 }
             }
-            if !(selecteModelProd == nil) {
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "LookUpProductEnterQuantitySegue") as! LookUpProductEnterQuantity
-                obj.modelCreateTransfer = self.modelCreateTransfer
-                obj.modelProudct = selecteModelProd
-                obj.isFromScanView = true
-                self.navigationController?.pushViewController(obj, animated: true)
-            }else{
-                 showToast(NSLocalizedString("ScanProd_Message", comment: ""))
-            }
+        
         }else{
             showToast(NSLocalizedString("ScanProd_Message", comment: ""))
         }

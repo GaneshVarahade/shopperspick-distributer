@@ -86,7 +86,7 @@ public class ModelProductMetrcInfo:ModelBase{
     }
     public override func copy(with zone: NSZone? = nil) -> Any {
         let modelMetricInfo          = ModelProductMetrcInfo()
-        modelMetricInfo.id           = self.productId
+        modelMetricInfo.id           = self.id
         modelMetricInfo.productId    = self.productId
         modelMetricInfo.orderItemId  = self.orderItemId
         modelMetricInfo.quantity     = self.quantity

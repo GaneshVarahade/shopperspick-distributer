@@ -43,6 +43,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
         pickerView.dataSource = self
         
         
+        
 //        let requestObj = RequestGetallBatches()
 //        requestObj.productId = "5d861945dc4f2a042097be64"
 //        WebServicesAPI.sharedInstance().getAllBtachesByProdId(request: requestObj, onComplition: { (
@@ -59,6 +60,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     func initialSetUp(){
         for item in invoiceSelectedItemList{
             let obj = ModelProductMetrcInfo()
+            obj.id = HexGenerator.sharedInstance().generate()
             obj.productId = item.productId
             obj.orderItemId = item.orderItemId
             objproductMetrcInfoList.append(obj)

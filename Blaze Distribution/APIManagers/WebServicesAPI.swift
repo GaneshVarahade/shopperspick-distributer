@@ -237,6 +237,10 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.createInvoice(request: request), callback: onComplition)
     }
     
+    func getProductByBatchSku(request : RequestProductByBatchSku,onComplition:@escaping(_ result:ResponseProductByBatchSku?, _ error:PlatformError?)->()){
+         makeRequest(Router.getProductByBatchSKU(request: request), callback: onComplition)
+    }
+    
     private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){
  
         guard UtilPrintLogs.canPrintResponseLog else {
