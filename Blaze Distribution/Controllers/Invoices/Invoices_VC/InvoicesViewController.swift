@@ -106,12 +106,13 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func getOpenInvoices() {
-        valueDataObj = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceStatus != '\(InvoiceStatus.COMPLETED)'")
+        valueDataObj = RealmManager().readPredicateAecending(type: ModelInvoice.self, predicate: "invoiceStatus != '\(InvoiceStatus.COMPLETED)'")
+        
         invoiceTableView.reloadData()
     }
     
     private func getCompleteInvoices() {
-        valueDataObj = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "invoiceStatus = '\(InvoiceStatus.COMPLETED)'")
+        valueDataObj = RealmManager().readPredicateAecending(type: ModelInvoice.self, predicate: "invoiceStatus = '\(InvoiceStatus.COMPLETED)'")
         invoiceTableView.reloadData()
     }
     

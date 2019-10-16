@@ -104,9 +104,9 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
 //        if  self.modelShippingMen?.receiverLicense == ""{
 //            canship = false
 //        }
-        if self.modelShippingMen?.receiverAddress?.address == "" {
-            canship = false
-        }
+//        if self.modelShippingMen?.receiverAddress?.address == "" {
+//            canship = false
+//        }
         if self.modelShippingMen?.driverName == ""{
             canship = false
         }

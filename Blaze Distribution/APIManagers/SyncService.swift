@@ -968,6 +968,8 @@ public final class SyncService {
                 if (canSkip == false){
                     let model: ModelInvoice = ModelInvoice()
                     model.id                = valu.id
+                    model.created           = valu.created ?? 0
+                    model.modified          = valu.modified ?? 0
                     model.invoiceStatus     = valu.invoiceStatus
                     model.companyId         = valu.companyId
                     model.customerId        = valu.customerId
@@ -1217,7 +1219,9 @@ public final class SyncService {
         
         if let products = jsonData{
             for prod in products{
+                
                 if let tempQuantity = prod.quantities{
+                    if tempQuantity.count > 0{
                     //Calcualte total quty.
                     var totoalQt:Int = 0
                     for qut in tempQuantity{
@@ -1242,8 +1246,24 @@ public final class SyncService {
                     
                     //print(RealmManager().readList(type: ModelProduct.self))
                     UtilPrintLogs.requestLogs(message:DLogMessage.ProductData.rawValue, objectToPrint: RealmManager().readList(type: ModelProduct.self))
+                    }
+                else{
+                    //if product has no qty
+                    let temp  = ModelProduct()
+                    temp.id = HexGenerator.sharedInstance().generate()
+                    temp.productId = prod.id
+                    temp.sku = prod.sku
+                    temp.name = prod.name
+                    temp.companyLinkId = prod.companyLinkId
+                    temp.shopId = prod.shopId
+                    temp.inventoryId = HexGenerator.sharedInstance().generate()
+                    temp.quantity = 0.0
+                    temp.totalQuantity = 0.0
+                    RealmManager().write(table: temp)
                 }
+    
             }
+          }
         }else{
             print("---Products nil---")
         }

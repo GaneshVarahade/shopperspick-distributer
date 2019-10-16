@@ -253,45 +253,58 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     
     //MARK:- Button Actions
     @IBAction func btnSaveItemTapped(_ sender: myCustombutton) {
-        let section = sender.section!
-        let row = sender.row!
-        var userEnterQty : Int = 0
-        var qtyInCart : Int = 0
-        var actualBatchQty : Int = 0
-        var batchfinalQty : Int = 0
-        
-        var actualorederQty : Int = 0
-        
-        let objMetricInfo = objproductMetrcInfoList[section]
-        let itemObject = objMetricInfo.batchDetailsList[row]
-        var objReaminProd = invoiceSelectedItemList[section]
-        
-        actualorederQty = Int(objReaminProd.remainingQuantity)
-        
-        qtyInCart = Int(objMetricInfo.quantity)
-        userEnterQty = Int(itemObject.UserEnterQty)
-        actualBatchQty = Int(itemObject.BatchActualQty)
-        batchfinalQty = Int(itemObject.quantity)
-        
-        if userEnterQty != 0{
-            actualorederQty = actualorederQty - userEnterQty
+        self.showAlert(title: "Message", message:"Please make sure this quantity is final for this Invenotry and Batch, once save its not editable", actions:[UIAlertActionStyle.cancel,UIAlertActionStyle.default], closure:{ action in
+            switch action {
+            case .default :
+                
+               //Save line items
+                let section = sender.section!
+                let row = sender.row!
+                var userEnterQty : Int = 0
+                var qtyInCart : Int = 0
+                var actualBatchQty : Int = 0
+                var batchfinalQty : Int = 0
+                
+                var actualorederQty : Int = 0
+                
+                let objMetricInfo = self.objproductMetrcInfoList[section]
+                let itemObject = objMetricInfo.batchDetailsList[row]
+                var objReaminProd = self.invoiceSelectedItemList[section]
+                
+                actualorederQty = Int(objReaminProd.remainingQuantity)
+                
+                qtyInCart = Int(objMetricInfo.quantity)
+                userEnterQty = Int(itemObject.UserEnterQty)
+                actualBatchQty = Int(itemObject.BatchActualQty)
+                batchfinalQty = Int(itemObject.quantity)
+                
+                if userEnterQty != 0{
+                    actualorederQty = actualorederQty - userEnterQty
+                    
+                    actualBatchQty = actualBatchQty - userEnterQty
+                    qtyInCart = qtyInCart + userEnterQty
+                    batchfinalQty = batchfinalQty + userEnterQty
+                    
+                    objMetricInfo.quantity = Double(qtyInCart)
+                    itemObject.quantity = Double(batchfinalQty)
+                    itemObject.BatchActualQty = Double(actualBatchQty)
+                    objReaminProd.remainingQuantity = Double(actualorederQty)
+                    itemObject.isSaved = true
+                    self.manifestDetailsTable.reloadData()
+                    
+                }else{
+                    self.showAlert(title: "Message", message: "Please enter valid quantity to save this item", closure: {})
+                }
+                
+                
+            case .cancel :
+                print("cancel")
+                
+            case .destructive :
+                print("Destructive")
+            }
             
-            actualBatchQty = actualBatchQty - userEnterQty
-            qtyInCart = qtyInCart + userEnterQty
-            batchfinalQty = batchfinalQty + userEnterQty
-            
-            objMetricInfo.quantity = Double(qtyInCart)
-            itemObject.quantity = Double(batchfinalQty)
-            itemObject.BatchActualQty = Double(actualBatchQty)
-            objReaminProd.remainingQuantity = Double(actualorederQty)
-            itemObject.isSaved = true
-            manifestDetailsTable.reloadData()
-            
-        }else{
-            self.showAlert(title: "Message", message: "Please enter qty to save this item", closure: {})
-        }
-        
-        
+        })
         
     }
     

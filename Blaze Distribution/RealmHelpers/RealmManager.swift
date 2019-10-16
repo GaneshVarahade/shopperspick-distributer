@@ -109,6 +109,20 @@ public class RealmManager <T: ModelBase>{
         }
         return array
     }
+    
+    public func readPredicateAecending<T: ModelBase>(type: T.Type,predicate: String) -> [T]{
+        var result: Results<T>? = getRealm().objects(type).filter(predicate)
+        result = result?.sorted(byKeyPath: "modified", ascending: true)
+        var array:[T] = [T]()
+        guard let resultObj = result else {
+            return array
+        }
+        
+        for obj in resultObj {
+            array.append(obj.copy() as! T)
+        }
+        return array
+    }
 
     public func deletePredicate<T: ModelBase>(type: T.Type, predicate: String){
         

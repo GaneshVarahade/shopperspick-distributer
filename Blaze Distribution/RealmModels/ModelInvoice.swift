@@ -45,6 +45,8 @@ public class ModelInvoice:ModelBase {
     public override func copy(with zone: NSZone? = nil) -> Any {
         let modelInvoice               = ModelInvoice()
         modelInvoice.id                = self.id
+        modelInvoice.created           = self.created
+        modelInvoice.modified          = self.modified
         modelInvoice.companyId         = self.companyId
         modelInvoice.customerId        = self.customerId
         modelInvoice.invoiceNumber     = self.invoiceNumber
