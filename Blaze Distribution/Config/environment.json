@@ -1,4 +1,4 @@
 {
-    "env":"DEBUG",
-    "server":"DEVSERVER"
+    "env":"PROD",
+    "server":"PRODSERVER"
 }
