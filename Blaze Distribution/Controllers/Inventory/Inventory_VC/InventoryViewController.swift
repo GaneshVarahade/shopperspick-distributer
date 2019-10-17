@@ -305,9 +305,14 @@ extension InventoryViewController{
 //            alertStyle = .alert
 //        }
         if productFlag {
-            let objProdDetails = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVCSegue") as! ProductDetailsVC
-            objProdDetails.selectedProd = data[indexPath.row] as! ModelProduct
-            self.navigationController?.pushViewController(objProdDetails, animated: true)
+        let objModelProd = data[indexPath.row] as! ModelProduct
+            if Int(objModelProd.totalQuantity) > 0{
+                let objProdDetails = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVCSegue") as! ProductDetailsVC
+                objProdDetails.selectedProd = data[indexPath.row] as! ModelProduct
+                self.navigationController?.pushViewController(objProdDetails, animated: true)
+            }else{
+                self.showAlert(title: "Message", message: "Product quntity is 0 , no inventory are found", closure: {})
+            }
         } else {
             let objTransferDetails = self.storyboard?.instantiateViewController(withIdentifier: "TransferDetailsVCSegue") as! TransferDetailsViewController
             objTransferDetails.inventoryTransferModel = data[indexPath.row] as! ModelInventoryTransfers

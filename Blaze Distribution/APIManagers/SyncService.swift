@@ -978,7 +978,7 @@ public final class SyncService {
                     model.balanceDue        = valu.balanceDue!
                     model.vendorCompany     = valu.vendor?.name
                     model.balanceDue        = valu.balanceDue!
-                    model.contact           = valu.companyContact
+                    model.contact           = valu.vendor?.phone
                     model.total             = valu.total!
                     
                     model.vendorLicenseNumber = valu.vendor?.licenseNumber
