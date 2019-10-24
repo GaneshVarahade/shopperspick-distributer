@@ -38,6 +38,7 @@ class ScanLookUpViewController: UIViewController,QRCodeReaderViewControllerDeleg
         customBarbutton.setTitleColor(UIColor.white, for: UIControlState.normal)
         customBarbutton.sizeToFit()
         customBarbutton.contentVerticalAlignment = UIControlContentVerticalAlignment.bottom
+        customBarbutton.contentEdgeInsets.bottom = 3.0
         customBarbutton.addTarget(self, action: #selector(basketBtnPressed), for: UIControlEvents.touchUpInside)
         let rightBarButton = UIBarButtonItem(customView: customBarbutton)
         self.navigationItem.rightBarButtonItem = rightBarButton

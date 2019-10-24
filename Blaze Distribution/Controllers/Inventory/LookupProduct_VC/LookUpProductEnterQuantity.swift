@@ -30,6 +30,7 @@ class LookUpProductEnterQuantity: UIViewController,UITextFieldDelegate{
         customBarbutton.setTitle("12", for: UIControlState.normal)
         customBarbutton.setTitleColor(UIColor.white, for: UIControlState.normal)
         customBarbutton.sizeToFit()
+        customBarbutton.contentEdgeInsets.bottom = 3.0
         customBarbutton.contentVerticalAlignment = UIControlContentVerticalAlignment.bottom
         customBarbutton.addTarget(self, action: #selector(basketBtnPressed), for: UIControlEvents.touchUpInside)
         let rightBarButton = UIBarButtonItem(customView: customBarbutton)
