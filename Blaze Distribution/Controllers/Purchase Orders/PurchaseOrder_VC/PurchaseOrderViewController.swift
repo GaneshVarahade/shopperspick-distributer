@@ -239,6 +239,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
         }
         // Presents the readerVC as modal form sheet
         readerVC.modalPresentationStyle = .formSheet
+        
         present(readerVC, animated: true, completion: nil)
     }
     

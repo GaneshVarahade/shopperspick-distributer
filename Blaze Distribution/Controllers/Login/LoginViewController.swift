@@ -33,9 +33,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     //MARK - Layout Helper
     override func viewWillDisappear(_ animated: Bool) {
         EventBus.sharedBus().unsubscribe(self, eventType: EventBusEventType.FINISHSYNCDATA)
-        if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
-            statusbar.backgroundColor = nil
-        }
+//        if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
+//            statusbar.backgroundColor = nil
+//        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -92,8 +92,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             SyncService.sharedInstance().syncData()
             EventBus.sharedBus().subscribe(self, selector: #selector(self.goHome), eventType: EventBusEventType.FINISHSYNCDATA)
           
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let dashboardVC = storyboard.instantiateViewController(withIdentifier: "DistributionDashboardViewController")
+            self.navigationController?.pushViewController(dashboardVC, animated: true)
+
         })
     }
+    
+    @IBAction func btnForgotPasswordPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "ForgotPasswordViewController")
+        self.navigationController?.pushViewController(dashboardVC, animated: true)
+    }
+    
 
     @objc func goHome(){
         self.btnForgotPassword.isEnabled = true
@@ -103,9 +114,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Helper Methods
     func setup(){
-        if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
-            statusbar.backgroundColor = UIColor(red:0.97, green:0.69, blue:0.06, alpha:1.0)
-        }
+//        if let statusbar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
+//            statusbar.backgroundColor = UIColor(red:0.97, green:0.69, blue:0.06, alpha:1.0)
+//        }
     }
     // MARK: - Mapping Login Response to Model Classes 
     func saveData(jsonData:ResponseLogin?){

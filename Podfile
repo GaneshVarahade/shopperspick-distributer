@@ -19,11 +19,11 @@ target 'BLAZE Distribution' do
       
       pod 'Kingfisher'
       
-      # pod 'Fabric'
+      pod 'Fabric'
       
       # pod 'Crashlytics', '~>  3.10'
       
-      pod 'RealmSwift', '~> 3.7.1'
+      pod 'RealmSwift', '~> 3.18.0'
       
       pod 'QRCodeReader.swift'
       
