@@ -21,12 +21,12 @@ enum Router : URLRequestConvertible {
     // authentications
     case sessionLogin(request: RequestLogin)
     //BulkAPI
-    case bulkGet()
+    case bulkGet
     
     //Get all batches by product id
     case getAllBatchesByProdId(request : RequestGetallBatches)
     //get all inventorise
-    case getAllInvontry()
+    case getAllInventory
     //get product by id
     case getProductById(request: RequestProdutById)
     //BulkPostAPI
@@ -81,7 +81,7 @@ enum Router : URLRequestConvertible {
         // SESSIONS
         case .sessionLogin(let request):
             return (Method.POST,"/api/v1/mgmt/session",encode(request),nil)
-        case .bulkGet():
+        case .bulkGet:
             return (Method.GET,"/api/v1/warehouse/mgmt/dataSync",nil,nil)
         case .getProductById(let request):
             return (Method.GET,"/api/v1/mgmt/products/\(request.productId ?? "")",nil,nil)
@@ -100,12 +100,12 @@ enum Router : URLRequestConvertible {
         case .createInvoice(let request):
             return (Method.POST,"/api/v1/warehouse/mgmt/invoice",encode(request),nil)
         
-        case .getAllInvontry():
+        case .getAllInventory:
             return (Method.GET,"/api/v1/mgmt/inventory",nil,nil)
             
         case .getAllBatchesByProdId(let request):
             return (Method.GET,"/api/v1/mgmt/batch/list?productId=\(request.productId ?? "")",nil,nil)
-        case .getAllVendor(let request):
+        case .getAllVendor:
             return (Method.GET,"/api/v1/mgmt/vendors?companyType=&limit=1000&start=0&term=&type=BOTH&vendorId=&currentTimeStamp=",nil,nil)
         case .getCompanyContactList(let request):
             return (Method.GET,"/api/v1/mgmt/customerCompany/contact/list?start=0&limit=0&customerCompanyId=\(request.customerCompanyId ?? "")",nil,nil)

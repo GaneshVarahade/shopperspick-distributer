@@ -955,7 +955,7 @@ public final class SyncService {
         let invoiceErrorObject = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "putBulkError != ''")
         if let values = jsonData{
             
-            for valu in values{
+            for value in values{
                 let canSkip : Bool = false
 //                if invoiceErrorObject.count != 0{
 //                    for obj in invoiceErrorObject{
@@ -967,33 +967,33 @@ public final class SyncService {
                //Cehck Skip Condition
                 if (canSkip == false){
                     let model: ModelInvoice = ModelInvoice()
-                    model.id                = valu.id
-                    model.created           = valu.created ?? 0
-                    model.modified          = valu.modified ?? 0
-                    model.invoiceStatus     = valu.invoiceStatus
-                    model.companyId         = valu.companyId
-                    model.customerId        = valu.customerId
-                    model.invoiceNumber     = valu.invoiceNumber
-                    model.dueDate           = DateFormatterUtil.format(dateTime: (Double(DateIntConvertUtil.convert(dateTime: valu.dueDate ?? 0, type: DateIntConvertUtil.Seconds))),format: DateFormatterUtil.mmddyyyy)
-                    model.balanceDue        = valu.balanceDue!
-                    model.vendorCompany     = valu.vendor?.name
-                    model.balanceDue        = valu.balanceDue!
-                    model.contact           = valu.vendor?.phone
-                    model.total             = valu.total!
+                    model.id                = value.id
+                    model.created           = value.created ?? 0
+                    model.modified          = value.modified ?? 0
+                    model.invoiceStatus     = value.invoiceStatus
+                    model.companyId         = value.companyId
+                    model.customerId        = value.customerId
+                    model.invoiceNumber     = value.invoiceNumber
+                    model.dueDate           = DateFormatterUtil.format(dateTime: (Double(DateIntConvertUtil.convert(dateTime: value.dueDate ?? 0, type: DateIntConvertUtil.Seconds))),format: DateFormatterUtil.mmddyyyy)
+                    model.balanceDue        = value.balanceDue!
+                    model.vendorCompany     = value.vendor?.name
+                    model.balanceDue        = value.balanceDue!
+                    model.contact           = value.vendor?.phone
+                    model.total             = value.total!
                     
-                    model.vendorLicenseNumber = valu.vendor?.licenseNumber
-                    model.vendorCompanyType = valu.vendor?.companyType
-                    model.vendorPhone = valu.vendor?.phone
-                    model.vendorAddress = valu.vendor?.address?.address
-                    model.vendorCity = valu.vendor?.address?.city
-                    model.vendorState = valu.vendor?.address?.state
-                    model.vendorZipcode = valu.vendor?.address?.zipCode
-                    model.vendorCountry = valu.vendor?.address?.country
-                    model.salesPerson = valu.salesPerson
+                    model.vendorLicenseNumber = value.vendor?.licenseNumber
+                    model.vendorCompanyType = value.vendor?.companyType
+                    model.vendorPhone = value.vendor?.phone
+                    model.vendorAddress = value.vendor?.address?.address
+                    model.vendorCity = value.vendor?.address?.city
+                    model.vendorState = value.vendor?.address?.state
+                    model.vendorZipcode = value.vendor?.address?.zipCode
+                    model.vendorCountry = value.vendor?.address?.country
+                    model.salesPerson = value.salesPerson
                     
                     
                     
-                    if let remaingProducts = valu.remainingProductInformations{
+                    if let remaingProducts = value.remainingProductInformations{
                         for remProd  in remaingProducts{
                             let temp               = ModelRemainingProduct()
                             temp.id                = HexGenerator.sharedInstance().generate()
@@ -1008,7 +1008,7 @@ public final class SyncService {
                         //  print("Remaing nil..")
                     }
                     ///Mapping Items
-                    if let items = valu.items{
+                    if let items = value.items{
                         for item in items{
                             let itemTemp = ModelInvoiceItems()
                             itemTemp.id  = HexGenerator.sharedInstance().generate()
@@ -1025,7 +1025,7 @@ public final class SyncService {
                         //  print("Items nil")
                     }
                     //Mapping Payment Info
-                    if let  paymentRec = valu.paymentsReceived{
+                    if let  paymentRec = value.paymentsReceived{
                         
                         for payment in paymentRec{
                             let paymentTemp             = ModelPaymentInfo()
@@ -1041,9 +1041,9 @@ public final class SyncService {
                         //  print("Payment info nil")
                     }
                     ///Mapping Shipping Manifests
-                    if valu.shippingManifests != nil, valu.shippingManifests!.count > 0 {
+                    if value.shippingManifests != nil, value.shippingManifests!.count > 0 {
                         
-                        for ship in valu.shippingManifests! {
+                        for ship in value.shippingManifests! {
                             let shipMen                 = ModelShipingMenifest()
                             shipMen.id                  = ship.id
                             shipMen.companyId           = ship.companyId

@@ -183,12 +183,12 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.forgotPassword(request: request), callback: onComplition)
     }
     func BulkAPI(request:RequestGetBulkAPI,onComplition:@escaping (_ result:ResponseBulkRequest?, _ error:PlatformError?)-> ()){
-        makeRequest(Router.bulkGet(), callback: onComplition)
+        makeRequest(Router.bulkGet, callback: onComplition)
         
     }
     
     func getAllInventory(request:RequestGetAllInventory,onComplition:@escaping (_ result:ResponseGetAllInvetory?, _ error:PlatformError?)-> ()){
-        makeRequest(Router.getAllInvontry(), callback: onComplition)
+        makeRequest(Router.getAllInventory, callback: onComplition)
         
     }
     

@@ -17,6 +17,8 @@ class LookUpProductEnterQuantity: UIViewController,UITextFieldDelegate{
     var modelProudct: ModelProduct!
     var modelCreateTransfer:ModelCreateTransfer!
     let customBarbutton = UIButton(type: .system)
+    var prodDelegate:ProductQuantityDelegate? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +128,9 @@ class LookUpProductEnterQuantity: UIViewController,UITextFieldDelegate{
             modelCartProduct.quantity = quantity!
             modelCreateTransfer.slectedProducts.append(modelCartProduct)
             showToast(NSLocalizedString("ProdQuat_Message", comment: ""))
+            if let delegate = prodDelegate{
+                delegate.onProductQuantityChanged(name: modelProudct.name, quantity: quantity)
+            }
             //set cart count
             customBarbutton.setTitle(String(modelCreateTransfer.slectedProducts.count), for: UIControlState.normal)
             self.navigationController?.popViewController(animated: true)

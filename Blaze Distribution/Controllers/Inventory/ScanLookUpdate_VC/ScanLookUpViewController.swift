@@ -50,7 +50,9 @@ class ScanLookUpViewController: UIViewController,QRCodeReaderViewControllerDeleg
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         //Set cart counr
-        customBarbutton.setTitle(String(self.modelCreateTransfer.slectedProducts.count), for: UIControlState.normal)
+//        customBarbutton.setTitle(String(self.modelCreateTransfer.slectedProducts.count), for: UIControlState.normal)
+        self.modelCreateTransfer.slectedProducts.removeAll()
+        customBarbutton.setTitle("0", for: UIControlState.normal)
     }
    
     //MARK: - QRCodeReader Delegate
