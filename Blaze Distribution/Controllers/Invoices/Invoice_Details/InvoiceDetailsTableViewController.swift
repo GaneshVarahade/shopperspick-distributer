@@ -58,24 +58,25 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if let invoiceData = tempData {
-            self.title = invoiceData.invoiceNumber
-//            invoiceData.balanceDue = 25.23652
-//            invoiceData.total = 35.63589
-            self.duePaymentLabel.text = String(format: "$%.2f \(NSLocalizedString("dueof", comment: "")) $%.2f", invoiceData.balanceDue, invoiceData.total)
-            fixedDetailsTableVC?.getDataForFixedInvoices(data:invoiceData)
-            
-            if invoiceData.invoiceStatus == InvoiceStatus.COMPLETED.rawValue {
-                completeInvoicButton.isHidden = true
-            }
-            
-        } else {
-            return
-        }
     }
  
     override func viewWillAppear(_ animated: Bool) {
+        
+          if let invoiceData = tempData {
+                    self.title = invoiceData.invoiceNumber
+        //            invoiceData.balanceDue = 25.23652
+        //            invoiceData.total = 35.63589
+                    self.duePaymentLabel.text = String(format: "$%.2f \(NSLocalizedString("dueof", comment: "")) $%.2f", invoiceData.balanceDue, invoiceData.total)
+                    fixedDetailsTableVC?.getDataForFixedInvoices(data:invoiceData)
+                    
+                    if invoiceData.invoiceStatus == InvoiceStatus.COMPLETED.rawValue {
+                        completeInvoicButton.isHidden = true
+                    }
+                    
+                } else {
+                    return
+                }
+        
         getDataFromShippingList(dataDict: tempData)
     }
     
