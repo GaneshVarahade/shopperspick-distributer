@@ -137,6 +137,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     }
     
     func setAddPaymentType(addPaymentType:AddPaymentType) {
+        
         switch addPaymentType {
         case .DEBIT:
             // show for debit card
@@ -160,6 +161,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         debitLabel.isHidden = true
         achTransferLabel.isHidden = true
         achDateTextField.isHidden = true
+        debitCheckMarkImage.isHidden = true
     }
     
     private func showDebitPaymentType(show:Bool) {
@@ -210,10 +212,10 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             }
         case 2:
             if deviceIdiom == .pad {
-                return 70
+                return selectedPaymentType.uppercased() != "CASH" || selectedPaymentType.uppercased() != "CHEQUE" ? 70 : 0
             }
             else {
-                return 50
+                return selectedPaymentType.uppercased() != "CASH" || selectedPaymentType.uppercased() != "CHEQUE" ? 50 : 0
             }
         case 3:
             if deviceIdiom == .pad {
@@ -307,6 +309,9 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.isHidden = (selectedPaymentType.uppercased() == "CASH" || selectedPaymentType.uppercased() == "CHEQUE") && indexPath.row == 2
+    }
     
     // MARK: - UITextView Delegate/DataSource
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -565,6 +570,8 @@ extension AddPaymentTableViewController: UIPickerViewDelegate, UIPickerViewDataS
         default:
             break
         }
+        
+        self.tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .none)
 //        self.view.endEditing(true)
     }
     
