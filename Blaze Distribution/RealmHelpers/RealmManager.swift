@@ -58,7 +58,8 @@ public class RealmManager <T: ModelBase>{
     
     public func read<T: ModelBase>(type: T.Type,primaryKey: String) -> T? {
         return (getRealm().object(ofType: type, forPrimaryKey: primaryKey))?.copy() as? T
-    } 
+    }
+    
     
     public func readList<T: ModelBase>(type: T.Type) -> [T] {
         let result: Results<T>? = getRealm().objects(type)

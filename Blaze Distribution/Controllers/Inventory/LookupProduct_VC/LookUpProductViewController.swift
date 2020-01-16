@@ -152,10 +152,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
             for product in filterDict[String(key)] ?? []{
                 if product.name == name{
                     product.quantity -= quantity ?? 0
-                    let index = filterDict.distance(from: filterDict.startIndex, to: filterDict.index(forKey: String(key)) ?? filterDict.startIndex)
-                    let indexSet:IndexSet = [index]
-
-                    lookUpTableView.reloadSections(indexSet, with: .none)
+                    lookUpTableView.reloadData()
                 }
             }
         }
@@ -256,6 +253,7 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         {
             filterDict.removeAll()
             sectionNameList.removeAll()
+            productData.removeAll()
             getData();
             lookUpTableView.reloadData()
         }
