@@ -1437,13 +1437,16 @@
 				TargetAttributes = {
 					B9266C3320AEC8FB0021356C = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1130;
 					};
 					B9266C4A20AEC8FE0021356C = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1130;
 						TestTargetID = B9266C3320AEC8FB0021356C;
 					};
 					B9266C5520AEC8FE0021356C = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1130;
 						TestTargetID = B9266C3320AEC8FB0021356C;
 					};
 				};

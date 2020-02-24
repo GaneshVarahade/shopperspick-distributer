@@ -86,6 +86,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
+            if result != nil{
+            
             self.saveData(jsonData: result)
             UtilityUserDefaults.sharedInstance().saveToken(strToken: (result?.accessToken)!)
            
@@ -95,7 +97,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let dashboardVC = storyboard.instantiateViewController(withIdentifier: "DistributionDashboardViewController")
             self.navigationController?.pushViewController(dashboardVC, animated: true)
-
+            }
         })
     }
     

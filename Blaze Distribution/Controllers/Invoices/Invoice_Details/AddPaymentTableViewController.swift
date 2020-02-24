@@ -39,7 +39,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     
     var paymentType = AddPaymentType.DEBIT
     var selectedPaymentType : String = "DEBIT"
-    let paymentTypes = ["Debit Card", "ACH Transfer","Credit Card","Cash","Cheque"]
+    let paymentTypes = ["Debit Card", "ACH Transfer","Credit Card","Cash","Check"]
     let datePicker = UIDatePicker()
     let paymentTypePicker = UIPickerView()
     
@@ -125,7 +125,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             amountTextField.text = String(format:"$%.1f",(paymentModel?.amount)!)
             notesTextView.text = paymentModel?.notes ?? "Not Available"
             lblBalanceDue.text = "0";
-            paymentTypeTextField.text = paymentModel?.paymentType
+            paymentTypeTextField.text = paymentModel?.paymentType == "CHEQUE" ? "Check" : paymentModel?.paymentType
             
         } else {
             //Set Due balance
