@@ -44,13 +44,22 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
             showAlert(title: NSLocalizedString("Warning", comment: ""), message: "Recived product quantity should not be empty, and is always less than or equel to Expected product quantity ", closure: {})
             return
         }
-        for dict in selectedPurchaseOrder {
+        for dict in modelPurchaseOrder.productInShipment {
             let modelpurchaseOrderProductRecive = ModelPurchaseOrderProductReceived()
             modelpurchaseOrderProductRecive.name = dict.name
             modelpurchaseOrderProductRecive.productId = dict.productId
             modelpurchaseOrderProductRecive.id = dict.id
             modelpurchaseOrderProductRecive.expected = dict.quantity
-            modelpurchaseOrderProductRecive.received = dict.expected
+            
+            for selectedDict in selectedPurchaseOrder{
+                if selectedDict.productId == dict.productId{
+                    modelpurchaseOrderProductRecive.received = dict.expected
+                    break
+                }else{
+                    modelpurchaseOrderProductRecive.received = 0
+                }
+            }
+            
             modelpurchaseOrderProductRecive.totalCost = dict.totalCost
             modelpurchaseOrderProductRecive.unitPrice = dict.unitPrice
             
