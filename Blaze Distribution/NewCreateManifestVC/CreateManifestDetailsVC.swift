@@ -386,7 +386,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
             }
             manifestDetailsTable.reloadData()
                 }else{
-                    self.showAlert(title: "Message", message: "Same record is previously added, please select diffrent batch", closure: {})
+                    self.showAlert(title: "Message", message: "Same record is previously added, please select different batch", closure: {})
                 }
                     
             }
