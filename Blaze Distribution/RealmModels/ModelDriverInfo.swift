@@ -15,7 +15,7 @@ public class ModelDriverInfo:ModelBase{
     @objc public dynamic var driverId:String? = "" 
     @objc public dynamic var driverName:String?  = ""
     @objc public dynamic var driverLastName:String?  = ""
-    @objc public dynamic var driverLicenseNumber:String?
+    @objc public dynamic var driversLicense:String?
     @objc public dynamic var vehicleMake:String?
     @objc public dynamic var vehicleModel:String?
     @objc public dynamic var vehicleColor:String?
@@ -30,7 +30,7 @@ public class ModelDriverInfo:ModelBase{
         modelDriver.driverId     = self.driverId
         modelDriver.driverName   = self.driverName
         modelDriver.driverLastName = self.driverLastName
-        modelDriver.driverLicenseNumber = self.driverLicenseNumber
+        modelDriver.driversLicense = self.driversLicense
         modelDriver.vehicleMake     = self.vehicleMake
         modelDriver.vehicleModel  = self.vehicleModel
         modelDriver.vehicleColor = self.vehicleColor

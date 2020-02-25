@@ -940,7 +940,7 @@ public final class SyncService {
             model.driverId = response.id
             model.driverName = response.firstName
             model.driverLastName = response.lastName
-            model.driverLicenseNumber = response.driverLicenceNumber
+            model.driversLicense = response.driversLicense
             model.vehicleMake = response.vehicleMake
             model.vehicleModel = response.vehicleModel
             model.vehicleColor = response.vehicleColor

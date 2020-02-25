@@ -24,7 +24,7 @@ public class ResponceDriverInfo :BaseResponseModel{
     public var driverId:String?
     public var firstName:String?
     public var lastName:String?
-    public var driverLicenceNumber:String?
+    public var driversLicense:String?
     public var vehicleMake:String?
     public var vehicleModel:String?
     public var vehicleColor:String?

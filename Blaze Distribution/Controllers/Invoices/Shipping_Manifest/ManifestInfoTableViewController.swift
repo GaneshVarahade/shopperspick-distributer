@@ -213,14 +213,14 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             let fullName = "\(licenNumber.driverName ?? "Not") \(licenNumber.driverLastName ?? "Available")"
         
             driverNameTextField.text = fullName
-            driverLicenceTextField.text = licenNumber.driverLicenseNumber ?? "Not Available"
+            driverLicenceTextField.text = licenNumber.driversLicense ?? "Not Available"
             driverMakeTextField.text = licenNumber.vehicleMake ?? "Not Available"
             driverModelTextField.text = licenNumber.vehicleModel ?? "Not Available"
             driverColorTextField.text = licenNumber.vehicleColor ?? "Not Available"
             driverLicencePlateTextField.text = licenNumber.vehicleLicensePlate ?? "Not Available"
         
             modelShippingMen?.driverName = licenNumber.driverName
-            modelShippingMen?.driverLicenseNumber = licenNumber.driverLicenseNumber
+            modelShippingMen?.driverLicenseNumber = licenNumber.driversLicense
             modelShippingMen?.vehicleMake = licenNumber.vehicleMake
             modelShippingMen?.vehicleModel = licenNumber.vehicleModel
             modelShippingMen?.vehicleColor = licenNumber.vehicleColor
