@@ -152,6 +152,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         txtShipCompanyType.text = objvendor.companyType ?? ""
         txtShipLocense.text = objvendor.licenseNumber ?? ""
         lblShipAddress.text = objvendor.address?.address ?? ""
+        txtShipPhone.text = objvendor.phone ?? ""
     }
     
     func companyContactDone(objcompany : AllCompanyContact){

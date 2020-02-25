@@ -121,7 +121,7 @@ public class AllVendor : BaseResponseModel{
     public var name :  String?
     public var licenseNumber : String?
     public var address : companyAddress?
-    
+    public var phone : String?
     
 }
 
