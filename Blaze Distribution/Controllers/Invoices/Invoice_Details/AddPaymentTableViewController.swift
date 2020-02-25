@@ -122,7 +122,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             achDateTextField.text = paymentModel?.achDate ?? "Not Available"
             paymentDateTextField.text = DateFormatterUtil.format(dateTime:Double(DateIntConvertUtil.convert(dateTime: (paymentModel?.paymentDate)!, type: DateIntConvertUtil.Seconds)) , format:"dd/MM/yyyy")
             referenceNoTextField.text = paymentModel?.referenceNumber
-            amountTextField.text = String(format:"$%.1f",(paymentModel?.amount)!)
+            amountTextField.text = String(format:"$%.2f",(paymentModel?.amount)!)
             notesTextView.text = paymentModel?.notes ?? "Not Available"
             lblBalanceDue.text = "0";
             paymentTypeTextField.text = paymentModel?.paymentType == "CHEQUE" ? "Check" : paymentModel?.paymentType
@@ -130,7 +130,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         } else {
             //Set Due balance
             if(invoiceObj != nil){
-                 lblBalanceDue.text = String(format: "$%.1f",(invoiceObj?.balanceDue)!)
+                 lblBalanceDue.text = String(format: "$%.2f",(invoiceObj?.balanceDue)!)
             }
         }
         self.setAddPaymentType(addPaymentType: self.paymentType)
