@@ -50,11 +50,13 @@ class SMHeaderProductCell: UITableViewCell {
         button.setImage(UIImage(named: "choose_arrow.png"), for: .normal)
         button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         self.txtSelectInventory.rightView = button;
+        button.isHidden = true
         
         let button1 = UIButton(type: .custom)
         button1.setImage(UIImage(named: "choose_arrow.png"), for: .normal)
         button1.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         self.txtSelectBatch.rightView = button1;
+        button1.isHidden = true
 
         self.txtSelectBatch.rightViewMode = .always
         self.txtSelectInventory.rightViewMode = .always

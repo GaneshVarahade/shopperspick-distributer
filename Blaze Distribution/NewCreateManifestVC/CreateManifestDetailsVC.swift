@@ -91,7 +91,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
 //                    print(response)
 //                    let keyArr : Array = response!.values!
                     SKActivityIndicator.dismiss()
-                    if error == nil{
+                    if error == nil && response != nil{
                         if let arrValue = response!.values{
                             for itemBatch in arrValue{
                                let mapobject = itemBatch.batchQuantityMap
