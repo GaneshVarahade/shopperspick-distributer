@@ -6,9 +6,9 @@ import Foundation
 //let API_STAGE_URL = "http://qa.zencanna.io:8092"
 //let API_PROD_URL = ""
 
-let API_LOCAL_URL = "http://qa.zencanna.io:8092"
-let API_DEV_URL = "http://qa.zencanna.io:8092"
-let API_STAGE_URL = "http://qa.zencanna.io:8092"
+let API_LOCAL_URL = "http://192.168.4.32:8092"
+let API_DEV_URL = "http://192.168.4.32:8092"
+let API_STAGE_URL = "http://192.168.4.32:8092"
 let API_PROD_URL = ""
 //
 //let API_LOCAL_URL = "http://qa.zencanna.io:8092"

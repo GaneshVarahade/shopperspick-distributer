@@ -24,4 +24,5 @@ public class ResponsePaymentsReceived:BaseResponseModel{
     public var notes: Notes?
     public var amountPaid: Double?
     public var paymentType : String?
+    public var paymentNo: String?
 }

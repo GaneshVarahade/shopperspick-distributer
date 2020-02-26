@@ -1036,6 +1036,7 @@ public final class SyncService {
                             paymentTemp.amount          = payment.amountPaid!
                             paymentTemp.notes           = payment.notes?.message
                             paymentTemp.paymentType     = payment.paymentType ?? ""
+                            paymentTemp.paymentNo = payment.paymentNo
                             model.paymentInfo.append(paymentTemp)
                         }
                     } else {
