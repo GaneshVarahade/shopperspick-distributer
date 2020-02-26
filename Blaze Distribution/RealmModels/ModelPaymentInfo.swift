@@ -34,6 +34,7 @@ public class ModelPaymentInfo:ModelBase {
     @objc public dynamic var referenceNumber:String = ""
     @objc public dynamic var amount:Double          = 0.0
     @objc public dynamic var notes:String?          = ""
+    @objc public dynamic var paymentNo:String?
     
     open override class func primaryKey() -> String? {
         return "id"
@@ -51,6 +52,7 @@ public class ModelPaymentInfo:ModelBase {
         modelPaymentInfo.notes           = self.notes
         modelPaymentInfo.updated         = self.updated
         modelPaymentInfo.paymentType     = self.paymentType
+        modelPaymentInfo.paymentNo = self.paymentNo
         return modelPaymentInfo
     }
 }

@@ -42,7 +42,7 @@ extension InvoicePaymentsViewController:UITableViewDelegate,UITableViewDataSourc
         
         let cell = paymantTableView.dequeueReusableCell(withIdentifier: "paymentCell", for: indexPath) as! InvoicePaymentsTableViewCell
         cell.isUserInteractionEnabled = true
-        //cell.lblPaymentName = paymentList[indexPath.row].
+        cell.lblPaymentName.text = paymentList[indexPath.row].paymentNo ?? "PAY-\(indexPath.row + 1)"
         cell.lblAmount.text = "$ \(paymentList[indexPath.row].amount)"
         
         return cell
