@@ -1033,7 +1033,7 @@ public final class SyncService {
                             paymentTemp.paymentDate     = payment.paidDate!
                             paymentTemp.referenceNumber = payment.referenceNo ?? ""
                             paymentTemp.amount          = payment.amountPaid!
-                            paymentTemp.notes           = payment.notes
+                            paymentTemp.notes           = payment.notes?.message
                             paymentTemp.paymentType     = payment.paymentType ?? ""
                             model.paymentInfo.append(paymentTemp)
                         }

@@ -7,6 +7,11 @@
 //
 
 import Foundation
+
+public class Notes:Decodable{
+    public var message: String?
+}
+
 public class ResponsePaymentsReceived:BaseResponseModel{
     public var id: String?
     public var created: Int?
@@ -16,7 +21,7 @@ public class ResponsePaymentsReceived:BaseResponseModel{
     public var companyId: String?
     public var paidDate: Int?
     public var referenceNo: String?
-    public var notes: String?
+    public var notes: Notes?
     public var amountPaid: Double?
     public var paymentType : String?
 }
