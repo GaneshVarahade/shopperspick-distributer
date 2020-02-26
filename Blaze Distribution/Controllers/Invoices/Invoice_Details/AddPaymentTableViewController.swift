@@ -112,19 +112,21 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             if let cardNo = paymentModel?.debitCardNo {
                 if (cardNo == 0){
                      debitCardTextField?.text = "Not Available"
+                    otherpaymentmethods()
                 }else{
                      debitCardTextField?.text = String(format: "%d",cardNo)
                 }
                
             } else {
                 debitCardTextField?.text = "Not Available"
+                otherpaymentmethods()
             }
             achDateTextField.text = paymentModel?.achDate ?? "Not Available"
             paymentDateTextField.text = DateFormatterUtil.format(dateTime:Double(DateIntConvertUtil.convert(dateTime: (paymentModel?.paymentDate)!, type: DateIntConvertUtil.Seconds)) , format:"dd/MM/yyyy")
             referenceNoTextField.text = paymentModel?.referenceNumber
             amountTextField.text = String(format:"$%.2f",(paymentModel?.amount)!)
             notesTextView.text = paymentModel?.notes ?? "Not Available"
-            lblBalanceDue.text = "0";
+            lblBalanceDue.text = "\(invoiceObj?.balanceDue ?? 0)";
             paymentTypeTextField.text = paymentModel?.paymentType == "CHEQUE" ? "Check" : paymentModel?.paymentType
             
         } else {
@@ -133,7 +135,10 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
                  lblBalanceDue.text = String(format: "$%.2f",(invoiceObj?.balanceDue)!)
             }
         }
+        if paymentModel?.paymentType != AddPaymentType.DEBIT.rawValue &&
+            paymentModel?.paymentType != AddPaymentType.CREDIT.rawValue {
         self.setAddPaymentType(addPaymentType: self.paymentType)
+        }
     }
     
     func setAddPaymentType(addPaymentType:AddPaymentType) {

@@ -61,6 +61,12 @@ class POStaticDetailsTableViewController: UITableViewController {
                 }
         }
         
+        if indexPath.row == 2{
+            if TextHelpers.isEmpty(model.origin){
+                return 0
+            }
+        }
+        
         if deviceIdiom == .pad {
             return 70
         }

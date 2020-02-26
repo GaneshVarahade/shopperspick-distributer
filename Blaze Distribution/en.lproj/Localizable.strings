@@ -63,7 +63,7 @@
 
 //12. ForgotPasswordViewController
 "ForgotPass_InvalidEmail" = "Please enter valid email id";
-"ForgotPass_EmailEmpty" = "Please supply your email address.";
+"ForgotPass_EmailEmpty" = "Please enter your email address.";
 
 //13. QuantityAndBatchViewController
 "QtValidation" = "Requested quantity is Greater than remaining quantity for Product";
