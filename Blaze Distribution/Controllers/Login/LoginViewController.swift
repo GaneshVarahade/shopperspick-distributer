@@ -82,7 +82,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.btnForgotPassword.isEnabled = true
                 self.btnForgotPassword.alpha = 1.0
                 SKActivityIndicator.dismiss()
-                self.showAlert(title: "Error", message: error?.details ?? "Error", closure:{})
+                self.showAlert(title: "Invalid Credentials", message: error?.details ?? "You may have entered wrong Username/Password", closure:{})
                 return
             }
             
