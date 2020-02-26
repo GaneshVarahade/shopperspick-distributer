@@ -20,6 +20,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
     var isfromDetails : Bool = false
     var paymentModel: ModelPaymentInfo?
     
+    @IBOutlet weak var lblDueBalance: UILabel!
     @IBOutlet weak var lblBalanceDue: UILabel!
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var paymentTypeView: UIView!
@@ -126,7 +127,13 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             referenceNoTextField.text = paymentModel?.referenceNumber
             amountTextField.text = String(format:"$%.2f",(paymentModel?.amount)!)
             notesTextView.text = paymentModel?.notes ?? "Not Available"
-            lblBalanceDue.text = "\(invoiceObj?.balanceDue ?? 0)";
+            if let due = invoiceObj?.balanceDue, due > 0{
+            lblBalanceDue.text = "\(due)";
+            }else{
+                lblBalanceDue.isHidden = true
+                lblDueBalance.isHidden = true
+            }
+            
             paymentTypeTextField.text = paymentModel?.paymentType == "CHEQUE" ? "Check" : paymentModel?.paymentType
             
         } else {

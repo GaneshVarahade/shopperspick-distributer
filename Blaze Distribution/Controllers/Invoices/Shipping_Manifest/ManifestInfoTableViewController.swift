@@ -774,6 +774,10 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
                 else {
                     return 130
             }
+            case 21:
+                return 0
+            case 22:
+                return 0
         default:
             if deviceIdiom == .pad {
                 return 60
