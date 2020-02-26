@@ -241,6 +241,11 @@ class WebServicesAPI: NSObject {
          makeRequest(Router.getProductByBatchSKU(request: request), callback: onComplition)
     }
     
+    func getProductByShopId(request: RequestProductByShopId, onComplition:@escaping(_ result: ResponseProductByShopId?, _ error:PlatformError?)->())
+    {
+        makeRequest(Router.getProductsByShopId(request: request), callback: onComplition)
+    }
+    
     private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){
  
         guard UtilPrintLogs.canPrintResponseLog else {

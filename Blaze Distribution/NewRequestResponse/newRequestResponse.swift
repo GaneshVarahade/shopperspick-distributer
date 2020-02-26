@@ -202,3 +202,25 @@ class ResponseProductByBatchSku : BaseResponseModel{
 class RequestProductByBatchSku : BaseRequest{
     var batchSku : String?
 }
+
+class RequestProductByShopId : BaseRequest{
+    var shopId: String?
+    var status: String?
+    var currentTimeStamp:Double?
+}
+
+class ResponseProductByShopId : BaseResponseModel{
+    var id: String?
+    
+    var created: Int?
+    
+    var modified: Int?
+    
+    var deleted: Bool?
+    
+    var updated: Bool?
+    
+    var companyId: String?
+    
+    var values:[ResponseProduct]?
+}

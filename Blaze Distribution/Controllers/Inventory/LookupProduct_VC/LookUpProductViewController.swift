@@ -100,16 +100,33 @@ class LookUpProductViewController: UIViewController, UITableViewDelegate, UITabl
         if productData.count == 0{
             productData = RealmManager().readPredicate(type: ModelProduct.self , predicate: "shopId = '\(modelCreateTransfer.fromLocation?.shop?.id ?? "")' && inventoryId = '\(modelCreateTransfer.fromLocation?.inventory?.id ?? "")' " )
             
+            let request = RequestProductByShopId()
+            request.shopId = modelCreateTransfer.toLocation?.shop?.id ?? ""
+            request.currentTimeStamp = NSDate().timeIntervalSince1970
+            weak var weakSelf = self
+            
+            WebServicesAPI.sharedInstance().getProductByShopId(request: request)
+            {(response : ResponseProductByShopId?,error : PlatformError?) in
+                    
+                weakSelf?.productData = weakSelf?.productData.filter({
+                    for i in response?.values ?? []{
+                            if $0.name == i.name{
+                                return true
+                            }
+                        }
+                        return false
+                }) ?? []
 
-            //filterArray()
-            for val in predicateArray{
-                filterArrayByPredicate(predicateString: val)
+                    //filterArray()
+                for val in weakSelf!.predicateArray{
+                        weakSelf?.filterArrayByPredicate(predicateString: val)
+                    }
+                    //print(filterDict)
+                    //print(Array(weakSelf?.filterDict.keys))
+                weakSelf?.sectionNameList = Array((weakSelf?.filterDict.keys)!).sorted()
+                    weakSelf?.lookUpTableView.reloadData()
+                    print("----DataRead----- \(weakSelf?.productData.count)")
             }
-            //print(filterDict)
-            print(Array(filterDict.keys))
-            sectionNameList = Array(filterDict.keys).sorted()
-            lookUpTableView.reloadData()
-            print("----DataRead----- \(productData.count)")
         }
     }
     
