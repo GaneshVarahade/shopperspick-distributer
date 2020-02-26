@@ -158,7 +158,7 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
         print(index)
         if textField.text?.isEmpty == false{
         let expected : Double = (textField.text! as NSString).doubleValue
-            if Int(expected) <= Int(modelPurchaseOrder.productInShipment[index].quantity){
+            if expected <= Double(modelPurchaseOrder.productInShipment[index].quantity){
                 textField.layer.borderWidth=0.0
                 textField.layer.borderColor = (UIColor .clear).cgColor
                 
