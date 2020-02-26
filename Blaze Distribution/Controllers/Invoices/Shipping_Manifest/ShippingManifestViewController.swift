@@ -92,6 +92,10 @@ class ShippingManifestViewController: UIViewController, ShippingMenifestConfirmS
         if self.modelShippingMen?.deliveryTime == 0 {
             canship = false
         }
+        
+        if self.modelShippingMen?.shippercustomerCompanyId == ""{
+            canship = false
+        }
 //         if self.modelShippingMen?.receiverCompany == ""{
 //            canship = false
 //        }
