@@ -107,12 +107,14 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     
     private func getOpenInvoices() {
         valueDataObj = RealmManager().readPredicateAecending(type: ModelInvoice.self, predicate: "invoiceStatus != '\(InvoiceStatus.COMPLETED)'")
+        valueDataObj = valueDataObj.filter({ $0.invoicePaymentStatus != "PAID"})
         
         invoiceTableView.reloadData()
     }
     
     private func getCompleteInvoices() {
         valueDataObj = RealmManager().readPredicateAecending(type: ModelInvoice.self, predicate: "invoiceStatus = '\(InvoiceStatus.COMPLETED)'")
+        valueDataObj = valueDataObj.filter({ $0.invoicePaymentStatus == "PAID"})
         invoiceTableView.reloadData()
     }
     

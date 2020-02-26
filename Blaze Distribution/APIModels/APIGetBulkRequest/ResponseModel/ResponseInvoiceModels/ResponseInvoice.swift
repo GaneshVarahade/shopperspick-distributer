@@ -32,6 +32,7 @@ public class ResponseInvoice :BaseResponseModel{
     public var companyContact:String?
     public var total:Double?
     public var invoiceStatus:String?
+    public var invoicePaymentStatus:String?
     public var items:[ResponseInvoiceItems]?
     public var paymentsReceived:[ResponsePaymentsReceived]?
     public var shippingManifests: [ResponseShippingManifests]?

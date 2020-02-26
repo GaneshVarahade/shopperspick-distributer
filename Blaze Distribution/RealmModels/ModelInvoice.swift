@@ -18,6 +18,7 @@ public class ModelInvoice:ModelBase {
     @objc public dynamic var salesPerson:String?         = ""
     @objc public dynamic var contact:String?         = ""
     @objc public dynamic var invoiceStatus:String?
+    @objc public dynamic var invoicePaymentStatus:String?
     @objc public dynamic var total:Double           = 0.0
     @objc public dynamic var balanceDue:Double      = 0.0
     
@@ -55,6 +56,7 @@ public class ModelInvoice:ModelBase {
         modelInvoice.salesPerson       = self.salesPerson
         modelInvoice.contact           = self.contact
         modelInvoice.invoiceStatus     = self.invoiceStatus
+        modelInvoice.invoicePaymentStatus = self.invoicePaymentStatus
         modelInvoice.total             = self.total
         modelInvoice.balanceDue        = self.balanceDue
         

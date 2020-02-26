@@ -971,6 +971,7 @@ public final class SyncService {
                     model.created           = value.created ?? 0
                     model.modified          = value.modified ?? 0
                     model.invoiceStatus     = value.invoiceStatus
+                    model.invoicePaymentStatus = value.invoicePaymentStatus
                     model.companyId         = value.companyId
                     model.customerId        = value.customerId
                     model.invoiceNumber     = value.invoiceNumber
