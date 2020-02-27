@@ -61,7 +61,7 @@ class POStaticDetailsTableViewController: UITableViewController {
                 }
         }
         
-        if indexPath.row == 2{
+        if indexPath.row == 2 && !(model.purchaseOrderNumber?.contains("BO") ?? true){
             if TextHelpers.isEmpty(model.origin){
                 return 0
             }
