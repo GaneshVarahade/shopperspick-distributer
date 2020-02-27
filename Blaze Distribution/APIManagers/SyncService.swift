@@ -1220,6 +1220,12 @@ public final class SyncService {
         //RealmManager.deleteAll(ModelProduct.self)
         
         if let products = jsonData{
+            let realm = try! Realm()
+            
+            try! realm.write {
+                realm.delete(realm.objects(ModelProduct.self))
+            }
+            
             for prod in products{
                 
                 if let tempQuantity = prod.quantities{

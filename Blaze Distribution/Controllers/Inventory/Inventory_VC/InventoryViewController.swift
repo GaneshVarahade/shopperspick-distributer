@@ -67,7 +67,11 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         //call method manage activity indicator
         self.view.bringSubview(toFront: self.activityIndicator)
         self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelInventoryTransfers.self).count == 0))
-        
+        EventBus.sharedBus().subscribe(self, selector: #selector(onDataSynced), eventType: EventBusEventType.FINISHSYNCDATA)
+        getData()
+    }
+    
+    @objc func onDataSynced(){
         getData()
     }
     
@@ -114,7 +118,6 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             inventoryTableView.reloadData()
         }
         else {
-            SyncService.sharedInstance().syncData()
             self.searchBar.endEditing(true)
             self.searchBar.text = ""
             data.removeAll()
