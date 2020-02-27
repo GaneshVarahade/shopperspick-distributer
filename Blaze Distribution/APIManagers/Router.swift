@@ -106,7 +106,7 @@ enum Router : URLRequestConvertible {
             return (Method.GET,"/api/v1/mgmt/inventory",nil,nil)
             
         case .getAllBatchesByProdId(let request):
-            return (Method.GET,"/api/v1/mgmt/batch/list?productId=\(request.productId ?? "")",nil,nil)
+            return (Method.GET,"/api/v1/mgmt/batch/readyForSaleProductBatchesByProductId?productId=\(request.productId ?? "")",nil,nil)
         case .getAllVendor:
             return (Method.GET,"/api/v1/mgmt/vendors?companyType=&limit=1000&start=0&term=&type=BOTH&vendorId=&currentTimeStamp=",nil,nil)
         case .getCompanyContactList(let request):

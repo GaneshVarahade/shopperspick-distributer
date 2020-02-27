@@ -35,10 +35,17 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     let INVENTORYTEXTFIELD = 101
     let BATCHTEXTFIELD = 102
     
+    var safeIndex = -1
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.getAllInventorise()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetUp()
-        self.getAllInventorise()
         pickerView.delegate = self
         pickerView.dataSource = self
         
@@ -71,11 +78,23 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
         //This is tempcall
         let onjrequest = RequestGetAllInventory()
         SKActivityIndicator.show()
+        weak var weakSelf = self
         WebServicesAPI.sharedInstance().getAllInventory(request: onjrequest) {
             (response : ResponseGetAllInvetory?,error : PlatformError?) in
             SKActivityIndicator.dismiss()
             if error == nil{
                 self.inventoryObject = response
+                if let values = weakSelf?.inventoryObject.values{
+                    for (index,value) in values.enumerated(){
+                    if let name = value.name{
+                        if name.uppercased() == "SAFE"
+                        {
+                            weakSelf?.safeIndex = index
+                            weakSelf?.manifestDetailsTable.reloadData()
+                        }
+                    }
+                    }
+                }
             }
         }
     }
@@ -166,9 +185,11 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
         let selectedInvObj = inventoryObject.values![pickerView.selectedRow(inComponent: 0)]
         invobj.SelectedInventoryName = selectedInvObj.name
         invobj.SelectedInventoryId = selectedInvObj.id
+        if invobj.SelectedBatchId == "" {
         invobj.SelectedBatchName = ""
         invobj.SelectedBatchId = ""
-        manifestDetailsTable.reloadData()
+        }
+        //manifestDetailsTable.reloadData()
     
     }
     @objc func BatchPickerButtonTapped(_ sender : MyCustomTextField){
@@ -470,7 +491,12 @@ extension CreateManifestDetailsVC : UITableViewDelegate,UITableViewDataSource{
             
             prodHeaderCell.txtSelectInventory.inputView = pickerView
             prodHeaderCell.txtSelectInventory.section = indexPath.section
-            prodHeaderCell.txtSelectInventory.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(InventoryPickerButtonTapped(_:)))
+            prodHeaderCell.txtSelectInventory.isUserInteractionEnabled = false
+//            prodHeaderCell.txtSelectInventory.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(InventoryPickerButtonTapped(_:)))
+            if safeIndex != -1{
+                prodHeaderCell.txtSelectInventory.text = "Safe"
+                InventoryPickerButtonTapped(prodHeaderCell.txtSelectInventory)
+            }
 
             prodHeaderCell.txtSelectBatch.inputView = pickerView
             prodHeaderCell.txtSelectBatch.section = indexPath.section

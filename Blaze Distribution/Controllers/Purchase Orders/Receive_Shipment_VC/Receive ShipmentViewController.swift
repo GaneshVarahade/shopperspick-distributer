@@ -41,7 +41,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
         }
         
         guard isValid else {
-            showAlert(title: NSLocalizedString("Warning", comment: ""), message: "Received product quantity should not be empty, and is always less than or equal to Expected product quantity ", closure: {})
+            showAlert(title: NSLocalizedString("Warning", comment: ""), message: "Received product quantity should not be empty, and is always less than or equal to expected product quantity ", closure: {})
             return
         }
         for dict in modelPurchaseOrder.productInShipment {
