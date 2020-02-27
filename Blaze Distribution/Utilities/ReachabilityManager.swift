@@ -28,8 +28,9 @@ class ReachabilityManager: NSObject {
             
           //  showMessage(message:"Network became unreachable")
         case .wifi, .cellular:
-         
+            if UserDefaults.standard.bool(forKey: "Login"){
            SyncService.sharedInstance().syncData()
+            }
          return
           
            // showMessage(message:"Network reachable ")

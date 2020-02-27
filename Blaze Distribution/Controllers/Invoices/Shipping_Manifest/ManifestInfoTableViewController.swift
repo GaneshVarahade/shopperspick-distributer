@@ -127,7 +127,7 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         //Read Driver info list from database
-        self.driverInfo = RealmManager().readList(type: ModelDriverInfo.self)
+        self.driverInfo = RealmManager().readPredicate(type: ModelDriverInfo.self, predicate: "deleted = false && active = true")
         pickerView.delegate = self
         pickerView.dataSource = self
         driverNameTextField.inputView = pickerView

@@ -27,6 +27,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //txtEmail.text       = "test@test.com"
         //txtPassword.text    = "test"
         labelVersion.text   = Versionutils.getAppVersion()
+        UserDefaults.standard.set(false, forKey: "Login")
         
     }
     
@@ -90,6 +91,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
             self.saveData(jsonData: result)
             UtilityUserDefaults.sharedInstance().saveToken(strToken: (result?.accessToken)!)
+            UserDefaults.standard.set(true, forKey: "Login")
            
             SyncService.sharedInstance().syncData()
             EventBus.sharedBus().subscribe(self, selector: #selector(self.goHome), eventType: EventBusEventType.FINISHSYNCDATA)

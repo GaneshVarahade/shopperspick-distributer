@@ -20,6 +20,7 @@ public class ModelDriverInfo:ModelBase{
     @objc public dynamic var vehicleModel:String?
     @objc public dynamic var vehicleColor:String?
     @objc public dynamic var vehicleLicensePlate:String?
+    @objc public dynamic var active:Bool = false
     
     open override class func primaryKey() -> String? {
         return "id"
@@ -35,6 +36,7 @@ public class ModelDriverInfo:ModelBase{
         modelDriver.vehicleModel  = self.vehicleModel
         modelDriver.vehicleColor = self.vehicleColor
         modelDriver.vehicleLicensePlate     = self.vehicleLicensePlate
+        modelDriver.active = self.active
         return modelDriver
     }
 }

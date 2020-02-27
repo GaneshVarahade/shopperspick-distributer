@@ -74,6 +74,7 @@ public class getbatches : BaseResponseModel{
     public var shopId : String?
     
     public var sku : String?
+    public var quantity: Double = 0.0
     //public var batchNo : Double?
     public var batchQuantityMap : [String: Int]?
 }

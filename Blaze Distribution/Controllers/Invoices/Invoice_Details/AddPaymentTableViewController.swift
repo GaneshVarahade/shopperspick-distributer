@@ -154,7 +154,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         case .DEBIT:
             // show for debit card
             debitLabel.text = "Debit"
-            self.showDebitPaymentType(show: true)
+            self.otherpaymentmethods()
         case .ACH_TRANSFER:
             // Hide debit card
             self.showDebitPaymentType(show: false)
@@ -162,7 +162,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             self.otherpaymentmethods()
         case .CREDIT:
             debitLabel.text = "Credit"
-            self.showDebitPaymentType(show: true)
+            self.otherpaymentmethods()
         case .CHEQUE:
             self.otherpaymentmethods()
         }

@@ -30,4 +30,5 @@ public class ResponceDriverInfo :BaseResponseModel{
     public var vehicleColor:String?
     public var vehicleLicensePlate:String?
     public var signaturePhoto:String?
+    public var active: Bool?
 }

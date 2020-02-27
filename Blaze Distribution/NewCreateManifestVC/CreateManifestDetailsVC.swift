@@ -36,6 +36,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     let BATCHTEXTFIELD = 102
     
     var safeIndex = -1
+    var selectedInventoryId:String? = ""
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -89,6 +90,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
                     if let name = value.name{
                         if name.uppercased() == "SAFE"
                         {
+                            weakSelf?.selectedInventoryId = value.id
                             weakSelf?.safeIndex = index
                             weakSelf?.manifestDetailsTable.reloadData()
                         }
@@ -119,14 +121,13 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
                                     if key!.count > 0{
                                         for item in key!{
                                             if item == invID{
-                                            let invqty = mapobject?[item]
-                                            if invqty! > 0{
+                                                if itemBatch.quantity > 0.0{
                                                 let objbatch = Batchobject()
                                                 objbatch.batchId = itemBatch.id
                                                 objbatch.batchSku = itemBatch.sku
-                                                objbatch.inventoryQty = Double(invqty!)
+                                                objbatch.inventoryQty = itemBatch.quantity
                                                 objbatch.orderInventoryId = item
-                                                let qty = "\( Double(invqty!))"
+                                                let qty = "\( itemBatch.quantity)"
                                                 let batchDate = DateFormatterUtil.format(dateTime: Double(itemBatch.created! / 1000), format: DateFormatterUtil.mmddyyyy)
                                                 objbatch.batchDate = "\(itemBatch.sku ?? "") - \(qty)"
                                                 self.batchObjectList.append(objbatch)
@@ -141,6 +142,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
                             
                         }
                     }
+                    self.pickerView.tag = self.BATCHTEXTFIELD
                     self.pickerView.reloadAllComponents()
              })
         
@@ -154,9 +156,10 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == INVENTORYTEXTFIELD{
            return self.inventoryObject.values?.count ?? 0
-        }else{
-           return self.batchObjectList.count ?? 0
+        }else if pickerView.tag == BATCHTEXTFIELD{
+            return self.batchObjectList.count
         }
+        return 0
     }
     
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -262,7 +265,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
         let listmetr = objproductMetrcInfoList[section!].batchDetailsList[row]
         batchActualQty = listmetr.BatchActualQty
         
-        if Int(userenteredQty!) <= Int(ProductRequestQty) && Int(userenteredQty!) <= Int(batchActualQty){
+        if userenteredQty != nil && Int(userenteredQty!) <= Int(ProductRequestQty) && Int(userenteredQty!) <= Int(batchActualQty){
             listmetr.UserEnterQty = userenteredQty!
             return true
         }else{
@@ -399,9 +402,9 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
                     objBatchDetails.batchId = remainingProdInfoObj.SelectedBatchId
                     objBatchDetails.batchSku = remainingProdInfoObj.SelectedBatchSKU
                     objBatchDetails.BatchActualQty = remainingProdInfoObj.SelectedBatchQty
-                    objBatchDetails.overrideInventoryId = remainingProdInfoObj.SelectedInventoryId
+                    objBatchDetails.overrideInventoryId = selectedInventoryId != "" ? selectedInventoryId : remainingProdInfoObj.SelectedInventoryId
                     objBatchDetails.SelectedBatchName = remainingProdInfoObj.SelectedBatchName
-                    objBatchDetails.SelectedInvName = remainingProdInfoObj.SelectedInventoryName
+                    objBatchDetails.SelectedInvName = selectedInventoryId != "" ? "Safe" : remainingProdInfoObj.SelectedInventoryName
                     item.batchDetailsList.append(objBatchDetails)
                 }
             }
@@ -514,7 +517,7 @@ extension CreateManifestDetailsVC : UITableViewDelegate,UITableViewDataSource{
             //set data
             let objbatchDetailList = objproductMetrcInfoList[indexPath.section].batchDetailsList
             prodHeaderDetailCell.lblBatchName.text = objbatchDetailList[indexPath.row - 1].SelectedBatchName
-            prodHeaderDetailCell.lblInventoryName.text = objbatchDetailList[indexPath.row - 1].SelectedInvName
+            prodHeaderDetailCell.lblInventoryName.text = "Safe"
             prodHeaderDetailCell.lblAvailabelBatchQty.text = "\(objbatchDetailList[indexPath.row - 1].BatchActualQty)"
             prodHeaderDetailCell.txtActualQty.text = "\(objbatchDetailList[indexPath.row - 1].UserEnterQty)"
             prodHeaderDetailCell.setupUI()

@@ -945,6 +945,9 @@ public final class SyncService {
             model.vehicleModel = response.vehicleModel
             model.vehicleColor = response.vehicleColor
             model.vehicleLicensePlate = response.vehicleLicensePlate
+            model.active = response.active ?? false
+            model.deleted = response.deleted ?? false
+            model.companyId = response.companyId
             RealmManager().write(table: model)
         }
         //print(RealmManager().readList(type: ModelDriverInfo.self))
@@ -954,6 +957,12 @@ public final class SyncService {
     fileprivate func saveDataInvoice(jsonData: [ResponseInvoice]?){
         let invoiceErrorObject = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "putBulkError != ''")
         if let values = jsonData{
+            
+            let realm = try! Realm()
+            
+            try! realm.write {
+                realm.delete(realm.objects(ModelInvoice.self))
+            }
             
             for value in values{
                 let canSkip : Bool = false
