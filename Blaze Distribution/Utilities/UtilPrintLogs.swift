@@ -22,8 +22,8 @@ public enum DLogMessage : String{
 }
 public class UtilPrintLogs {
     private static let canPrintLog : Bool = false
-    public static let canPrintRequestLog : Bool = true
-    public static let canPrintResponseLog : Bool = true
+    public static let canPrintRequestLog : Bool = false
+    public static let canPrintResponseLog : Bool = false
     
     
     public static func DLog(message:String?, objectToPrint : Any?){
