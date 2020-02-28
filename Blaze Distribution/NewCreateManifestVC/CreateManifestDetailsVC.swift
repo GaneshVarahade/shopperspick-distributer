@@ -37,6 +37,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     
     var safeIndex = -1
     var selectedInventoryId:String? = ""
+    var selectInventory = false
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -91,8 +92,10 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
                         if name.uppercased() == "SAFE"
                         {
                             weakSelf?.selectedInventoryId = value.id
+                            weakSelf?.selectInventory = true
                             weakSelf?.safeIndex = index
                             weakSelf?.manifestDetailsTable.reloadData()
+                            break
                         }
                     }
                     }
@@ -121,13 +124,14 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
                                     if key!.count > 0{
                                         for item in key!{
                                             if item == invID{
-                                                if itemBatch.quantity > 0.0{
+                                                let currentQuantity = mapobject?[item] ?? 0
+                                                if currentQuantity > 0{
                                                 let objbatch = Batchobject()
                                                 objbatch.batchId = itemBatch.id
                                                 objbatch.batchSku = itemBatch.sku
-                                                objbatch.inventoryQty = itemBatch.quantity
+                                                objbatch.inventoryQty = Double(currentQuantity)
                                                 objbatch.orderInventoryId = item
-                                                let qty = "\( itemBatch.quantity)"
+                                                let qty = "\(currentQuantity)"
                                                 let batchDate = DateFormatterUtil.format(dateTime: Double(itemBatch.created! / 1000), format: DateFormatterUtil.mmddyyyy)
                                                 objbatch.batchDate = "\(itemBatch.sku ?? "") - \(qty)"
                                                 self.batchObjectList.append(objbatch)
@@ -196,6 +200,7 @@ class CreateManifestDetailsVC: UIViewController,UIPickerViewDelegate,UIPickerVie
     
     }
     @objc func BatchPickerButtonTapped(_ sender : MyCustomTextField){
+        selectInventory = false
         if batchObjectList.count > 0{
         let tag = sender.section
         let invobj = invoiceSelectedItemList[tag!]
@@ -496,7 +501,7 @@ extension CreateManifestDetailsVC : UITableViewDelegate,UITableViewDataSource{
             prodHeaderCell.txtSelectInventory.section = indexPath.section
             prodHeaderCell.txtSelectInventory.isUserInteractionEnabled = false
 //            prodHeaderCell.txtSelectInventory.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(InventoryPickerButtonTapped(_:)))
-            if safeIndex != -1{
+            if safeIndex != -1 && selectInventory{
                 prodHeaderCell.txtSelectInventory.text = "Safe"
                 InventoryPickerButtonTapped(prodHeaderCell.txtSelectInventory)
             }

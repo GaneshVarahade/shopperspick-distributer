@@ -170,7 +170,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }else{
                 
                 //print("Assined Terminal nil")
-                UtilPrintLogs.requestLogs(message: "Assined Terminal nil", objectToPrint: nil)
+                UtilPrintLogs.requestLogs(message: "Assigned Terminal nil", objectToPrint: nil)
             }
             //Address Mapping
             if let  addr = data.assignedShop?.address{

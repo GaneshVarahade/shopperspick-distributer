@@ -13,6 +13,7 @@ import RealmSwift
 public enum PurchaseOrderStatus:String {
     case Closed = "Closed"
     case ReceivingShipment = "ReceivingShipment"
+    case ReceivedShipment = "ReceivedShipment"
 }
 
 public class ModelPurchaseOrder:ModelBase{

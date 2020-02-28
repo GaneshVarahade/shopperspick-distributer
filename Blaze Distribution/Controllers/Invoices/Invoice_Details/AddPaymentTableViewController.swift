@@ -449,11 +449,11 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         var debitCardNo = ""
         var achDate = ""
         if self.paymentType == .DEBIT || self.paymentType == .CREDIT {
-            guard let cardNo = debitCardTextField.text, cardNo != "" else {
-                self.showToast(NSLocalizedString("AddPay_Validation1", comment: ""))
-                return
-            }
-            debitCardNo = cardNo
+//            guard let cardNo = debitCardTextField.text, cardNo != "" else {
+//                self.showToast(NSLocalizedString("AddPay_Validation1", comment: ""))
+//                return
+//            }
+//            debitCardNo = cardNo
         } else if self.paymentType == .ACH_TRANSFER{
             guard let date = achDateTextField.text, date != "" else {
                 self.showToast(NSLocalizedString("AddPay_Validation2", comment: ""))

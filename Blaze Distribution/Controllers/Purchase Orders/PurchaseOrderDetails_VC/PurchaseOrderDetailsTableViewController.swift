@@ -90,7 +90,8 @@ class PurchaseOrderDetailsTableViewController: UITableViewController {
             //case for Continue button
             if indexPath.row ==  tableView.numberOfRows(inSection: 0) - 1{
                 
-                if modelPurcahseOrder.status == PurchaseOrderStatus.Closed.rawValue {
+                if modelPurcahseOrder.status == PurchaseOrderStatus.Closed.rawValue  ||
+                modelPurcahseOrder.status == PurchaseOrderStatus.ReceivedShipment.rawValue {
                     return 0
                 }
             }

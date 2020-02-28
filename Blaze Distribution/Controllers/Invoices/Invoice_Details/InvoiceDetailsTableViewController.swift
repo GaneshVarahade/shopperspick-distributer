@@ -193,7 +193,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
     // MARK: - Navigation
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "addPaymentSegue" {
-            if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoiceStatus == "COMPLETED"){
+            if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoicePaymentStatus == "PAID"){
                 showToast(NSLocalizedString("InvDetail_Validation1", comment: ""))
                 return false
             }else if Int(tempData?.balanceDue ?? 0) == 0 {
@@ -202,8 +202,12 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
             }
             return true
         }else  if identifier == "addManifestInfoSegue" {
-            if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoiceStatus == "COMPLETED"){
+            if(tempData?.invoiceStatus == "DRAFT"){
                 showToast(NSLocalizedString("InvDetail_Validation3", comment: ""))
+                return false
+            }else if (tempData?.invoiceStatus == "COMPLETED")
+            {
+                showToast(NSLocalizedString("InvDetail_Validation4", comment: ""))
                 return false
             }else if (!isManifestAvailable()){
                 showToast("No remainig product found to ship for this invoice.")
@@ -232,6 +236,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
             paymentItemsVC?.paymentInvoiceDelegate = self
             if let data = tempData{
             paymentItemsVC?.paymentList = (data.paymentInfo)
+                paymentItemsVC?.invoiceId = data.invoiceNumber ?? "INV"
             }else{
                 return
             }

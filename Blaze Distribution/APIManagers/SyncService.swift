@@ -884,6 +884,11 @@ public final class SyncService {
     private func savePurchaseOrder(_ arrayPurchase: [ResponsePurchaseOrder]){
         let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "putBulkError != ''")
         
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.delete(realm.objects(ModelPurchaseOrder.self))
+        }
         for respPurchaseOrder in arrayPurchase {
             let canSkip : Bool = false
 //            if poErrorObject.count != 0{

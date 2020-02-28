@@ -130,19 +130,27 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
         self.driverInfo = RealmManager().readPredicate(type: ModelDriverInfo.self, predicate: "deleted = false && active = true")
         pickerView.delegate = self
         pickerView.dataSource = self
-        driverNameTextField.inputView = pickerView
-        driverNameTextField.delegate = self
-        driverNameTextField?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(doneButtonTapped))
         
-        //for vendor text field
-        txtShipCompanyName.inputView = pickerView
-        txtShipCompanyName.delegate = self
-        txtShipCompanyName?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(vendorDoneBtnTapped))
-        
-        //for companyContact field
-        txtShipContactName.inputView = pickerView
-        txtShipContactName.delegate = self
-        txtShipContactName?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(companyContactDoneBtnTapped))
+        if !isAddManifest{
+            txtShipCompanyName.isUserInteractionEnabled = false
+            txtShipContactName.isUserInteractionEnabled = false
+            driverNameTextField.isUserInteractionEnabled = false
+        }else{
+            driverNameTextField.inputView = pickerView
+            driverNameTextField.delegate = self
+            driverNameTextField?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(doneButtonTapped))
+            
+            //for vendor text field
+            txtShipCompanyName.inputView = pickerView
+            txtShipCompanyName.delegate = self
+            txtShipCompanyName?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(vendorDoneBtnTapped))
+            
+            //for companyContact field
+            txtShipContactName.inputView = pickerView
+            txtShipContactName.delegate = self
+            txtShipContactName?.keyboardToolbar.doneBarButton.setTarget(self, action:#selector(companyContactDoneBtnTapped))
+            
+        }
         
         self.getManifestInProgress()
     }

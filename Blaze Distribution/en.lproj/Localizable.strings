@@ -32,6 +32,7 @@
 "InvDetail_Validation1" = "Payment not allowed for Draft and Cancelled Invoice";
 "InvDetail_Validation2" = "Sorry, this invoice is already paid, and has no remaining due";
 "InvDetail_Validation3" = "Shipping manifest not allowed for Draft and Cancelled Invoice";
+"InvDetail_Validation4" = "Shipping manifest has been completed!";
 
 //6. AddPaymentTableViewController
 "AddPay_Validation1" = "Please enter card number";
@@ -72,7 +73,7 @@
 "SwitchShopTitle" = "Switch Shop";
 "SettingTitle"= "My Settings";
 //15. SwitchShopVC
-"sameShopValidation" = "Sorry! This shop is already assined to you, Select another shop to switch";
+"sameShopValidation" = "Sorry! This shop is already assigned to you, Select another shop to switch";
 "shopSwitchedSucessfuly" = "Shop switched sucessfully";
 "hasOfflineDataError" = "You have offline data, which is not synced yet. Please sync data before try switching shop";
 //16. ProductDetailsVC

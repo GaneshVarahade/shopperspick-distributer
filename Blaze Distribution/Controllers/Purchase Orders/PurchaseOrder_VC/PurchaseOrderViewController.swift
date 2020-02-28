@@ -85,7 +85,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     }
     func getPurchaseOrdersCompleted(){
         arrayModelPurchaseOrders = RealmManager().readPredicate(type: ModelPurchaseOrder.self,
-                                                                predicate: "status = '\(PurchaseOrderStatus.Closed.rawValue)'")
+                                                                predicate: "status = '\(PurchaseOrderStatus.Closed.rawValue)' || status = '\(PurchaseOrderStatus.ReceivedShipment.rawValue)'")
     }
     
     override func didReceiveMemoryWarning() {
