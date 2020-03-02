@@ -196,7 +196,7 @@ class InvoiceDetailsTableViewController: UITableViewController, FixedInvoiceDeta
             if(tempData?.invoiceStatus == "DRAFT" || tempData?.invoicePaymentStatus == "PAID"){
                 showToast(NSLocalizedString("InvDetail_Validation1", comment: ""))
                 return false
-            }else if Int(tempData?.balanceDue ?? 0) == 0 {
+            }else if let due = tempData?.balanceDue, due <= 0 {
                 showToast(NSLocalizedString("InvDetail_Validation2", comment: ""))
                 return false
             }
