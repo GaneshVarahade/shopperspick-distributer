@@ -494,14 +494,14 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
             return
         }
         
-        let enteredAmont:Int = Int((amountTextField.text! as NSString).intValue)
-        if(enteredAmont > Int((invoiceObj?.balanceDue)!)){
+        let enteredAmont:Double = (amountTextField.text! as NSString).doubleValue
+        guard let due = invoiceObj?.balanceDue, enteredAmont <= due else{
         self.showToast(NSLocalizedString("AddPay_Validation7", comment: ""))
         return
         }
         
-        let remainingamount = Int((invoiceObj?.balanceDue)!) - enteredAmont
-        invoiceObj?.balanceDue = Double(remainingamount)
+        let remainingamount = due - enteredAmont
+        invoiceObj?.balanceDue = remainingamount
         
         let modelPaymanetInfo:ModelPaymentInfo = ModelPaymentInfo()
         modelPaymanetInfo.id = HexGenerator.sharedInstance().generate()
@@ -511,7 +511,7 @@ class AddPaymentTableViewController: UITableViewController, UITextViewDelegate, 
         modelPaymanetInfo.achDate = achDate
         modelPaymanetInfo.paymentDate = DateFormatterUtil.formatStringToInt(dateTime: paymentDateTextField.text!, format: "dd/MM/yyyy")
         modelPaymanetInfo.referenceNumber = referenceNo
-        modelPaymanetInfo.amount = Double(amount)!
+        modelPaymanetInfo.amount = enteredAmont
         modelPaymanetInfo.notes = notes
         modelPaymanetInfo.updated = true
         
