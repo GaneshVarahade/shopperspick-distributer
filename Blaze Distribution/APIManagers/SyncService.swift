@@ -939,6 +939,13 @@ public final class SyncService {
     }
     
     private func saveDriverData(_ arrayDriver: [ResponceDriverInfo]){
+        
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.delete(realm.objects(ModelDriverInfo.self))
+        }
+        
         for response in arrayDriver{
             let model: ModelDriverInfo = ModelDriverInfo()
             model.id = response.id
@@ -1156,6 +1163,11 @@ public final class SyncService {
         //let inventryErrorObject = RealmManager().readPredicate(type: ModelInventoryTransfers.self, predicate: "putBulkError != ''")
         if let values = jsonData{
             
+            let realm = try! Realm()
+            try! realm.write {
+                realm.delete(realm.objects(ModelInventoryTransfers.self))
+            }
+            
             for value in values{
                 var canSkip : Bool = false
 //                if inventryErrorObject.count != 0{
@@ -1291,6 +1303,11 @@ public final class SyncService {
         }
     }
     fileprivate func saveInventory(jsonData:[ResponseInventories]){
+        let realm = try! Realm()
+        try! realm.write {
+            realm.delete(realm.objects(ModelInventories.self))
+        }
+        
         let shops:[ShopsModel] = RealmManager().readList(type: ShopsModel.self)
         for inventories in jsonData{
            let model = ModelInventories()

@@ -249,9 +249,6 @@ extension InventoryViewController{
             cell.btnErrorInvetry.tag = indexPath.row
             cell.accessoryType = .none
             
-            
-            
-            print("status is >>> \(tempi.status ?? "no status")")
         }
         
         return cell
