@@ -141,7 +141,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         // added filter to show products only from assigned shops
         self.modelLogin = RealmManager().readList(type: LoginModel.self).first
         if let assignedShopId = modelLogin?.assignedShop {
-            print(assignedShopId.id!)
+            //print(assignedShopId.id!)
            // productData   = RealmManager().readList(type: ModelProduct.self,distinct:"productId")
             productData = RealmManager().readPredicate(type: ModelProduct.self, distinct: "productId", predicate:"shopId = '\(assignedShopId.id ?? "")'")
         }
