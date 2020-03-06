@@ -16,6 +16,7 @@ public enum SERVERTYPE:String {
 
 open class Environment:NSObject {
     open var appUrl:String!                 = API_PROD_URL;
+    open var locationUrl:String! = API_LOCATION_URL;
     open var type:EnvironmentType           = EnvironmentType.PROD
     open var gaTrackingId:String!           = nil
     open var pusherKey:String!              = nil
@@ -116,6 +117,10 @@ open class DistributionConfig:NSObject {
     }
     open func getPusherKey()->String {
         return environment.pusherKey!
+    }
+    
+    open func getLocationUrl()->String! {
+        return environment.locationUrl
     }
     
     open func getPusherChannelPrefix()->String {

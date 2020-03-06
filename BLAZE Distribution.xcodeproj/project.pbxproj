@@ -55,6 +55,10 @@
 		182F83AB20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */; };
 		182F83AF20D007F3007A1019 /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182F83AE20D007F3007A1019 /* EventBus.swift */; };
 		1832492D20D2B11E008A71A4 /* InvoiceItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832492C20D2B11E008A71A4 /* InvoiceItemsViewController.swift */; };
+		1840A05B24120F1D00C42BCE /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1840A05A24120F1D00C42BCE /* LocationService.swift */; };
+		1840A05D24120F4F00C42BCE /* LocationDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1840A05C24120F4F00C42BCE /* LocationDataRequest.swift */; };
+		1840A05F241211AB00C42BCE /* LocationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1840A05E241211AB00C42BCE /* LocationDataResponse.swift */; };
+		1840A0622412163C00C42BCE /* FTUnavailableScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1840A0612412163C00C42BCE /* FTUnavailableScreenViewController.swift */; };
 		1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7B20B213010076BECD /* TextHelpers.swift */; };
 		1846DB7E20B213010076BECD /* SwiftExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB7C20B213010076BECD /* SwiftExtentions.swift */; };
 		1846DBA220B21B5B0076BECD /* EnvironmentVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */; };
@@ -274,6 +278,10 @@
 		182F83AA20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPurchaseOrderProduct.swift; sourceTree = "<group>"; };
 		182F83AE20D007F3007A1019 /* EventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
 		1832492C20D2B11E008A71A4 /* InvoiceItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceItemsViewController.swift; sourceTree = "<group>"; };
+		1840A05A24120F1D00C42BCE /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		1840A05C24120F4F00C42BCE /* LocationDataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDataRequest.swift; sourceTree = "<group>"; };
+		1840A05E241211AB00C42BCE /* LocationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDataResponse.swift; sourceTree = "<group>"; };
+		1840A0612412163C00C42BCE /* FTUnavailableScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTUnavailableScreenViewController.swift; sourceTree = "<group>"; };
 		1846DB7B20B213010076BECD /* TextHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelpers.swift; sourceTree = "<group>"; };
 		1846DB7C20B213010076BECD /* SwiftExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtentions.swift; sourceTree = "<group>"; };
 		1846DB9A20B21B5B0076BECD /* EnvironmentVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVar.swift; sourceTree = "<group>"; };
@@ -620,6 +628,23 @@
 			path = TextFilesForReference;
 			sourceTree = "<group>";
 		};
+		1840A05924120E9200C42BCE /* APIGeoBlocking */ = {
+			isa = PBXGroup;
+			children = (
+				1840A05C24120F4F00C42BCE /* LocationDataRequest.swift */,
+				1840A05E241211AB00C42BCE /* LocationDataResponse.swift */,
+			);
+			path = APIGeoBlocking;
+			sourceTree = "<group>";
+		};
+		1840A0602412160600C42BCE /* Geoblocking */ = {
+			isa = PBXGroup;
+			children = (
+				1840A0612412163C00C42BCE /* FTUnavailableScreenViewController.swift */,
+			);
+			path = Geoblocking;
+			sourceTree = "<group>";
+		};
 		1846DB8920B219CD0076BECD /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -646,6 +671,7 @@
 		189F82B320C501B70054986E /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				1840A05924120E9200C42BCE /* APIGeoBlocking */,
 				8D7DF4AD21ABD78500CA89AD /* APIInvoice */,
 				8D98F1D721A44F1100BECEBA /* APITransferUpdateStatus */,
 				B94BDB0E21104F1E007360A2 /* APIGetProductById */,
@@ -944,6 +970,7 @@
 				189F82CA20C5054D0054986E /* Router.swift */,
 				B985566E20B440E500A56497 /* WebServicesAPI.swift */,
 				182B920620C7E5330041915B /* SyncService.swift */,
+				1840A05A24120F1D00C42BCE /* LocationService.swift */,
 			);
 			path = APIManagers;
 			sourceTree = "<group>";
@@ -951,6 +978,7 @@
 		B9266C6E20AED0620021356C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1840A0602412160600C42BCE /* Geoblocking */,
 				180E7C082107010800943618 /* Settings */,
 				1804748120FBB4DD006E1570 /* ViewLog */,
 				B985566220B42CB800A56497 /* Splash_Screen */,
@@ -1650,6 +1678,7 @@
 				B92D54F9210F321500CD6090 /* ProductDetailsVC.swift in Sources */,
 				189F82DB20C50C090054986E /* BaseRequest.swift in Sources */,
 				182427AE20EE57B7009BBF08 /* RequestModelInvoicePaymentInfo.swift in Sources */,
+				1840A0622412163C00C42BCE /* FTUnavailableScreenViewController.swift in Sources */,
 				B9AA85E220C925B800751BF2 /* LoginModel.swift in Sources */,
 				B92A65AC20AF303500CDA4CC /* InvoicesTableViewCell.swift in Sources */,
 				8D7DF4B521ABD7F300CA89AD /* ResponseCreateInvoice.swift in Sources */,
@@ -1742,12 +1771,14 @@
 				04C25F23234C747F006D9CF8 /* SMDetaildProductCell.swift in Sources */,
 				B939C5C620D12FAC00552DEF /* ResponseInventory.swift in Sources */,
 				1846DB7D20B213010076BECD /* TextHelpers.swift in Sources */,
+				1840A05B24120F1D00C42BCE /* LocationService.swift in Sources */,
 				189F82C220C501B70054986E /* ModelBase.swift in Sources */,
 				18FFC99920FC72A400BCAA6A /* ModelTimesStampLog.swift in Sources */,
 				B92D54FB210F323F00CD6090 /* ProductDetailsCellVC.swift in Sources */,
 				182B921A20C83A140041915B /* ModelPaymentInfo.swift in Sources */,
 				182F83AB20CFF0BA007A1019 /* ModelPurchaseOrderProduct.swift in Sources */,
 				B9266C3820AEC8FB0021356C /* AppDelegate.swift in Sources */,
+				1840A05F241211AB00C42BCE /* LocationDataResponse.swift in Sources */,
 				B95A8A3020B423F500F76A15 /* AddProductViewController.swift in Sources */,
 				B9E5267D20B2DAAA00127E43 /* Completed_PurchaseOrderDetailsTableViewController.swift in Sources */,
 				18EE27B220C960F0002A329B /* ResponseArrayInvoice.swift in Sources */,
@@ -1764,6 +1795,7 @@
 				189F82D720C5096F0054986E /* UtilityUserDefaults.swift in Sources */,
 				189F82C120C501B70054986E /* BaseResponseProtocol.swift in Sources */,
 				182B920720C7E5330041915B /* SyncService.swift in Sources */,
+				1840A05D24120F4F00C42BCE /* LocationDataRequest.swift in Sources */,
 				B942801A20CE708400F2FA0F /* ReponseCartProduct.swift in Sources */,
 				182B920C20C838C00041915B /* ModelCreateTransfer.swift in Sources */,
 				B98E12DC20D14E630067B5B0 /* ModelInventories.swift in Sources */,

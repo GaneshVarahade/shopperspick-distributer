@@ -246,6 +246,12 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.getProductsByShopId(request: request), callback: onComplition)
     }
     
+    func getAppLocationPermissions(request: LocationDataRequest, onComplition:@escaping(_ result: LocationDataResponse?, _ error:PlatformError?)->())
+    {
+        Router.baseURLString = DistributionConfig.sharedInstance().getLocationUrl()
+        makeRequest(Router.getAppLocationPermissions(location: request.state!), callback: onComplition)
+    }
+    
     private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){
  
         guard UtilPrintLogs.canPrintResponseLog else {
