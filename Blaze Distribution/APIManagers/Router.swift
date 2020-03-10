@@ -51,6 +51,8 @@ enum Router : URLRequestConvertible {
     case getProductByBatchSKU(request: RequestProductByBatchSku)
     //get products by shopId
     case getProductsByShopId(request: RequestProductByShopId)
+    //get app location information
+    case getAppLocationPermissions(location: String)
     
     //===========================================================================================
     // MARK: URLRequestConvertible
@@ -117,7 +119,9 @@ enum Router : URLRequestConvertible {
             
         case .getProductsByShopId(let request):
             return (Method.GET, "/api/v1/mgmt/products?shopId=\(request.shopId ?? "")&status=Active",nil,nil)
-            
+        
+        case .getAppLocationPermissions(let location):
+            return (Method.GET, "/api/v1/mgmt/states/available/\(location)", nil, nil)
         }
         
        

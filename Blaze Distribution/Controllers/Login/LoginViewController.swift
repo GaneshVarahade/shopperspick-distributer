@@ -21,6 +21,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var labelVersion: UILabel!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        LocationService.sharedInstance().subscribeViewController(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -29,6 +34,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         labelVersion.text   = Versionutils.getAppVersion()
         UserDefaults.standard.set(false, forKey: "Login")
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !LocationService.sharedInstance().isLocationEnabled(){
+            LocationService.sharedInstance().setLocationPermission()
+        }else{
+            LocationService.sharedInstance().checkForLocation(nil)
+        }
     }
     
     //MARK - Layout Helper

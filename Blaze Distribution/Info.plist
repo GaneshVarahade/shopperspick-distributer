@@ -43,6 +43,12 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>To scan product</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Zencanna uses location service to check whether current location supports app</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Zencanna uses location service to check whether current location supports app</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Zencanna uses location service to check whether current location supports app</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
