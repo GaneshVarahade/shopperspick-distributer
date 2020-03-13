@@ -26,6 +26,7 @@ public class ModelPurchaseOrderProduct:ModelBase {
     @objc public var exciseTax:Double = 0
     @objc public var totalExciseTax:Double = 0
     @objc public var totalCultivationTax:Double = 0
+    @objc public var status:String? = ""
     
     public override func copy(with zone: NSZone? = nil) -> Any {
         
@@ -43,6 +44,7 @@ public class ModelPurchaseOrderProduct:ModelBase {
         modelProduct.exciseTax = self.exciseTax
         modelProduct.totalExciseTax = self.totalExciseTax
         modelProduct.totalCultivationTax = self.totalCultivationTax
+        modelProduct.status = self.status
         return modelProduct
     }
     

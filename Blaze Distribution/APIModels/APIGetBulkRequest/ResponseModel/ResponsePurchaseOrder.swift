@@ -40,6 +40,8 @@ public class ResponsePurchaseOrderProduct: BaseResponseModel {
     
     public var totalCultivationTax:Double?
     
+    public var status:String?
+    
 }
 
 public class ResponsePurchaseOrder: BaseResponseModel {

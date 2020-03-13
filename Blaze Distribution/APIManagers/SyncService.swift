@@ -921,6 +921,7 @@ public final class SyncService {
                         modelPOProduct.batchId = productReq.batchId
                         modelPOProduct.unitPrice = productReq.unitPrice ?? 0
                         modelPOProduct.totalCost = productReq.totalCost ?? 0
+                        modelPOProduct.status = productReq.status ?? ""
                         
                         modelPOProduct.discount = productReq.discount ?? 0
                         modelPOProduct.exciseTax = productReq.exciseTax ?? 0
