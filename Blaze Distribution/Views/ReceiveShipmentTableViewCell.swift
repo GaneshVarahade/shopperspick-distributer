@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol ReceiveShipmentDelegate {
+    func onBatchStatusClicked(_ sender:Any)
+}
+
 class ReceiveShipmentTableViewCell: UITableViewCell {
     @IBOutlet weak var btnCheck: UIButton!
     @IBOutlet weak var lblProduct: UILabel!
     @IBOutlet weak var lblExpected: UILabel!
     @IBOutlet weak var txtRecived: UITextField!
+    @IBOutlet weak var btnBatchStatus: UIButton!
+    
+    var delegate:ReceiveShipmentDelegate? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,5 +31,10 @@ class ReceiveShipmentTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    @IBAction func btnBatchStatusTapped(_ sender: Any) {
+        delegate?.onBatchStatusClicked(sender)
+    }
+    
 
 }

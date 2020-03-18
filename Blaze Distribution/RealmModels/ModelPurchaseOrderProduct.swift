@@ -10,6 +10,12 @@ import Foundation
 import Realm
 import RealmSwift
 
+enum BatchStatus:String, CaseIterable{
+    case IN_TESTING
+    case RECEIVED
+    case READY_FOR_SALE
+}
+
 public class ModelPurchaseOrderProduct:ModelBase {
     
     
@@ -22,11 +28,13 @@ public class ModelPurchaseOrderProduct:ModelBase {
     @objc public dynamic var totalCost:Double = 0
     @objc public dynamic var unitPrice:Double = 0
     
-    @objc public var discount:Double = 0
-    @objc public var exciseTax:Double = 0
-    @objc public var totalExciseTax:Double = 0
-    @objc public var totalCultivationTax:Double = 0
-    @objc public var status:String? = ""
+    @objc public dynamic var discount:Double = 0
+    @objc public dynamic var exciseTax:Double = 0
+    @objc public dynamic var totalExciseTax:Double = 0
+    @objc public dynamic var totalCultivationTax:Double = 0
+    @objc public dynamic var status:String? = ""
+    
+    @objc public dynamic var receiveBatchStatus:String? = ""
     
     public override func copy(with zone: NSZone? = nil) -> Any {
         
@@ -45,6 +53,8 @@ public class ModelPurchaseOrderProduct:ModelBase {
         modelProduct.totalExciseTax = self.totalExciseTax
         modelProduct.totalCultivationTax = self.totalCultivationTax
         modelProduct.status = self.status
+        modelProduct.receiveBatchStatus = self.receiveBatchStatus
+        
         return modelProduct
     }
     

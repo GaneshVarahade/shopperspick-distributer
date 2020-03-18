@@ -62,11 +62,11 @@ class PurchaseOrderDetailsTableViewController: UITableViewController {
             //case for Shipment Details
             if deviceIdiom == .pad {
                 
-                return (70 * 5)
+                return (70 * 3)
             }
             else {
                 
-                return 50 * 5
+                return 50 * 3
                 
             }
         case 2:
@@ -84,7 +84,7 @@ class PurchaseOrderDetailsTableViewController: UITableViewController {
                 return CGFloat(100 * (modelPurcahseOrder.productInShipment.count))
             }
             else{
-                return CGFloat(80 * (modelPurcahseOrder.productInShipment.count))
+                return CGFloat(60 * (modelPurcahseOrder.productInShipment.count))+50
             }
         case 4:
             //case for Continue button

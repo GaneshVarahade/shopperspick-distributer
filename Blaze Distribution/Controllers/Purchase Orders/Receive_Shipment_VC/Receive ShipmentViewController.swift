@@ -8,7 +8,7 @@
 
 import UIKit
 import SKActivityIndicatorView
-class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
+class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,ReceiveShipmentDelegate {
 
     @IBOutlet weak var listTableView: UITableView!
     @IBOutlet weak var productsView: UIView!
@@ -16,12 +16,18 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
     
     var modelPurchaseOrder: ModelPurchaseOrder!
     var selectedPurchaseOrder : [ModelPurchaseOrderProduct] = []
+    @IBOutlet weak var pickerView: UIPickerView!
+    
+    let batchStatus = ["In Testing", "Received", "Ready For Sale"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.listTableView.estimatedRowHeight = 120
         self.listTableView.rowHeight = UITableViewAutomaticDimension;
         self.title = NSLocalizedString("ReceiveShipTitle", comment: "")
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
         //productsView.dropShadow()
     }
     
@@ -67,7 +73,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate {
             modelpurchaseOrderProductRecive.exciseTax = dict.exciseTax
             modelpurchaseOrderProductRecive.totalExciseTax = dict.totalExciseTax
             modelpurchaseOrderProductRecive.totalCultivationTax = dict.totalCultivationTax
-            
+            modelpurchaseOrderProductRecive.receiveBatchStatus = dict.receiveBatchStatus
             
             modelPurchaseOrder.productReceived.append(modelpurchaseOrderProductRecive)
         }
@@ -126,6 +132,7 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell =  listTableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath) as! ReceiveShipmentTableViewCell
+        cell.delegate = self
         //var productInShipMent
         cell.lblProduct?.text = modelPurchaseOrder.productInShipment[indexPath.row].name
         cell.lblExpected?.text = String(format: "%0.1f",modelPurchaseOrder.productInShipment[indexPath.row].quantity)
@@ -150,7 +157,14 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
             cell.txtRecived.text=""
         }
         
+        cell.btnBatchStatus.tag = indexPath.row
+        cell.btnBatchStatus.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(doneBtnClicked(_:)))
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
    @objc func textFieldDidChange(_ textField: UITextField) {
@@ -211,8 +225,35 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
         //print(selectedPurchaseOrder);
     }
     
+    func onBatchStatusClicked(_ sender: Any) {
+        pickerView.isHidden = false
+        pickerView.tag = (sender as! UIButton).tag
+    }
+    
+    @objc func doneBtnClicked(_ sender:UIButton)
+    {
+        pickerView.isHidden = true
+    }
     //MARK:- BtnCountinue Clicked
 //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 //        return string.rangeOfCharacter(from: CharacterSet.letters) == nil
 //    }
+}
+
+extension Receive_ShipmentViewController:UIPickerViewDelegate, UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return BatchStatus.allCases.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return batchStatus[component]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        modelPurchaseOrder.productInShipment[pickerView.tag].receiveBatchStatus = BatchStatus.allCases[component].rawValue
+    }
 }

@@ -46,7 +46,7 @@ public class RealmManager <T: ModelBase>{
     
     public func write<T: ModelBase>(table: T) {
         try! getRealm().write {
-            getRealm().add(table.copy() as! Object,update: true)
+            getRealm().add(table.copy() as! Object,update: .all)
         }
     }
     

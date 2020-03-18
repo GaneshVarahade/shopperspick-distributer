@@ -69,6 +69,8 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
     @IBOutlet weak var driverLicencePlateTextField: UITextField!
     
     @IBOutlet weak var addSignatureBtn: UIButton!
+    @IBOutlet weak var businessLicenceTextField: UITextField!
+    @IBOutlet weak var transportedAgentIdTextField: UITextField!
     
     var validateFieldsDelegate: validateFieldsProtocol?
     
@@ -226,7 +228,9 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             driverModelTextField.text = licenNumber.vehicleModel ?? "Not Available"
             driverColorTextField.text = licenNumber.vehicleColor ?? "Not Available"
             driverLicencePlateTextField.text = licenNumber.vehicleLicensePlate ?? "Not Available"
-        
+            businessLicenceTextField.text = licenNumber.businessLicense ?? "Not Available"
+            transportedAgentIdTextField.text = licenNumber.transporterAgentID ?? "Not Available"
+            
             modelShippingMen?.driverName = licenNumber.driverName
             modelShippingMen?.driverLicenseNumber = licenNumber.driversLicense
             modelShippingMen?.vehicleMake = licenNumber.vehicleMake
@@ -646,11 +650,11 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 26
+        return 28
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 26 {
+        if indexPath.row == 28 {
             self.performSegue(withIdentifier: "addSignatureSegue", sender: nil)
         }
     }
@@ -768,14 +772,14 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
                 else {
                     return 45
             }
-            case 24:
+            case 26:
                 if deviceIdiom == .pad {
                     return 70
                 }
                 else {
                     return 60
             }
-            case 25:
+            case 27:
                 if deviceIdiom == .pad {
                     return 200
                 }

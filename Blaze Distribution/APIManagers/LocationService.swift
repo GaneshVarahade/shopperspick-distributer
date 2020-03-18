@@ -171,7 +171,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
                             
                             if let locationResponse = response{
                                 self.isChecked = true
-                                let realm = try! Realm()
+                                let realm = try! Realm(configuration: Realm.Configuration(schemaVersion: 1))
                                 try! realm.write ({
                                     realm.add(locationResponse, update: .all)
                                 })
@@ -212,7 +212,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     }
     
     func removeObjects(){
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(schemaVersion: 1))
         try! realm.write {
             realm.delete(realm.objects(LocationDataResponse.self))
         }

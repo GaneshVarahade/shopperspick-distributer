@@ -101,7 +101,8 @@ public final class SyncService {
             
             let modelInvoice = RealmManager().read(type: ModelInvoice.self, primaryKey: requestSignature.invoiceId!)
             
-            for modelShip in (modelInvoice?.shippingManifests)!{
+            if let manifests = modelInvoice?.shippingManifests{
+            for modelShip in manifests{
                 if modelShip.shippingManifestNo == requestSignature.shippingMainfestId! {
                     
                     let modelAsset = ModelSignatureAsset()
@@ -124,6 +125,7 @@ public final class SyncService {
                     RealmManager().deletePredicate(type: ModelSignature.self, predicate: "id = '\(sigId)'")
                     break
                 }
+            }
             }
             completion(error)
             
@@ -305,7 +307,7 @@ public final class SyncService {
                     //                    }
                     requestModelInvoicePayment.paidDate = payment.paymentDate
                     requestModelInvoicePayment.referenceNo = payment.referenceNumber
-                    requestModelInvoicePayment.amountPaid = payment.amount
+                    requestModelInvoicePayment.amountPaid = Decimal(payment.amount)
                     requestModelInvoicePayment.paymentType = payment.paymentType
                     let notesModel: pyamentNotes = pyamentNotes()
                     notesModel.message = payment.notes
@@ -884,11 +886,11 @@ public final class SyncService {
     private func savePurchaseOrder(_ arrayPurchase: [ResponsePurchaseOrder]){
         let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "putBulkError != ''")
         
-        let realm = try! Realm()
-        
-        try! realm.write {
-            realm.delete(realm.objects(ModelPurchaseOrder.self))
-        }
+//        let realm = try! Realm()
+//        
+//        try! realm.write {
+//            realm.delete(realm.objects(ModelPurchaseOrder.self))
+//        }
         for respPurchaseOrder in arrayPurchase {
             let canSkip : Bool = false
 //            if poErrorObject.count != 0{
@@ -928,7 +930,7 @@ public final class SyncService {
                         modelPOProduct.totalExciseTax = productReq.totalExciseTax ?? 0
                         modelPOProduct.totalCultivationTax = productReq.totalCultivationTax ?? 0
                         
-                
+                        modelPOProduct.receiveBatchStatus = productReq.receiveBatchStatus
                         modelPurcahseOrder.productInShipment.append(modelPOProduct)
                     }
                 }
@@ -961,6 +963,8 @@ public final class SyncService {
             model.active = response.active ?? false
             model.deleted = response.deleted ?? false
             model.companyId = response.companyId
+            model.businessLicense = response.businessLicense
+            model.transporterAgentID = response.transporterAgentID
             RealmManager().write(table: model)
         }
         //print(RealmManager().readList(type: ModelDriverInfo.self))

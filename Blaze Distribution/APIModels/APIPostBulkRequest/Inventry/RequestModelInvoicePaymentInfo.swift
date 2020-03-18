@@ -16,7 +16,7 @@ public class RequestModelInvoicePaymentInfo: BaseRequest {
       public   var achDate:Int         =   0
       public   var paidDate:Int        =   0
       public   var referenceNo:String = ""
-      public   var amountPaid:Double          = 0.0
+      public   var amountPaid:Decimal          = 0.0
       public   var notes:pyamentNotes?         
       public   var paymentType:String          = ""
 }

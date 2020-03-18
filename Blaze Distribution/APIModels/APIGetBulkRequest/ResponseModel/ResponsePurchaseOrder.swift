@@ -42,6 +42,8 @@ public class ResponsePurchaseOrderProduct: BaseResponseModel {
     
     public var status:String?
     
+    public var receiveBatchStatus:String?
+    
 }
 
 public class ResponsePurchaseOrder: BaseResponseModel {

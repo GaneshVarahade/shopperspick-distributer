@@ -31,4 +31,6 @@ public class ResponceDriverInfo :BaseResponseModel{
     public var vehicleLicensePlate:String?
     public var signaturePhoto:String?
     public var active: Bool?
+    public var businessLicense: String?
+    public var transporterAgentID:String?
 }
