@@ -241,7 +241,8 @@ public final class SyncService {
                 requestPurchaseOrderReceived.exciseTax = productReceived.exciseTax
                 requestPurchaseOrderReceived.totalExciseTax = productReceived.totalExciseTax
                 requestPurchaseOrderReceived.totalCultivationTax = productReceived.totalCultivationTax
-
+                
+                requestPurchaseOrderReceived.receiveBatchStatus = productReceived.receiveBatchStatus
 
                 requestPurchase.poProductRequestList.append(requestPurchaseOrderReceived)
             }

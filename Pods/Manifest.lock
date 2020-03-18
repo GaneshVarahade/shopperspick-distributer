@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.9.1)
+  - CZPicker (0.4.3)
   - Fabric (1.10.2)
   - IQKeyboardManagerSwift (6.5.4)
   - Kingfisher (5.12.0):
@@ -17,6 +18,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - CZPicker
   - Fabric
   - IQKeyboardManagerSwift
   - Kingfisher
@@ -29,6 +31,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - CZPicker
     - Fabric
     - IQKeyboardManagerSwift
     - Kingfisher
@@ -41,6 +44,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  CZPicker: 55aa1751ea26e209814552da1a9a08cba8bbf72a
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   IQKeyboardManagerSwift: 2dde0fc70110e8eac7ccce2a46fdbec6a850b414
   Kingfisher: dc6e0f53bb5b12c3e75bedb0e01bbd7a640eea69
@@ -51,6 +55,6 @@ SPEC CHECKSUMS:
   RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
   SKActivityIndicatorView: f46936f760d33eb8235333242269bf01cc9248ae
 
-PODFILE CHECKSUM: de22a6fc85b4a522f49c67edd8c5f853f127d79e
+PODFILE CHECKSUM: 86857dc08d91d0e172bb23a59e1f488deba7aa19
 
 COCOAPODS: 1.8.4

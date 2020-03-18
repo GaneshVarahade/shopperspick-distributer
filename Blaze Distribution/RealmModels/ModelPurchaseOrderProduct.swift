@@ -34,7 +34,7 @@ public class ModelPurchaseOrderProduct:ModelBase {
     @objc public dynamic var totalCultivationTax:Double = 0
     @objc public dynamic var status:String? = ""
     
-    @objc public dynamic var receiveBatchStatus:String? = ""
+    @objc public dynamic var receiveBatchStatus:String? = nil
     
     public override func copy(with zone: NSZone? = nil) -> Any {
         

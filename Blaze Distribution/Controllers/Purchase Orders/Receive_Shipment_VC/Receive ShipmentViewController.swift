@@ -8,6 +8,7 @@
 
 import UIKit
 import SKActivityIndicatorView
+import CZPicker
 class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,ReceiveShipmentDelegate {
 
     @IBOutlet weak var listTableView: UITableView!
@@ -16,7 +17,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,Recei
     
     var modelPurchaseOrder: ModelPurchaseOrder!
     var selectedPurchaseOrder : [ModelPurchaseOrderProduct] = []
-    @IBOutlet weak var pickerView: UIPickerView!
+    let pickerView: CZPickerView = CZPickerView(headerTitle: "Select Batch Status", cancelButtonTitle: "Cancel", confirmButtonTitle: "Select")
     
     let batchStatus = ["In Testing", "Received", "Ready For Sale"]
     
@@ -28,6 +29,10 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,Recei
         
         pickerView.delegate = self
         pickerView.dataSource = self
+        pickerView.needFooterView = true
+        pickerView.headerBackgroundColor = UIColor.APPGreenColor
+        pickerView.confirmButtonBackgroundColor = UIColor.APPGreenColor
+        pickerView.checkmarkColor = UIColor.APPGreenColor
         //productsView.dropShadow()
     }
     
@@ -60,6 +65,11 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,Recei
             for selectedDict in selectedPurchaseOrder{
                 if selectedDict.productId == dict.productId{
                     modelpurchaseOrderProductRecive.received = dict.expected
+                    guard dict.receiveBatchStatus != nil else {
+                        displayWarningMessage()
+                        modelPurchaseOrder.productReceived.removeAll()
+                        return
+                    }
                     break
                 }else{
                     modelpurchaseOrderProductRecive.received = 0
@@ -117,6 +127,16 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,Recei
         textField.resignFirstResponder()
         return true
     }
+    
+    func displayWarningMessage(){
+        let alert = UIAlertController(title: "Warning", message: "Please set a valid batch status for all products", preferredStyle: .alert)
+        
+        let okay = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        
+        alert.addAction(okay)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSource{
@@ -158,7 +178,16 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
         }
         
         cell.btnBatchStatus.tag = indexPath.row
-        cell.btnBatchStatus.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(doneBtnClicked(_:)))
+        
+        var receivedBatchStatus = "Select Batch Status"
+        
+        let batchIndex = getCurrentBatch(indexPath.row)
+        
+        if batchIndex > -1{
+            receivedBatchStatus = batchStatus[batchIndex]
+        }
+        
+        cell.btnBatchStatus.setTitle(receivedBatchStatus, for: .normal)
         
         return cell
     }
@@ -226,13 +255,25 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
     }
     
     func onBatchStatusClicked(_ sender: Any) {
-        pickerView.isHidden = false
         pickerView.tag = (sender as! UIButton).tag
+        var batchIndex = getCurrentBatch(pickerView.tag)
+        batchIndex = batchIndex > -1 ? batchIndex : 1
+        pickerView.setSelectedRows([NSNumber(value: batchIndex)])
+        pickerView.show()
     }
     
-    @objc func doneBtnClicked(_ sender:UIButton)
-    {
-        pickerView.isHidden = true
+    func getCurrentBatch(_ index:Int)-> Int{
+        if let receivedBatchStatus = modelPurchaseOrder.productInShipment[index].receiveBatchStatus {
+        switch receivedBatchStatus {
+        case BatchStatus.IN_TESTING.rawValue:
+            return 0
+        case BatchStatus.RECEIVED.rawValue:
+            return 1
+        default:
+            return 2
+        }
+        }
+        return -1
     }
     //MARK:- BtnCountinue Clicked
 //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -240,20 +281,18 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
 //    }
 }
 
-extension Receive_ShipmentViewController:UIPickerViewDelegate, UIPickerViewDataSource{
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+extension Receive_ShipmentViewController:CZPickerViewDelegate, CZPickerViewDataSource{
+    func numberOfRows(in pickerView: CZPickerView!) -> Int {
         return BatchStatus.allCases.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return batchStatus[component]
+    func czpickerView(_ pickerView: CZPickerView!, titleForRow row: Int) -> String! {
+        return batchStatus[row]
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        modelPurchaseOrder.productInShipment[pickerView.tag].receiveBatchStatus = BatchStatus.allCases[component].rawValue
+    func czpickerView(_ pickerView: CZPickerView!, didConfirmWithItemAtRow row: Int) {
+        modelPurchaseOrder.productInShipment[pickerView.tag].receiveBatchStatus = BatchStatus.allCases[row].rawValue
+        
+        listTableView.reloadData()
     }
 }
