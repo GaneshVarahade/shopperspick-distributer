@@ -22,6 +22,7 @@ public class RequestPurchaseOrderProductReceived: BaseRequest {
     public var totalExciseTax:Double = 0
     public var totalCultivationTax:Double = 0
     
+    public var requestStatus:String? = ""
     public var receiveBatchStatus:String? = ""
     
 }

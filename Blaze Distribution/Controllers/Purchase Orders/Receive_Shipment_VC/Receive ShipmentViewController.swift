@@ -262,8 +262,11 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
 //            showToast("Batch has been accepted!")
 //            return
 //        }
+        if modelPurchaseOrder.productInShipment[pickerView.tag].requestStatus != "ACCEPTED"
+        {
         pickerView.setSelectedRows([NSNumber(value: batchIndex)])
         pickerView.show()
+        }
     }
     
     func getCurrentBatch(_ index:Int)-> Int{

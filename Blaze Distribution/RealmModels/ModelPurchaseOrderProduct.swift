@@ -34,6 +34,7 @@ public class ModelPurchaseOrderProduct:ModelBase {
     @objc public dynamic var totalCultivationTax:Double = 0
     @objc public dynamic var status:String? = ""
     
+    @objc public dynamic var requestStatus:String? = ""
     @objc public dynamic var receiveBatchStatus:String? = nil
     
     var batchStatusModified = false
@@ -57,6 +58,7 @@ public class ModelPurchaseOrderProduct:ModelBase {
         modelProduct.status = self.status
         modelProduct.receiveBatchStatus = self.receiveBatchStatus
         
+        modelProduct.requestStatus = self.requestStatus
         return modelProduct
     }
     

@@ -23,6 +23,7 @@ public class ModelPurchaseOrderProductReceived:ModelBase{
     @objc public dynamic var totalExciseTax:Double = 0
     @objc public dynamic var totalCultivationTax:Double = 0
     
+    @objc public dynamic var requestStatus:String? = ""
     @objc public dynamic var receiveBatchStatus:String? = ""
     
     public override func copy(with zone:NSZone? = nil) -> Any {
@@ -41,7 +42,7 @@ public class ModelPurchaseOrderProductReceived:ModelBase{
         modelProductReceived.totalExciseTax = self.totalExciseTax
         modelProductReceived.totalCultivationTax = self.totalCultivationTax
         modelProductReceived.receiveBatchStatus = self.receiveBatchStatus
-        
+        modelProductReceived.requestStatus = self.requestStatus
         return modelProductReceived
     }
     

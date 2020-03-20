@@ -932,6 +932,9 @@ public final class SyncService {
                         modelPOProduct.totalCultivationTax = productReq.totalCultivationTax ?? 0
                         
                         modelPOProduct.receiveBatchStatus = productReq.receiveBatchStatus
+                        
+                        modelPOProduct.requestStatus = productReq.requestStatus ?? "PENDING"
+                        
                         modelPurcahseOrder.productInShipment.append(modelPOProduct)
                     }
                 }
