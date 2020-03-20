@@ -36,6 +36,8 @@ public class ModelPurchaseOrderProduct:ModelBase {
     
     @objc public dynamic var receiveBatchStatus:String? = nil
     
+    var batchStatusModified = false
+    
     public override func copy(with zone: NSZone? = nil) -> Any {
         
         let modelProduct      = ModelPurchaseOrderProduct()

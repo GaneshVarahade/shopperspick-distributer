@@ -258,6 +258,10 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
         pickerView.tag = (sender as! UIButton).tag
         var batchIndex = getCurrentBatch(pickerView.tag)
         batchIndex = batchIndex > -1 ? batchIndex : 1
+//        if getCurrentBatch(pickerView.tag) > -1 && !modelPurchaseOrder.productInShipment[pickerView.tag].batchStatusModified{
+//            showToast("Batch has been accepted!")
+//            return
+//        }
         pickerView.setSelectedRows([NSNumber(value: batchIndex)])
         pickerView.show()
     }
@@ -292,7 +296,7 @@ extension Receive_ShipmentViewController:CZPickerViewDelegate, CZPickerViewDataS
     
     func czpickerView(_ pickerView: CZPickerView!, didConfirmWithItemAtRow row: Int) {
         modelPurchaseOrder.productInShipment[pickerView.tag].receiveBatchStatus = BatchStatus.allCases[row].rawValue
-        
+        modelPurchaseOrder.productInShipment[pickerView.tag].batchStatusModified = true
         listTableView.reloadData()
     }
 }
