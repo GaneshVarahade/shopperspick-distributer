@@ -17,7 +17,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     var available = false
-    var internalServer = false
+    var internalServer = true
     var viewController:UIViewController? = nil
     var isChecked = false
     
@@ -31,6 +31,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     }
     
     func setLocationPermission(){
+        if !internalServer{
         locationManager.delegate = self
         if !isLocationEnabled(){
             if isLocationDenied()
@@ -44,6 +45,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
             if let location = locationManager.location{
                 checkForLocation(location)
             }
+        }
         }
     }
     
@@ -85,17 +87,21 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if !internalServer{
         if isLocationEnabled(){
             manager.startUpdatingLocation()
         }else{
             setLocationPermission()
         }
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if !internalServer{
         if let location = manager.location{
             manager.stopUpdatingLocation()
             checkForLocation(location)
+        }
         }
     }
     
@@ -117,7 +123,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     }
     
     func checkForLocation(_ location: CLLocation?){
-        
+        if !internalServer{
         if isChecked{
             if let state = getObject()
             {
@@ -181,6 +187,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
                     }
                 }
             }
+        }
         }
         }
     }
