@@ -50,13 +50,23 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func refreshButtonTapped(){
-        SyncService.sharedInstance().syncData()
+        //SyncService.sharedInstance().syncData()
+        var afterDate:Int? = nil
+        
+        if valueDataObj.count > 0{
+            afterDate = valueDataObj[0].modified
+        }
+        SyncService.sharedInstance().getAllInvoices(nil, afterDate){
+            (error:PlatformError?) in
+            SKActivityIndicator.show(error?.message ?? "Network Error")
+            EventBus.sharedBus().publish(.FINISHSYNCINVOICE)
+        }
     }
         
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getData()
-        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCINVOICE)
     }
     
     func manageActivityIndicator(canShow:Bool){

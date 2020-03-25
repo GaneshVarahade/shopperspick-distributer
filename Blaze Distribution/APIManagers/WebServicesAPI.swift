@@ -252,6 +252,14 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.getAppLocationPermissions(location: request.state!), callback: onComplition)
     }
     
+    func getAllInvoices(_ filter:String?, _ afterDate:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
+        makeRequest(Router.getAllModuleData(module: "INVOICE", filter: filter, afterDate: afterDate), callback: onComplition)
+    }
+    
+    func getAllPO(_ filter:String?, _ afterDate:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
+        makeRequest(Router.getAllModuleData(module: "PURCHASEORDER", filter: filter, afterDate: afterDate), callback: onComplition)
+    }
+    
     private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){
  
         guard UtilPrintLogs.canPrintResponseLog else {

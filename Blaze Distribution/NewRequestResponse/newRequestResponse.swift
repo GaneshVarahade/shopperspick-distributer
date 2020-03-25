@@ -225,3 +225,8 @@ class ResponseProductByShopId : BaseResponseModel{
     
     var values:[ResponseProduct]?
 }
+
+class RequestGetAll : BaseRequest{
+    var module: String?
+    var filter: String?
+}

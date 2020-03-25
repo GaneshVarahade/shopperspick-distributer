@@ -53,6 +53,8 @@ enum Router : URLRequestConvertible {
     case getProductsByShopId(request: RequestProductByShopId)
     //get app location information
     case getAppLocationPermissions(location: String)
+    //get all data from individual module
+    case getAllModuleData(module: String?, filter: String?, afterDate:Int?)
     
     //===========================================================================================
     // MARK: URLRequestConvertible
@@ -86,7 +88,7 @@ enum Router : URLRequestConvertible {
         case .sessionLogin(let request):
             return (Method.POST,"/api/v1/mgmt/session",encode(request),nil)
         case .bulkGet:
-            return (Method.GET,"/api/v1/warehouse/mgmt/dataSync",nil,nil)
+            return (Method.GET,"/api/v1/warehouse/mgmt/dataSync?module=all",nil,nil)
         case .getProductById(let request):
             return (Method.GET,"/api/v1/mgmt/products/\(request.productId ?? "")",nil,nil)
         case .bulkPost(let request):
@@ -122,6 +124,21 @@ enum Router : URLRequestConvertible {
         
         case .getAppLocationPermissions(let location):
             return (Method.GET, "/api/v1/mgmt/states/available/\(location)", nil, nil)
+            
+        case .getAllModuleData(let module, let filter, let afterDate):
+            var url = "/api/v1/warehouse/mgmt/dataSync"
+            if let module = module{
+                url += "?module=\(module)"
+                
+                if let filter = filter{
+                    url += "&filter=\(filter)"
+                }
+                
+                if let afterDate = afterDate{
+                    url += "&afterDate=\(afterDate)"
+                }
+            }
+            return (Method.GET, url, nil, nil)
         }
         
        

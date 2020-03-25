@@ -1,6 +1,7 @@
 import UIKit
 import AVFoundation
 import QRCodeReader
+import SKActivityIndicatorView
 
 class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate,QRCodeReaderViewControllerDelegate {
 
@@ -45,7 +46,18 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     @objc func RefreshControllTapped(){
-        SyncService.sharedInstance().syncData()
+        //SyncService.sharedInstance().syncData()
+        
+        var afterDate:Int? = nil
+        
+        if arrayModelPurchaseOrders.count > 0{
+            afterDate = arrayModelPurchaseOrders[0].modified
+        }
+        SyncService.sharedInstance().getAllPO(nil, afterDate){
+            (error:PlatformError?) in
+            SKActivityIndicator.show(error?.message ?? "Network Error")
+            EventBus.sharedBus().publish(.FINISHSYNCPO)
+        }
     }
 
     func manageActivityIndicator(canShow:Bool){
@@ -61,7 +73,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCPO)
     }
     override func viewDidDisappear(_ animated: Bool) {
         EventBus.sharedBus().unsubscribe(self, eventType: .FINISHSYNCDATA)

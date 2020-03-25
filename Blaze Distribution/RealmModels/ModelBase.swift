@@ -29,7 +29,7 @@ public class ModelBase:Object, NSCopying, Codable {
     convenience init(id:String?,
                      companyId:String?,
                      created:Int,
-                     modified:Int,
+                     modified:Int64,
                      deleted:Bool,
                      updated: Bool){
         self.init(id: id, companyId: companyId)
@@ -42,7 +42,7 @@ public class ModelBase:Object, NSCopying, Codable {
     
     @objc public dynamic var created: Int = 0
     
-    @objc public dynamic var modified: Int = 0
+    @objc public dynamic var modified: Int64 = 0
     
     @objc public dynamic var deleted: Bool = false
     

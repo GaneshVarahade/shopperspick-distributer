@@ -943,6 +943,9 @@ public final class SyncService {
                 RealmManager().write(table: modelPurcahseOrder)
             }
         }
+        
+        EventBus.sharedBus().publish(.FINISHSYNCPO)
+
     }
     
     private func saveDriverData(_ arrayDriver: [ResponceDriverInfo]){
@@ -981,9 +984,9 @@ public final class SyncService {
             
             let realm = try! Realm()
             
-            try! realm.write {
-                realm.delete(realm.objects(ModelInvoice.self))
-            }
+//            try! realm.write {
+//                realm.delete(realm.objects(ModelInvoice.self))
+//            }
             
             for value in values{
                 let canSkip : Bool = false
@@ -1158,11 +1161,15 @@ public final class SyncService {
                     else{
                         //  print("From json shipingMenifest: Nil")
                     }
-                    RealmManager().write(table: model)
+                    //RealmManager().write(table: model)
+                    try! realm.write {
+                        realm.add(model, update: .all)
+                    }
                 }
                
             }
         }
+        EventBus.sharedBus().publish(.FINISHSYNCINVOICE)
        // print("---Invoice Data Save---")
         
     }
@@ -1340,6 +1347,40 @@ public final class SyncService {
              RealmManager().write(table: model)
             UtilPrintLogs.requestLogs(message:"---ResponseInventories Save---", objectToPrint: nil)
              //print("---ResponseInventories Save---")
+        }
+    }
+    
+    func getAllInvoices(_ filter:String?, _ afterDate:Int?, completion : @escaping (_ error : PlatformError?) -> Void) {
+        WebServicesAPI.sharedInstance().getAllInvoices(filter, afterDate){
+            (result:ResponseBulkRequest?, _ error:PlatformError?) in
+            
+            if error != nil{
+                completion(error)
+            }
+            
+            if result == nil {
+               completion(error)
+            }
+            
+            self.saveDataInvoice(jsonData: result?.invoice?.values)
+            
+        }
+    }
+    
+    func getAllPO(_ filter:String?, _ afterDate:Int?, completion : @escaping (_ error : PlatformError?) -> Void) {
+        WebServicesAPI.sharedInstance().getAllPO(filter, afterDate){
+            (result:ResponseBulkRequest?, _ error:PlatformError?) in
+            
+            if error != nil{
+                completion(error)
+            }
+            
+            if result == nil {
+               completion(error)
+            }
+            
+            self.savePurchaseOrder(result?.purchaseOrder?.values ?? [])
+            
         }
     }
 }
