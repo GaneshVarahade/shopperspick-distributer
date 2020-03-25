@@ -843,16 +843,16 @@ public final class SyncService {
             
             DispatchQueue.global(qos: .userInitiated).async {
                 if let arrayPurchaseOrders = result?.purchaseOrder?.values {
-                    self.savePurchaseOrder(arrayPurchaseOrders)
+                    self.savePurchaseOrder(arrayPurchaseOrders, isBulk: true)
                 }
                 if let arrayInvoices = result?.invoice?.values {
-                    self.saveDataInvoice(jsonData: arrayInvoices)
+                    self.saveDataInvoice(jsonData: arrayInvoices, isBulk: true)
                 }
                 if let arayTransfers = result?.inventoryTransfers?.values {
-                    self.saveDataInventory(jsonData: arayTransfers)
+                    self.saveDataInventory(jsonData: arayTransfers, isBulk: true)
                 }
                 if let arrayProducts = result?.product?.values{
-                    self.saveDataProduct(jsonData: arrayProducts)
+                    self.saveDataProduct(jsonData: arrayProducts, isBulk: true)
                 }
                 if let arrayInventory = result?.inventories{
                     self.saveInventory(jsonData: arrayInventory)
@@ -884,14 +884,16 @@ public final class SyncService {
         isUpdating = false
     }
     
-    private func savePurchaseOrder(_ arrayPurchase: [ResponsePurchaseOrder]){
+    private func savePurchaseOrder(_ arrayPurchase: [ResponsePurchaseOrder], isBulk: Bool){
         let poErrorObject = RealmManager().readPredicate(type: ModelPurchaseOrder.self, predicate: "putBulkError != ''")
         
-//        let realm = try! Realm()
-//        
-//        try! realm.write {
-//            realm.delete(realm.objects(ModelPurchaseOrder.self))
-//        }
+        let realm = try! Realm()
+        
+        if isBulk{
+        try! realm.write {
+            realm.delete(realm.objects(ModelPurchaseOrder.self))
+        }
+        }
         for respPurchaseOrder in arrayPurchase {
             let canSkip : Bool = false
 //            if poErrorObject.count != 0{
@@ -978,15 +980,17 @@ public final class SyncService {
         UtilPrintLogs.requestLogs(message:"DriverInfo", objectToPrint:RealmManager().readList(type: ModelDriverInfo.self))
     }
     
-    fileprivate func saveDataInvoice(jsonData: [ResponseInvoice]?){
+    fileprivate func saveDataInvoice(jsonData: [ResponseInvoice]?, isBulk:Bool){
         let invoiceErrorObject = RealmManager().readPredicate(type: ModelInvoice.self, predicate: "putBulkError != ''")
         if let values = jsonData{
             
             let realm = try! Realm()
             
-//            try! realm.write {
-//                realm.delete(realm.objects(ModelInvoice.self))
-//            }
+            if isBulk{
+            try! realm.write {
+                realm.delete(realm.objects(ModelInvoice.self))
+            }
+            }
             
             for value in values{
                 let canSkip : Bool = false
@@ -1174,14 +1178,17 @@ public final class SyncService {
         
     }
     
-    fileprivate func saveDataInventory(jsonData: [ResponseInventoryTransfers]?){
+    fileprivate func saveDataInventory(jsonData: [ResponseInventoryTransfers]?, isBulk:Bool){
         
         //let inventryErrorObject = RealmManager().readPredicate(type: ModelInventoryTransfers.self, predicate: "putBulkError != ''")
         if let values = jsonData{
             
             let realm = try! Realm()
+            
+            if isBulk{
             try! realm.write {
                 realm.delete(realm.objects(ModelInventoryTransfers.self))
+            }
             }
             
             for value in values{
@@ -1254,18 +1261,22 @@ public final class SyncService {
             UtilPrintLogs.requestLogs(message:"Inventory is nil....", objectToPrint: nil)
             //print("Inventory is nil....")
         }
+        
+        EventBus.sharedBus().publish(.FINISHSYNCINVENTORYTRANSFER)
         UtilPrintLogs.requestLogs(message:"---Inventory Data Save---", objectToPrint: nil)
         //print("---Inventory Data Save---")
     }
     
-    fileprivate func saveDataProduct(jsonData:[ResponseProduct]?){
+    fileprivate func saveDataProduct(jsonData:[ResponseProduct]?, isBulk: Bool){
         //RealmManager.deleteAll(ModelProduct.self)
         
         if let products = jsonData{
             let realm = try! Realm()
             
+            if isBulk{
             try! realm.write {
                 realm.delete(realm.objects(ModelProduct.self))
+            }
             }
             
             for prod in products{
@@ -1317,6 +1328,8 @@ public final class SyncService {
         }else{
             print("---Products nil---")
         }
+        
+        EventBus.sharedBus().publish(.FINISHSYNCINVENTORYTRANSFER)
     }
     fileprivate func saveInventory(jsonData:[ResponseInventories]){
         let realm = try! Realm()
@@ -1362,7 +1375,7 @@ public final class SyncService {
                completion(error)
             }
             
-            self.saveDataInvoice(jsonData: result?.invoice?.values)
+            self.saveDataInvoice(jsonData: result?.invoice?.values, isBulk: false)
             
         }
     }
@@ -1379,10 +1392,45 @@ public final class SyncService {
                completion(error)
             }
             
-            self.savePurchaseOrder(result?.purchaseOrder?.values ?? [])
+            self.savePurchaseOrder(result?.purchaseOrder?.values ?? [], isBulk: false)
             
         }
     }
+    
+    func getAllInventoryTransfer(_ filter:String?, _ afterDate:Int?, completion : @escaping (_ error : PlatformError?) -> Void) {
+        WebServicesAPI.sharedInstance().getAllInventoryTransfer(filter, afterDate){
+            (result:ResponseBulkRequest?, _ error:PlatformError?) in
+            
+            if error != nil{
+                completion(error)
+            }
+            
+            if result == nil {
+               completion(error)
+            }
+            
+            self.saveDataInventory(jsonData: result?.inventoryTransfers?.values ?? [], isBulk: false)
+            
+        }
+    }
+    
+    func getAllProducts(_ filter:String?, _ afterDate:Int?, completion : @escaping (_ error : PlatformError?) -> Void) {
+        WebServicesAPI.sharedInstance().getAllProducts(filter, afterDate){
+            (result:ResponseBulkRequest?, _ error:PlatformError?) in
+            
+            if error != nil{
+                completion(error)
+            }
+            
+            if result == nil {
+               completion(error)
+            }
+            
+            self.saveDataProduct(jsonData: result?.product?.values ?? [], isBulk: false)
+            
+        }
+    }
+
 }
 
 

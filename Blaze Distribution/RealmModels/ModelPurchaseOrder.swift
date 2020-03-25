@@ -32,6 +32,7 @@ public class ModelPurchaseOrder:ModelBase{
         
         let modelPurchaseOrder                 = ModelPurchaseOrder()
         modelPurchaseOrder.id                  = self.id
+        modelPurchaseOrder.modified            = self.modified
         modelPurchaseOrder.purchaseOrderNumber = self.purchaseOrderNumber
         modelPurchaseOrder.isMetRc             = self.isMetRc
         modelPurchaseOrder.metrcId             = self.metrcId

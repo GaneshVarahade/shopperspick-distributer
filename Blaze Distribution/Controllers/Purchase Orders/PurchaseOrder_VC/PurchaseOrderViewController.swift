@@ -92,12 +92,13 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func getPurchaseOrdersReceiving(){
-        arrayModelPurchaseOrders = RealmManager().readPredicate(type: ModelPurchaseOrder.self,
-                                       predicate: "status = '\(PurchaseOrderStatus.ReceivingShipment.rawValue)'")
+        arrayModelPurchaseOrders = RealmManager().readPredicateAscending(type: ModelPurchaseOrder.self,
+                                       predicate: "status = '\(PurchaseOrderStatus.ReceivingShipment.rawValue)'",
+        byKeyPath: "received", ascending: false)
     }
     func getPurchaseOrdersCompleted(){
-        arrayModelPurchaseOrders = RealmManager().readPredicate(type: ModelPurchaseOrder.self,
-                                                                predicate: "status = '\(PurchaseOrderStatus.Closed.rawValue)' || status = '\(PurchaseOrderStatus.ReceivedShipment.rawValue)'")
+        arrayModelPurchaseOrders = RealmManager().readPredicateAscending(type: ModelPurchaseOrder.self,
+                                                                predicate: "status = '\(PurchaseOrderStatus.Closed.rawValue)' || status = '\(PurchaseOrderStatus.ReceivedShipment.rawValue)'", byKeyPath: "received", ascending: false)
     }
     
     override func didReceiveMemoryWarning() {

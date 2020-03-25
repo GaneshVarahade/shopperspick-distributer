@@ -67,16 +67,38 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         //call method manage activity indicator
         self.view.bringSubview(toFront: self.activityIndicator)
         self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelInventoryTransfers.self).count == 0))
-        EventBus.sharedBus().subscribe(self, selector: #selector(onDataSynced), eventType: EventBusEventType.FINISHSYNCDATA)
+        EventBus.sharedBus().subscribe(self, selector: #selector(onDataSynced), eventType: EventBusEventType.FINISHSYNCINVENTORYTRANSFER)
         getData()
     }
     
     @objc func onDataSynced(){
+        self.refreshControl.endRefreshing()
+        self.manageActivityIndicator(canShow: false)
         getData()
     }
     
     @objc func refreshControllBtnTapped(){
-      SyncService.sharedInstance().syncData()
+      //SyncService.sharedInstance().syncData()
+        
+        if segmentControl.selectedSegmentIndex == 0 {
+        var afterDate:Int? = nil
+        
+        if inventoryData.count > 0{
+            afterDate = inventoryData[0].modified
+        }
+        SyncService.sharedInstance().getAllInventoryTransfer(nil, afterDate){
+            (error:PlatformError?) in
+            SKActivityIndicator.show(error?.message ?? "Network Error")
+            EventBus.sharedBus().publish(.FINISHSYNCINVENTORYTRANSFER)
+        }
+        }
+        else{
+            SyncService.sharedInstance().getAllProducts(nil, nil){
+                (error:PlatformError?) in
+                SKActivityIndicator.show(error?.message ?? "Network Error")
+                EventBus.sharedBus().publish(.FINISHSYNCINVENTORYTRANSFER)
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -131,7 +153,10 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     func getData() {
 //        https://api.dev.blaze.me/api/v1/mgmt/inventory/inventoryHistory?status=PENDING
-        inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self)
+        inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self).sorted(by: {
+            (obj_1, obj_2) -> Bool in
+            return Int(obj_1.transferNo ?? "0")! < Int(obj_2.transferNo ?? "0")!
+        })
         for item:ModelInventoryTransfers in inventoryData{
             UtilPrintLogs.DLog(message: DLogMessage.InventryData.value(), objectToPrint: "id: "+item.id!
                 + " | transerNo: "+item.transferNo!)

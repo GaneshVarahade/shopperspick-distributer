@@ -111,9 +111,9 @@ public class RealmManager <T: ModelBase>{
         return array
     }
     
-    public func readPredicateAecending<T: ModelBase>(type: T.Type,predicate: String) -> [T]{
+    public func readPredicateAscending<T: ModelBase>(type: T.Type,predicate: String, byKeyPath:String, ascending:Bool) -> [T]{
         var result: Results<T>? = getRealm().objects(type).filter(predicate)
-        result = result?.sorted(byKeyPath: "modified", ascending: true)
+        result = result?.sorted(byKeyPath: byKeyPath, ascending: ascending)
         var array:[T] = [T]()
         guard let resultObj = result else {
             return array

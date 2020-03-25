@@ -84,10 +84,11 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
-        refreshControl.endRefreshing()
-        self.manageActivityIndicator(canShow: false)
-        getData()
-        
+        DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+            self.manageActivityIndicator(canShow: false)
+            self.getData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,14 +117,16 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func getOpenInvoices() {
-        valueDataObj = RealmManager().readPredicateAecending(type: ModelInvoice.self, predicate: "!(invoiceStatus = '\(InvoiceStatus.COMPLETED)' && invoicePaymentStatus = 'PAID')")
+        valueDataObj = RealmManager().readPredicateAscending(type: ModelInvoice.self, predicate: "!(invoiceStatus = '\(InvoiceStatus.COMPLETED)' && invoicePaymentStatus = 'PAID')", byKeyPath: "invoiceNumber", ascending: false)
         //valueDataObj = valueDataObj.filter({ $0.invoicePaymentStatus != "PAID"})
         
-        invoiceTableView.reloadData()
+        DispatchQueue.main.async{
+            self.invoiceTableView.reloadData()
+        }
     }
     
     private func getCompleteInvoices() {
-        valueDataObj = RealmManager().readPredicateAecending(type: ModelInvoice.self, predicate: "invoiceStatus = '\(InvoiceStatus.COMPLETED)' && invoicePaymentStatus = 'PAID'")
+        valueDataObj = RealmManager().readPredicateAscending(type: ModelInvoice.self, predicate: "invoiceStatus = '\(InvoiceStatus.COMPLETED)' && invoicePaymentStatus = 'PAID'",byKeyPath: "invoiceNumber", ascending: false)
         invoiceTableView.reloadData()
     }
     
