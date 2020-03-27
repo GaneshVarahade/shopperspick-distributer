@@ -28,6 +28,8 @@ target 'BLAZE Distribution' do
       pod 'QRCodeReader.swift'
       
       pod "CZPicker"
+      
+      pod 'Bolts'
 
   target 'Blaze DistributionTests' do
     inherit! :search_paths

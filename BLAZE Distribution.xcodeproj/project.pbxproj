@@ -88,6 +88,7 @@
 		189F82DB20C50C090054986E /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82DA20C50C090054986E /* BaseRequest.swift */; };
 		189F82DD20C50EB40054986E /* PlatformError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F82DC20C50EB40054986E /* PlatformError.swift */; };
 		18CD0BFC20C6B1C1007E8515 /* SingleInvoice.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */; };
+		18E0FE35242DDA7B008D5F15 /* ModelShipmentBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0FE34242DDA7B008D5F15 /* ModelShipmentBill.swift */; };
 		18E66A1C20F72A1B003AA075 /* inventoryTransferError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E66A1B20F72A1B003AA075 /* inventoryTransferError.swift */; };
 		18E66A1E20F72D2A003AA075 /* invoiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E66A1D20F72D2A003AA075 /* invoiceError.swift */; };
 		18E66A2020F72D54003AA075 /* poError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E66A1F20F72D54003AA075 /* poError.swift */; };
@@ -311,6 +312,7 @@
 		189F82DA20C50C090054986E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		189F82DC20C50EB40054986E /* PlatformError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformError.swift; sourceTree = "<group>"; };
 		18CD0BFB20C6B1C1007E8515 /* SingleInvoice.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SingleInvoice.txt; sourceTree = "<group>"; };
+		18E0FE34242DDA7B008D5F15 /* ModelShipmentBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelShipmentBill.swift; sourceTree = "<group>"; };
 		18E66A1B20F72A1B003AA075 /* inventoryTransferError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inventoryTransferError.swift; sourceTree = "<group>"; };
 		18E66A1D20F72D2A003AA075 /* invoiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = invoiceError.swift; sourceTree = "<group>"; };
 		18E66A1F20F72D54003AA075 /* poError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = poError.swift; sourceTree = "<group>"; };
@@ -722,6 +724,7 @@
 				B98E12DD20D150470067B5B0 /* ModelInventory.swift */,
 				184B43B820F34A8E000EFC55 /* ModelDriverInfo.swift */,
 				181F602520F4C5510071CA04 /* ModelSignatureAsset.swift */,
+				18E0FE34242DDA7B008D5F15 /* ModelShipmentBill.swift */,
 			);
 			path = RealmModels;
 			sourceTree = "<group>";
@@ -1798,6 +1801,7 @@
 				1840A05D24120F4F00C42BCE /* LocationDataRequest.swift in Sources */,
 				B942801A20CE708400F2FA0F /* ReponseCartProduct.swift in Sources */,
 				182B920C20C838C00041915B /* ModelCreateTransfer.swift in Sources */,
+				18E0FE35242DDA7B008D5F15 /* ModelShipmentBill.swift in Sources */,
 				B98E12DC20D14E630067B5B0 /* ModelInventories.swift in Sources */,
 				B9AA85E820C97E0F00751BF2 /* ResponseCart.swift in Sources */,
 				B985566B20B43B6000A56497 /* QuantityBatchTableViewCell.swift in Sources */,

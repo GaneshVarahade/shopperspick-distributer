@@ -38,7 +38,7 @@ class POStaticDetailsTableViewController: UITableViewController {
         originLabel.text = TextHelpers.isEmpty(model.origin) ? " -/-": model.origin
         receivedLabel.text = model.received == 0 ? " -/-" : DateFormatterUtil.format(dateTime: Double(model.received)/1000,
                                                       format: DateFormatterUtil.mmddyyyy)
-        completedDate.text = model.completedDate == 0 ? " -/-" : DateFormatterUtil.format(dateTime: Double(model.completedDate)/1000,
+        completedDate.text = model.shipmentBill?.completedDate ?? 0 == 0 ? " -/-" : DateFormatterUtil.format(dateTime: Double(model.shipmentBill?.completedDate ?? 0)/1000,
                                                       format: DateFormatterUtil.mmddyyyy)
         
     }

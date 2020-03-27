@@ -1,5 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-BLAZE Distribution/Pods-BLAZE Distribution-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework
 ${BUILT_PRODUCTS_DIR}/CZPicker/CZPicker.framework
 ${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework
 ${BUILT_PRODUCTS_DIR}/KSToastView/KSToastView.framework

@@ -29,6 +29,11 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     var productFlag:Bool                 = false
     var refreshControl = UIRefreshControl()
     
+    var startIndex:Int = 0
+    var size:Int = 10
+    var offset:Int = 1
+    var isLoadingMoreData:Bool = false
+    
     override func viewDidLoad() {
         //Setup refresh controll
         //Hide keyboard while table view scroll
@@ -79,21 +84,24 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @objc func refreshControllBtnTapped(){
       //SyncService.sharedInstance().syncData()
-        
-        if segmentControl.selectedSegmentIndex == 0 {
         var afterDate:Int? = nil
         
         if inventoryData.count > 0{
-            afterDate = inventoryData[0].modified
+            afterDate = inventoryData.sorted(by: {
+                (obj_1, obj_2) -> Bool in
+                return obj_1.modified > obj_2.modified
+                })[0].modified
+            
         }
-        SyncService.sharedInstance().getAllInventoryTransfer(nil, afterDate){
+        if segmentControl.selectedSegmentIndex == 0 {
+        SyncService.sharedInstance().getAllInventoryTransfer(nil, afterDate, nil, nil){
             (error:PlatformError?) in
             SKActivityIndicator.show(error?.message ?? "Network Error")
             EventBus.sharedBus().publish(.FINISHSYNCINVENTORYTRANSFER)
         }
         }
         else{
-            SyncService.sharedInstance().getAllProducts(nil, nil){
+            SyncService.sharedInstance().getAllProducts(nil, afterDate, nil, nil){
                 (error:PlatformError?) in
                 SKActivityIndicator.show(error?.message ?? "Network Error")
                 EventBus.sharedBus().publish(.FINISHSYNCINVENTORYTRANSFER)
@@ -125,7 +133,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
  
     @IBAction func segmentChanged(_ sender: Any) {
-        
+        isLoadingMoreData = false
         if segmentControl.selectedSegmentIndex == 0 {
             self.searchBar.endEditing(true)
             self.searchBar.text = ""
@@ -176,8 +184,13 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         } else {
             data  = inventoryData
         }
+        
+        if data.count != inventoryTableView.numberOfRows(inSection: 0)
+        {
+            isLoadingMoreData = true
         inventoryTableView.reloadData()
         UtilPrintLogs.requestLogs(message:"DataRead", objectToPrint: inventoryData.count)
+        }
     }
     
     
@@ -302,6 +315,23 @@ extension InventoryViewController{
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return (data.count==0 && !UserDefaults.standard.bool(forKey: "isSynchStart")) ? 60.0 : 0.0
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if !(indexPath.row + 1 < tableView.numberOfRows(inSection: 0)) && !isLoadingMoreData{
+            isLoadingMoreData = true
+            getMoreData()
+        }
+    }
+    
+    func getMoreData(){
+        startIndex = data.count+1
+        SyncService.sharedInstance().getAllInventoryTransfer(nil, nil, startIndex, size){
+            (error:PlatformError?) in
+            SKActivityIndicator.show(error?.message ?? "Network Error")
+            EventBus.sharedBus().publish(.FINISHSYNCINVOICE)
+        }
     }
     
     @objc func btnInvetryErrorClicked(_ sender :UIButton) {

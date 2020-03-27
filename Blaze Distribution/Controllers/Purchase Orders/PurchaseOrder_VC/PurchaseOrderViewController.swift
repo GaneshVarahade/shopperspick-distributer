@@ -18,6 +18,13 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     //Refresh control
     var refreshControl = UIRefreshControl()
     
+    var startIndex:Int = 0
+    var size:Int = 10
+    var offset:Int = 1
+    var isLoadingMoreData:Bool = false
+    
+    var status = "incomplete"
+    
     //Initialize QRCodeScanner
     lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
@@ -51,9 +58,12 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
         var afterDate:Int? = nil
         
         if arrayModelPurchaseOrders.count > 0{
-            afterDate = arrayModelPurchaseOrders[0].modified
+            afterDate = arrayModelPurchaseOrders.sorted(by: {
+            (obj_1, obj_2) -> Bool in
+            return obj_1.modified > obj_2.modified
+            })[0].modified
         }
-        SyncService.sharedInstance().getAllPO(nil, afterDate){
+        SyncService.sharedInstance().getAllPO(status, afterDate, nil, nil){
             (error:PlatformError?) in
             SKActivityIndicator.show(error?.message ?? "Network Error")
             EventBus.sharedBus().publish(.FINISHSYNCPO)
@@ -88,7 +98,11 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
             getPurchaseOrdersCompleted()
         }
         refreshControl.endRefreshing()
-        poTableView.reloadData()
+        
+        if arrayModelPurchaseOrders.count != poTableView.numberOfRows(inSection: 0){
+            isLoadingMoreData = false
+            poTableView.reloadData()
+        }
     }
     
     func getPurchaseOrdersReceiving(){
@@ -98,7 +112,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     }
     func getPurchaseOrdersCompleted(){
         arrayModelPurchaseOrders = RealmManager().readPredicateAscending(type: ModelPurchaseOrder.self,
-                                                                predicate: "status = '\(PurchaseOrderStatus.Closed.rawValue)' || status = '\(PurchaseOrderStatus.ReceivedShipment.rawValue)'", byKeyPath: "received", ascending: false)
+                                                                predicate: "status = '\(PurchaseOrderStatus.Closed.rawValue)' || status = '\(PurchaseOrderStatus.ReceivedShipment.rawValue)'", byKeyPath: "shipmentBill.completedDate", ascending: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -143,9 +157,12 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     @IBAction func segmentedAction(_ sender: UISegmentedControl) {
+        isLoadingMoreData = false
         if sender.selectedSegmentIndex == 1{
+            status = "complete"
             completed = true
         }else{
+            status = "incomplete"
             completed = false
         }
     }
@@ -345,6 +362,23 @@ extension PurchaseOrderViewController {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return (arrayModelPurchaseOrders.count==0 && !UserDefaults.standard.bool(forKey: "isSynchStart")) ? 60.0 : 0.0
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if !(indexPath.row + 1 < tableView.numberOfRows(inSection: 0)) && !isLoadingMoreData{
+            isLoadingMoreData = true
+            getMoreData()
+        }
+    }
+    
+    func getMoreData(){
+        startIndex = arrayModelPurchaseOrders.count+1
+        SyncService.sharedInstance().getAllPO(status, nil, startIndex, size){
+            (error:PlatformError?) in
+            SKActivityIndicator.show(error?.message ?? "Network Error")
+            EventBus.sharedBus().publish(.FINISHSYNCPO)
+        }
     }
     
     @objc func btnPoClicked(_ sender :UIButton){

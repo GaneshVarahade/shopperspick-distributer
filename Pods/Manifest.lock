@@ -1,5 +1,11 @@
 PODS:
   - Alamofire (4.9.1)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
   - CZPicker (0.4.3)
   - Fabric (1.10.2)
   - IQKeyboardManagerSwift (6.5.4)
@@ -18,6 +24,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Bolts
   - CZPicker
   - Fabric
   - IQKeyboardManagerSwift
@@ -31,6 +38,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Bolts
     - CZPicker
     - Fabric
     - IQKeyboardManagerSwift
@@ -44,6 +52,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CZPicker: 55aa1751ea26e209814552da1a9a08cba8bbf72a
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   IQKeyboardManagerSwift: 2dde0fc70110e8eac7ccce2a46fdbec6a850b414
@@ -55,6 +64,6 @@ SPEC CHECKSUMS:
   RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
   SKActivityIndicatorView: f46936f760d33eb8235333242269bf01cc9248ae
 
-PODFILE CHECKSUM: 86857dc08d91d0e172bb23a59e1f488deba7aa19
+PODFILE CHECKSUM: f2a7d8cb2f8e5bef7bb5a525312dcf1c0a56433a
 
 COCOAPODS: 1.8.4

@@ -84,6 +84,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,Recei
             modelpurchaseOrderProductRecive.totalExciseTax = dict.totalExciseTax
             modelpurchaseOrderProductRecive.totalCultivationTax = dict.totalCultivationTax
             modelpurchaseOrderProductRecive.receiveBatchStatus = dict.receiveBatchStatus
+            modelpurchaseOrderProductRecive.requestStatus = dict.requestStatus
             
             modelPurchaseOrder.productReceived.append(modelpurchaseOrderProductRecive)
         }
@@ -97,6 +98,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,Recei
         SKActivityIndicator.show()
         SyncService.sharedInstance().callPostAPI { (error : PlatformError?) in
             if error != nil{
+                self.modelPurchaseOrder.productReceived.removeAll()
                 SKActivityIndicator.dismiss()
                 self.showAlert(title: "Message", message: error?.message ?? NSLocalizedString("ServerError", comment: ""), closure:{})
                 
@@ -107,7 +109,9 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,Recei
                 UtilWriteLogs.writeLog(timesStamp: UtilWriteLogs.curruntDate, event:activityLogEvent.PurchaseOrderes.rawValue , objectId: self.modelPurchaseOrder.id, lastSynch:nil)
                 
                 self.showAlert(title: NSLocalizedString("Done", comment: ""), message: NSLocalizedString("Saved Successfully!", comment: ""), closure: {
-                    SyncService.sharedInstance().syncData()
+                    SyncService.sharedInstance().getAllPO(nil, nil, 0, 15, completion: {_ in
+                        
+                    })
                     self.navigationController?.popViewControllers(controllersToPop: 2, animated: true)
                 })
                 

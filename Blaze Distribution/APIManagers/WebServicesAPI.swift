@@ -252,20 +252,28 @@ class WebServicesAPI: NSObject {
         makeRequest(Router.getAppLocationPermissions(location: request.state!), callback: onComplition)
     }
     
-    func getAllInvoices(_ filter:String?, _ afterDate:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
-        makeRequest(Router.getAllModuleData(module: "INVOICE", filter: filter, afterDate: afterDate), callback: onComplition)
+    func getAllInvoices(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
+        makeRequest(Router.getAllModuleData(module: "INVOICE", filter: filter, afterDate: afterDate, startIndex: startIndex, size: size), callback: onComplition)
     }
     
-    func getAllPO(_ filter:String?, _ afterDate:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
-        makeRequest(Router.getAllModuleData(module: "PURCHASEORDER", filter: filter, afterDate: afterDate), callback: onComplition)
+    func getAllPO(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
+        makeRequest(Router.getAllModuleData(module: "PURCHASEORDER", filter: filter, afterDate: afterDate, startIndex: startIndex, size: size), callback: onComplition)
     }
     
-    func getAllInventoryTransfer(_ filter:String?, _ afterDate:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
-        makeRequest(Router.getAllModuleData(module: "INVENTORYTRANSFER", filter: filter, afterDate: afterDate), callback: onComplition)
+    func getAllInventoryTransfer(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
+        makeRequest(Router.getAllModuleData(module: "INVENTORYTRANSFERS", filter: filter, afterDate: afterDate, startIndex: startIndex, size: size), callback: onComplition)
     }
     
-    func getAllProducts(_ filter:String?, _ afterDate:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
-        makeRequest(Router.getAllModuleData(module: "PRODUCT", filter: filter, afterDate: afterDate), callback: onComplition)
+    func getAllProducts(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
+        makeRequest(Router.getAllModuleData(module: "PRODUCT", filter: filter, afterDate: afterDate, startIndex: startIndex, size: size), callback: onComplition)
+    }
+    
+    func getAllEmployees(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
+        makeRequest(Router.getAllModuleData(module: "EMPLOYEES", filter: filter, afterDate: afterDate, startIndex: startIndex, size: size), callback: onComplition)
+    }
+    
+    func getAllInventories(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, onComplition:@escaping(_ result: ResponseBulkRequest?, _ error:PlatformError?)->()){
+        makeRequest(Router.getAllModuleData(module: "INVENTORIES", filter: filter, afterDate: afterDate, startIndex: startIndex, size: size), callback: onComplition)
     }
     
     private func printRequest(urlData: (Method, String, Data?, [String:Any]?)?,_ data: Any?){

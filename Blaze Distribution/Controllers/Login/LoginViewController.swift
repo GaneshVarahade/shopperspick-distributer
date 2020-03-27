@@ -127,7 +127,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @objc func goHome(){
         self.btnForgotPassword.isEnabled = true
         self.btnForgotPassword.alpha = 1.0
-        self.performSegue(withIdentifier: "goHome", sender: self)
+        //self.performSegue(withIdentifier: "goHome", sender: self)
     }
     
     // MARK: - Helper Methods

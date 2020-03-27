@@ -54,7 +54,7 @@ enum Router : URLRequestConvertible {
     //get app location information
     case getAppLocationPermissions(location: String)
     //get all data from individual module
-    case getAllModuleData(module: String?, filter: String?, afterDate:Int?)
+    case getAllModuleData(module: String?, filter: String?, afterDate:Int?, startIndex:Int?, size:Int?)
     
     //===========================================================================================
     // MARK: URLRequestConvertible
@@ -125,17 +125,21 @@ enum Router : URLRequestConvertible {
         case .getAppLocationPermissions(let location):
             return (Method.GET, "/api/v1/mgmt/states/available/\(location)", nil, nil)
             
-        case .getAllModuleData(let module, let filter, let afterDate):
+        case .getAllModuleData(let module, let filter, let afterDate, let startIndex, let size):
             var url = "/api/v1/warehouse/mgmt/dataSync"
             if let module = module{
                 url += "?module=\(module)"
                 
                 if let filter = filter{
-                    url += "&filter=\(filter)"
+                    url += "&status=\(filter)"
                 }
                 
                 if let afterDate = afterDate{
                     url += "&afterDate=\(afterDate)"
+                }
+                
+                if let startIndex = startIndex, let size = size{
+                    url += "&start=\(startIndex)&limit=\(size)"
                 }
             }
             return (Method.GET, url, nil, nil)

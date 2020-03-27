@@ -1,6 +1,7 @@
 import Foundation
 import RealmSwift
 import SKActivityIndicatorView
+import Bolts
 
 public final class SyncService {
     
@@ -244,6 +245,7 @@ public final class SyncService {
                 
                 requestPurchaseOrderReceived.receiveBatchStatus = productReceived.receiveBatchStatus
 
+                requestPurchaseOrderReceived.requestStatus = productReceived.requestStatus
                 requestPurchase.poProductRequestList.append(requestPurchaseOrderReceived)
             }
             requestModel.purchaseOrder.append(requestPurchase)
@@ -833,38 +835,75 @@ public final class SyncService {
         UserDefaults.standard.set(true, forKey: "isSynchStart")
         EventBus.sharedBus().publishMain(EventBusEventType.STARTSYNCDATA)
         
-        WebServicesAPI.sharedInstance().BulkAPI(request: RequestGetBulkAPI()) { (result:ResponseBulkRequest?,error:PlatformError?) in
-            if error != nil{
-                //print(error?.message! ?? "Error")
-                UtilPrintLogs.requestLogs(message: DLogMessage.Error.rawValue, objectToPrint:error?.message! ?? "Error" )
-                self.finishSync()
-                return
-            }
-            
-            DispatchQueue.global(qos: .userInitiated).async {
-                if let arrayPurchaseOrders = result?.purchaseOrder?.values {
-                    self.savePurchaseOrder(arrayPurchaseOrders, isBulk: true)
-                }
-                if let arrayInvoices = result?.invoice?.values {
-                    self.saveDataInvoice(jsonData: arrayInvoices, isBulk: true)
-                }
-                if let arayTransfers = result?.inventoryTransfers?.values {
-                    self.saveDataInventory(jsonData: arayTransfers, isBulk: true)
-                }
-                if let arrayProducts = result?.product?.values{
-                    self.saveDataProduct(jsonData: arrayProducts, isBulk: true)
-                }
-                if let arrayInventory = result?.inventories{
-                    self.saveInventory(jsonData: arrayInventory)
-                }
-                if let driverInfo = result?.employees?.values {
-                    self.saveDriverData(driverInfo)
-                } else {
-                    self.saveDriverData([])
-                }
-                self.finishSync()
-            }
+        let task = BFTaskCompletionSource<AnyObject>()
+        //task.setResult(AsyncResult("success"))
+        task.set(result: nil)
+        task.task.continueOnSuccessWith{ task in
+            self.getAllInventoryTransfer(nil, nil, 0, 15, isBulk: true, completion: {_ in})
+            return task
+        }.continueOnSuccessWith{ task in
+            self.getAllProducts(nil, nil, nil, nil, true, completion: {_ in})
+            return task
+        }.continueOnSuccessWith{task in
+            self.finishSync()
+            return task
         }
+        .continueOnSuccessWith{ task in
+            self.getAllInvoices("incomplete", nil, 0, 15, isBulk: true,completion: {_ in})
+            return task
+        }.continueOnSuccessWith{ task in
+            self.getAllPO("incomplete", nil, 0, 15, isBulk: true, completion: {_ in})
+            return task
+        }.continueOnSuccessWith{ task in
+            self.getAllInvoices("complete", nil, 0, 15, completion: {_ in})
+            return task
+        }.continueOnSuccessWith{ task in
+            self.getAllPO("complete", nil, 0, 15, completion: {_ in})
+            return task
+        }.continueOnSuccessWith{ task in
+            self.getAllEmployees(nil, nil, nil, nil, completion: {_ in})
+            return task
+        }.continueOnSuccessWith{ task in
+            self.getAllInventories(nil, nil, nil, nil, completion: {_ in})
+            return task
+        }.continueWith{_ in
+            return nil
+        }
+        //finishSync()
+//        WebServicesAPI.sharedInstance().BulkAPI(request: RequestGetBulkAPI()) { (result:ResponseBulkRequest?,error:PlatformError?) in
+//            if error != nil{
+//                //print(error?.message! ?? "Error")
+//                UtilPrintLogs.requestLogs(message: DLogMessage.Error.rawValue, objectToPrint:error?.message! ?? "Error" )
+//                self.finishSync()
+//                return
+//            }
+//
+//            DispatchQueue.global(qos: .userInitiated).async {
+//                if let arrayPurchaseOrders = result?.purchaseOrder?.values {
+//                    self.savePurchaseOrder(arrayPurchaseOrders, isBulk: true)
+//                }
+//                if let arrayInvoices = result?.invoice?.values {
+//                    self.saveDataInvoice(jsonData: arrayInvoices, isBulk: true)
+//                }
+//                if let arayTransfers = result?.inventoryTransfers?.values {
+//                    self.saveDataInventory(jsonData: arayTransfers, isBulk: true)
+//                }
+//                if let arrayProducts = result?.product?.values{
+//                    self.saveDataProduct(jsonData: arrayProducts, isBulk: true)
+//                }
+//                if let arrayInventory = result?.inventories{
+//                    self.saveInventory(jsonData: arrayInventory)
+//                }
+//                if let driverInfo = result?.employees?.values {
+//                    self.saveDriverData(driverInfo)
+//                } else {
+//                    self.saveDriverData([])
+//                }
+//                self.finishSync()
+//            }
+//        }
+        
+        
     }
     
     private func resync() {
@@ -914,6 +953,11 @@ public final class SyncService {
                 modelPurcahseOrder.received = respPurchaseOrder.receivedDate ?? 0
                 modelPurcahseOrder.completedDate = respPurchaseOrder.completedDate ?? 0
                 modelPurcahseOrder.status = respPurchaseOrder.purchaseOrderStatus
+                modelPurcahseOrder.modified = respPurchaseOrder.modified ?? 0
+                
+                let bill = ModelShipmentBill()
+                bill.completedDate = respPurchaseOrder.shipmentBill?.completedDate ?? 0
+                modelPurcahseOrder.shipmentBill = bill
                 
                 if let listProdReq = respPurchaseOrder.poProductRequestList {
                     
@@ -1363,8 +1407,8 @@ public final class SyncService {
         }
     }
     
-    func getAllInvoices(_ filter:String?, _ afterDate:Int?, completion : @escaping (_ error : PlatformError?) -> Void) {
-        WebServicesAPI.sharedInstance().getAllInvoices(filter, afterDate){
+    func getAllInvoices(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, isBulk:Bool=false, completion : @escaping (_ error : PlatformError?) -> Void) {
+        WebServicesAPI.sharedInstance().getAllInvoices(filter, afterDate, startIndex, size){
             (result:ResponseBulkRequest?, _ error:PlatformError?) in
             
             if error != nil{
@@ -1375,13 +1419,13 @@ public final class SyncService {
                completion(error)
             }
             
-            self.saveDataInvoice(jsonData: result?.invoice?.values, isBulk: false)
+            self.saveDataInvoice(jsonData: result?.invoice?.values, isBulk: isBulk)
             
         }
     }
     
-    func getAllPO(_ filter:String?, _ afterDate:Int?, completion : @escaping (_ error : PlatformError?) -> Void) {
-        WebServicesAPI.sharedInstance().getAllPO(filter, afterDate){
+    func getAllPO(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?,isBulk:Bool=false, completion : @escaping (_ error : PlatformError?) -> Void) {
+        WebServicesAPI.sharedInstance().getAllPO(filter, afterDate, startIndex, size){
             (result:ResponseBulkRequest?, _ error:PlatformError?) in
             
             if error != nil{
@@ -1392,13 +1436,13 @@ public final class SyncService {
                completion(error)
             }
             
-            self.savePurchaseOrder(result?.purchaseOrder?.values ?? [], isBulk: false)
+            self.savePurchaseOrder(result?.purchaseOrder?.values ?? [], isBulk: isBulk)
             
         }
     }
     
-    func getAllInventoryTransfer(_ filter:String?, _ afterDate:Int?, completion : @escaping (_ error : PlatformError?) -> Void) {
-        WebServicesAPI.sharedInstance().getAllInventoryTransfer(filter, afterDate){
+    func getAllInventoryTransfer(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, isBulk:Bool=false,completion : @escaping (_ error : PlatformError?) -> Void) {
+        WebServicesAPI.sharedInstance().getAllInventoryTransfer(filter, afterDate, startIndex, size){
             (result:ResponseBulkRequest?, _ error:PlatformError?) in
             
             if error != nil{
@@ -1409,13 +1453,13 @@ public final class SyncService {
                completion(error)
             }
             
-            self.saveDataInventory(jsonData: result?.inventoryTransfers?.values ?? [], isBulk: false)
+            self.saveDataInventory(jsonData: result?.inventoryTransfers?.values ?? [], isBulk: isBulk)
             
         }
     }
     
-    func getAllProducts(_ filter:String?, _ afterDate:Int?, completion : @escaping (_ error : PlatformError?) -> Void) {
-        WebServicesAPI.sharedInstance().getAllProducts(filter, afterDate){
+    func getAllProducts(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, _ isBulk:Bool=false, completion : @escaping (_ error : PlatformError?) -> Void) {
+        WebServicesAPI.sharedInstance().getAllProducts(filter, afterDate, startIndex, size){
             (result:ResponseBulkRequest?, _ error:PlatformError?) in
             
             if error != nil{
@@ -1426,7 +1470,41 @@ public final class SyncService {
                completion(error)
             }
             
-            self.saveDataProduct(jsonData: result?.product?.values ?? [], isBulk: false)
+            self.saveDataProduct(jsonData: result?.product?.values ?? [], isBulk: isBulk)
+            
+        }
+    }
+    
+    func getAllEmployees(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, _ isBulk:Bool=false, completion : @escaping (_ error : PlatformError?) -> Void) {
+        WebServicesAPI.sharedInstance().getAllEmployees(filter, afterDate, startIndex, size){
+            (result:ResponseBulkRequest?, _ error:PlatformError?) in
+            
+            if error != nil{
+                completion(error)
+            }
+            
+            if result == nil {
+               completion(error)
+            }
+            
+            self.saveDriverData(result?.employees?.values ?? [])
+            
+        }
+    }
+    
+    func getAllInventories(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, _ isBulk:Bool=false, completion : @escaping (_ error : PlatformError?) -> Void) {
+        WebServicesAPI.sharedInstance().getAllProducts(filter, afterDate, startIndex, size){
+            (result:ResponseBulkRequest?, _ error:PlatformError?) in
+            
+            if error != nil{
+                completion(error)
+            }
+            
+            if result == nil {
+               completion(error)
+            }
+            
+            self.saveInventory(jsonData: result?.inventories ?? [])
             
         }
     }

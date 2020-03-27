@@ -34,6 +34,13 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     
     var refreshControl = UIRefreshControl()
     
+    var startIndex:Int = 0
+    var size:Int = 10
+    var offset:Int = 1
+    var isLoadingMoreData:Bool = false
+    
+    var status:String = "incomplete"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //for refresh control
@@ -54,9 +61,12 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         var afterDate:Int? = nil
         
         if valueDataObj.count > 0{
-            afterDate = valueDataObj[0].modified
+            afterDate = valueDataObj.sorted(by: {
+                (obj_1, obj_2) -> Bool in
+                return obj_1.modified > obj_2.modified
+                })[0].modified
         }
-        SyncService.sharedInstance().getAllInvoices(nil, afterDate){
+        SyncService.sharedInstance().getAllInvoices(status, afterDate, nil, nil){
             (error:PlatformError?) in
             SKActivityIndicator.show(error?.message ?? "Network Error")
             EventBus.sharedBus().publish(.FINISHSYNCINVOICE)
@@ -112,7 +122,7 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         }else{
            getCompleteInvoices()
         }
-        invoiceTableView.reloadData()
+        //invoiceTableView.reloadData()
         print("----DataRead----- \(valueDataObj.count)")
     }
     
@@ -121,13 +131,21 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         //valueDataObj = valueDataObj.filter({ $0.invoicePaymentStatus != "PAID"})
         
         DispatchQueue.main.async{
-            self.invoiceTableView.reloadData()
+            if self.valueDataObj.count != self.invoiceTableView.numberOfRows(inSection: 0){
+                self.isLoadingMoreData = false
+                self.invoiceTableView.reloadData()
+            }
         }
     }
     
     private func getCompleteInvoices() {
         valueDataObj = RealmManager().readPredicateAscending(type: ModelInvoice.self, predicate: "invoiceStatus = '\(InvoiceStatus.COMPLETED)' && invoicePaymentStatus = 'PAID'",byKeyPath: "invoiceNumber", ascending: false)
-        invoiceTableView.reloadData()
+        DispatchQueue.main.async{
+            if self.valueDataObj.count != self.invoiceTableView.numberOfRows(inSection: 0){
+                self.isLoadingMoreData = false
+                self.invoiceTableView.reloadData()
+            }
+        }
     }
     
     // MARK:- Utilities
@@ -173,17 +191,20 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK:- Segment Value Change
     @IBAction func invoiceSegmentValueChanged(_ sender: UISegmentedControl) {
+        isLoadingMoreData = false
         if sender.selectedSegmentIndex == 0 {
             getOpenInvoices()
             dueDateTitle.text       = "DUE DATE"
             scanInvoiceBtn.isHidden = false
             invoiceTableView.reloadData()
+            status = "incomplete"
         }
         else {
             getCompleteInvoices()
             dueDateTitle.text       = "COMPLETED"
             scanInvoiceBtn.isHidden = true
             invoiceTableView.reloadData()
+            status = "complete"
         }
     }
     // MARK:- UIButton Events
@@ -289,6 +310,25 @@ extension InvoicesViewController{
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return (valueDataObj?.count==0 && !UserDefaults.standard.bool(forKey: "isSynchStart")) ? 60.0 : 0.0
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if invoiceSegmentController.selectedSegmentIndex == 0 {
+        if !(indexPath.row + 1 < tableView.numberOfRows(inSection: 0)) && !isLoadingMoreData{
+            isLoadingMoreData = true
+            getMoreData()
+        }
+        }
+    }
+    
+    func getMoreData(){
+        startIndex = valueDataObj.count+1
+        SyncService.sharedInstance().getAllInvoices(status, nil, startIndex, size){
+            (error:PlatformError?) in
+            SKActivityIndicator.show(error?.message ?? "Network Error")
+            EventBus.sharedBus().publish(.FINISHSYNCINVOICE)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

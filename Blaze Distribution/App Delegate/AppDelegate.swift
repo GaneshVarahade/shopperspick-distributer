@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import IQKeyboardManagerSwift
 import Fabric
-//import Crashlytics
+//import Crashlyticst
 public let deviceIdiom = UIScreen.main.traitCollection.userInterfaceIdiom
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

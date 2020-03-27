@@ -22,12 +22,15 @@ public class ModelPurchaseOrder:ModelBase{
     @objc public dynamic var metrcId:String?             = ""
     @objc public dynamic var status:String?              = ""
     @objc public dynamic var origin:String?              = ""
-    @objc public dynamic var received:Int64              = 0
-    @objc public dynamic var completedDate:Int64         = 0
+    @objc public dynamic var received:Int              = 0
+    @objc public dynamic var completedDate:Int         = 0
     @objc public dynamic var putBulkError:String?         = ""
     
     var productInShipment = List<ModelPurchaseOrderProduct>()
     var productReceived   = List<ModelPurchaseOrderProductReceived>()
+    
+    @objc public dynamic var shipmentBill:ModelShipmentBill? = nil
+
     public override func copy(with zone:NSZone? = nil) -> Any {
         
         let modelPurchaseOrder                 = ModelPurchaseOrder()
@@ -49,6 +52,8 @@ public class ModelPurchaseOrder:ModelBase{
         for prodRcv in self.productReceived{
             modelPurchaseOrder.productReceived.append(prodRcv.copy() as! ModelPurchaseOrderProductReceived)
         }
+        
+        modelPurchaseOrder.shipmentBill = self.shipmentBill
         
         return modelPurchaseOrder
     }

@@ -17,8 +17,8 @@ public class RequestPurchaseOrder: BaseRequest {
     public var metrcId:String?             = ""
     public var purchaseOrderStatus:String?              = ""
     public var origin:String?              = ""
-    public var received:Int64              = 0
-    public var completedDate:Int64         = 0
+    public var received:Int              = 0
+    public var completedDate:Int         = 0
  
     public var poProductRequestList   = [RequestPurchaseOrderProductReceived]()
 }
