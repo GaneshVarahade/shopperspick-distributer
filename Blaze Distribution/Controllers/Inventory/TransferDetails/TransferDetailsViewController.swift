@@ -132,9 +132,11 @@ class TransferDetailsViewController: UIViewController {
                 self.showAlert(title: "Error", message: error?.message ?? "Error", closure:{})
                 return
             }
+            EventBus.sharedBus().subscribe(self, selector: #selector(self.onSyncingFinish), eventType: EventBusEventType.FINISHSYNCINVENTORYTRANSFER)
             // refresh data
-            SyncService.sharedInstance().syncData()
-            EventBus.sharedBus().subscribe(self, selector: #selector(self.onSyncingFinish), eventType: EventBusEventType.FINISHSYNCDATA)
+            SyncService.sharedInstance().getAllInventories(nil, nil, 0, 10){_ in
+                
+            }
             // update status
             DispatchQueue.main.async {
                 // update DB for this transfer

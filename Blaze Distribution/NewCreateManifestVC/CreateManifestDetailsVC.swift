@@ -492,7 +492,7 @@ extension CreateManifestDetailsVC : UITableViewDelegate,UITableViewDataSource{
             prodHeaderCell.lblOrderedQty.text = "\(remainigItem.requestQuantity)"
             prodHeaderCell.lblRemainingQty.text = "\(remainigItem.remainingQuantity)"
             prodHeaderCell.txtSelectBatch.text = "\(remainigItem.SelectedBatchName ?? "")"
-            prodHeaderCell.txtSelectInventory.text = "\(remainigItem.SelectedInventoryName ?? "")"
+            prodHeaderCell.txtSelectInventory.text = "Safe"
             
             prodHeaderCell.txtSelectBatch.delegate = self
             prodHeaderCell.txtSelectInventory.delegate = self

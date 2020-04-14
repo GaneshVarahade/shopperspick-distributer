@@ -115,8 +115,11 @@ extension ProductDetailsVC{
         let shopsModel = RealmManager().readPredicate(type: ShopsModel.self, predicate:"id = '\(productList[indexPath.row].shopId ?? "")'")
         let invetryModel = RealmManager().readPredicate(type: ModelInventory.self, predicate: "id = '\(productList[indexPath.row].inventoryId ?? "")'")
         cell.lblShopId.text = shopsModel[0].name ?? productList[indexPath.row].shopId
+        if invetryModel.count == 0{
+            cell.lblInvetryId.text = productList[indexPath.row].inventoryId
+        }else{
         cell.lblInvetryId.text = invetryModel[0].name ?? productList[indexPath.row].inventoryId
-        
+        }
 //        cell.lblShopId.text = productList[indexPath.row].shopId
 //        cell.lblInvetryId.text = productList[indexPath.row].inventoryId
 //

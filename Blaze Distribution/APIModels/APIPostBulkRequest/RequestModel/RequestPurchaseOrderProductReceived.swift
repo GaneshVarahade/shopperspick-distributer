@@ -8,21 +8,21 @@
 
 import Foundation
 
-public class RequestPurchaseOrderProductReceived: BaseRequest {
+public class RequestPurchaseOrderProductReceived: BaseRequest{
     public var id:String?  = ""
+    public var discount:Double = 0
     public var productId:String?  = ""
     public var productName:String?     = ""
+    public var requestStatus:String? = ""
     public var requestQuantity:Double = 0
     public var receivedQuantity:Double = 0
     public var unitPrice:Double = 0
     public var totalCost:Double = 0
-    
-    public var discount:Double = 0
     public var exciseTax:Double = 0
     public var totalExciseTax:Double = 0
     public var totalCultivationTax:Double = 0
-    
-    public var requestStatus:String? = ""
-    public var receiveBatchStatus:String? = ""
-    
+    public var receiveBatchStatus:String = "READY_FOR_SALE"
+    public var receiveStatus:String = ""
+    public var batchQuantityMap = [String:Int]()
+    public var cannabis = false
 }

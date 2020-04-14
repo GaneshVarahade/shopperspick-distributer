@@ -73,7 +73,6 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         self.view.bringSubview(toFront: self.activityIndicator)
         self.manageActivityIndicator(canShow:(UserDefaults.standard.bool(forKey: "isSynchStart") && RealmManager().readList(type: ModelInventoryTransfers.self).count == 0))
         EventBus.sharedBus().subscribe(self, selector: #selector(onDataSynced), eventType: EventBusEventType.FINISHSYNCINVENTORYTRANSFER)
-        getData()
     }
     
     @objc func onDataSynced(){
@@ -115,14 +114,16 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCDATA)
+        if data.count == 0{
+            getData()
+        }
+        isLoadingMoreData = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
     override func viewDidDisappear(_ animated: Bool) {
-        EventBus.sharedBus().unsubscribe(self, eventType: .FINISHSYNCDATA)
     }
     
     @objc func syncFinished(_ notification: Notification){
@@ -133,33 +134,32 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
  
     @IBAction func segmentChanged(_ sender: Any) {
-        isLoadingMoreData = false
+        self.searchBar.endEditing(true)
+        self.searchBar.text = ""
         if segmentControl.selectedSegmentIndex == 0 {
-            self.searchBar.endEditing(true)
-            self.searchBar.text = ""
-            data.removeAll()
+
             nameLabel.isHidden    = false
             requestLabel.isHidden = false
             dateLabel.isHidden    = false
             requestLabel.text     = "REQUEST#"
             createBtn.isHidden    = false
             productFlag           = false
-            data                  = inventoryData
-            inventoryTableView.reloadData()
+            //data                  = inventoryData
         }
         else {
-            self.searchBar.endEditing(true)
-            self.searchBar.text = ""
-            data.removeAll()
             productFlag        = true
             dateLabel.isHidden = true
             requestLabel.text  = "QUANTITY"
             createBtn.isHidden = true
-            data               = productData
-            inventoryTableView.reloadData()
+            //data               = productData
         }
+        getData()
+        isLoadingMoreData = false
+        inventoryTableView.reloadData()
+        inventoryTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
     }
     func getData() {
+        data.removeAll()
 //        https://api.dev.blaze.me/api/v1/mgmt/inventory/inventoryHistory?status=PENDING
         inventoryData = RealmManager().readList(type: ModelInventoryTransfers.self).sorted(by: {
             (obj_1, obj_2) -> Bool in
@@ -183,14 +183,14 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
             data  = productData
         } else {
             data  = inventoryData
+            if inventoryData.count != inventoryTableView.numberOfRows(inSection: 0){
+                isLoadingMoreData = false
+            }
         }
         
-        if data.count != inventoryTableView.numberOfRows(inSection: 0)
-        {
-            isLoadingMoreData = true
         inventoryTableView.reloadData()
         UtilPrintLogs.requestLogs(message:"DataRead", objectToPrint: inventoryData.count)
-        }
+        
     }
     
     
@@ -326,11 +326,11 @@ extension InventoryViewController{
     }
     
     func getMoreData(){
-        startIndex = data.count+1
+        startIndex = data.count
         SyncService.sharedInstance().getAllInventoryTransfer(nil, nil, startIndex, size){
             (error:PlatformError?) in
             SKActivityIndicator.show(error?.message ?? "Network Error")
-            EventBus.sharedBus().publish(.FINISHSYNCINVOICE)
+            EventBus.sharedBus().publish(.FINISHSYNCINVENTORYTRANSFER)
         }
     }
     
@@ -366,7 +366,7 @@ extension InventoryViewController{
                 objProdDetails.selectedProd = data[indexPath.row] as! ModelProduct
                 self.navigationController?.pushViewController(objProdDetails, animated: true)
             }else{
-                self.showAlert(title: "Message", message: "Product quntity is 0 , no inventory are found", closure: {})
+                self.showAlert(title: "Message", message: "Product Quantity is 0!", closure: {})
             }
         } else {
             let objTransferDetails = self.storyboard?.instantiateViewController(withIdentifier: "TransferDetailsVCSegue") as! TransferDetailsViewController

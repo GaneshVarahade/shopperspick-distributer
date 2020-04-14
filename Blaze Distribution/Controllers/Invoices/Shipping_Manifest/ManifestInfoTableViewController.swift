@@ -137,6 +137,8 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             txtShipCompanyName.isUserInteractionEnabled = false
             txtShipContactName.isUserInteractionEnabled = false
             driverNameTextField.isUserInteractionEnabled = false
+            businessLicenceTextField.isUserInteractionEnabled = false
+            transportedAgentIdTextField.isUserInteractionEnabled = false
         }else{
             driverNameTextField.inputView = pickerView
             driverNameTextField.delegate = self
@@ -364,6 +366,8 @@ class ManifestInfoTableViewController: UITableViewController, signatureDelegate,
             driverModelTextField.text = manifestInfo.vehicleModel ?? "Not available"
             driverColorTextField.text = manifestInfo.vehicleColor ?? "Not available"
             driverLicencePlateTextField.text = manifestInfo.driverLicenPlate ?? "Not available"
+            businessLicenceTextField.text = manifestInfo.businessLicense
+            transportedAgentIdTextField.text = manifestInfo.transporterAgentID
             
             // Assine Image from asset
             if let imageAsset : ModelSignatureAsset = manifestInfo.signatureAsset {

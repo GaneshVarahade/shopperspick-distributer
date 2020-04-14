@@ -84,7 +84,8 @@ class PurchaseOrderDetailsTableViewController: UITableViewController {
                 return CGFloat(100 * (modelPurcahseOrder.productInShipment.count))
             }
             else{
-                return CGFloat(60 * (modelPurcahseOrder.productInShipment.count))+50
+                return view.frame.height - (self.tabBarController!.tabBar.frame.size.height + 320)
+                //return CGFloat(60 * (modelPurcahseOrder.productInShipment.count))+50
             }
         case 4:
             //case for Continue button

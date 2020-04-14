@@ -11,8 +11,8 @@ import Realm
 import RealmSwift
 
 enum BatchStatus:String, CaseIterable{
-    case IN_TESTING
     case RECEIVED
+    case IN_TESTING
     case READY_FOR_SALE
 }
 

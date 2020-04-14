@@ -243,8 +243,11 @@ public final class SyncService {
                 requestPurchaseOrderReceived.totalExciseTax = productReceived.totalExciseTax
                 requestPurchaseOrderReceived.totalCultivationTax = productReceived.totalCultivationTax
                 
-                requestPurchaseOrderReceived.receiveBatchStatus = productReceived.receiveBatchStatus
-
+                if let receiveBatchStatus = String(data: (productReceived.receiveBatchStatus?.data(using: .utf8))!, encoding: .utf8){
+                requestPurchaseOrderReceived.receiveBatchStatus = receiveBatchStatus
+                requestPurchaseOrderReceived.receiveStatus = receiveBatchStatus
+                }
+                
                 requestPurchaseOrderReceived.requestStatus = productReceived.requestStatus
                 requestPurchase.poProductRequestList.append(requestPurchaseOrderReceived)
             }
@@ -849,24 +852,27 @@ public final class SyncService {
             return task
         }
         .continueOnSuccessWith{ task in
-            self.getAllInvoices("incomplete", nil, 0, 15, isBulk: true,completion: {_ in})
-            return task
-        }.continueOnSuccessWith{ task in
-            self.getAllPO("incomplete", nil, 0, 15, isBulk: true, completion: {_ in})
-            return task
-        }.continueOnSuccessWith{ task in
-            self.getAllInvoices("complete", nil, 0, 15, completion: {_ in})
-            return task
-        }.continueOnSuccessWith{ task in
-            self.getAllPO("complete", nil, 0, 15, completion: {_ in})
-            return task
-        }.continueOnSuccessWith{ task in
             self.getAllEmployees(nil, nil, nil, nil, completion: {_ in})
             return task
         }.continueOnSuccessWith{ task in
             self.getAllInventories(nil, nil, nil, nil, completion: {_ in})
             return task
-        }.continueWith{_ in
+        }
+        .continueOnSuccessWith{ task in
+            self.getAllInvoices("incomplete", nil, 0, 15, isBulk: true,completion: {_ in})
+            return task
+        }.continueOnSuccessWith{ task in
+            self.getAllPO("incomplete", nil, 0, 15, isBulk: true, completion: {_ in})
+            return task
+        }
+        .continueOnSuccessWith{ task in
+            self.getAllInvoices("complete", nil, 0, 15, isBulk: true,completion: {_ in})
+            return task
+        }.continueOnSuccessWith{ task in
+            self.getAllPO("complete", nil, 0, 15, isBulk: true, completion: {_ in})
+            return task
+        }
+        .continueWith{_ in
             return nil
         }
         //finishSync()
@@ -1144,6 +1150,8 @@ public final class SyncService {
                             shipMen.shippingManifestNo  = ship.shippingManifestNo
                             shipMen.deliveryDate        = ship.deliveryDate ?? 0
                             shipMen.deliveryTime        = ship.deliveryTime ?? 0
+                            shipMen.businessLicense = ship.businessLicense ?? "Not available"
+                            shipMen.transporterAgentID = ship.transporterAgentID ?? "Not available"
                             
                             if let sigAsset = ship.signaturePhoto{
                                //Write signature assets
@@ -1493,7 +1501,7 @@ public final class SyncService {
     }
     
     func getAllInventories(_ filter:String?, _ afterDate:Int?, _ startIndex:Int?, _ size:Int?, _ isBulk:Bool=false, completion : @escaping (_ error : PlatformError?) -> Void) {
-        WebServicesAPI.sharedInstance().getAllProducts(filter, afterDate, startIndex, size){
+        WebServicesAPI.sharedInstance().getAllInventories(filter, afterDate, startIndex, size){
             (result:ResponseBulkRequest?, _ error:PlatformError?) in
             
             if error != nil{

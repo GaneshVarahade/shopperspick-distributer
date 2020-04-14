@@ -19,7 +19,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,Recei
     var selectedPurchaseOrder : [ModelPurchaseOrderProduct] = []
     let pickerView: CZPickerView = CZPickerView(headerTitle: "Select Batch Status", cancelButtonTitle: "Cancel", confirmButtonTitle: "Select")
     
-    let batchStatus = ["In Testing", "Received", "Ready For Sale"]
+    let batchStatus = ["Received", "In Testing", "Ready For Sale"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +84,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,Recei
             modelpurchaseOrderProductRecive.totalExciseTax = dict.totalExciseTax
             modelpurchaseOrderProductRecive.totalCultivationTax = dict.totalCultivationTax
             modelpurchaseOrderProductRecive.receiveBatchStatus = dict.receiveBatchStatus
-            modelpurchaseOrderProductRecive.requestStatus = dict.requestStatus
+            modelpurchaseOrderProductRecive.requestStatus = "ACCEPTED"
             
             modelPurchaseOrder.productReceived.append(modelpurchaseOrderProductRecive)
         }
@@ -261,7 +261,7 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
     func onBatchStatusClicked(_ sender: Any) {
         pickerView.tag = (sender as! UIButton).tag
         var batchIndex = getCurrentBatch(pickerView.tag)
-        batchIndex = batchIndex > -1 ? batchIndex : 1
+        batchIndex = batchIndex > -1 ? batchIndex : 0
 //        if getCurrentBatch(pickerView.tag) > -1 && !modelPurchaseOrder.productInShipment[pickerView.tag].batchStatusModified{
 //            showToast("Batch has been accepted!")
 //            return
@@ -277,9 +277,9 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
         if let receivedBatchStatus = modelPurchaseOrder.productInShipment[index].receiveBatchStatus {
         switch receivedBatchStatus {
         case BatchStatus.IN_TESTING.rawValue:
-            return 0
-        case BatchStatus.RECEIVED.rawValue:
             return 1
+        case BatchStatus.RECEIVED.rawValue:
+            return 0
         default:
             return 2
         }
@@ -302,7 +302,7 @@ extension Receive_ShipmentViewController:CZPickerViewDelegate, CZPickerViewDataS
     }
     
     func czpickerView(_ pickerView: CZPickerView!, didConfirmWithItemAtRow row: Int) {
-        modelPurchaseOrder.productInShipment[pickerView.tag].receiveBatchStatus = BatchStatus.allCases[row].rawValue
+        modelPurchaseOrder.productInShipment[pickerView.tag].receiveBatchStatus = ""+BatchStatus.allCases[row].rawValue
         modelPurchaseOrder.productInShipment[pickerView.tag].batchStatusModified = true
         listTableView.reloadData()
     }

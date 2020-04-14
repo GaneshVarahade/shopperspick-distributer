@@ -44,7 +44,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
         }
         //Add target to ui refresh controller
        
-        
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCPO)
         refreshControl.addTarget(self, action: #selector(RefreshControllTapped), for: .valueChanged)
         isBackFromScanView = false
         poTableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
@@ -83,7 +83,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCPO)
+        isLoadingMoreData = false
     }
     override func viewDidDisappear(_ animated: Bool) {
         EventBus.sharedBus().unsubscribe(self, eventType: .FINISHSYNCDATA)
@@ -91,17 +91,17 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
+        arrayModelPurchaseOrders.removeAll()
         self.manageActivityIndicator(canShow: false)
+        refreshControl.endRefreshing()
+        getData()
+    }
+    
+    func getData() {
         if poSegmentController.selectedSegmentIndex == 0{
             getPurchaseOrdersReceiving()
         }else{
             getPurchaseOrdersCompleted()
-        }
-        refreshControl.endRefreshing()
-        
-        if arrayModelPurchaseOrders.count != poTableView.numberOfRows(inSection: 0){
-            isLoadingMoreData = false
-            poTableView.reloadData()
         }
     }
     
@@ -109,10 +109,25 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
         arrayModelPurchaseOrders = RealmManager().readPredicateAscending(type: ModelPurchaseOrder.self,
                                        predicate: "status = '\(PurchaseOrderStatus.ReceivingShipment.rawValue)'",
         byKeyPath: "received", ascending: false)
+        
+        DispatchQueue.main.async{
+            if self.arrayModelPurchaseOrders.count != self.poTableView.numberOfRows(inSection: 0){
+                self.isLoadingMoreData = false
+                
+            }
+            self.poTableView.reloadData()
+        }
     }
     func getPurchaseOrdersCompleted(){
         arrayModelPurchaseOrders = RealmManager().readPredicateAscending(type: ModelPurchaseOrder.self,
                                                                 predicate: "status = '\(PurchaseOrderStatus.Closed.rawValue)' || status = '\(PurchaseOrderStatus.ReceivedShipment.rawValue)'", byKeyPath: "shipmentBill.completedDate", ascending: false)
+        DispatchQueue.main.async{
+            if self.arrayModelPurchaseOrders.count != self.poTableView.numberOfRows(inSection: 0){
+            self.isLoadingMoreData = false
+                
+            }
+            self.poTableView.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -141,7 +156,7 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
 //        }
         poSearchBar.text=""
         self.title = NSLocalizedString("PoTitle", comment: "")
-        
+        getData()
     }
     
     // MARK:- Utilities
@@ -181,13 +196,20 @@ class PurchaseOrderViewController: UIViewController, UITableViewDataSource, UITa
     func initializePurchaseOrderType(){
         if poSegmentController.selectedSegmentIndex == 0 {
             lookUpBtn.isHidden = false
+            status = "incomplete"
             getPurchaseOrdersReceiving()
-            poTableView.reloadData()
+            
         }
         else {
             lookUpBtn.isHidden = true
+            status = "complete"
             getPurchaseOrdersCompleted()
-            poTableView.reloadData()
+        }
+        
+        if arrayModelPurchaseOrders.count == 0 {
+            getMoreData()
+        }else {
+        poTableView.reloadData()
         }
     }
     
@@ -307,6 +329,7 @@ extension PurchaseOrderViewController {
         return arrayModelPurchaseOrders.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if arrayModelPurchaseOrders.count > indexPath.row {
         let modelPurcahseOrder = arrayModelPurchaseOrders[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! PurchaseOrderTableViewCell
         cell.poNoLabel.text = modelPurcahseOrder.purchaseOrderNumber
@@ -329,8 +352,9 @@ extension PurchaseOrderViewController {
         // Adda target to error button
         cell.btnErrrorPo.addTarget(self, action: #selector(btnPoClicked(_ :)), for: .touchUpInside)
         cell.btnErrrorPo.tag = indexPath.row
-        
         return cell
+        }
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -373,7 +397,7 @@ extension PurchaseOrderViewController {
     }
     
     func getMoreData(){
-        startIndex = arrayModelPurchaseOrders.count+1
+        startIndex = arrayModelPurchaseOrders.count
         SyncService.sharedInstance().getAllPO(status, nil, startIndex, size){
             (error:PlatformError?) in
             SKActivityIndicator.show(error?.message ?? "Network Error")

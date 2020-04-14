@@ -27,6 +27,8 @@ public class ResponseShippingManifests:BaseResponseModel{
     public var deliveryDate:Int?
     public var driverName:String?
     public var driverLicenceNumber:String?
+    public var businessLicense:String?
+    public var transporterAgentID:String?
     public var vehicleMake:String?
     public var vehicleModel:String?
     public var vehicleLicensePlate:String?

@@ -33,6 +33,8 @@ public class ModelShipingMenifest:ModelBase {
     @objc public dynamic var shippercompanyContactId : String? = ""
     @objc public dynamic var shippercompanyId : String? = ""
     @objc public dynamic var shippercustomerCompanyId : String? = ""
+    @objc public dynamic var businessLicense: String? = ""
+    @objc public dynamic var transporterAgentID: String? = ""
     
     
     
@@ -63,6 +65,8 @@ public class ModelShipingMenifest:ModelBase {
         modelShipingMenifest.signaturePhoto      = self.signaturePhoto
         modelShipingMenifest.driverLicenPlate    = self.driverLicenPlate
         modelShipingMenifest.vehicleLicensePlate = self.vehicleLicensePlate
+        modelShipingMenifest.businessLicense = self.businessLicense
+        modelShipingMenifest.transporterAgentID = self.transporterAgentID
         modelShipingMenifest.receiverCompany     = self.receiverCompany
         modelShipingMenifest.receiverType        = self.receiverType
         modelShipingMenifest.receiverContact     = self.receiverContact

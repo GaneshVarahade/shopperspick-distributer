@@ -44,6 +44,7 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         //for refresh control
+        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCINVOICE)
         if #available(iOS 10.0, *) {
             invoiceTableView.refreshControl = refreshControl
         } else {
@@ -59,7 +60,7 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     @objc func refreshButtonTapped(){
         //SyncService.sharedInstance().syncData()
         var afterDate:Int? = nil
-        
+        isLoadingMoreData = false
         if valueDataObj.count > 0{
             afterDate = valueDataObj.sorted(by: {
                 (obj_1, obj_2) -> Bool in
@@ -75,8 +76,11 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        isLoadingMoreData = false
         getData()
-        EventBus.sharedBus().subscribe(self, selector: #selector(syncFinished(_ :)), eventType: .FINISHSYNCINVOICE)
+        if valueDataObj.count == 0{
+            getMoreData()
+        }
     }
     
     func manageActivityIndicator(canShow:Bool){
@@ -94,6 +98,9 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func syncFinished(_ notification: Notification){
         //Refresh data
+        if valueDataObj != nil{
+        valueDataObj.removeAll()
+        }
         DispatchQueue.main.async {
             self.refreshControl.endRefreshing()
             self.manageActivityIndicator(canShow: false)
@@ -133,8 +140,8 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         DispatchQueue.main.async{
             if self.valueDataObj.count != self.invoiceTableView.numberOfRows(inSection: 0){
                 self.isLoadingMoreData = false
-                self.invoiceTableView.reloadData()
             }
+                      self.invoiceTableView.reloadData()
         }
     }
     
@@ -143,8 +150,8 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
         DispatchQueue.main.async{
             if self.valueDataObj.count != self.invoiceTableView.numberOfRows(inSection: 0){
                 self.isLoadingMoreData = false
-                self.invoiceTableView.reloadData()
             }
+            self.invoiceTableView.reloadData()
         }
     }
     
@@ -192,19 +199,25 @@ class InvoicesViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK:- Segment Value Change
     @IBAction func invoiceSegmentValueChanged(_ sender: UISegmentedControl) {
         isLoadingMoreData = false
+        self.valueDataObj.removeAll()
+        invoiceTableView.reloadData()
         if sender.selectedSegmentIndex == 0 {
             getOpenInvoices()
             dueDateTitle.text       = "DUE DATE"
             scanInvoiceBtn.isHidden = false
-            invoiceTableView.reloadData()
+            
             status = "incomplete"
         }
         else {
             getCompleteInvoices()
             dueDateTitle.text       = "COMPLETED"
             scanInvoiceBtn.isHidden = true
-            invoiceTableView.reloadData()
             status = "complete"
+        }
+        if self.valueDataObj.count == 0{
+            self.getMoreData()
+        }else{
+        invoiceTableView.reloadData()
         }
     }
     // MARK:- UIButton Events
@@ -265,6 +278,7 @@ extension InvoicesViewController{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell                  = tableView.dequeueReusableCell(withIdentifier: "cell") as! InvoicesTableViewCell
+        if indexPath.row < valueDataObj.count {
         let temp                  = valueDataObj[indexPath.row]
         cell.invoicesNoLabel.text = temp.invoiceNumber
         cell.dueDateLabel.text   =  temp.dueDate?.description
@@ -279,6 +293,8 @@ extension InvoicesViewController{
         cell.btnInvoiceError.tag = indexPath.row
         
         return cell
+        }
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -314,16 +330,14 @@ extension InvoicesViewController{
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        if invoiceSegmentController.selectedSegmentIndex == 0 {
         if !(indexPath.row + 1 < tableView.numberOfRows(inSection: 0)) && !isLoadingMoreData{
             isLoadingMoreData = true
             getMoreData()
         }
-        }
     }
     
     func getMoreData(){
-        startIndex = valueDataObj.count+1
+        startIndex = valueDataObj.count
         SyncService.sharedInstance().getAllInvoices(status, nil, startIndex, size){
             (error:PlatformError?) in
             SKActivityIndicator.show(error?.message ?? "Network Error")
