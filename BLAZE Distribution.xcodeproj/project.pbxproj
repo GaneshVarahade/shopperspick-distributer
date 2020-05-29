@@ -1967,6 +1967,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UCDUTTBK96;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
@@ -2086,6 +2087,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = UCDUTTBK96;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2264,6 +2266,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UCDUTTBK96;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
@@ -2286,6 +2289,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = UCDUTTBK96;
 				INFOPLIST_FILE = "Blaze Distribution/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

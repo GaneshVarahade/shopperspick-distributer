@@ -20,6 +20,7 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,Recei
     let pickerView: CZPickerView = CZPickerView(headerTitle: "Select Batch Status", cancelButtonTitle: "Cancel", confirmButtonTitle: "Select")
     
     let batchStatus = ["Received", "In Testing", "Ready For Sale"]
+    let selectedIndexes = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,9 +84,14 @@ class Receive_ShipmentViewController: UIViewController,UITextFieldDelegate,Recei
             modelpurchaseOrderProductRecive.exciseTax = dict.exciseTax
             modelpurchaseOrderProductRecive.totalExciseTax = dict.totalExciseTax
             modelpurchaseOrderProductRecive.totalCultivationTax = dict.totalCultivationTax
-            modelpurchaseOrderProductRecive.receiveBatchStatus = dict.receiveBatchStatus
+            
             modelpurchaseOrderProductRecive.requestStatus = "ACCEPTED"
             
+            if let receivedStatus = dict.receiveBatchStatus{
+                modelpurchaseOrderProductRecive.receiveBatchStatus = receivedStatus
+            }else{
+                modelpurchaseOrderProductRecive.receiveBatchStatus = "RECEIVED"
+            }
             modelPurchaseOrder.productReceived.append(modelpurchaseOrderProductRecive)
         }
         
@@ -165,9 +171,9 @@ extension Receive_ShipmentViewController:UITableViewDelegate,UITableViewDataSour
         //Check Box
         cell.btnCheck.addTarget(self, action: #selector(checkboxClicked(_ :)), for: .touchUpInside)
         cell.btnCheck.tag = indexPath.row
+        cell.btnCheck.isSelected = selectedPurchaseOrder.filter { $0.productId == modelPurchaseOrder.productInShipment[indexPath.row].productId }.count > 0
         cell.btnCheck.setImage(UIImage(named : "checkbox_unselected"), for: UIControlState.normal)
         cell.btnCheck.setImage(UIImage(named : "Checkbox"), for: UIControlState.selected)
-        
         //text field
         cell.txtRecived.addTarget(self, action: #selector(textFieldDidChange(_ :)), for: UIControlEvents.editingChanged)
         cell.txtRecived.tag = indexPath.row

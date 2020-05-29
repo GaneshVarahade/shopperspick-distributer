@@ -243,11 +243,9 @@ public final class SyncService {
                 requestPurchaseOrderReceived.totalExciseTax = productReceived.totalExciseTax
                 requestPurchaseOrderReceived.totalCultivationTax = productReceived.totalCultivationTax
                 
-                if let receiveBatchStatus = String(data: (productReceived.receiveBatchStatus?.data(using: .utf8))!, encoding: .utf8){
-                requestPurchaseOrderReceived.receiveBatchStatus = receiveBatchStatus
-                requestPurchaseOrderReceived.receiveStatus = receiveBatchStatus
-                }
-                
+                requestPurchaseOrderReceived.receiveBatchStatus = productReceived.receiveBatchStatus
+                requestPurchaseOrderReceived.receiveStatus = productReceived.receiveBatchStatus
+                            
                 requestPurchaseOrderReceived.requestStatus = productReceived.requestStatus
                 requestPurchase.poProductRequestList.append(requestPurchaseOrderReceived)
             }
@@ -279,6 +277,8 @@ public final class SyncService {
                 requestCartProduct.name = productInCart.name
                 requestCartProduct.productId = productInCart.batchId
                 requestCartProduct.transferAmount = productInCart.quantity
+                let productData = RealmManager().readPredicate(type: ModelProduct.self , predicate: "shopId = '\(requestInventry.toShopId ?? "")' && inventoryId = '\(requestInventry.toInventoryId ?? "")' && productId = '\(productInCart.batchId ?? "")'" )
+                requestCartProduct.finalInventory = productData[0].quantity + productInCart.quantity
                 requestInventry.transferLogs.append(requestCartProduct)
             }
             requestModel.inventoryTransfer.append(requestInventry)

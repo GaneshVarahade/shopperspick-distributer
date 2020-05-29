@@ -21,8 +21,8 @@ public class RequestPurchaseOrderProductReceived: BaseRequest{
     public var exciseTax:Double = 0
     public var totalExciseTax:Double = 0
     public var totalCultivationTax:Double = 0
-    public var receiveBatchStatus:String = "READY_FOR_SALE"
-    public var receiveStatus:String = ""
+    public var receiveBatchStatus:String?
+    public var receiveStatus:String?
     public var batchQuantityMap = [String:Int]()
     public var cannabis = false
 }

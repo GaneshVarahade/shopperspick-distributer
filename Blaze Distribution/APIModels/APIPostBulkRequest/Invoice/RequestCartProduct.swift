@@ -11,5 +11,6 @@ public class RequestCartProduct: BaseRequest {
       public   var name:String?     = ""
       public   var productId:String?  = ""
       public   var transferAmount:Double  = 0
+      public   var finalInventory:Double = 0
 }
 
