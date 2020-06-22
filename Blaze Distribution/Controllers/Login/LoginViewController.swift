@@ -41,7 +41,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if !LocationService.sharedInstance().isLocationEnabled(){
             LocationService.sharedInstance().setLocationPermission()
         }else{
-            LocationService.sharedInstance().checkForLocation(nil)
+            LocationService.sharedInstance().requestLocation()
+            //LocationService.sharedInstance().checkForLocation(nil)
         }
     }
     

@@ -17,13 +17,19 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     var available = false
-    var internalServer = true
+    var internalServer = false
     var viewController:UIViewController? = nil
     var isChecked = false
     
     static func sharedInstance() -> LocationService{
         return instance
     }
+    
+    func requestLocation(){
+           locationManager.delegate = self
+           locationManager.requestLocation()
+       }
+       
     
     func subscribeViewController(_ viewController:UIViewController)
     {
@@ -92,12 +98,18 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        checkForLocation(nil)
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = manager.location{
             manager.stopUpdatingLocation()
             checkForLocation(location)
         }
     }
+    
+    
     
     func isLocationEnabled() -> Bool{
         return CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
@@ -138,7 +150,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
             loc = locationManager.location
         }
         
-        if let location = loc{
+        if let location = loc, !self.internalServer{
         
         let geoCoder = CLGeocoder.init()
         geoCoder.reverseGeocodeLocation(location){
@@ -193,10 +205,11 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     }
     
     private func getObject() -> LocationDataResponse?{
-        let realm = try! Realm()
+        if let realm = try? Realm(){
         let states = realm.objects(LocationDataResponse.self)
         if states.count > 0{
             return states[0]
+        }
         }
         return nil
     }

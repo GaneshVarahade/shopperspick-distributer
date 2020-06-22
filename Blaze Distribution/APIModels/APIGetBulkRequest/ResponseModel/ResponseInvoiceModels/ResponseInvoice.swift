@@ -25,6 +25,8 @@ public class ResponseInvoice :BaseResponseModel{
     public var companyId: String?
     public var customerId: String?
     public var invoiceNumber: String?
+    public var licenseNumber:String?
+    public var companyType:String?
     public var dueDate:Int?
     public var vendor:ResponseVendor?
     public var salesPerson:String?

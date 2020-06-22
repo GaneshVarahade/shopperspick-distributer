@@ -278,7 +278,9 @@ public final class SyncService {
                 requestCartProduct.productId = productInCart.batchId
                 requestCartProduct.transferAmount = productInCart.quantity
                 let productData = RealmManager().readPredicate(type: ModelProduct.self , predicate: "shopId = '\(requestInventry.toShopId ?? "")' && inventoryId = '\(requestInventry.toInventoryId ?? "")' && productId = '\(productInCart.batchId ?? "")'" )
-                requestCartProduct.finalInventory = productData[0].quantity + productInCart.quantity
+                if productData.count > 0 {
+                    requestCartProduct.finalInventory = productData[0].quantity + productInCart.quantity
+                }
                 requestInventry.transferLogs.append(requestCartProduct)
             }
             requestModel.inventoryTransfer.append(requestInventry)
@@ -1069,8 +1071,8 @@ public final class SyncService {
                     model.contact           = value.vendor?.phone
                     model.total             = value.total!
                     
-                    model.vendorLicenseNumber = value.vendor?.licenseNumber
-                    model.vendorCompanyType = value.vendor?.companyType
+                    model.vendorLicenseNumber = value.licenseNumber != nil ? value.licenseNumber : value.vendor?.licenseNumber
+                    model.vendorCompanyType = value.companyType != nil ? value.companyType : value.vendor?.companyType
                     model.vendorPhone = value.vendor?.phone
                     model.vendorAddress = value.vendor?.address?.address
                     model.vendorCity = value.vendor?.address?.city
@@ -1144,8 +1146,10 @@ public final class SyncService {
                             //shipMen.signaturePhoto      = ship.signaturePhoto
                             shipMen.receiverCompany     = ship.receiverCompany?.name
                             shipMen.receiverType        = ship.receiverCompany?.vendorType
+                            //shipMen.receiverType        = value.companyType
                             shipMen.receiverContact     = ship.receiverCompany?.phone
                             shipMen.receiverLicense     = ship.receiverCompany?.licenseNumber
+                            //shipMen.receiverLicense     = value.licenseNumber
                             shipMen.invoiceStatus       = ship.invoiceStatus
                             shipMen.shippingManifestNo  = ship.shippingManifestNo
                             shipMen.deliveryDate        = ship.deliveryDate ?? 0
