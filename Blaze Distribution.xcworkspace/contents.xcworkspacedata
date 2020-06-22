@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:BLAZE Distribution.xcodeproj">
+      location = "group:/Users/Apple/Documents/ZenCanna iOS/shopperspick-distributer/Zencanna Distribution.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

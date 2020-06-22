@@ -1,0 +1,6 @@
+framework module Pods_Zencanna_DistributionTests {
+  umbrella header "Pods-Zencanna DistributionTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

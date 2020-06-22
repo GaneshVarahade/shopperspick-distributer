@@ -1,11 +1,11 @@
 # Uncomment the next line to define a global platform for your project
  platform :ios, '10.0'
 
-target 'BLAZE Distribution' do
+target 'Zencanna Distribution' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Blaze Distribution
+  # Pods for shopperspick Distribution
 
       pod 'ReachabilitySwift'
      
@@ -31,12 +31,12 @@ target 'BLAZE Distribution' do
       
       pod 'Bolts'
 
-  target 'Blaze DistributionTests' do
+  target 'Zencanna DistributionTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
-  target 'Blaze DistributionUITests' do
+  target 'Zencanna DistributionUITests' do
     inherit! :search_paths
     # Pods for testing
   end
