@@ -167,6 +167,7 @@ class SwitchShopVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if error == nil{
                     
                     UtilRealmData.deletAllTables()
+                    UtilityUserDefaults.sharedInstance().saveToken(strToken: (result?.accessToken)!)
                     self.parseResponse(result: result)
                     SKActivityIndicator.dismiss()
                     //Download New Data

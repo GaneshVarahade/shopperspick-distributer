@@ -395,6 +395,7 @@ public final class SyncService {
 //                        requestSelectedItemsShipping.quantity = selectedItem.requestQuantity
                     
                     for selecteProdMetric in shiping.productMetrcInfoList{
+                        if selecteProdMetric.quantity > 0 {
                         let objrequestprodinfo = RequestShippingMainfestSelectedItem()
                             objrequestprodinfo.productId = selecteProdMetric.productId
                         
@@ -425,9 +426,8 @@ public final class SyncService {
                     
                         requestModelShippingMainfest.productMetrcInfo.append(objrequestprodinfo)
                     }
-                    
+                    }
                     requestInvoice.addShippingManifestRequest.append(requestModelShippingMainfest)
-                    
                 }
                 
             }
@@ -1026,6 +1026,7 @@ public final class SyncService {
             model.companyId = response.companyId
             model.businessLicense = response.businessLicense
             model.transporterAgentID = response.transporterAgentID
+            model.disabled = response.disabled ?? true
             RealmManager().write(table: model)
         }
         //print(RealmManager().readList(type: ModelDriverInfo.self))
@@ -1330,9 +1331,9 @@ public final class SyncService {
             let realm = try! Realm()
             
             if isBulk{
-            try! realm.write {
-                realm.delete(realm.objects(ModelProduct.self))
-            }
+//            try! realm.write {
+//                realm.delete(realm.objects(ModelProduct.self))
+//            }
             }
             
             for prod in products{

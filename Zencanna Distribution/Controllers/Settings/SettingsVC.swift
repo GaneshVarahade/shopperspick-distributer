@@ -84,6 +84,12 @@ class SettingsVC: UIViewController {
     
     @IBAction func refreshButtonAction(_ sender: Any) {
         SKActivityIndicator.show()
+        if let realm = try? Realm()
+        {
+            try! realm.write {
+                realm.delete(realm.objects(ModelProduct.self))
+            }
+        }
         SyncService.sharedInstance().syncData()
     }
 

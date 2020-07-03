@@ -15,5 +15,6 @@ public class ResponseSwitchShop:BaseResponseModel {
     public var deleted: Bool?
     public var updated: Bool?
     public var companyId: String?
+    public var accessToken:String?
     public var assignedShop: ResponseAssignedShop?
 }

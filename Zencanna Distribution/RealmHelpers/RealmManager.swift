@@ -32,6 +32,9 @@ fileprivate class RealmSingleton {
     )
     private var realm: Realm!
     public func getRealm() -> Realm {
+        if let realm = try? Realm(){
+            return realm
+        }
         return realm
     }
     

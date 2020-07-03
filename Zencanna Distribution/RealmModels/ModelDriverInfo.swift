@@ -21,6 +21,7 @@ public class ModelDriverInfo:ModelBase{
     @objc public dynamic var vehicleColor:String?
     @objc public dynamic var vehicleLicensePlate:String?
     @objc public dynamic var active:Bool = false
+    @objc public dynamic var disabled:Bool = false
     @objc public dynamic var businessLicense:String? = ""
     @objc public dynamic var transporterAgentID:String? = ""
     
@@ -41,6 +42,7 @@ public class ModelDriverInfo:ModelBase{
         modelDriver.active = self.active
         modelDriver.businessLicense = self.businessLicense
         modelDriver.transporterAgentID = self.transporterAgentID
+        modelDriver.disabled = self.disabled
         return modelDriver
     }
 }

@@ -27,6 +27,7 @@ public class UtilRealmData {
     public static func deletAllTables(){
         
         RealmManager().deleteAll(type: ModelInvoice.self)
+        RealmManager().deleteAll(type: ModelProduct.self)
         RealmManager().deleteAll(type: ModelInventoryTransfers.self)
         RealmManager().deleteAll(type: ModelPurchaseOrder.self)
         RealmManager().deleteAll(type: ModelTimesStampLog.self)

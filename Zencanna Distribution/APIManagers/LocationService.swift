@@ -17,9 +17,9 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     var available = false
-    var internalServer = false
+    var internalServer = true
     var viewController:UIViewController? = nil
-    var isChecked = false
+    var isChecked = true
     
     static func sharedInstance() -> LocationService{
         return instance

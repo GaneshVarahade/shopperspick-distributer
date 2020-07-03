@@ -33,4 +33,5 @@ public class ResponceDriverInfo :BaseResponseModel{
     public var active: Bool?
     public var businessLicense: String?
     public var transporterAgentID:String?
+    public var disabled:Bool?
 }

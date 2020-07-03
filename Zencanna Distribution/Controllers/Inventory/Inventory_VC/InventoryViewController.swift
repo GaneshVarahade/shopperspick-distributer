@@ -156,8 +156,8 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         getData()
         isLoadingMoreData = false
         inventoryTableView.reloadData()
-        if inventoryData.count > 0{
-            inventoryTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        if data.count > 0{
+            self.inventoryTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         }
     }
     func getData() {
